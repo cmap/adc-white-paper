@@ -3,6 +3,8 @@
     <v-responsive class="fill-height">
       <PageTitle/>
       <ImageCard/>
+      <svg id="auc-plot-1"></svg>
+      <svg id="auc-plot-2"></svg>
     </v-responsive>
   </v-container>
 </template>
@@ -52,10 +54,44 @@
                 })
               
               ]).then(response=>{
+
+
+                const data_1 = response[0].map(d=>{
+                    return {
+                        x: d.TDM1_auc,
+                        y: d.ERBB2_expression,
+                        r: 4,
+                        color: d.TDM1_auc,
+                        _info: d
+                    }
+                })
+                const data_2 = response[1].map(d=>{
+                    return {
+                        x: d.Trastuzumab_MMAE_auc,
+                        y: d.ERBB2_expression,
+                        r: 4,
+                        color: d.Trastuzumab_MMAE_auc,
+                        _info: d
+                    }
+                })
+
                 console.log("response", response)
-                Vis.launch(response[0])
+                // Vis.launch(response[0], "auc-plot-1")
+                // Vis.launch(response[1], "auc-plot-2")
+                Vis.launch(data_1, "auc-plot-1")
+                Vis.launch(data_2, "auc-plot-2")
               })
           }
         }
       }
 </script>
+<style scoped>
+
+#auc-plot-1, #auc-plot-2{
+  width:400px;
+  height:400px;
+  margin:25px;
+  border:1px solid black;
+  display:inline-block;
+}
+</style>
