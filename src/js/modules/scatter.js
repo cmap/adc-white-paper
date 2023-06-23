@@ -65,12 +65,47 @@ export default class scatter {
         this.scale = {
             x: d3.scaleLinear().domain(getExtent("x")).range([0, this.dimension.innerWidth]).nice(),
             y: d3.scaleLinear().domain(getExtent("y")).range([this.dimension.innerHeight, 0]),
-            color: d3.scaleLinear().domain(d3.extent(this.data.map(d=>d.color))).range(this.axis.color.range)
+             color:{
+                x: d3.scaleLinear().domain(getExtent("x")).range(["rgb(225,255,0)", "rgb(0,0,255"]),
+                y: d3.scaleLinear().domain(getExtent("y")).range(["rgb(0,0,255)", "rgb(2550,255,0)"])
+                // x: d3.scaleLinear().domain([0, 1]).range(["rgb(225,255,0)", "rgb(0,0,255"]),
+                // y: d3.scaleLinear().domain(getExtent("y")).range(["rgb(255,255,0)", "rgb(0,0,255)"])
+                // x: d3.scaleQuantile().domain([0, 1]).range(d3.schemeRdPu()),
+                // y: d3.scaleLinear().domain(getExtent("y")).range(["yellow", "red"])
+            } 
+
+            
         }
     }
     render(){
         const scale = this.scale;
         d3.select(`#${this.rootId}-g`).remove()
+        let colors =  [
+            "#e8e8e8", "#e4d9ac", "#c8b35a",
+            "#cbb8d7", "#c8ada0", "#af8e53",
+            "#9972af", "#976b82", "#804d36"
+          ]
+
+        let x = d3.scaleQuantile().domain(d3.extent(this.data.map(d=> d.x))).range([0, this.dimension.innerWidth])
+        let y = d3.scaleQuantile().domain(d3.extent(this.data.map(d=> d.y))).range([this.dimension.innerHeight, 0])
+        let n = Math.floor(Math.sqrt(colors.length))
+
+        // let getColor =(x_, y_)=>{
+        //     console.log([y(y_) + x(x_ * n)])
+        //         return colors[y(y_) + x(x_ * n)];
+
+        // }
+
+let color =()=> {
+    return value => {
+      if (!value) return "#ccc";
+      let [a, b] = value;
+      return colors[y(b) + x(a) * n];
+    }
+  }
+
+
+
         let svg =  d3.select(`#${this.rootId}`)
             .append("g")
             .attr("id", `${this.rootId}-g`)
@@ -89,10 +124,22 @@ export default class scatter {
                 .attr("cx", d=> this.scale.x(d.x))
                 .attr("cy", d=> this.scale.y(d.y))
                 .attr("r", d=>d.r/2)
-                .attr("fill", d=> this.scale.color(d.color))
+            //    .attr("fill", d=> this.scale.color(d.color))
+          //  .attr("fill", d => color([d.x,d.y]))
+                .attr("fill",function(d){
+               //     console.log(scale.color.x(d.x), scale.color.y(d.y))
+                //   let colorscale = d3.scaleLinear()
+                //     .domain([0,1])
+                //     .range([d3.interpolateRgb(`${scale.color.x(d.x)}`, "#ffffff")(1), d3.interpolateRgb(`${scale.color.y(d.y)}`, "#000000")(.5)])
+                console.log(d3.interpolateRgbBasis([scale.color.x(d.x), scale.color.y(d.y)])(0.5), scale.color.y(d.y),  scale.color.x(d.x))
+                   return d3.interpolateRgbBasis([scale.color.x(d.x), scale.color.y(d.y)])(0.5)
+                  // return  d3.interpolateCubehelixLong([scale.color.x(d.x), scale.color.y(d.y)])
+               //    (0.5)
+                })
+
                 // .attr("stroke-width", .25)
                 // .attr("stroke", "black")
-                .attr("opacity", .5)
+                .attr("opacity", .75)
         
        
 
@@ -106,16 +153,15 @@ export default class scatter {
     (this.data)
 
   // Add the contour: several "path"
-  svg
-    .selectAll(".dentisy-path")
-    .data(densityData)
-    .enter()
-    .append("path")
-    .attr("class", "density-path")
-      .attr("d", d3.geoPath())
-      .attr("fill", "rgba(170,170,220,.15")
-      .attr("stroke", "rgba(170,170,230,1")
-    //   .attr("stroke", "#69b3a2")
+//   svg
+//     .selectAll(".dentisy-path")
+//     .data(densityData)
+//     .enter()
+//     .append("path")
+//     .attr("class", "density-path")
+//       .attr("d", d3.geoPath())
+//       .attr("fill", "rgba(170,170,220,.15")
+//       .attr("stroke", "rgba(170,170,230,1")
     //   .attr("stroke-linejoin", "round")
 
 
