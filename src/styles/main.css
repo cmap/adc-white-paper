@@ -1,0 +1,32 @@
+
+@media (min-width: 1280px){
+  .v-container {
+    max-width: 1100px !important;
+}
+}
+
+
+
+section{
+  margin:56px 0px;
+}
+h2{
+  margin: 16px 0px 16px 0px;
+  font-size:1.8em;
+  font-weight:900;
+  line-height:1.2em;
+  color:rgb(40, 40, 40)
+}
+p{
+  margin: 16px 0px 16px 0px;
+  font-size:1.15em;
+  font-weight:300;
+  line-height:1.4em;
+  color:rgb(40, 40, 40)
+}
+
+
+.tick > line{
+  stroke:#999999;
+  stroke-width:.25px;
+}
