@@ -19,8 +19,6 @@ d3.selection.prototype.moveToBack = function() {
 };
 
 export function launch(config){
-    console.log(config)
-
 
     let plotConfig = {
         data: config.data,

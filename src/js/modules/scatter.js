@@ -50,7 +50,6 @@ export default class scatter {
             } else {
                 max = this.axis[`${attr}`].max
             }
-
             if (this.axis[`${attr}`].min == undefined){
                 min = d3.min(this.data.map(d=>d[`${attr}`]))
             } else {
@@ -61,11 +60,7 @@ export default class scatter {
 
         this.scale = {
             x: d3.scaleLinear().domain(getExtent("x")).range([0, this.dimension.innerWidth]).nice(),
-            y: d3.scaleLinear().domain(getExtent("y")).range([this.dimension.innerHeight, 0]),
-            color:{
-                x: d3.scaleSequential().interpolator(d3.interpolateHcl("purple", "#ffd46e")).domain(getExtent("x")),
-                y: d3.scaleSequential().interpolator(d3.interpolateHcl("#ffd46e", "purple")).domain(getExtent("y"))
-            } 
+            y: d3.scaleLinear().domain(getExtent("y")).range([this.dimension.innerHeight, 0])
         }
     }
     render(){
@@ -91,12 +86,9 @@ export default class scatter {
             .attr("cx", d=> this.scale.x(d.x))
             .attr("cy", d=> this.scale.y(d.y))
             .attr("r", d=>d.r)
-            .attr("fill",function(d){
-                return d3.interpolateRgbBasis([scale.color.x(d.x), scale.color.y(d.y)])(0.5)
-            })
-            .attr("stroke-width", .25)
-            .attr("stroke", "#777777")
-            .attr("opacity", .85)
+            .attr("fill", d=>d.color)
+            .attr("stroke", d=>d.color)
+            .attr("fill-opacity", .5)
 
         this._axis()
         this._title()

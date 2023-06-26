@@ -13,8 +13,34 @@
         <ImageCard title="5-day viability assay" description="plated+treated" img="../../public/graphics/03 PRISM hero viability assay.png"/>
         <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../public/graphics/04 PRISM hero data.png"/>
       </div>
-      <svg id="auc-plot-1"></svg>
-      <svg id="auc-plot-2"></svg>
+
+<section>
+  <h2>Target specific cytotoxicity and bystander killing activity</h2>
+  <p>Trastuzumab alone was relatively inert across all PRISM cell lines, as expected. 
+  T-DM1 and T-MMAE induced a selective pattern of cell killing in a subset of ERBB2 (HER2) overexpressing cell lines. 
+    <br><br>
+    While both T-DM1 and T-MMAE were strongly selective for ERBB2 overexpressing cell lines, the cytotoxicity of T-DM1 was restricted to HER2 overexpressing cells lines whereas T-MMAE exhibited broader cytotoxicity across PRISM cell lines. 
+</p>
+  <div>
+    <svg  class="plot" id="plot-1"></svg>
+    <svg  class="plot" id="plot-2"></svg>
+  </div>
+  <p>These results are consistent with expectations based on linker/payloads of these two ADCs: cell killing should be restricted to antigen expressing cell lines for ADCs with non-permeable payloads (i.e. T-DM1), whereas we expect to see some target-independent activity for ADCs with cell permeable payloads that are capable of exerting bystander effects (i.e. T-MMAE).
+</p>
+</section>
+
+
+
+
+      <div>
+        <svg class="plot" id="plot-3"></svg>
+        <svg class="plot" id="plot-4"></svg>
+        </div>
+      <div>
+        <svg class="plot" id="plot-5"></svg>
+        <svg class="plot" id="plot-6"></svg>
+      </div>
+
     </v-responsive>
   </v-container>
 </template>
@@ -24,7 +50,8 @@
   import ImageCard from '@/components/ImageCard.vue'
   import $ from "jquery";
   import * as d3 from "d3";
-  import * as Vis from '../js/auc_plots.js';
+  import * as Vis from '../js/Vis.js';
+
 
   const dataPath = "../../public/data/";
   export default {
@@ -62,41 +89,125 @@
                       lineage: d["Lineage"],
                       primary_disease: d["Primary Disease"]
                     }
+                }),
+                d3.csv(`${dataPath}biomarker_GE_T-DM1.csv`, function(d){
+                    return {
+                      feature: d["feature"],
+                      coef: +d["coef"],
+                      qval: +d["qval"]
+                    }
+                }),
+                d3.csv(`${dataPath}biomarker_GE_T-MMAE.csv`, function(d){
+                    return {
+                      feature: d["feature"],
+                      coef: +d["coef"],
+                      qval: +d["qval"]
+                    }
+                }),
+                d3.csv(`${dataPath}biomarker_shRNA_T-DM1.csv`, function(d){
+                    return {
+                      feature: d["feature"],
+                      coef: +d["coef"],
+                      qval: +d["qval"]
+                    }
+                }),
+                d3.csv(`${dataPath}biomarker_shRNA_T-MMAE.csv`, function(d){
+                    return {
+                      feature: d["feature"],
+                      coef: +d["coef"],
+                      qval: +d["qval"]
+                    }
                 })
               
               ]).then(response=>{
-                let TDM1Config = {
+                let TDM1_AUC_Config = {
                   data: response[0].map(d=>{
                     return {
                         x: d.TDM1_auc,
                         y: d.ERBB2_expression,
                         r: 3,
-                        color: d.TDM1_auc,
                         _info: d
                     }
                   }),
                   title: "T-DM1",
-                  rootId: "auc-plot-1",
+                  rootId: "plot-1",
                   display:{ legend: false, title: false, borderbox: false, xTitle: true, yTitle: true }
                 }
-                let TMMAEConfig = {
+                let TMMAE_AUC_Config = {
                     data: response[1].map(d=>{
                     return {
                         x: d.Trastuzumab_MMAE_auc,
                         y: d.ERBB2_expression,
                         r: 3,
-                        color: d.Trastuzumab_MMAE_auc,
                         _info: d
                     }
                   }),
                   title: "T-MMAE",
-                  rootId: "auc-plot-2" ,
+                  rootId: "plot-2" ,
+                  display:{ legend: false, title: false, borderbox: false, xTitle: true, yTitle: false }
+                }
+                let TDM1_GE_Config = {
+                    data: response[2].map(d=>{
+                    return {
+                        x: d.coef,
+                        y: d.qval,
+                        r: 3,
+                        _info: d
+                    }
+                  }),
+                  title: "T-MD1:  GE dependency for ERBB2",
+                  rootId: "plot-3" ,
+                  display:{ legend: false, title: false, borderbox: false, xTitle: true, yTitle: false }
+                }
+                let TMMAE_GE_Config = {
+                    data: response[3].map(d=>{
+                    return {
+                        x: d.coef,
+                        y: d.qval,
+                        r: 3,
+                        _info: d
+                    }
+                  }),
+                  title: "T-MMAE: GE dependency for ERBB2",
+                  rootId: "plot-4" ,
                   display:{ legend: false, title: false, borderbox: false, xTitle: true, yTitle: false }
                 }
 
 
-                Vis.launch(TDM1Config)
-                Vis.launch(TMMAEConfig)
+                let TDM1_shRNA_Config = {
+                    data: response[4].map(d=>{
+                    return {
+                        x: d.coef,
+                        y: d.qval,
+                        r: 3,
+                        _info: d
+                    }
+                  }),
+                  title: "T-MD1: shRNA dependency for ERBB2",
+                  rootId: "plot-5" ,
+                  display:{ legend: false, title: false, borderbox: false, xTitle: true, yTitle: false }
+                }
+                let TMMAE_shRNA_Config = {
+                    data: response[5].map(d=>{
+                    return {
+                        x: d.coef,
+                        y: d.qval,
+                        r: 3,
+                        _info: d
+                    }
+                  }),
+                  title: "T-MMAE: shRNA dependency for ERBB2",
+                  rootId: "plot-6" ,
+                  display:{ legend: false, title: false, borderbox: false, xTitle: true, yTitle: false }
+                }
+
+
+                Vis.launchAUCVis(TDM1_AUC_Config)
+                Vis.launchAUCVis(TMMAE_AUC_Config)
+                Vis.launchVolcanoVis(TDM1_GE_Config)
+                Vis.launchVolcanoVis(TMMAE_GE_Config)
+                Vis.launchVolcanoVis(TDM1_shRNA_Config)
+                Vis.launchVolcanoVis(TMMAE_shRNA_Config)
               })
           }
         }
@@ -104,9 +215,9 @@
 </script>
 <style scoped>
 
-#auc-plot-1, #auc-plot-2{
-  width:500px;
-  height:500px;
+.plot{
+  height:400px;
+  width:400px;
   margin:25px 0px;
   display:inline-block;
 }
