@@ -5,21 +5,16 @@
             :href="href"
             height="100%"
           >
-            <div class="d-flex flex-no-wrap align-center">
-                <v-avatar
-                size="80"
-                tile
-                >
+       
                     <v-img :src="img"></v-img>
-                </v-avatar>
-                <div class="card-text">
+                   <div class="card-text">
                     <v-card-title>
                         {{ title }}    
                         <v-icon :icon="icon" >east</v-icon>
                     </v-card-title>
                     <v-card-text v-text="description"></v-card-text>
                 </div>
-            </div>
+  
         </v-card>
 
 </template>

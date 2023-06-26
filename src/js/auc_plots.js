@@ -18,46 +18,35 @@ d3.selection.prototype.moveToBack = function() {
     });
 };
 
-export function launch(results, rootId){
+export function launch(config){
+    console.log(config)
 
-const data = results;
 
-    // const data = results.map(d=>{
-    //     return {
-    //         x: d.TDM1_auc,
-    //         y: d.ERBB2_expression,
-    //         r: 4,
-    //         color: d.TDM1_auc,
-    //         _info: d
-    //     }
-    // })
-    let config = {
-        data: data,
-        title: "title",
+    let plotConfig = {
+        data: config.data,
+        title: config.title,
         axis: {
             x: {
                 max: 1,
-                min:0.2
+                min:0.2,
+                title: "AUC"
             },
             y: {
                 max:13,
-                min:0
+                min:0,
+                title: "ERBB2 expression"
             },
-            color: {
-                range: ["red", "blue"],
-                // range: [0,5]
-            }
+            color: {}
         },
-        rootId: rootId,
+        rootId: config.rootId,
         dimension: {   
-            width: d3.select(`#${rootId}`).node().clientWidth, 
-            height: d3.select(`#${rootId}`).node().clientHeight
+            width: d3.select(`#${config.rootId}`).node().clientWidth, 
+            height: d3.select(`#${config.rootId}`).node().clientHeight
         },
-        padding:{top: 50, right: 50, bottom:50, left:50},
-        display:{ legend: true, title:true, borderbox: true }
-
+        padding:{top: 50, right: 35, bottom:50, left:65},
+        display: config.display
     }
-    let plot = new scatter(config)
+    let plot = new scatter(plotConfig)
     d3.selectAll(".domain").remove()
 
 }

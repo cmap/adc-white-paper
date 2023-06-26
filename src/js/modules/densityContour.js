@@ -27,12 +27,16 @@ export default class scatter {
         this.rootId = config.rootId;
         this.dimension = config.dimension; 
         this.padding = config.padding;    
-     //   this.display = config.display;
+        this.display = config.display;
     
+
         this.updateDimensions(); 
         this.createScale();
         this.render()
+
     }
+   
+
     updateDimensions() {
         this.dimension.innerWidth = this.dimension.width - this.padding.left - this.padding.right;
         this.dimension.innerHeight = this.dimension.height - this.padding.top - this.padding.bottom;
@@ -62,10 +66,12 @@ export default class scatter {
         this.scale = {
             x: d3.scaleLinear().domain(getExtent("x")).range([0, this.dimension.innerWidth]).nice(),
             y: d3.scaleLinear().domain(getExtent("y")).range([this.dimension.innerHeight, 0]),
-            color:{
+             color:{
                 x: d3.scaleSequential().interpolator(d3.interpolateHcl("purple", "#ffd46e")).domain(getExtent("x")),
                 y: d3.scaleSequential().interpolator(d3.interpolateHcl("#ffd46e", "purple")).domain(getExtent("y"))
             } 
+
+            
         }
     }
     render(){
@@ -79,24 +85,52 @@ export default class scatter {
             .attr("class", "scatter-plot")
             .attr("transform", `translate(${this.padding.left}, ${this.padding.top})`)
 
-        let scatterPt = svg.selectAll(".scatter-pt")
-            .data(this.data)
+            let renderDensityContour = ()=>{
+            // compute the density data
+            var densityData = d3.contourDensity()
+                .x( d=> scale.x(d.x) )   // x and y = column name in .csv input data
+                .y( d=> scale.y(d.y) )   
+                .size([this.dimension.innerWidth, this.dimension.innerHeight])
+                .bandwidth(3)    // smaller = more precision in lines = more lines
+                (this.data)
 
-        scatterPt.exit().remove()
-        scatterPt
+            let color = d3.scaleSequential().interpolator(d3.interpolateHcl("purple", "#ffd46e")).domain(d3.extent(densityData.map(d=>d.value)))
+            svg
+            .selectAll(".dentisy-path")
+            .data(densityData)
             .enter()
-            .append("circle")
-            .merge(scatterPt)
-            .attr("class", "scatter-pt")
-            .attr("cx", d=> this.scale.x(d.x))
-            .attr("cy", d=> this.scale.y(d.y))
-            .attr("r", d=>d.r)
-            .attr("fill",function(d){
-                return d3.interpolateRgbBasis([scale.color.x(d.x), scale.color.y(d.y)])(0.5)
-            })
-            .attr("stroke-width", .25)
-            .attr("stroke", "#777777")
-            .attr("opacity", .85)
+            .append("path")
+            .attr("class", "density-path")
+                .attr("d", d3.geoPath())
+                .attr("fill", d=>color(d.value))
+                .attr("stroke", "rgba(170,170,170,1")
+                .attr("stroke-linejoin", "round")
+            }
+           // renderDensityContour()
+
+            let renderScatter = ()=>{
+
+            let scatterPt = svg.selectAll(".scatter-pt")
+                .data(this.data)
+
+            scatterPt.exit().remove()
+            scatterPt
+                .enter()
+                .append("circle")
+                .merge(scatterPt)
+                .attr("class", "scatter-pt")
+                .attr("cx", d=> this.scale.x(d.x))
+                .attr("cy", d=> this.scale.y(d.y))
+                .attr("r", d=>d.r)
+                .attr("fill",function(d){
+                   return d3.interpolateRgbBasis([scale.color.x(d.x), scale.color.y(d.y)])(0.5)
+                })
+                .attr("stroke-width", .25)
+                .attr("stroke", "#777777")
+                .attr("opacity", .85)
+        
+            }
+            renderScatter()
 
         this._axis()
         this._title()
@@ -171,5 +205,63 @@ export default class scatter {
             .attr("text-anchor", "middle")
             .html(this.title)
     }
+//     _legend(){
+
+//     const svg = d3.select(`#${this.rootId}-g`),
+//         colorScale = this.scale.c,
+//         legend = svg.append("g").attr("id", "legend"),
+//         scale = d3.scaleBand().domain(colorScale.domain());
+//         let ticks, axis;
+
+//     if (this.display.legend == "vertical"){
+
+//         scale.range([this.dimension.innerHeight, 0])
+//         axis = d3.axisRight().scale(scale)   
+//         legend.attr("transform", `translate(${this.dimension.width - this.padding.left},0)`)
+//         legend.append("g").attr("class", "legend-axis")
+//             .attr("transform", `translate(0,10)`)
+//             .call(axis)
+
+//             legend.append("text")
+//                 .attr("x", 0)
+//                 .attr("y", 0)
+//                 .attr("class", "legend-ui")
+//                 .html("Select dose to filter")
+
+//         ticks = legend.selectAll(".tick")
+//         ticks.selectAll("text").attr("x", 10)
+  
+//     } else if (this.display.legend == "horizontal"){
+//         scale.range([0, this.dimension.innerWidth])
+//         axis = d3.axisBottom().scale(scale)   
+
+//         legend.attr("transform", `translate(0,${this.dimension.height - this.padding.bottom + 60})`)
+//         legend.append("text")
+//         .attr("x", scale.bandwidth()/4)
+//             .attr("class", "legend-ui")
+//             .html("Select dose to filter")
+
+//          legend.append("g").attr("class", "legend-axis").attr("transform", `translate(0,20)`)
+//             .call(axis) 
+
+//         ticks = legend.selectAll(".tick")
+//         ticks.selectAll("text").attr("y", 5)
+//             .attr("x", -5)
+//             .attr("dy", "1em")
+//             .attr("transform", "rotate(-30)")
+//             .style("text-anchor", "end");
+//     }
+//     let r = scale.bandwidth()/4;
+//     if (r >8){ r = 8}
+//     ticks = legend.selectAll(".tick")
+//         ticks
+//         .append("circle")
+//         .attr("cx", 0)
+//         .attr("cy", 0)
+//         .attr("fill", (d)=> colorScale(d))
+//         .attr("r", r)
+//    legend.selectAll(".domain").remove()
+                
+//     }
 }
 
