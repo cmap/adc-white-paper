@@ -1,7 +1,7 @@
 <template>
   <v-container class="px-16">
 
-      <PageTitle/>
+      <PaperHeader title="PRISM high throughput screening of antibody-drug conjugates uncovers clinically relevant targets" sup-title="White Paper" date="07/27/2023"/>
       <p>
         Antibody-drug conjugates (ADCs) are a rapidly growing class of cancer therapeutics. ADCs combine the targeting specificity of monoclonal antibodies with the cytotoxicity of small molecules to provide highly targeted delivery of drug payloads, while sparing healthy tissue from chemotherapeutic damage. Although ADCs have demonstrated significant success in the clinic, ADC development continues to be a challenging endeavor that is time consuming, expensive, and has a high failure rate.<br><br>
         Cell-based functional screening is an essential step in the development of ADCs. The outcome of these preclinical studies can aid in evaluating promising ADC candidates, validating target specificity, and predicting in vivo efficacy. To help facilitate the identification of promising new ADCs, we developed a PRISM screening assay that enables high throughput profiling of ADC activity in hundreds of cell lines simultaneously. In this paper, we demonstrate the utility of PRISM screening to uncover clinically relevant targets.
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-  import PageTitle from '@/components/PageTitle.vue'
+  import PaperHeader from '@/components/PaperHeader.vue'
   import ImageCard from '@/components/ImageCard.vue'
   import $ from "jquery";
   import * as d3 from "d3";
@@ -72,7 +72,7 @@
   const dataPath = "../../public/data/";
   export default {
         name: 'HomePage',
-        components: {PageTitle, ImageCard},
+        components: {PaperHeader, ImageCard},
         data () {
           return {
 
@@ -146,8 +146,7 @@
                     }
                   }),
                   title: "T-DM1",
-                  rootId: "plot-1",
-                  display:{ legend: false, title: false, borderbox: false, xTitle: true, yTitle: true }
+                  rootId: "plot-1"
                 }
                 let TMMAE_AUC_Config = {
                     data: response[1].map(d=>{
@@ -159,8 +158,7 @@
                     }
                   }),
                   title: "T-MMAE",
-                  rootId: "plot-2" ,
-                  display:{ legend: false, title: false, borderbox: false, xTitle: true, yTitle: false }
+                  rootId: "plot-2" 
                 }
                 let TDM1_GE_Config = {
                     data: response[2].map(d=>{
@@ -172,8 +170,7 @@
                     }
                   }),
                   title: "T-MD1:  GE dependency for ERBB2",
-                  rootId: "plot-3" ,
-                  display:{ legend: false, title: false, borderbox: false, xTitle: true, yTitle: false }
+                  rootId: "plot-3" 
                 }
                 let TMMAE_GE_Config = {
                     data: response[3].map(d=>{
@@ -186,10 +183,7 @@
                   }),
                   title: "T-MMAE: GE dependency for ERBB2",
                   rootId: "plot-4" ,
-                  display:{ legend: false, title: false, borderbox: false, xTitle: true, yTitle: false }
                 }
-
-
                 let TDM1_shRNA_Config = {
                     data: response[4].map(d=>{
                     return {
@@ -200,8 +194,7 @@
                     }
                   }),
                   title: "T-MD1: shRNA dependency for ERBB2",
-                  rootId: "plot-5" ,
-                  display:{ legend: false, title: false, borderbox: false, xTitle: true, yTitle: false }
+                  rootId: "plot-5"
                 }
                 let TMMAE_shRNA_Config = {
                     data: response[5].map(d=>{
@@ -213,17 +206,15 @@
                     }
                   }),
                   title: "T-MMAE: shRNA dependency for ERBB2",
-                  rootId: "plot-6" ,
-                  display:{ legend: false, title: false, borderbox: false, xTitle: true, yTitle: false }
+                  rootId: "plot-6" 
                 }
 
-
-                Vis.launchAUCVis(TDM1_AUC_Config)
-                Vis.launchAUCVis(TMMAE_AUC_Config)
-                Vis.launchVolcanoVis(TDM1_GE_Config)
-                Vis.launchVolcanoVis(TMMAE_GE_Config)
-                Vis.launchVolcanoVis(TDM1_shRNA_Config)
-                Vis.launchVolcanoVis(TMMAE_shRNA_Config)
+                Vis.useScatter(TDM1_AUC_Config)
+                Vis.useScatter(TMMAE_AUC_Config)
+                Vis.useVolcano(TDM1_GE_Config)
+                Vis.useVolcano(TMMAE_GE_Config)
+                Vis.useVolcano(TDM1_shRNA_Config)
+                Vis.useVolcano(TMMAE_shRNA_Config)
               })
           }
         }

@@ -27,7 +27,6 @@ export default class scatter {
         this.rootId = config.rootId;
         this.dimension = config.dimension; 
         this.padding = config.padding;    
-     //   this.display = config.display;
     
         this.updateDimensions(); 
         this.createScale();
@@ -124,8 +123,8 @@ export default class scatter {
                 svg.append("text")
                     .attr("class", "axis title")
                     .attr("x", this.dimension.innerWidth/2)
-                    .attr("y",  this.dimension.innerHeight)
-                    .attr("dy", "2.6em")
+                    .attr("y",  this.dimension.innerHeight + (this.padding.bottom))
+                    // .attr("dy", "3em")
                     .attr("text-anchor", "middle")
                     .html(this.axis.x.title)
             
@@ -157,7 +156,7 @@ export default class scatter {
         const svg = d3.select(`#${this.rootId}-g`)
         svg
             .append("text")
-            .attr("class", "plot-title")
+            .attr("class", "title")
             .attr("transform", `translate(${this.dimension.innerWidth/2}, 0)`)
             .attr("dy", -14)
             .attr("text-anchor", "middle")
