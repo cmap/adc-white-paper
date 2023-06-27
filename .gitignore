@@ -6,6 +6,7 @@ package-lock.json
 
 vue/dist
 
+public/data
 
 # local env files
 .env.local
