@@ -23,7 +23,7 @@ export default {
             required: false
         },
         date: {
-            type: Date,
+            type: String,
             required: false
         },      
 

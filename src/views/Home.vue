@@ -1,43 +1,54 @@
 <template>
   <v-container class="px-16">
-
+    <section>
       <PaperHeader title="PRISM high throughput screening of antibody-drug conjugates uncovers clinically relevant targets" sup-title="White Paper" date="07/27/2023"/>
       <p>
         Antibody-drug conjugates (ADCs) are a rapidly growing class of cancer therapeutics. ADCs combine the targeting specificity of monoclonal antibodies with the cytotoxicity of small molecules to provide highly targeted delivery of drug payloads, while sparing healthy tissue from chemotherapeutic damage. Although ADCs have demonstrated significant success in the clinic, ADC development continues to be a challenging endeavor that is time consuming, expensive, and has a high failure rate.<br><br>
         Cell-based functional screening is an essential step in the development of ADCs. The outcome of these preclinical studies can aid in evaluating promising ADC candidates, validating target specificity, and predicting in vivo efficacy. To help facilitate the identification of promising new ADCs, we developed a PRISM screening assay that enables high throughput profiling of ADC activity in hundreds of cell lines simultaneously. In this paper, we demonstrate the utility of PRISM screening to uncover clinically relevant targets.
       </p>
+    </section>
+     
+    <section>
+      <h2>The PRISM Assay</h2>
+      <div class="d-flex align-center">
+      <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../public/graphics/01 PRISM hero cell lines.png"/>
+      <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../public/graphics/02 PRISM hero test agents.png"/>
+      <ImageCard title="5-day viability assay" description="plated+treated" img="../../public/graphics/03 PRISM hero viability assay.png"/>
+      <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../public/graphics/04 PRISM hero data.png"/>
+    </div>
+    <p>Our multiplexed cell viability platform, PRISM (profiling relative inhibition simultaneously in mixtures), enables screening of potential cancer therapeutics at an unprecedented scale. We routinely assess the effects of perturbations against more than 900 cancer cell lines concurrently using unique oligonucleotide barcodes stably transduced into individual cancer cell lines. Following barcode transduction, individual cell lines are pooled together in groups of 20-25 based on growth rate similarity, then thawed into 384-well assay-ready plates containing compounds of interest. After 5 days of growth, isolated mRNA is used to detect transcribed barcode abundance of each individual cancer cell line to measure relative viability. We leverage the baseline cellular features (e.g., gene expression, cell lineage, mutation, copy number, metabolomics, proteomics, genome-wide RNAi and CRISPR dependencies) of each cell line to interpret viability profiles, enabling identification of drivers of differential sensitivity and potential biomarkers of compound response. 
+    </p>
+  </section>
 
-      <section>
-        <h2>The PRISM Assay</h2>
-        <div class="d-flex align-center">
-        <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../public/graphics/01 PRISM hero cell lines.png"/>
-        <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../public/graphics/02 PRISM hero test agents.png"/>
-        <ImageCard title="5-day viability assay" description="plated+treated" img="../../public/graphics/03 PRISM hero viability assay.png"/>
-        <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../public/graphics/04 PRISM hero data.png"/>
-      </div>
-      <p>Our multiplexed cell viability platform, PRISM (profiling relative inhibition simultaneously in mixtures), enables screening of potential cancer therapeutics at an unprecedented scale. We routinely assess the effects of perturbations against more than 900 cancer cell lines concurrently using unique oligonucleotide barcodes stably transduced into individual cancer cell lines. Following barcode transduction, individual cell lines are pooled together in groups of 20-25 based on growth rate similarity, then thawed into 384-well assay-ready plates containing compounds of interest. After 5 days of growth, isolated mRNA is used to detect transcribed barcode abundance of each individual cancer cell line to measure relative viability. We leverage the baseline cellular features (e.g., gene expression, cell lineage, mutation, copy number, metabolomics, proteomics, genome-wide RNAi and CRISPR dependencies) of each cell line to interpret viability profiles, enabling identification of drivers of differential sensitivity and potential biomarkers of compound response. 
-      </p>
-      </section>
 
 
-<section>
-  <h2>Target specific cytotoxicity and bystander killing activity</h2>
-  <p>Trastuzumab alone was relatively inert across all PRISM cell lines, as expected. 
-  T-DM1 and T-MMAE induced a selective pattern of cell killing in a subset of ERBB2 (HER2) overexpressing cell lines. 
+  <section>
+    <h2>What are ADCs?</h2>
+    <p>
+      The primary mechanism of ADC induced cytotoxicity occurs via their internalization into target antigen expressing cancer cells. Upon reaching and binding to its target antigen, ADCs are internalized by the cell through receptor mediated endocytosis. Drug payloads are released through lysosomal degradation into the cytosol where they then induce death of the target cell via a pathway specific to the mechanism of action of the payload. 
     <br><br>
-    While both T-DM1 and T-MMAE were strongly selective for ERBB2 overexpressing cell lines, the cytotoxicity of T-DM1 was restricted to HER2 overexpressing cells lines whereas T-MMAE exhibited broader cytotoxicity across PRISM cell lines. 
-  </p>
-  <div>
-    <svg  class="plot" id="plot-1"></svg>
-    <svg  class="plot" id="plot-2"></svg>
-  </div>
-  <p>These results are consistent with expectations based on linker/payloads of these two ADCs: cell killing should be restricted to antigen expressing cell lines for ADCs with non-permeable payloads (i.e. T-DM1), whereas we expect to see some target-independent activity for ADCs with cell permeable payloads that are capable of exerting bystander effects (i.e. T-MMAE).
-  </p>
-</section>
+    In addition to target specific cell killing, some ADC payloads can exert a bystander effect. If the free drug payload is cell permeable, it can be released from the target cell following internalization and degradation of the ADC and kill neighboring cancer cells. 
+    </p>
+  </section>
+
+  <section>
+    <h2>Target specific cytotoxicity and bystander killing activity</h2>
+    <p>Trastuzumab alone was relatively inert across all PRISM cell lines, as expected. 
+    T-DM1 and T-MMAE induced a selective pattern of cell killing in a subset of ERBB2 (HER2) overexpressing cell lines. 
+      <br><br>
+      While both T-DM1 and T-MMAE were strongly selective for ERBB2 overexpressing cell lines, the cytotoxicity of T-DM1 was restricted to HER2 overexpressing cells lines whereas T-MMAE exhibited broader cytotoxicity across PRISM cell lines. 
+    </p>
+    <div>
+      <svg  class="plot" id="plot-1"></svg>
+      <svg  class="plot" id="plot-2"></svg>
+    </div>
+    <p>These results are consistent with expectations based on linker/payloads of these two ADCs: cell killing should be restricted to antigen expressing cell lines for ADCs with non-permeable payloads (i.e. T-DM1), whereas we expect to see some target-independent activity for ADCs with cell permeable payloads that are capable of exerting bystander effects (i.e. T-MMAE).
+    </p>
+  </section>
 
 
 
-<section>
+  <section>
     <h2>PRISM screening identifies relevant biomarkers</h2>
     <p>Biomarker analysis revealed ERBB2 gene expression was observed as a significantly correlated hit for both T-DM1 and T-MMAE. </p>
     <div>
@@ -54,7 +65,7 @@
       </p>
 
 
-</section>
+  </section>
 
 
      
@@ -63,8 +74,9 @@
 
 <script>
   import PaperHeader from '@/components/PaperHeader.vue'
+  // import ExpansionPanel from '@/components/ExpansionPanel.vue'
   import ImageCard from '@/components/ImageCard.vue'
-  import $ from "jquery";
+  // import $ from "jquery";
   import * as d3 from "d3";
   import * as Vis from '../js/Vis.js';
 
