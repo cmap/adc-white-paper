@@ -10,22 +10,22 @@
       <section>
         <h2>The PRISM Assay</h2>
         <div class="d-flex align-center">
-        <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../public/graphics/01 PRISM hero cell lines.png"/>
-        <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../public/graphics/02 PRISM hero test agents.png"/>
-        <ImageCard title="5-day viability assay" description="plated+treated" img="../../public/graphics/03 PRISM hero viability assay.png"/>
-        <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../public/graphics/04 PRISM hero data.png"/>
+        <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../graphics/01 PRISM hero cell lines.png"/>
+        <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../graphics/02 PRISM hero test agents.png"/>
+        <ImageCard title="5-day viability assay" description="plated+treated" img="../../graphics/03 PRISM hero viability assay.png"/>
+        <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../graphics/04 PRISM hero data.png"/>
       </div>
-      <p>Our multiplexed cell viability platform, PRISM (profiling relative inhibition simultaneously in mixtures), enables screening of potential cancer therapeutics at an unprecedented scale. We routinely assess the effects of perturbations against more than 900 cancer cell lines concurrently using unique oligonucleotide barcodes stably transduced into individual cancer cell lines. Following barcode transduction, individual cell lines are pooled together in groups of 20-25 based on growth rate similarity, then thawed into 384-well assay-ready plates containing compounds of interest. After 5 days of growth, isolated mRNA is used to detect transcribed barcode abundance of each individual cancer cell line to measure relative viability. We leverage the baseline cellular features (e.g., gene expression, cell lineage, mutation, copy number, metabolomics, proteomics, genome-wide RNAi and CRISPR dependencies) of each cell line to interpret viability profiles, enabling identification of drivers of differential sensitivity and potential biomarkers of compound response. 
+      <p>Our multiplexed cell viability platform, PRISM (profiling relative inhibition simultaneously in mixtures), enables screening of potential cancer therapeutics at an unprecedented scale. We routinely assess the effects of perturbations against more than 900 cancer cell lines concurrently using unique oligonucleotide barcodes stably transduced into individual cancer cell lines. Following barcode transduction, individual cell lines are pooled together in groups of 20-25 based on growth rate similarity, then thawed into 384-well assay-ready plates containing compounds of interest. After 5 days of growth, isolated mRNA is used to detect transcribed barcode abundance of each individual cancer cell line to measure relative viability. We leverage the baseline cellular features (e.g., gene expression, cell lineage, mutation, copy number, metabolomics, proteomics, genome-wide RNAi and CRISPR dependencies) of each cell line to interpret viability profiles, enabling identification of drivers of differential sensitivity and potential biomarkers of compound response.
       </p>
       </section>
 
 
 <section>
   <h2>Target specific cytotoxicity and bystander killing activity</h2>
-  <p>Trastuzumab alone was relatively inert across all PRISM cell lines, as expected. 
-  T-DM1 and T-MMAE induced a selective pattern of cell killing in a subset of ERBB2 (HER2) overexpressing cell lines. 
+  <p>Trastuzumab alone was relatively inert across all PRISM cell lines, as expected.
+  T-DM1 and T-MMAE induced a selective pattern of cell killing in a subset of ERBB2 (HER2) overexpressing cell lines.
     <br><br>
-    While both T-DM1 and T-MMAE were strongly selective for ERBB2 overexpressing cell lines, the cytotoxicity of T-DM1 was restricted to HER2 overexpressing cells lines whereas T-MMAE exhibited broader cytotoxicity across PRISM cell lines. 
+    While both T-DM1 and T-MMAE were strongly selective for ERBB2 overexpressing cell lines, the cytotoxicity of T-DM1 was restricted to HER2 overexpressing cells lines whereas T-MMAE exhibited broader cytotoxicity across PRISM cell lines.
   </p>
   <div>
     <svg  class="plot" id="plot-1"></svg>
@@ -44,7 +44,7 @@
       <svg class="plot" id="plot-3"></svg>
       <svg class="plot" id="plot-4"></svg>
     </div>
-    <p>Additionally, when comparing PRISM profiles with shRNA dependency data, ERBB2 emerged as one of the top correlated dependencies for both T-DM1 and T-MMAE. 
+    <p>Additionally, when comparing PRISM profiles with shRNA dependency data, ERBB2 emerged as one of the top correlated dependencies for both T-DM1 and T-MMAE.
     </p>
     <div>
         <svg class="plot" id="plot-5"></svg>
@@ -57,7 +57,7 @@
 </section>
 
 
-     
+
   </v-container>
 </template>
 
@@ -69,7 +69,7 @@
   import * as Vis from '../js/Vis.js';
 
 
-  const dataPath = "../../public/data/";
+  const dataPath = "../../data/";
   export default {
         name: 'HomePage',
         components: {PaperHeader, ImageCard},
@@ -82,7 +82,7 @@
           this.getData()
         },
         methods: {
-          
+
            getData() {
 
             Promise.all([
@@ -134,7 +134,7 @@
                       qval: +d["qval"]
                     }
                 })
-              
+
               ]).then(response=>{
                 let TDM1_AUC_Config = {
                   data: response[0].map(d=>{
@@ -158,7 +158,7 @@
                     }
                   }),
                   title: "T-MMAE",
-                  rootId: "plot-2" 
+                  rootId: "plot-2"
                 }
                 let TDM1_GE_Config = {
                     data: response[2].map(d=>{
@@ -170,7 +170,7 @@
                     }
                   }),
                   title: "T-MD1:  GE dependency for ERBB2",
-                  rootId: "plot-3" 
+                  rootId: "plot-3"
                 }
                 let TMMAE_GE_Config = {
                     data: response[3].map(d=>{
@@ -206,7 +206,7 @@
                     }
                   }),
                   title: "T-MMAE: shRNA dependency for ERBB2",
-                  rootId: "plot-6" 
+                  rootId: "plot-6"
                 }
 
                 Vis.useScatter(TDM1_AUC_Config)
