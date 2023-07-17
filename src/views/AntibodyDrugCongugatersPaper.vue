@@ -1,27 +1,58 @@
 <template>
   <v-container class="px-16">
-    <section>
-      <PaperHeader title="PRISM high throughput screening of antibody-drug conjugates uncovers clinically relevant targets" sup-title="White Paper" date="07/27/2023"/>
+    <PaperHeader title="PRISM high throughput screening of antibody-drug conjugates uncovers clinically relevant targets" sup-title="White Paper" date="07/27/2023"/>
+    <PaperSection title="Introduction">
+      
       <p>
-        Antibody-drug conjugates (ADCs) are a rapidly growing class of cancer therapeutics. ADCs combine the targeting specificity of monoclonal antibodies with the cytotoxicity of small molecules to provide highly targeted delivery of drug payloads, while sparing healthy tissue from chemotherapeutic damage. Although ADCs have demonstrated significant success in the clinic, ADC development continues to be a challenging endeavor that is time consuming, expensive, and has a high failure rate.<br><br>
-        Cell-based functional screening is an essential step in the development of ADCs. The outcome of these preclinical studies can aid in evaluating promising ADC candidates, validating target specificity, and predicting in vivo efficacy. To help facilitate the identification of promising new ADCs, we developed a PRISM screening assay that enables high throughput profiling of ADC activity in hundreds of cell lines simultaneously. In this paper, we demonstrate the utility of PRISM screening to uncover clinically relevant targets.
+        Antibody-drug conjugates (ADCs) are a rapidly growing class of cancer therapeutics, with approximately two dozen ADCs approved or in late-stage clinical trials through 2022<sup>1,2</sup>. ADCs combine the targeting specificity of monoclonal antibodies with the cytotoxicity of small molecules to provide highly targeted delivery of drug payloads; the ideal ADC would recognize a cancer-cell specific antigen but spare healthy tissue from indiscriminate chemotherapeutic damage3,4. Although ADCs have achieved significant success in the clinic, ADC development continues to be a challenging endeavor that is time consuming, expensive, and has a high failure rate<sup>5,6</sup>.
+        <br><br>
+        Much of the difficulty in ADC development arises from their multifaceted structural properties and diverse pharmacological activity<sup>7</sup>. They exhibit properties of both biologics and small molecule inhibitors, can exert activity through multiple mechanisms, and some are capable of inducing target-independent cell killing via a phenomenon known as the bystander effect. Due to this inherent structural and biological complexity, cell-based functional screening plays a crucial role in the initial screening, characterization, and optimization of ADCs. However, such in vitro studies are often performed on a small number of cell lines and thus provide limited information on ADC behavior, resulting in much uncertainty as an ADC progresses through the development pipeline<sup>8</sup>. There is a need for better in vitro screening tools that can provide more comprehensive insights into ADC mechanisms, effectiveness, and potential limitations, leading to more informed decision-making in early stages of development and reducing the risk of failures in later stages of the process.
+        <br><br>
+        To help facilitate the characterization of ADCs, we developed a screening assay that enables high throughput profiling of the viability effects of ADCs in hundreds of cell lines simultaneously. 
       </p>
-    </section>
-     
+
+
+      <PaperSubSection title="The PRISM assay">
+        <div class="d-flex align-center">
+          <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../graphics/01 PRISM hero cell lines.png"/>
+          <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../graphics/02 PRISM hero test agents.png"/>
+          <ImageCard title="5-day viability assay" description="plated+treated" img="../../graphics/03 PRISM hero viability assay.png"/>
+          <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../public/graphics/04 PRISM hero data.png"/>
+        </div>
+        <p>
+          Our multiplexed cell viability platform, PRISM (profiling relative inhibition simultaneously in mixtures), enables screening of potential cancer therapeutics at an unprecedented scale<sup>9,10</sup>. We routinely assess the effects of perturbations against hundreds of cancer cell lines concurrently using unique oligonucleotide barcodes stably transduced into individual lines. Following barcode transduction, individual cell lines are pooled together in groups of 20-25 based on growth rate similarity, then thawed into 384-well assay-ready plates and treated with test articles of interest. After 5 days of incubation, isolated mRNA is used to quantify transcribed barcode abundance of each individual cancer cell line to calculate relative viability. We leverage the baseline cellular features (e.g., gene expression, cell lineage, mutation, copy number, metabolomics, proteomics, genome-wide RNAi and CRISPR dependencies) of each cell line to interpret viability profiles, enabling identification of drivers of differential sensitivity and potential biomarkers of response. Visit our <a href="https://www.theprismlab.org/knowledge-base/#prism-assay" target="_blank">knowledge base</a> to learn more about the PRISM assay. 
+          <br><br>
+          The full collection of PRISM cell lines contains over 900 barcoded cell lines representing more than 45 lineages. The collection is divided into two cell sets: (1) PR500 cell set of 488 solid tumor adherent cell lines, and (2) PR300+ cell set of 431 hematopoietic, solid tumor, and pediatric cell lines. Within each cell set, cell lines are pooled in groups of 20-25 based on their growth rates. See a full annotated list of our PRISM barcoded cell lines <a href="https://docs.google.com/spreadsheets/d/1PcxxZ0O6U20megXtVs6BL10Jr-qnIZPbKk_MXKwz_BI/edit#gid=802313244" target="_blank">here</a>.
+        </p>
+      </PaperSubSection>
+      <PaperSubSection title="Antibody-Drug Conjugates">
+        <p>
+          ADCs are a class of therapeutics which exploit the properties of monoclonal antibodies to achieve targeted delivery of drug payloads to specific cell populations. Over the past decade, ADCs have seen expansive growth and success in the oncology field, and growing momentum for applications beyond oncology indications<sup>11</sup>. 
+          <br><br>
+          ADCs are a structurally and biologically complex therapeutic modality<sup>12</sup>. They are composed of three main components: an antibody, a linker, and a cytotoxic payload, each of which can have unique characteristics and activity profiles that affect functional performance and stability of the ADC<sup>13</sup>. For example, whether an ADC is conjugated using a cleavable or non-cleavable linker will affect its stability and target specific activity. Likewise, ADC efficacy is intrinsically related to the characteristics and mechanisms of action of the cytotoxic payload. ADCs that release membrane-permeable payloads can diffuse into neighboring cells and induce antigen-independent cytotoxicity, an activity of ADCs known as the bystander effect. Another factor impacting ADC efficacy is the number of cytotoxic molecules linked to each antibody, referred to as the drug to antibody ratio (DAR). Additional complexity arises from the heterogeneous nature of ADC mixtures, which typically contain varying amounts of free antibody and free payload, each of which can exert their own activity. 
+        </p>
+      </PaperSubSection>
+      <PaperSubSection title="HER2 as a cancer target ">
+          <p></p>
+      </PaperSubSection>
+      <PaperSubSection title="Screening HER2-targeting ADCs in PRISM">
+          <p></p>
+      </PaperSubSection>
+    </PaperSection>
+
+
+<!-- 
     <section>
       <h2>The PRISM Assay</h2>
       <div class="d-flex align-center">
-      <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../public/graphics/01 PRISM hero cell lines.png"/>
-      <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../public/graphics/02 PRISM hero test agents.png"/>
-      <ImageCard title="5-day viability assay" description="plated+treated" img="../../public/graphics/03 PRISM hero viability assay.png"/>
+      <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../graphics/01 PRISM hero cell lines.png"/>
+      <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../graphics/02 PRISM hero test agents.png"/>
+      <ImageCard title="5-day viability assay" description="plated+treated" img="../../graphics/03 PRISM hero viability assay.png"/>
       <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../public/graphics/04 PRISM hero data.png"/>
     </div>
     <p>Our multiplexed cell viability platform, PRISM (profiling relative inhibition simultaneously in mixtures), enables screening of potential cancer therapeutics at an unprecedented scale. We routinely assess the effects of perturbations against more than 900 cancer cell lines concurrently using unique oligonucleotide barcodes stably transduced into individual cancer cell lines. Following barcode transduction, individual cell lines are pooled together in groups of 20-25 based on growth rate similarity, then thawed into 384-well assay-ready plates containing compounds of interest. After 5 days of growth, isolated mRNA is used to detect transcribed barcode abundance of each individual cancer cell line to measure relative viability. We leverage the baseline cellular features (e.g., gene expression, cell lineage, mutation, copy number, metabolomics, proteomics, genome-wide RNAi and CRISPR dependencies) of each cell line to interpret viability profiles, enabling identification of drivers of differential sensitivity and potential biomarkers of compound response. 
     </p>
   </section>
-
-
-
   <section>
     <h2>What are ADCs?</h2>
     <p>
@@ -65,7 +96,7 @@
       </p>
 
 
-  </section>
+  </section> -->
 
 
      
@@ -74,6 +105,8 @@
 
 <script>
   import PaperHeader from '@/components/PaperHeader.vue'
+  import PaperSection from '@/components/PaperSection.vue'
+  import PaperSubSection from '@/components/PaperSubSection.vue'
   // import ExpansionPanel from '@/components/ExpansionPanel.vue'
   import ImageCard from '@/components/ImageCard.vue'
   // import $ from "jquery";
@@ -83,8 +116,8 @@
 
   const dataPath = "../../public/data/";
   export default {
-        name: 'HomePage',
-        components: {PaperHeader, ImageCard},
+        name: 'AntibodyDrugCongugatersPaper',
+        components: {PaperHeader, PaperSection, PaperSubSection, ImageCard},
         data () {
           return {
 
