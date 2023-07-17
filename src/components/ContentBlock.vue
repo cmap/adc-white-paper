@@ -20,7 +20,7 @@ export default {
     font-size:1em;
   /* margin:32px 0px; */
   padding:32px;
-  background-color:#f8f8f8;
+  background-color:#fafafa;
   border-radius:4px;
 }
 
