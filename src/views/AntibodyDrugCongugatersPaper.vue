@@ -355,10 +355,18 @@
 <style scoped>
 
 .plot{
-  height:400px;
-  max-width:400px;
-  margin:25px 0px;
+  height:500px;
+  width:500px;
   display:inline-block;
 }
+@media (max-width: 601px){
+  .plot{
+    height:400px;
+    width:98%;
+    display:inline-block;
+  }
+
+}
+
 
 </style>
