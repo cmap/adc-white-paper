@@ -17,7 +17,7 @@
           <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../graphics/01 PRISM hero cell lines.png"/>
           <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../graphics/02 PRISM hero test agents.png"/>
           <ImageCard title="5-day viability assay" description="plated+treated" img="../../graphics/03 PRISM hero viability assay.png"/>
-          <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../public/graphics/04 PRISM hero data.png"/>
+          <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../graphics/04 PRISM hero data.png"/>
         </div>
         <p>
           Our multiplexed cell viability platform, PRISM (profiling relative inhibition simultaneously in mixtures), enables screening of potential cancer therapeutics at an unprecedented scale<sup>9,10</sup>. We routinely assess the effects of perturbations against hundreds of cancer cell lines concurrently using unique oligonucleotide barcodes stably transduced into individual lines. Following barcode transduction, individual cell lines are pooled together in groups of 20-25 based on growth rate similarity, then thawed into 384-well assay-ready plates and treated with test articles of interest. After 5 days of incubation, isolated mRNA is used to quantify transcribed barcode abundance of each individual cancer cell line to calculate relative viability. We leverage the baseline cellular features (e.g., gene expression, cell lineage, mutation, copy number, metabolomics, proteomics, genome-wide RNAi and CRISPR dependencies) of each cell line to interpret viability profiles, enabling identification of drivers of differential sensitivity and potential biomarkers of response. Visit our <a href="https://www.theprismlab.org/knowledge-base/#prism-assay" target="_blank">knowledge base</a> to learn more about the PRISM assay. 
@@ -31,36 +31,42 @@
           <br><br>
           ADCs are a structurally and biologically complex therapeutic modality<sup>12</sup>. They are composed of three main components: an antibody, a linker, and a cytotoxic payload, each of which can have unique characteristics and activity profiles that affect functional performance and stability of the ADC<sup>13</sup>. For example, whether an ADC is conjugated using a cleavable or non-cleavable linker will affect its stability and target specific activity. Likewise, ADC efficacy is intrinsically related to the characteristics and mechanisms of action of the cytotoxic payload. ADCs that release membrane-permeable payloads can diffuse into neighboring cells and induce antigen-independent cytotoxicity, an activity of ADCs known as the bystander effect. Another factor impacting ADC efficacy is the number of cytotoxic molecules linked to each antibody, referred to as the drug to antibody ratio (DAR). Additional complexity arises from the heterogeneous nature of ADC mixtures, which typically contain varying amounts of free antibody and free payload, each of which can exert their own activity. 
         </p>
+
+        <HorizontalImageCard img="../../graphics/adc_components.png">
+          <ContentBlock>
+            <ul class="no-bullets">
+              <li><b>Antibody</b>: targets a highly expressed antigen on the surface of cancer cells, acts as a targeted delivery system for cytotoxic agents</li>
+              <li><b>Linker</b>: can be cleavable or non-cleavable, determines ADC stability in circulation and the mechanism of payload release after an ADC is internalized by antigen-expressing target cells</li>
+              <li><b>Payload</b>: a highly potent compound that drives the primary biological activity of the ADC. Current approved payloads fall into three classes: microtubule inhibitors, DNA-damaging agents, or topoisomerase inhibitors.</li>
+            </ul>
+          </ContentBlock>
+        </HorizontalImageCard>    
+        <p>
+          The primary mechanism of ADC-induced cytotoxicity occurs via their internalization into target antigen-expressing cancer cells. Upon reaching and binding the target antigen, ADCs are taken up by the cell through receptor-mediated endocytosis<sup>14</sup>. Drug payloads are subsequently released following lysosomal degradation into the cytosol, where they then induce death of the target cell via a pathway specific to the mechanism of action of the payload. In addition to target-specific cell killing, some ADC payloads can exert a bystander effect. If the free drug payload is cell permeable, it can kill not only antigen-expressing cells but also neighboring antigen-negative cells.
+        </p>
+                  
+        <v-img class="center" width="50%" src="../../graphics/adc_killing_mechanism.png"></v-img>
+
       </PaperSubSection>
+
       <PaperSubSection title="HER2 as a cancer target ">
           <p></p>
       </PaperSubSection>
+
       <PaperSubSection title="Screening HER2-targeting ADCs in PRISM">
           <p></p>
       </PaperSubSection>
     </PaperSection>
 
-
-<!-- 
-    <section>
-      <h2>The PRISM Assay</h2>
-      <div class="d-flex align-center">
-      <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../graphics/01 PRISM hero cell lines.png"/>
-      <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../graphics/02 PRISM hero test agents.png"/>
-      <ImageCard title="5-day viability assay" description="plated+treated" img="../../graphics/03 PRISM hero viability assay.png"/>
-      <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../public/graphics/04 PRISM hero data.png"/>
-    </div>
-    <p>Our multiplexed cell viability platform, PRISM (profiling relative inhibition simultaneously in mixtures), enables screening of potential cancer therapeutics at an unprecedented scale. We routinely assess the effects of perturbations against more than 900 cancer cell lines concurrently using unique oligonucleotide barcodes stably transduced into individual cancer cell lines. Following barcode transduction, individual cell lines are pooled together in groups of 20-25 based on growth rate similarity, then thawed into 384-well assay-ready plates containing compounds of interest. After 5 days of growth, isolated mRNA is used to detect transcribed barcode abundance of each individual cancer cell line to measure relative viability. We leverage the baseline cellular features (e.g., gene expression, cell lineage, mutation, copy number, metabolomics, proteomics, genome-wide RNAi and CRISPR dependencies) of each cell line to interpret viability profiles, enabling identification of drivers of differential sensitivity and potential biomarkers of compound response. 
-    </p>
-  </section>
-  <section>
-    <h2>What are ADCs?</h2>
-    <p>
-      The primary mechanism of ADC induced cytotoxicity occurs via their internalization into target antigen expressing cancer cells. Upon reaching and binding to its target antigen, ADCs are internalized by the cell through receptor mediated endocytosis. Drug payloads are released through lysosomal degradation into the cytosol where they then induce death of the target cell via a pathway specific to the mechanism of action of the payload. 
+    <ContentBlock>
+      Trastuzumab: a therapeutic monoclonal antibody with clinical indications for HER2 overexpressing solid tumors. It is sold under the brand name Herceptin.
+      <br><br>
+    Trastuzumab emtansine (T-DM1): an ADC consisting of trastuzumab conjugated via a non-cleavable linker (MCC; maleimidomethyl cyclohexane-1-carboxylate) to mertansine (also called DM1), a cytotoxic microtubule inhibitor, with a DAR of 3.518. After T-DM1 is internalized into cells, the released payload (emtansine) is unable to cross the membrane of surrounding HER2-negative cells and is therefore not associated with a bystander killing effect. T-DM1 is FDA approved for the treatment of HER2-overexpressing breast cancer. It is sold under the brand name Kadcyla.
     <br><br>
-    In addition to target specific cell killing, some ADC payloads can exert a bystander effect. If the free drug payload is cell permeable, it can be released from the target cell following internalization and degradation of the ADC and kill neighboring cancer cells. 
-    </p>
-  </section>
+    Trastuzumab-monomethyl auristatin E (T-MMAE): an ADC consisting of trastuzumab conjugated with a cleavable MC—VC—PAB (maleimidocaproyl— valine-citrulline— para-amino benzyl alcohol) linker to monomethyl auristatin E (MMAE), a microtubule inhibitor, at a DAR of 4. T-MMAE was specifically designed to release MMAE, a cell-permeable payload that therefore can exert bystander killing activity. 
+
+    </ContentBlock>
+<!-- 
 
   <section>
     <h2>Target specific cytotoxicity and bystander killing activity</h2>
@@ -107,8 +113,9 @@
   import PaperHeader from '@/components/PaperHeader.vue'
   import PaperSection from '@/components/PaperSection.vue'
   import PaperSubSection from '@/components/PaperSubSection.vue'
-  // import ExpansionPanel from '@/components/ExpansionPanel.vue'
+  import ContentBlock from '@/components/ContentBlock.vue'
   import ImageCard from '@/components/ImageCard.vue'
+  import HorizontalImageCard from '@/components/HorizontalImageCard.vue'
   // import $ from "jquery";
   import * as d3 from "d3";
   import * as Vis from '../js/Vis.js';
@@ -117,7 +124,7 @@
   const dataPath = "../../public/data/";
   export default {
         name: 'AntibodyDrugCongugatersPaper',
-        components: {PaperHeader, PaperSection, PaperSubSection, ImageCard},
+        components: {PaperHeader, PaperSection, PaperSubSection, ContentBlock, ImageCard, HorizontalImageCard},
         data () {
           return {
 

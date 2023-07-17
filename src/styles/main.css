@@ -24,7 +24,8 @@ h3{
   margin: 4px 0px;
 }
 h4{
-  font-size:1em;
+  font-size:1.3em;
+  font-weight:900;
   line-height:1.2em;
   color:#282828;
   margin: 4px 0px;
@@ -36,7 +37,19 @@ p{
   color:#282828;
   margin: 16px 0px;
 }
-
+b, strong{
+  font-weight: 600 !important;
+}
+.center{
+  text-align:center;
+  margin:auto;
+}
+.no-bullets{
+  list-style: none;
+}
+li{
+  margin:0.6em 0px;
+}
 .scatter-plot > .title{
   font-size:1.2em;
   font-weight:900;
@@ -56,7 +69,11 @@ p{
   fill: #868686;
 }
 
-
+a{
+  color:purple;
+  text-decoration:none;
+  border-bottom:.5px solid purple;
+}
 @media (min-width: 1280px){
   .v-container {
     max-width: 1100px !important;
