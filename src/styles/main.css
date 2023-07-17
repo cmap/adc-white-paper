@@ -1,8 +1,8 @@
-section{
-  margin:56px 0px;
+main, body, #app{
+  font-size:16px !important;
 }
 h1{
-  font-size:2.75em;
+  font-size:2.4em;
   line-height:1.05em;
   font-weight:900;
   color:#282828;
@@ -10,30 +10,65 @@ h1{
 }
 
 h2{
-  font-size:1.8em;
+  font-size:2em;
   font-weight:900;
   line-height:1.2em;
   color:#282828;
   margin: 16px 0px;
 }
 h3{
-  font-size:1.2em;
+  font-size:1.4em;
+  font-weight:600;
   line-height:1.2em;
   color:#282828;
-  margin: 8px 0px;
+  margin: 16px 0px;
 }
 h4{
-  font-size:1em;
+  font-size:1.2em;
+  font-weight:900;
   line-height:1.2em;
   color:#282828;
   margin: 4px 0px;
 }
 p{
-  font-size:1.15em;
-  font-weight:300;
+  font-size:1em;
+  font-weight:400;
   line-height:1.4em;
   color:#282828;
   margin: 16px 0px;
+}
+.p-sm{
+  font-size:0.8em;
+  line-height: 1.3em;
+}
+b, strong{
+  font-weight: 600 !important;
+}
+.center{
+  text-align:center;
+  margin:auto;
+}
+.grey-card{
+    background-color:#f5f5f5 !important;
+    border-radius:4px !important;
+}
+
+.no-bullets{
+  list-style: none;
+}
+li{
+  margin:0.6em 0px;
+}
+.v-card{
+  padding:24px 32px !important;
+  border:none;
+  word-break:normal !important;
+}
+.v-card.elevation-1{
+  box-shadow: 0.5px 0.5px 15px 0px rgba(220, 220, 220, 0.5) !important; 
+}
+.v-card>ul>li{
+  font-size: 0.9em;
 }
 
 .scatter-plot > .title{
@@ -55,10 +90,34 @@ p{
   fill: #868686;
 }
 
+a{
+  color:purple;
+  text-decoration:none;
+  border-bottom:.5px solid purple;
+}
+
+
+
+
+@media (max-width: 600px){
+
+  main, body, #app{
+    font-size:20px !important;
+  }
+  h1{
+    font-size:2.2em !important;
+  }
+  h2{
+    font-size:1.8em !important;
+  }
+}
+
 
 @media (min-width: 1280px){
+  main, body, #app{
+    font-size:16px !important;
+  }
   .v-container {
     max-width: 1100px !important;
   }
 }
-
