@@ -218,7 +218,7 @@
 
   const dataPath = "../../public/data/";
   export default {
-        name: 'AntibodyDrugCongugatersPaper',
+        name: 'Home',
         components: {PaperHeader, PaperSection, PaperSubSection, ImageCard},
         data () {
           return {
