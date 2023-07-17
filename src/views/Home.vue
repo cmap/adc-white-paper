@@ -12,6 +12,7 @@
       </p>
 
 
+
       <PaperSubSection title="The PRISM assay">
         <v-row>
           <v-col
@@ -144,6 +145,8 @@
    
 
       <div>
+
+
         <svg class="plot" id="plot-5"></svg>
         <svg class="plot" id="plot-6"></svg>
       </div>
@@ -189,6 +192,7 @@
       <p>
         Depending on the experimental goals of a particular ADC screening effort, additional controls are advised. A non-targeting control ADC constructed with an antibody that does not bind a cell membrane antigen (e.g. RSV) is a recommended negative control. Likewise, an ADC conjugated to a widely expressed cell membrane antigen (e.g., CD71) can serve as a positive control. In addition, it may be beneficial to screen each component of a test ADC (free antibody and free payload) individually in parallel with the ADC. These data will help distinguish between activity attributable to the ADC and the unconjugated components. 
 
+
       </p>
     </PaperSubSection>
 
@@ -200,7 +204,7 @@
     </p>
     
   </PaperSection>
-     
+
   </v-container>
 </template>
 
@@ -216,7 +220,7 @@
   import * as Vis from '../js/Vis.js';
 
 
-  const dataPath = "../../public/data/";
+  const dataPath = "../../data/";
   export default {
         name: 'Home',
         components: {PaperHeader, PaperSection, PaperSubSection, ImageCard},
@@ -229,7 +233,7 @@
           this.getData()
         },
         methods: {
-          
+
            getData() {
 
             Promise.all([
@@ -281,7 +285,7 @@
                       qval: +d["qval"]
                     }
                 })
-              
+
               ]).then(response=>{
                 let TDM1_AUC_Config = {
                   data: response[0].map(d=>{
@@ -305,7 +309,7 @@
                     }
                   }),
                   title: "T-MMAE",
-                  rootId: "plot-2" 
+                  rootId: "plot-2"
                 }
                 let TDM1_GE_Config = {
                     data: response[2].map(d=>{
@@ -317,7 +321,7 @@
                     }
                   }),
                   title: "T-MD1:  GE dependency for ERBB2",
-                  rootId: "plot-3" 
+                  rootId: "plot-3"
                 }
                 let TMMAE_GE_Config = {
                     data: response[3].map(d=>{
@@ -353,7 +357,7 @@
                     }
                   }),
                   title: "T-MMAE: shRNA dependency for ERBB2",
-                  rootId: "plot-6" 
+                  rootId: "plot-6"
                 }
 
                 Vis.useScatter(TDM1_AUC_Config)
@@ -376,6 +380,7 @@
 }
 
 
+
 @media (max-width: 600px){
   .plot{
     height:400px;
@@ -391,3 +396,4 @@
 }
 
 </style>
+
