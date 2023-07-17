@@ -370,8 +370,8 @@
 <style scoped>
 
 .plot{
-  height:500px;
-  width:500px;
+  height:420px;
+  width:420px;
   display:inline-block;
 }
 
