@@ -1,9 +1,8 @@
 <template>
     <v-card elevation="0">
-          <div class="card-title"> {{ title }}</div>
-          <div class="card-p">{{  description }}</div>
-          <v-img width="80%" :src="img"></v-img>
-
+        <div class="card-title"> {{ title }}</div>
+        <div class="card-description">{{  description }}</div>
+        <v-img  class="card-image" :src="img"></v-img>
    </v-card>
 </template>
 <script>
@@ -31,27 +30,31 @@ props: {
 
 <style scoped>
 .v-card{
-  border:none;
-  word-break:normal !important;
+  padding:0px !important;
 }
-
 .card-title{
   font-size:1.2em;
   line-height:1.1em;
   font-weight:900;
   color:#868686;
-  margin:0px;
 }
-.card-p{
+.card-description{
   font-size:1.2em;
   line-height:1.1em;
   font-weight:300;
   color:#868686;
-  margin:0px;
 }
 
+@media (max-width: 601px){
 
+  .v-card{
+    margin:0px !important;
+    padding:0px !important;
+  }
+  .card-image{
+    max-width:200px;
+  }
 
-
+}
 
 </style>

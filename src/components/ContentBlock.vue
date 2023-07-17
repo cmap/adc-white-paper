@@ -17,10 +17,9 @@ export default {
 </script>
 <style scoped>
 .content-block{
-    font-size:1em;
-  /* margin:32px 0px; */
+font-size:1em;
   padding:32px;
-  background-color:#fafafa;
+  background-color:#f5f5f5;
   border-radius:4px;
 }
 

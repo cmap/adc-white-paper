@@ -1,6 +1,6 @@
-/* section{
-  margin:56px 0px;
-} */
+main, body, #app{
+  font-size:16px !important;
+}
 h1{
   font-size:2.75em;
   line-height:1.05em;
@@ -50,6 +50,18 @@ b, strong{
 li{
   margin:0.6em 0px;
 }
+.v-card{
+  margin:32px 0px;
+  padding:32px !important;
+  border:none;
+  word-break:normal !important;
+
+}
+.v-card.elevation-1{
+  box-shadow: 0.5px 0.5px 15px 0px rgba(220, 220, 220, 0.5) !important; 
+}
+
+
 .scatter-plot > .title{
   font-size:1.2em;
   font-weight:900;
@@ -78,5 +90,16 @@ a{
   .v-container {
     max-width: 1100px !important;
   }
+}
+@media (max-width: 601px){
+  main, body, #app{
+    font-size:14px !important;
+  }
+
+.v-card{
+  margin:8px 0px;
+  padding:24px !important;
+}
+
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="px-16">
+  <v-container>
     <PaperHeader title="PRISM high throughput screening of antibody-drug conjugates uncovers clinically relevant targets" sup-title="White Paper" date="07/27/2023"/>
     <PaperSection title="Introduction">
       
@@ -13,12 +13,38 @@
 
 
       <PaperSubSection title="The PRISM assay">
-        <div class="d-flex align-center">
-          <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../graphics/01 PRISM hero cell lines.png"/>
-          <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../graphics/02 PRISM hero test agents.png"/>
-          <ImageCard title="5-day viability assay" description="plated+treated" img="../../graphics/03 PRISM hero viability assay.png"/>
+        <v-row>
+          <v-col
+          cols="12"
+            sm="8"
+            md="3"
+          >
+            <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../graphics/01 PRISM hero cell lines.png"/>
+          </v-col>
+          <v-col
+          cols="12"
+            sm="8"
+            md="3"
+          >
+            <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../graphics/02 PRISM hero test agents.png"/>
+          </v-col>
+          <v-col
+          cols="12"
+            sm="8"
+            md="3"
+          >
+            <ImageCard title="5-day viability assay" description="plated+treated" img="../../graphics/03 PRISM hero viability assay.png"/>
+
+          </v-col>
+          <v-col
+          cols="12"
+            sm="8"
+            md="3"
+          >
           <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../graphics/04 PRISM hero data.png"/>
-        </div>
+          </v-col>
+
+        </v-row>
         <p>
           Our multiplexed cell viability platform, PRISM (profiling relative inhibition simultaneously in mixtures), enables screening of potential cancer therapeutics at an unprecedented scale<sup>9,10</sup>. We routinely assess the effects of perturbations against hundreds of cancer cell lines concurrently using unique oligonucleotide barcodes stably transduced into individual lines. Following barcode transduction, individual cell lines are pooled together in groups of 20-25 based on growth rate similarity, then thawed into 384-well assay-ready plates and treated with test articles of interest. After 5 days of incubation, isolated mRNA is used to quantify transcribed barcode abundance of each individual cancer cell line to calculate relative viability. We leverage the baseline cellular features (e.g., gene expression, cell lineage, mutation, copy number, metabolomics, proteomics, genome-wide RNAi and CRISPR dependencies) of each cell line to interpret viability profiles, enabling identification of drivers of differential sensitivity and potential biomarkers of response. Visit our <a href="https://www.theprismlab.org/knowledge-base/#prism-assay" target="_blank">knowledge base</a> to learn more about the PRISM assay. 
           <br><br>
@@ -33,19 +59,28 @@
         </p>
 
         <HorizontalImageCard img="../../graphics/adc_components.png">
-          <ContentBlock>
             <ul class="no-bullets">
               <li><b>Antibody</b>: targets a highly expressed antigen on the surface of cancer cells, acts as a targeted delivery system for cytotoxic agents</li>
               <li><b>Linker</b>: can be cleavable or non-cleavable, determines ADC stability in circulation and the mechanism of payload release after an ADC is internalized by antigen-expressing target cells</li>
               <li><b>Payload</b>: a highly potent compound that drives the primary biological activity of the ADC. Current approved payloads fall into three classes: microtubule inhibitors, DNA-damaging agents, or topoisomerase inhibitors.</li>
             </ul>
-          </ContentBlock>
         </HorizontalImageCard>    
         <p>
           The primary mechanism of ADC-induced cytotoxicity occurs via their internalization into target antigen-expressing cancer cells. Upon reaching and binding the target antigen, ADCs are taken up by the cell through receptor-mediated endocytosis<sup>14</sup>. Drug payloads are subsequently released following lysosomal degradation into the cytosol, where they then induce death of the target cell via a pathway specific to the mechanism of action of the payload. In addition to target-specific cell killing, some ADC payloads can exert a bystander effect. If the free drug payload is cell permeable, it can kill not only antigen-expressing cells but also neighboring antigen-negative cells.
         </p>
-                  
-        <v-img class="center" width="50%" src="../../graphics/adc_killing_mechanism.png"></v-img>
+        <v-row>
+          <v-col
+            cols="12"
+            sm="12"
+            md="6"
+          >
+            <v-card elevation="1">   
+            <v-img class="center-image" src="../../graphics/adc_killing_mechanism.png"></v-img>
+          </v-card>
+          </v-col>
+        </v-row>
+
+     
 
       </PaperSubSection>
 
@@ -150,44 +185,6 @@
     </p>
     
   </PaperSection>
-<!-- 
-
-  <section>
-    <h2>Target specific cytotoxicity and bystander killing activity</h2>
-    <p>Trastuzumab alone was relatively inert across all PRISM cell lines, as expected. 
-    T-DM1 and T-MMAE induced a selective pattern of cell killing in a subset of ERBB2 (HER2) overexpressing cell lines. 
-      <br><br>
-      While both T-DM1 and T-MMAE were strongly selective for ERBB2 overexpressing cell lines, the cytotoxicity of T-DM1 was restricted to HER2 overexpressing cells lines whereas T-MMAE exhibited broader cytotoxicity across PRISM cell lines. 
-    </p>
-    <div>
-      <svg  class="plot" id="plot-1"></svg>
-      <svg  class="plot" id="plot-2"></svg>
-    </div>
-    <p>These results are consistent with expectations based on linker/payloads of these two ADCs: cell killing should be restricted to antigen expressing cell lines for ADCs with non-permeable payloads (i.e. T-DM1), whereas we expect to see some target-independent activity for ADCs with cell permeable payloads that are capable of exerting bystander effects (i.e. T-MMAE).
-    </p>
-  </section>
-
-
-
-  <section>
-    <h2>PRISM screening identifies relevant biomarkers</h2>
-    <p>Biomarker analysis revealed ERBB2 gene expression was observed as a significantly correlated hit for both T-DM1 and T-MMAE. </p>
-    <div>
-      <svg class="plot" id="plot-3"></svg>
-      <svg class="plot" id="plot-4"></svg>
-    </div>
-    <p>Additionally, when comparing PRISM profiles with shRNA dependency data, ERBB2 emerged as one of the top correlated dependencies for both T-DM1 and T-MMAE. 
-    </p>
-    <div>
-        <svg class="plot" id="plot-5"></svg>
-        <svg class="plot" id="plot-6"></svg>
-      </div>
-      <p>Importantly, these results demonstrate that despite observing a higher amount of target-independent cytotoxicity by T-MMAE compared to T-DM1, we were still able to identify the relevant biomarker (HER2) as a target for both ADCs. These results suggest that PRISM screening is capable of distinguishing between permeable and non-permeable payloads, while retaining selectivity of the primary target.
-      </p>
-
-
-  </section> -->
-
      
   </v-container>
 </template>
@@ -359,7 +356,7 @@
 
 .plot{
   height:400px;
-  width:400px;
+  max-width:400px;
   margin:25px 0px;
   display:inline-block;
 }
