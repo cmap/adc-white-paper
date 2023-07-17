@@ -44,17 +44,17 @@ props: {
   font-weight:300;
   color:#868686;
 }
-
-@media (max-width: 601px){
-
+@media (max-width: 600px){
   .v-card{
     margin:0px !important;
     padding:0px !important;
   }
   .card-image{
-    max-width:200px;
+    max-width:90%;
   }
 
 }
+
+
 
 </style>

@@ -3,16 +3,18 @@
         <v-card elevation="1">
             <v-row>
                 <v-col
-                    cols="12"
-                    sm="12"
-                    md="3"
+                cols="12"
+                xs="12"
+                sm="4"
+                md="4"
                 >
                     <v-img class="card-image" :src="img"></v-img>
                 </v-col>
                 <v-col
                     cols="12"
-                    sm="12"
-                    md="9"
+                    xs="12"
+                    sm="8"
+                    md="8"
                 >
                     <div class="card-content">
                         <slot></slot>
@@ -49,7 +51,6 @@ export default {
 </script>
 
 <style scoped>
-
 
 
 </style>

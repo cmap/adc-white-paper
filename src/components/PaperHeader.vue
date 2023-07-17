@@ -2,7 +2,7 @@
   <div class="wrapper">
     <h4 class="sup-title">{{ supTitle }}</h4>
     <h1 class="title">{{  title  }}</h1>    
-    <h4 class="sub-title">{{  date }} {{  subTitle  }} </h4>    
+    <h4 class="date">{{  date }} </h4>    
   </div>
 </template>
 
@@ -18,10 +18,6 @@ export default {
         type: String,
         required: true
         },
-        subTitle: {
-            type: String,
-            required: false
-        },
         date: {
             type: String,
             required: false
@@ -35,10 +31,15 @@ export default {
   margin:32px 0px;
 }
 h1, h4{
-  margin:8px 0px;
+  margin:16px 0px;
 }
-.sub-title, .date{
-  font-weight:300;
+.sup-title{
+  font-weight:600;
+  color:#8e62c2;
+  text-transform:uppercase;
+}
+ .date{
+  font-weight:400;
 }
 
 

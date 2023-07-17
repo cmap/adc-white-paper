@@ -15,30 +15,34 @@
       <PaperSubSection title="The PRISM assay">
         <v-row>
           <v-col
-          cols="12"
-            sm="8"
+            cols="12"
+            xs="7"
+            sm="3"
             md="3"
           >
             <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../graphics/01 PRISM hero cell lines.png"/>
           </v-col>
           <v-col
-          cols="12"
-            sm="8"
+            cols="12"
+            xs="7"
+            sm="3"
             md="3"
           >
             <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../graphics/02 PRISM hero test agents.png"/>
           </v-col>
           <v-col
-          cols="12"
-            sm="8"
+            cols="12"
+            xs="7"
+            sm="3"
             md="3"
           >
             <ImageCard title="5-day viability assay" description="plated+treated" img="../../graphics/03 PRISM hero viability assay.png"/>
 
           </v-col>
           <v-col
-          cols="12"
-            sm="8"
+            cols="12"
+            xs="7"
+            sm="3"
             md="3"
           >
           <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../graphics/04 PRISM hero data.png"/>
@@ -57,21 +61,32 @@
           <br><br>
           ADCs are a structurally and biologically complex therapeutic modality<sup>12</sup>. They are composed of three main components: an antibody, a linker, and a cytotoxic payload, each of which can have unique characteristics and activity profiles that affect functional performance and stability of the ADC<sup>13</sup>. For example, whether an ADC is conjugated using a cleavable or non-cleavable linker will affect its stability and target specific activity. Likewise, ADC efficacy is intrinsically related to the characteristics and mechanisms of action of the cytotoxic payload. ADCs that release membrane-permeable payloads can diffuse into neighboring cells and induce antigen-independent cytotoxicity, an activity of ADCs known as the bystander effect. Another factor impacting ADC efficacy is the number of cytotoxic molecules linked to each antibody, referred to as the drug to antibody ratio (DAR). Additional complexity arises from the heterogeneous nature of ADC mixtures, which typically contain varying amounts of free antibody and free payload, each of which can exert their own activity. 
         </p>
+       
+        <v-row>
+            <v-col cols="12" xs="12" sm="4" md="4" lg="3">
+              <v-card elevation="1">
+                <v-img src="../../graphics/adc_components.png"></v-img>
+              </v-card>
+            </v-col>
+            <v-col cols="12" xs="12" sm="8" md="8" lg="8">
+            <v-card elevation="0" class="grey-card">
+              <ul class="no-bullets">
+                <li><b>Antibody</b>: targets a highly expressed antigen on the surface of cancer cells, acts as a targeted delivery system for cytotoxic agents</li>
+                <li><b>Linker</b>: can be cleavable or non-cleavable, determines ADC stability in circulation and the mechanism of payload release after an ADC is internalized by antigen-expressing target cells</li>
+                <li><b>Payload</b>: a highly potent compound that drives the primary biological activity of the ADC. Current approved payloads fall into three classes: microtubule inhibitors, DNA-damaging agents, or topoisomerase inhibitors.</li>
+              </ul>
+            </v-card>
+          </v-col>
+        </v-row>
 
-        <HorizontalImageCard img="../../graphics/adc_components.png">
-            <ul class="no-bullets">
-              <li><b>Antibody</b>: targets a highly expressed antigen on the surface of cancer cells, acts as a targeted delivery system for cytotoxic agents</li>
-              <li><b>Linker</b>: can be cleavable or non-cleavable, determines ADC stability in circulation and the mechanism of payload release after an ADC is internalized by antigen-expressing target cells</li>
-              <li><b>Payload</b>: a highly potent compound that drives the primary biological activity of the ADC. Current approved payloads fall into three classes: microtubule inhibitors, DNA-damaging agents, or topoisomerase inhibitors.</li>
-            </ul>
-        </HorizontalImageCard>    
+
         <p>
           The primary mechanism of ADC-induced cytotoxicity occurs via their internalization into target antigen-expressing cancer cells. Upon reaching and binding the target antigen, ADCs are taken up by the cell through receptor-mediated endocytosis<sup>14</sup>. Drug payloads are subsequently released following lysosomal degradation into the cytosol, where they then induce death of the target cell via a pathway specific to the mechanism of action of the payload. In addition to target-specific cell killing, some ADC payloads can exert a bystander effect. If the free drug payload is cell permeable, it can kill not only antigen-expressing cells but also neighboring antigen-negative cells.
         </p>
         <v-row>
           <v-col
             cols="12"
-            sm="12"
+            sm="10"
             md="6"
           >
             <v-card elevation="1">   
@@ -92,14 +107,14 @@
       <PaperSubSection title="Screening HER2-targeting ADCs in PRISM">
         <p>To validate suitability of the PRISM assay for ADC screening, we elected to focus on HER2 because it is a well-established ADC target and has a wide expression range across PRISM cell lines. We utilized two HER2-targeting ADCs: trastuzumab emtansine (T-DM1) and trastuzumab-monomethyl auristatin E (T-MMAE). T-DM1 and T-MMAE are both conjugated to trastuzumab, a humanized anti-HER2 monoclonal antibody, but have unique linkers and payloads. Comparative profiling of these agents provides an opportunity to study ADCs that target the same antigen but differ in the bystander killing capabilities of their released payloads. Catabolism of T-MMAE releases a cell-permeable payload capable of inducing bystander activity, whereas the payload of T-DM1 is not cytotoxic to bystander cells.  
         </p>
-        <ContentBlock>
+        <v-card elevation="0" class="grey-card">
           <ul class="no-bullets">
             <li><b>Trastuzumab</b>: a therapeutic monoclonal antibody with clinical indications for HER2 overexpressing solid tumors. It is sold under the brand name Herceptin.</li>
             <li><b>Trastuzumab emtansine (T-DM1)</b>: an ADC consisting of trastuzumab conjugated via a non-cleavable linker (MCC; maleimidomethyl cyclohexane-1-carboxylate) to mertansine (also called DM1), a cytotoxic microtubule inhibitor, with a DAR of 3.518. After T-DM1 is internalized into cells, the released payload (emtansine) is unable to cross the membrane of surrounding HER2-negative cells and is therefore not associated with a bystander killing effect. T-DM1 is FDA approved for the treatment of HER2-overexpressing breast cancer. It is sold under the brand name Kadcyla.</li>
             <li><b>Trastuzumab-monomethyl auristatin E (T-MMAE)</b>: an ADC consisting of trastuzumab conjugated with a cleavable MC—VC—PAB (maleimidocaproyl— valine-citrulline— para-amino benzyl alcohol) linker to monomethyl auristatin E (MMAE), a microtubule inhibitor, at a DAR of 4. T-MMAE was specifically designed to release MMAE, a cell-permeable payload that therefore can exert bystander killing activity. </li>
           </ul>
         
-        </ContentBlock>
+        </v-card>
         <p>ADCs were screened in triplicate at 8 dose points in the PR500 PRISM cell set of adherent cancer cell lines. Vehicle treatment alone and unconjugated trastuzumab antibody were included as controls. After 5 days of treatment, cells were lysed and the barcodes were amplified and detected using the PRISM Luminex workflow. Viability results were normalized to vehicle control, dose response curves were fit, and area under curve (AUC) values were computed for each curve. 
         </p>
 
@@ -193,9 +208,9 @@
   import PaperHeader from '@/components/PaperHeader.vue'
   import PaperSection from '@/components/PaperSection.vue'
   import PaperSubSection from '@/components/PaperSubSection.vue'
-  import ContentBlock from '@/components/ContentBlock.vue'
+  // import ContentBlock from '@/components/ContentBlock.vue'
   import ImageCard from '@/components/ImageCard.vue'
-  import HorizontalImageCard from '@/components/HorizontalImageCard.vue'
+  // import HorizontalImageCard from '@/components/HorizontalImageCard.vue'
   // import $ from "jquery";
   import * as d3 from "d3";
   import * as Vis from '../js/Vis.js';
@@ -204,7 +219,7 @@
   const dataPath = "../../public/data/";
   export default {
         name: 'AntibodyDrugCongugatersPaper',
-        components: {PaperHeader, PaperSection, PaperSubSection, ContentBlock, ImageCard, HorizontalImageCard},
+        components: {PaperHeader, PaperSection, PaperSubSection, ImageCard},
         data () {
           return {
 
@@ -359,7 +374,9 @@
   width:500px;
   display:inline-block;
 }
-@media (max-width: 601px){
+
+
+@media (max-width: 600px){
   .plot{
     height:400px;
     width:98%;
@@ -368,5 +385,9 @@
 
 }
 
+@media (min-width: 600) {
+
+
+}
 
 </style>
