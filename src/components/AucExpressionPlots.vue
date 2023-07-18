@@ -1,8 +1,8 @@
 <template>
       <div>
-        <svg  class="plot" id="plot-0"></svg>
-        <svg  class="plot" id="plot-1"></svg>
-        <svg  class="plot" id="plot-2"></svg>
+        <svg  class="plot" id="expression-auc-plot-0"></svg>
+        <svg  class="plot" id="expression-auc-plot-1"></svg>
+        <svg  class="plot" id="expression-auc-plot-2"></svg>
       </div>
 </template>
 

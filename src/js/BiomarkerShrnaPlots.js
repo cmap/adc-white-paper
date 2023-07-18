@@ -27,8 +27,8 @@ export function launch(data){
     Object.keys(data).forEach((d,i)=>{
        data[d] = data[d].map(e=>{
             return {
-                x: e.auc,
-                y: e.expression,
+                x: e.coef,
+                y: e.qval,
                 r: 3,
                 _info: e
             }
@@ -45,38 +45,38 @@ export function launch(data){
     } 
 
 
-    let plotsConfig2 = []
+    let plotsConfig = []
     Object.keys(data).forEach((d,i)=>{
         data[d].forEach(function(e){
             e.color = d3.interpolateRgbBasis([colorScale.x(e.x), colorScale.y(e.y)])(0.5)
         })
 
-        plotsConfig2.push({
+        plotsConfig.push({
             title: d,
             data: data[d],
-            rootId: `expression-auc-plot-${i}`,
+            rootId: `biomarker-shrna-plot-${i}`,
             padding: padding,
             dimension: {   
-                        width: d3.select(`#expression-auc-plot-${i}`).node().clientWidth, 
-                        height: d3.select(`#expression-auc-plot-${i}`).node().clientWidth
+                        width: d3.select(`#biomarker-shrna-plot-${i}`).node().clientWidth, 
+                        height: d3.select(`#biomarker-shrna-plot-${i}`).node().clientWidth
                     },
             axis: {
                 x: {
                     min: xExtent[0],
                     max: xExtent[1],
-                    title: "AUC"
+                    title: "Correlation"
                 },
                 y: {
-                    min: yExtent[0],
+                    min: 0,
                     max: yExtent[1],
-                    title: "ERBB2 expression"
+                    title: "-log10 (q value)"
                 }
             }
         })
     })    
-console.log(plotsConfig2)
 
- plotsConfig2.forEach(d=>{
+
+ plotsConfig.forEach(d=>{
     console.log(d)
     document.getElementById(`${d.rootId}`).style.height = `${d.dimension.height}px`;
     let plot = new scatter(d)

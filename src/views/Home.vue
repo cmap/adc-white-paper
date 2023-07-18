@@ -133,21 +133,12 @@
     <PaperSubSection title="PRISM screening identifies relevant ADC biomarkers">
       <p>PRISM biomarker analysis enables identification of genomic features and genetic dependencies (gene expression, copy number, proteomics, CRISPR knockdown, shRNA knockdown, etc.) associated with sensitivity. These analyses can identify predictive markers for treatment response or inform potential hypotheses for mechanisms of action. We explored T-DM1 and T-MMAE biomarker results to evaluate whether PRISM screening recovers expected markers of sensitivity to ADCs. 
      </p>
-      <div>
-        <svg class="plot" id="plot-3"></svg>
-        <svg class="plot" id="plot-4"></svg>
-      </div>
+     <BiomarkerGePlots></BiomarkerGePlots>
+
      <p>
       Univariate biomarker analysis identified ERBB2 gene expression and copy number as significantly correlated with sensitivity to both T-DM1 and T-MMAE. Additionally, when comparing PRISM profiles with shRNA dependency data, ERBB2 emerged as one of the top correlated dependencies for both T-DM1 and T-MMAE. These results demonstrate that PRISM screening is capable of identifying relevant targets of ADCs with permeable and non-permeable payloads.
      </p>
-   
-
-      <div>
-
-
-        <svg class="plot" id="plot-5"></svg>
-        <svg class="plot" id="plot-6"></svg>
-      </div>
+   <BiomarkerShrnaPlots></BiomarkerShrnaPlots>
     </PaperSubSection>
     <PaperSubSection title="Validation of ADC bystander activity">
       <p>
@@ -212,15 +203,17 @@
   import PaperSubSection from '@/components/PaperSubSection.vue'
   import ImageCard from '@/components/ImageCard.vue'
   import AucExpressionPlots from '@/components/AucExpressionPlots.vue'
+  import BiomarkerShrnaPlots from '@/components/BiomarkerShrnaPlots.vue'
+  import BiomarkerGePlots from '@/components/BiomarkerGePlots.vue'
   import * as d3 from "d3";
-  import * as Vis from '../js/Vis.js';
+  // import * as Vis from '../js/Vis.js';
 
 
 
   const dataPath = "../../data/";
   export default {
         name: 'Home',
-        components: {PaperHeader, PaperSection, PaperSubSection, ImageCard, AucExpressionPlots},
+        components: {PaperHeader, PaperSection, PaperSubSection, ImageCard, AucExpressionPlots, BiomarkerGePlots, BiomarkerShrnaPlots},
         data () {
           return {
 
