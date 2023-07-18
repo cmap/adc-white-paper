@@ -21,7 +21,7 @@
             sm="3"
             md="3"
           >
-            <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../graphics/01 PRISM hero cell lines.png"/>
+            <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../graphics/01_PRISM_assay.png"/>
           </v-col>
           <v-col
             cols="12"
@@ -29,7 +29,7 @@
             sm="3"
             md="3"
           >
-            <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../graphics/02 PRISM hero test agents.png"/>
+            <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../graphics/02_PRISM_assay.png"/>
           </v-col>
           <v-col
             cols="12"
@@ -37,7 +37,7 @@
             sm="3"
             md="3"
           >
-            <ImageCard title="5-day viability assay" description="plated+treated" img="../../graphics/03 PRISM hero viability assay.png"/>
+            <ImageCard title="5-day viability assay" description="plated+treated" img="../../graphics/03_PRISM_assay.png"/>
 
           </v-col>
           <v-col
@@ -46,7 +46,7 @@
             sm="3"
             md="3"
           >
-          <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../graphics/04 PRISM hero data.png"/>
+          <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../graphics/04_PRISM_assay.png"/>
           </v-col>
 
         </v-row>
@@ -66,7 +66,7 @@
         <v-row>
             <v-col cols="12" xs="12" sm="4" md="4" lg="3">
               <v-card elevation="1">
-                <v-img src="../../graphics/adc_components.png"></v-img>
+                <v-img src="../../public/graphics/05_adc_components.png"></v-img>
               </v-card>
             </v-col>
             <v-col cols="12" xs="12" sm="8" md="8" lg="8">
@@ -91,7 +91,7 @@
             md="6"
           >
             <v-card elevation="1">   
-            <v-img class="center-image" src="../../graphics/adc_killing_mechanism.png"></v-img>
+            <v-img class="center-image" src="../../public/graphics/06_adc_killing_mechanism.png"></v-img>
           </v-card>
           </v-col>
         </v-row>
