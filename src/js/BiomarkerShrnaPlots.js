@@ -18,7 +18,7 @@ d3.selection.prototype.moveToBack = function() {
     });
 };
 
-
+let plots = [];
 const padding = {top: 50, right: 35, bottom:50, left:65};
 
 export function launch(data){
@@ -30,6 +30,7 @@ export function launch(data){
                 x: e.coef,
                 y: e.qval,
                 r: 3,
+                name: e.feature,
                 _info: e
             }
         }),
@@ -76,13 +77,27 @@ export function launch(data){
     })    
 
 
- plotsConfig.forEach(d=>{
-    console.log(d)
-    document.getElementById(`${d.rootId}`).style.height = `${d.dimension.height}px`;
-    let plot = new scatter(d)
-    d3.selectAll(".domain").remove()
- })
 
+    plotsConfig.forEach(d=>{
+        document.getElementById(`${d.rootId}`).style.height = `${d.dimension.height}px`;
+        let plot = new scatter(d)
+        plots.push(plot)
+        d3.selectAll(".domain").remove()
+     })
+    
+}
+export function highlight(selected){
+plots.forEach(plot=>{
+    d3.select(`#${plot.rootId}-g`)
+        .selectAll("circle")
+        .attr("r", d=> d.r)
+        .attr("stroke", d=> d.color)
+        .filter(d=> selected.includes(d.name))
+        .attr("r", d=> d.r*2)
+        .attr("stroke", "black")
+        .moveToFront()
+
+    })
 }
 
 

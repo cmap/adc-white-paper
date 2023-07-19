@@ -74,10 +74,10 @@ export function launch(data){
             }
         })
     })    
-console.log(plotsConfig2)
+
 
  plotsConfig2.forEach(d=>{
-    console.log(d)
+
     document.getElementById(`${d.rootId}`).style.height = `${d.dimension.height}px`;
     let plot = new scatter(d)
     d3.selectAll(".domain").remove()

@@ -1,4 +1,5 @@
 <template>
+
       <v-autocomplete
           v-model="selected"
           :items="items"
@@ -60,7 +61,7 @@
                   TMMAE: response[1]
                 }
                 this.items = [...new Set(response[0].concat(response[1]).map(d=>d.feature))].sort()
-                console.log(this.items)
+             
 
                 Vis.launch(data)
                 Vis.highlight(this.selected)
@@ -69,6 +70,10 @@
         },
         watch: {
           selected(){
+            console.log(this.selected)
+            this.selected.forEach(d=>{
+              console.log(d)
+            })
             Vis.highlight(this.selected)
           }
         }

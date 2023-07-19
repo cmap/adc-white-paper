@@ -1,4 +1,15 @@
 <template>
+        <v-autocomplete
+          v-model="selected"
+          :items="items"
+          label="Search"
+          multiple
+          chips
+          hint="Search genes to highlight"
+          persistent-hint
+          closable-chips
+      >
+      </v-autocomplete>
       <div>
         <svg  class="plot" id="biomarker-shrna-plot-0"></svg>
         <svg  class="plot" id="biomarker-shrna-plot-1"></svg>
@@ -16,7 +27,8 @@
         name: 'BiomarkerShrnaPlots',
         data () {
           return {
-
+            items:[],
+            selected: ["ERBB2"]
           }
         },
         mounted(){
@@ -29,14 +41,14 @@
             Promise.all([
                 d3.csv(`${dataPath}biomarker_shRNA_T-DM1.csv`, function(d){
                     return {
-                      feature: d["feature"],
+                      feature: d["feature"].slice(6),
                       coef: +d["coef"],
                       qval: +d["log10(q.val)"]
                     }
                 }),
                 d3.csv(`${dataPath}biomarker_shRNA_T-MMAE.csv`, function(d){
                     return {
-                      feature: d["feature"],
+                      feature: d["feature"].slice(6),
                       coef: +d["coef"],
                       qval: +d["log10(q.val)"]
                     }
@@ -48,8 +60,17 @@
                   TMMAE: response[1]
                 }
 
+                this.items = [...new Set(response[0].concat(response[1]).map(d=>d.feature))].sort()
+             console.log(this.items)
+
                 Vis.launch(data)
+                Vis.highlight(this.selected)
             })
+          }
+        },
+        watch: {
+          selected(){
+            Vis.highlight(this.selected)
           }
         }
       }
@@ -59,7 +80,6 @@
 .plot{
   width:30%;
   display:inline-block;
-  border:1px solid black
 }
 
 

@@ -77,7 +77,6 @@
 .plot{
   width:30%;
   display:inline-block;
-  border:1px solid black
 }
 
 
