@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
-    <h4 class="sup-title">{{ supTitle }}</h4>
+    <span class="sup-title">{{ supTitle }}</span>
     <h1 class="title">{{  title  }}</h1>    
-    <h4 class="date">{{  date }} </h4>    
+    <span class="date">{{  date }} </span>    
   </div>
 </template>
 
@@ -30,16 +30,23 @@ export default {
 .wrapper{
   margin:32px 0px;
 }
-h1, h4{
-  margin:16px 0px;
+h1{
+  margin:8px 0px;
 }
+
 .sup-title{
+  font-size: 0.8em;
+  line-height:1em;
+  margin:0px;
   font-weight:600;
   color:#8e62c2;
   text-transform:uppercase;
 }
  .date{
+  font-size: 0.8em;
   font-weight:400;
+  line-height:1em;
+  margin:0px;
 }
 
 

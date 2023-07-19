@@ -127,29 +127,18 @@
         The correlation between HER2 expression level and antitumor efficacy of trastuzumab ADCs has been well established19; therefore, we explored whether the selectivity of T-MMAE and T-DM1 was associated with ERBB2 (HER2) gene expression. We found a clear association between the cell line sensitivity profile and ERBB2 overexpression for both T-DM1 and T-MMAE. The strongest effects on viability were observed in a subset of cell lines that overexpress ERBB2. Importantly, the correlation of ERBB2 expression with treatment sensitivity was retained for T-MMAE, despite its ability to exert bystander killing effects, which could potentially confound target identification. As expected, trastuzumab alone was relatively inert across all PRISM cell lines. These results indicate that PRISM pooled cell line screening is capable of maintaining selectivity of the primary target for ADCs with different payload characteristics.
 
       </p>
-      <div>
-        <svg  class="plot" id="plot-1"></svg>
-        <svg  class="plot" id="plot-2"></svg>
-      </div>
+      <AucExpressionPlots></AucExpressionPlots>
+
     </PaperSubSection>
     <PaperSubSection title="PRISM screening identifies relevant ADC biomarkers">
       <p>PRISM biomarker analysis enables identification of genomic features and genetic dependencies (gene expression, copy number, proteomics, CRISPR knockdown, shRNA knockdown, etc.) associated with sensitivity. These analyses can identify predictive markers for treatment response or inform potential hypotheses for mechanisms of action. We explored T-DM1 and T-MMAE biomarker results to evaluate whether PRISM screening recovers expected markers of sensitivity to ADCs. 
      </p>
-      <div>
-        <svg class="plot" id="plot-3"></svg>
-        <svg class="plot" id="plot-4"></svg>
-      </div>
+     <BiomarkerGePlots></BiomarkerGePlots>
+
      <p>
       Univariate biomarker analysis identified ERBB2 gene expression and copy number as significantly correlated with sensitivity to both T-DM1 and T-MMAE. Additionally, when comparing PRISM profiles with shRNA dependency data, ERBB2 emerged as one of the top correlated dependencies for both T-DM1 and T-MMAE. These results demonstrate that PRISM screening is capable of identifying relevant targets of ADCs with permeable and non-permeable payloads.
      </p>
-   
-
-      <div>
-
-
-        <svg class="plot" id="plot-5"></svg>
-        <svg class="plot" id="plot-6"></svg>
-      </div>
+   <BiomarkerShrnaPlots></BiomarkerShrnaPlots>
     </PaperSubSection>
     <PaperSubSection title="Validation of ADC bystander activity">
       <p>
@@ -212,25 +201,26 @@
   import PaperHeader from '@/components/PaperHeader.vue'
   import PaperSection from '@/components/PaperSection.vue'
   import PaperSubSection from '@/components/PaperSubSection.vue'
-  // import ContentBlock from '@/components/ContentBlock.vue'
   import ImageCard from '@/components/ImageCard.vue'
-  // import HorizontalImageCard from '@/components/HorizontalImageCard.vue'
-  // import $ from "jquery";
+  import AucExpressionPlots from '@/components/AucExpressionPlots.vue'
+  import BiomarkerShrnaPlots from '@/components/BiomarkerShrnaPlots.vue'
+  import BiomarkerGePlots from '@/components/BiomarkerGePlots.vue'
   import * as d3 from "d3";
-  import * as Vis from '../js/Vis.js';
+  // import * as Vis from '../js/Vis.js';
+
 
 
   const dataPath = "../../data/";
   export default {
         name: 'Home',
-        components: {PaperHeader, PaperSection, PaperSubSection, ImageCard},
+        components: {PaperHeader, PaperSection, PaperSubSection, ImageCard, AucExpressionPlots, BiomarkerGePlots, BiomarkerShrnaPlots},
         data () {
           return {
 
           }
         },
         mounted(){
-          this.getData()
+      //    this.getData()
         },
         methods: {
 
@@ -261,32 +251,34 @@
                     return {
                       feature: d["feature"],
                       coef: +d["coef"],
-                      qval: +d["qval"]
+                      qval: +d["log10(q.val)"]
                     }
                 }),
                 d3.csv(`${dataPath}biomarker_GE_T-MMAE.csv`, function(d){
                     return {
                       feature: d["feature"],
                       coef: +d["coef"],
-                      qval: +d["qval"]
+                      qval: +d["log10(q.val)"]
                     }
                 }),
                 d3.csv(`${dataPath}biomarker_shRNA_T-DM1.csv`, function(d){
                     return {
                       feature: d["feature"],
                       coef: +d["coef"],
-                      qval: +d["qval"]
+                      qval: +d["log10(q.val)"]
                     }
                 }),
                 d3.csv(`${dataPath}biomarker_shRNA_T-MMAE.csv`, function(d){
                     return {
                       feature: d["feature"],
                       coef: +d["coef"],
-                      qval: +d["qval"]
+                      qval: +d["log10(q.val)"]
                     }
                 })
 
               ]).then(response=>{
+
+
                 let TDM1_AUC_Config = {
                   data: response[0].map(d=>{
                     return {
@@ -360,8 +352,10 @@
                   rootId: "plot-6"
                 }
 
+         
                 Vis.useScatter(TDM1_AUC_Config)
                 Vis.useScatter(TMMAE_AUC_Config)
+
                 Vis.useVolcano(TDM1_GE_Config)
                 Vis.useVolcano(TMMAE_GE_Config)
                 Vis.useVolcano(TDM1_shRNA_Config)
