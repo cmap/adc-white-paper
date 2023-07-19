@@ -74,20 +74,40 @@ export default class scatter {
             .attr("transform", `translate(${this.padding.left}, ${this.padding.top})`)
 
         let scatterPt = svg.selectAll(".scatter-pt")
-            .data(this.data)
+        .data(this.data)
 
         scatterPt.exit().remove()
         scatterPt
             .enter()
-            .append("circle")
+            .append("g")
             .merge(scatterPt)
             .attr("class", "scatter-pt")
-            .attr("cx", d=> this.scale.x(d.x))
-            .attr("cy", d=> this.scale.y(d.y))
-            .attr("r", d=>d.r)
-            .attr("fill", d=>d.color)
-            .attr("stroke", d=>d.color)
-            .attr("fill-opacity", .5)
+            .attr("transform", d=> `translate(${ this.scale.x(d.x)}, ${ this.scale.y(d.y)})`)
+            .each(function(d){
+                d3.select(this).append("circle")
+                .attr("r", d=>d.r)
+                .attr("fill", d=>d.color)
+                .attr("stroke", d=>d.color)
+                .attr("fill-opacity", .5)
+            })
+
+        // let scatterPt = svg.selectAll(".scatter-pt")
+        //     .data(this.data)
+
+        // scatterPt.exit().remove()
+        // scatterPt
+        //     .enter()
+        //     .append("circle")
+        //     .merge(scatterPt)
+        //     .attr("class", "scatter-pt")
+        //     .attr("cx", d=> this.scale.x(d.x))
+        //     .attr("cy", d=> this.scale.y(d.y))
+        //     .attr("r", d=>d.r)
+        //     .attr("fill", d=>d.color)
+        //     .attr("stroke", d=>d.color)
+        //     .attr("fill-opacity", .5)
+
+        // svg.append("text").attr("class", "tooltip")
 
         this._axis()
         this._title()
