@@ -2,17 +2,19 @@
       <v-autocomplete
           v-model="selected"
           :items="items"
-          label="Search"
+          label="Search genes to highlight"
           multiple
           chips
-          hint="Search genes to highlight"
-          persistent-hint
           closable-chips
+          variant="underlined"
+          clearable
       >
       </v-autocomplete>
+      <v-btn size="x-small" variant="tonal" color="primary" @click="clickDefault">Highlight ERBB2</v-btn>
+      <small class="small-directive">Mouseover over points to show labels</small>
       <div>
-        <svg  class="plot" id="biomarker-ge-plot-0"></svg>
-        <svg  class="plot" id="biomarker-ge-plot-1"></svg>
+        <svg  class="biomarker-plot plot" id="biomarker-ge-plot-0"></svg>
+        <svg  class="biomarker-plot plot" id="biomarker-ge-plot-1"></svg>
       </div>
 </template>
 
@@ -28,14 +30,17 @@
         data () {
           return {
             items:[],
-            selected: ["ERBB2"]
+            selected: ["ERBB2"],
+            defaulted: ["ERBB2"]
           }
         },
         mounted(){
           this.getData()
         },
         methods: {
-
+          clickDefault(){
+            this.selected = this.defaulted;
+          },
            getData() {
 
             Promise.all([
@@ -79,17 +84,14 @@
 .plot{
   width:30%;
   display:inline-block;
+  overflow: visible;
 }
 
-.scatter-pt.selected{
-  fill-opacity: 1;
-  stroke-width:5px;
-}
+
 
 @media (max-width: 600px){
   .plot{
     width:98%;
-    display:inline-block;
   }
 
 }

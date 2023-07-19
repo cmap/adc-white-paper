@@ -2,18 +2,21 @@
     <v-autocomplete
           v-model="selected"
           :items="items"
-          label="Search"
+          label="Search cell lines to highlight"
           multiple
           chips
-          hint="Search cell lines to highlight"
-          persistent-hint
           closable-chips
+          clearable
+          variant="underlined"
+          elevation="0"
       >
       </v-autocomplete>
+      <v-btn size="x-small" variant="tonal" color="primary" @click="clickDefault">Highlight ERBB2 (HER2) overexpressing cell lines</v-btn>
+      <small class="small-directive">Mouseover points to show labels</small>
       <div>
-        <svg  class="plot" id="expression-auc-plot-0"></svg>
-        <svg  class="plot" id="expression-auc-plot-1"></svg>
-        <svg  class="plot" id="expression-auc-plot-2"></svg>
+        <svg  class="plot expression-auc-plot" id="expression-auc-plot-0"></svg>
+        <svg  class="plot expression-auc-plot" id="expression-auc-plot-1"></svg>
+        <svg  class="plot expression-auc-plot" id="expression-auc-plot-2"></svg>
       </div>
 </template>
 
@@ -29,13 +32,17 @@
         data () {
           return {
             items:[],
-            selected: ["BT474", "EFM192A", "HCC1419", "KYSE410", "MKN7", "NCIH2170", "NCIN87", "OE19", "SKOV3", "TE4"]
+            selected: ["BT474", "EFM192A", "HCC1419", "KYSE410", "MKN7", "NCIH2170", "NCIN87", "OE19", "SKOV3", "TE4"],
+            defaulted: ["BT474", "EFM192A", "HCC1419", "KYSE410", "MKN7", "NCIH2170", "NCIN87", "OE19", "SKOV3", "TE4"]
           }
         },
         mounted(){
           this.getData()
         },
         methods: {
+          clickDefault(){
+            this.selected = this.defaulted;
+          },
 
            getData() {
 
@@ -79,7 +86,6 @@
                 }
 
                 this.items = [...new Set(response[0].concat(response[1]).concat(response[2]).map(d=>d.feature))].sort()
-             console.log(this.items)
 
                 Vis.launch(data)
                 Vis.highlight(this.selected)
@@ -98,14 +104,13 @@
 .plot{
   width:30%;
   display:inline-block;
+  overflow: visible;
 }
-
 
 
 @media (max-width: 600px){
   .plot{
     width:98%;
-    display:inline-block;
   }
 
 }
