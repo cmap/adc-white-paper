@@ -5,15 +5,18 @@
           label="Search cell lines to highlight"
           multiple
           chips
-          persistent-hint
           closable-chips
+          clearable
+          variant="underlined"
+          elevation="0"
       >
       </v-autocomplete>
-      <v-btn size="x-small" variant="plain" color="primary" @click="clickDefault">Highlight ERBB2 (HER2) overexpressing cell lines</v-btn>
+      <v-btn size="x-small" variant="tonal" color="primary" @click="clickDefault">Highlight ERBB2 (HER2) overexpressing cell lines</v-btn>
+      <small class="small-directive">Mouseover points to show labels</small>
       <div>
-        <svg  class="plot" id="expression-auc-plot-0"></svg>
-        <svg  class="plot" id="expression-auc-plot-1"></svg>
-        <svg  class="plot" id="expression-auc-plot-2"></svg>
+        <svg  class="plot expression-auc-plot" id="expression-auc-plot-0"></svg>
+        <svg  class="plot expression-auc-plot" id="expression-auc-plot-1"></svg>
+        <svg  class="plot expression-auc-plot" id="expression-auc-plot-2"></svg>
       </div>
 </template>
 
@@ -101,18 +104,13 @@
 .plot{
   width:30%;
   display:inline-block;
+  overflow: visible;
 }
 
-.v-input__details {
-
-
-display:none !important;
-}
 
 @media (max-width: 600px){
   .plot{
     width:98%;
-    display:inline-block;
   }
 
 }

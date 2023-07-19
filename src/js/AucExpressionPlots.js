@@ -82,9 +82,26 @@ export function launch(data){
         let plot = new scatter(d)
         plots.push(plot)
         d3.selectAll(".domain").remove()
+
      })
-    
+    tooltip()
+
 }
+
+function tooltip(){
+    let eachPlot = d3.selectAll(".expression-auc-plot").select("g");
+    let pts = eachPlot.selectAll(".scatter-pt");
+    pts.on("mouseover", function(event, d){
+        let selected = pts.filter(e=> e.name == d.name).moveToFront().classed("mouseover", true)
+        selected.append("text").html(d.name).attr("class", "scatter-pt-label").attr("dy", -8).attr("text-anchor", "middle")
+       })
+       .on("mouseleave", function(){
+            pts.selectAll("text").remove()
+            pts.classed("mouseover", false)
+       })    
+}
+
+
 export function highlight(selected){
 plots.forEach(plot=>{
     d3.select(`#${plot.rootId}-g`)
