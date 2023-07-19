@@ -52,7 +52,12 @@ b, strong{
     background-color:#f5f5f5 !important;
     border-radius:4px !important;
 }
+.v-input__details {
 
+
+  display:none !important;
+  }
+  
 .no-bullets{
   list-style: none;
 }

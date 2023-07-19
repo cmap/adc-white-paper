@@ -2,14 +2,14 @@
     <v-autocomplete
           v-model="selected"
           :items="items"
-          label="Search"
+          label="Search cell lines to highlight"
           multiple
           chips
-          hint="Search cell lines to highlight"
           persistent-hint
           closable-chips
       >
       </v-autocomplete>
+      <v-btn size="x-small" variant="plain" color="primary" @click="clickDefault">Highlight ERBB2 (HER2) overexpressing cell lines</v-btn>
       <div>
         <svg  class="plot" id="expression-auc-plot-0"></svg>
         <svg  class="plot" id="expression-auc-plot-1"></svg>
@@ -29,13 +29,17 @@
         data () {
           return {
             items:[],
-            selected: ["BT474", "EFM192A", "HCC1419", "KYSE410", "MKN7", "NCIH2170", "NCIN87", "OE19", "SKOV3", "TE4"]
+            selected: ["BT474", "EFM192A", "HCC1419", "KYSE410", "MKN7", "NCIH2170", "NCIN87", "OE19", "SKOV3", "TE4"],
+            defaulted: ["BT474", "EFM192A", "HCC1419", "KYSE410", "MKN7", "NCIH2170", "NCIN87", "OE19", "SKOV3", "TE4"]
           }
         },
         mounted(){
           this.getData()
         },
         methods: {
+          clickDefault(){
+            this.selected = this.defaulted;
+          },
 
            getData() {
 
@@ -79,7 +83,6 @@
                 }
 
                 this.items = [...new Set(response[0].concat(response[1]).concat(response[2]).map(d=>d.feature))].sort()
-             console.log(this.items)
 
                 Vis.launch(data)
                 Vis.highlight(this.selected)
@@ -100,7 +103,11 @@
   display:inline-block;
 }
 
+.v-input__details {
 
+
+display:none !important;
+}
 
 @media (max-width: 600px){
   .plot{

@@ -2,14 +2,14 @@
       <v-autocomplete
           v-model="selected"
           :items="items"
-          label="Search"
+          label="Search genes to highlight"
           multiple
           chips
-          hint="Search genes to highlight"
           persistent-hint
           closable-chips
       >
       </v-autocomplete>
+      <v-btn size="x-small" variant="plain" color="primary" @click="clickDefault">Highlight ERBB2</v-btn>
       <div>
         <svg  class="plot" id="biomarker-ge-plot-0"></svg>
         <svg  class="plot" id="biomarker-ge-plot-1"></svg>
@@ -28,14 +28,17 @@
         data () {
           return {
             items:[],
-            selected: ["ERBB2"]
+            selected: ["ERBB2"],
+            defaulted: ["ERBB2"]
           }
         },
         mounted(){
           this.getData()
         },
         methods: {
-
+          clickDefault(){
+            this.selected = this.defaulted;
+          },
            getData() {
 
             Promise.all([
