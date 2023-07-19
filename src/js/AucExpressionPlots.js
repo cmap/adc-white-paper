@@ -18,7 +18,7 @@ d3.selection.prototype.moveToBack = function() {
     });
 };
 
-
+let plots = [];
 const padding = {top: 50, right: 35, bottom:50, left:65};
 
 export function launch(data){
@@ -30,6 +30,7 @@ export function launch(data){
                 x: e.auc,
                 y: e.expression,
                 r: 3,
+                name: e.cell_line,
                 _info: e
             }
         }),
@@ -45,13 +46,13 @@ export function launch(data){
     } 
 
 
-    let plotsConfig2 = []
+    let plotsConfig = []
     Object.keys(data).forEach((d,i)=>{
         data[d].forEach(function(e){
             e.color = d3.interpolateRgbBasis([colorScale.x(e.x), colorScale.y(e.y)])(0.5)
         })
 
-        plotsConfig2.push({
+        plotsConfig.push({
             title: d,
             data: data[d],
             rootId: `expression-auc-plot-${i}`,
@@ -76,15 +77,25 @@ export function launch(data){
     })    
 
 
- plotsConfig2.forEach(d=>{
-
-    document.getElementById(`${d.rootId}`).style.height = `${d.dimension.height}px`;
-    let plot = new scatter(d)
-    d3.selectAll(".domain").remove()
- })
-
+    plotsConfig.forEach(d=>{
+        document.getElementById(`${d.rootId}`).style.height = `${d.dimension.height}px`;
+        let plot = new scatter(d)
+        plots.push(plot)
+        d3.selectAll(".domain").remove()
+     })
+    
 }
+export function highlight(selected){
+plots.forEach(plot=>{
+    d3.select(`#${plot.rootId}-g`)
+        .selectAll("circle")
+        .attr("r", d=> d.r)
+        .attr("stroke", d=> d.color)
+        .filter(d=> selected.includes(d.name))
+        .attr("r", d=> d.r*2)
+        .attr("stroke", "black")
+        .moveToFront()
 
-
-
+    })
+}
 

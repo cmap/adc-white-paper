@@ -1,4 +1,15 @@
 <template>
+    <v-autocomplete
+          v-model="selected"
+          :items="items"
+          label="Search"
+          multiple
+          chips
+          hint="Search cell lines to highlight"
+          persistent-hint
+          closable-chips
+      >
+      </v-autocomplete>
       <div>
         <svg  class="plot" id="expression-auc-plot-0"></svg>
         <svg  class="plot" id="expression-auc-plot-1"></svg>
@@ -17,7 +28,8 @@
         name: 'AucExpressionPlots',
         data () {
           return {
-
+            items:[],
+            selected: ["BT474", "EFM192A", "HCC1419", "KYSE410", "MKN7", "NCIH2170", "NCIN87", "OE19", "SKOV3", "TE4"]
           }
         },
         mounted(){
@@ -66,8 +78,17 @@
                   TRA: response[2]
                 }
 
+                this.items = [...new Set(response[0].concat(response[1]).concat(response[2]).map(d=>d.feature))].sort()
+             console.log(this.items)
+
                 Vis.launch(data)
+                Vis.highlight(this.selected)
             })
+          }
+        },
+        watch: {
+          selected(){
+            Vis.highlight(this.selected)
           }
         }
       }
