@@ -144,7 +144,7 @@
       <p>
         Next, we further explored bystander activities of T-DM1 and T-MMAE. Overall, we did not observe robust HER2-independent cytotoxicity by either T-DM1 or T-MMAE. These results are consistent with expected activity for T-DM1; however, T-MMAE releases a cell permeable payload that can kill neighboring cells. To account for our observations, we speculated that the relative abundance of HER2-positive target cells in PRISM pools could be too low to induce a bystander killing effect. We evaluated the quantity and distribution of target cell lines based on ERBB2 gene expression status and identified ten HER2-positive cell lines in the PR500 cell set. Looking across PRISM pools, the number of HER2-positive cells ranges from 1-3 cell lines per pool, each of which consist of 20-25 total cell lines. 
       </p>
-      FIGURE 7
+      <ExpressionAcrossPoolsPlots></ExpressionAcrossPoolsPlots>
       <p>
         Next, we developed a co-culture assay system consisting of fluorescently labeled HER2-positive NCIN87 cells and HER2-negative HCC1806 cells to confirm bystander killing capabilities of T-DM1 and T-MMAE. Co-cultures of GFP-NCIN87 cells and RFP-HCC1806 cells were seeded at 4 different ratios (1:1, 1:2, 1:5, and 1:20). In addition, each cell line was plated and treated individually. Cells were exposed to T-MMAE and T-DM1 at the same concentrations and treatment conditions as performed in the PRISM screen. Cell counts of each line were quantified by fluorescent imaging. 
 
@@ -205,6 +205,7 @@
   import AucExpressionPlots from '@/components/AucExpressionPlots.vue'
   import BiomarkerShrnaPlots from '@/components/BiomarkerShrnaPlots.vue'
   import BiomarkerGePlots from '@/components/BiomarkerGePlots.vue'
+  import ExpressionAcrossPoolsPlots from '@/components/ExpressionAcrossPoolsPlots.vue'
   import * as d3 from "d3";
   // import * as Vis from '../js/Vis.js';
 
@@ -213,7 +214,7 @@
   const dataPath = "../../data/";
   export default {
         name: 'Home',
-        components: {PaperHeader, PaperSection, PaperSubSection, ImageCard, AucExpressionPlots, BiomarkerGePlots, BiomarkerShrnaPlots},
+        components: {PaperHeader, PaperSection, PaperSubSection, ImageCard, AucExpressionPlots, BiomarkerGePlots, BiomarkerShrnaPlots, ExpressionAcrossPoolsPlots},
         data () {
           return {
 

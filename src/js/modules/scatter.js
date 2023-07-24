@@ -59,7 +59,7 @@ export default class scatter {
 
         this.scale = {
             x: d3.scaleLinear().domain(getExtent("x")).range([0, this.dimension.innerWidth]).nice(),
-            y: d3.scaleLinear().domain(getExtent("y")).range([this.dimension.innerHeight, 0])
+            y: d3.scaleLinear().domain(getExtent("y")).range([this.dimension.innerHeight, 0]).nice()
         }
     }
     render(){
@@ -133,6 +133,8 @@ export default class scatter {
                 .scale(this.scale.x)   
                 .ticks(5)
                 .tickPadding(tickPadding)
+           //     .tickSize(-this.dimension.innerHeight)
+                .tickSize(0)
                .tickSizeInner(-this.dimension.innerHeight);
 
                 svg.append("g")
@@ -144,7 +146,6 @@ export default class scatter {
                     .attr("class", "axis title")
                     .attr("x", this.dimension.innerWidth/2)
                     .attr("y",  this.dimension.innerHeight + (this.padding.bottom))
-                    // .attr("dy", "3em")
                     .attr("text-anchor", "middle")
                     .html(this.axis.x.title)
             
@@ -153,20 +154,20 @@ export default class scatter {
             const y = d3.axisLeft(this.scale.y) 
                 .ticks(5) 
                 .tickPadding(tickPadding)
-                .tickSize(-this.dimension.innerWidth)
+                .tickSize(0)
+                .tickSizeInner(-this.dimension.innerWidth)
 
             svg.append("g")
                 .attr("class", "axis axis y")
                 .attr("transform", `translate(0,0)`)
                 .call(y)
-          //  if (this.display.yTitle){
-                svg.append("text")
+            
+            svg.append("text")
                 .attr("class", "axis title")
                 .attr("transform", `translate(${-this.padding.left},${ this.dimension.innerHeight/2})rotate(-90)`)
                 .attr("dy", "1em")
                 .attr("text-anchor", "middle")
                 .html(this.axis.y.title)
-           // }
 
         }
         renderAxisX()
