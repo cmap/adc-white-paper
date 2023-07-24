@@ -35,7 +35,7 @@
                       pert_dose: +d["pert_dose"],
                       pert_dose_units: d["pert_dose_units"],
                       sample: d["sample"],
-                      ratio: +d["ratio"],
+                      ratio: d["ratio"],
                       culture_type: d["culture_type"]
                     }
                 }),
@@ -46,7 +46,7 @@
                       pert_dose: +d["pert_dose"],
                       pert_dose_units: d["pert_dose_units"],
                       sample: d["sample"],
-                      ratio: +d["ratio"],
+                      ratio: d["ratio"],
                       culture_type: d["culture_type"]
                     }
                 }),

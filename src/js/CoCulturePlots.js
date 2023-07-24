@@ -21,13 +21,13 @@ d3.selection.prototype.moveToBack = function() {
 const padding = {top: 75, right: 35, bottom:50, left:65};
 
 export function launch(data){
+// CELL LINE is the series???
 console.log(data)
-
 let mergeData = []
 Object.keys(data).forEach((d,i)=>{
    data[d] = data[d].map(e=>{
         return {
-            x: e.pert_dose,
+            x: +e.pert_dose,
             y: e.viability,
             r: 3,
             series: e.ratio,
@@ -40,18 +40,25 @@ mergeData = mergeData.flat()
 
 let xExtent = d3.extent(mergeData.map(d=>d.x))
 let yExtent = d3.extent(mergeData.map(d=>d.y))
-
-
+let seriesExtent = [...new Set(mergeData.map(d=>d.series))]
+let colorScale = d3.scaleSequential().interpolator(d3.interpolateHcl("purple", "#ffd46e")).domain([0, seriesExtent.length])
 
 let plotsConfig = []
 Object.keys(data).forEach((d,i)=>{
-    data[d].forEach(function(e){
-        e.color = "blue"
+
+    let series = d3.groups(data[d], d => d.series).sort((a, b) => {
+        return d3.ascending(a[0], b[0])
+    }).map((d,i) => {
+        return {
+            series: d[0],
+            color: colorScale(i),
+            data: d[1].sort(function(a,b){ return d3.ascending(a.x, b.x)}),
+        }
     })
 
     plotsConfig.push({
         title: d,
-        data: data[d],
+        data: series,
         rootId: `co-culture-plot-${i}`,
         padding: padding,
         dimension: {   
@@ -74,11 +81,10 @@ Object.keys(data).forEach((d,i)=>{
 })    
 
 
+
 plotsConfig.forEach(d=>{
     document.getElementById(`${d.rootId}`).style.height = `${d.dimension.height}px`;
     let plot = new lineplot(d)
-    // plots.push(plot)
-    //   d3.selectAll(".domain").remove()
 })
 
 

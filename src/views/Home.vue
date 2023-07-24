@@ -193,7 +193,48 @@
     </p>
     
   </PaperSection>
+  <PaperSection title="Citations">
+    <ol>
+      <li>Fu, Z., Li, S., Han, S., Shi, C. & Zhang, Y. Antibody drug conjugate: the ‘biological missile’ for targeted cancer therapy. Signal Transduct Target Ther 7, 93 (2022).
+</li>
+      <li>Zinn, S. et al. Advances in antibody-based therapy in oncology. Nat Cancer 4, 165–180 (2023).
+</li>
+      <li>Carter, P. J. & Rajpal, A. Designing antibodies as therapeutics. Cell 185, 2789–2805 (2022).
+</li>
+      <li>Drago, J. Z., Modi, S. & Chandarlapaty, S. Unlocking the potential of antibody-drug conjugates for cancer therapy. Nat. Rev. Clin. Oncol. 18, 327–344 (2021).
+</li>
+      <li>Joubert, N., Beck, A., Dumontet, C. & Denevault-Sabourin, C. Antibody-Drug Conjugates: The Last Decade. Pharmaceuticals  13, (2020).
+</li>
+      <li>Nessler, I., Menezes, B. & Thurber, G. M. Key metrics to expanding the pipeline of successful antibody-drug conjugates. Trends Pharmacol. Sci. 42, 803–812 (2021).
+</li>
+      <li>Colombo, R. & Rich, J. R. The therapeutic window of antibody drug conjugates: A dogma in need of revision. Cancer Cell 40, 1255–1263 (2022).
+</li>
+      <li>Hinrichs, M. J. M. & Dixit, R. Antibody Drug Conjugates: Nonclinical Safety Considerations. AAPS J. 17, 1055–1064 (2015).
+</li>
+      <li>Yu, C. et al. High-throughput identification of genotype-specific cancer vulnerabilities in mixtures of barcoded tumor cell lines. Nat. Biotechnol. 34, 419–423 (2016).</li>
+      <li>Corsello, S. M. et al. Discovering the anti-cancer potential of non-oncology drugs by systematic viability profiling. Nat Cancer 1, 235–248 (2020).
+</li>
+      <li>McPherson, M. J. & Hobson, A. D. Pushing the Envelope: Advancement of ADCs Outside of Oncology. Methods Mol. Biol. 2078, 23–36 (2020).
+</li>
+      <li>Theocharopoulos, C., Lialios, P.-P., Samarkos, M., Gogas, H. & Ziogas, D. C. Antibody-Drug Conjugates: Functional Principles and Applications in Oncology and Beyond. Vaccines (Basel) 9, (2021).
+</li>
+      <li>Drake, P. M. & Rabuka, D. Recent Developments in ADC Technology: Preclinical Studies Signal Future Clinical Trends. BioDrugs 31, 521–531 (2017).
+</li>
+      <li>Chalouni, C. & Doll, S. Fate of Antibody-Drug Conjugates in Cancer Cells. J. Exp. Clin. Cancer Res. 37, 20 (2018).</li>
+      <li>Yarden, Y. & Sliwkowski, M. X. Untangling the ErbB signalling network. Nat. Rev. Mol. Cell Biol. 2, 127–137 (2001).
+</li>
+      <li>Oh, D.-Y. & Bang, Y.-J. HER2-targeted therapies - a role beyond breast cancer. Nat. Rev. Clin. Oncol. 17, 33–48 (2020).
+</li>
+      <li>Dumontet, C., Reichert, J. M., Senter, P. D., Lambert, J. M. & Beck, A. Antibody-drug conjugates come of age in oncology. Nat. Rev. Drug Discov. (2023) doi:10.1038/s41573-023-00709-2.
+</li>
+      <li>	Burris, H. A., 3rd, Tibbitts, J., Holden, S. N., Sliwkowski, M. X. & Lewis Phillips, G. D. Trastuzumab emtansine (T-DM1): a novel agent for targeting HER2+ breast cancer. Clin. Breast Cancer 11, 275–282 (2011).
+</li>
+      <li>Rassy, E., Rached, L. & Pistilli, B. Antibody drug conjugates targeting HER2: Clinical development in metastatic breast cancer. Breast 66, 217–226 (2022).
+</li>
 
+    </ol>
+
+  </PaperSection>
   </v-container>
 </template>
 
