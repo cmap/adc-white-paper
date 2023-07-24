@@ -12,7 +12,7 @@
       >
       </v-autocomplete>
       <v-btn size="x-small" variant="tonal" color="primary" @click="clickDefault">Highlight ERBB2 (HER2) overexpressing cell lines</v-btn>
-      <small class="small-directive">Mouseover points to show labels</small>
+      <small class="px-2">Mouseover points to show labels</small>
       <div>
         <svg  class="plot expression-auc-plot" id="expression-auc-plot-0"></svg>
         <svg  class="plot expression-auc-plot" id="expression-auc-plot-1"></svg>
@@ -80,13 +80,13 @@
               ]).then(response=>{
 
                 let data = {
-                  TDM1: response[0],
-                  TMMAE: response[1],
-                  TRA: response[2]
+                  ["T-DM1"]: response[0],
+                  ["T-MMAE"]: response[1],
+                  ["Trastuzumab"]: response[2]
                 }
 
-                this.items = [...new Set(response[0].concat(response[1]).concat(response[2]).map(d=>d.feature))].sort()
-
+                this.items = [...new Set(response[0].concat(response[1]).concat(response[2]).map(d=>d.cell_line))].sort()
+console.log(this.items)
                 Vis.launch(data)
                 Vis.highlight(this.selected)
             })
@@ -106,7 +106,6 @@
   display:inline-block;
   overflow: visible;
 }
-
 
 @media (max-width: 600px){
   .plot{

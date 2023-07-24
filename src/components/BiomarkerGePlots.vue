@@ -11,7 +11,7 @@
       >
       </v-autocomplete>
       <v-btn size="x-small" variant="tonal" color="primary" @click="clickDefault">Highlight ERBB2</v-btn>
-      <small class="small-directive">Mouseover over points to show labels</small>
+      <small class="px-2">Mouseover over points to show labels</small>
       <div>
         <svg  class="biomarker-plot plot" id="biomarker-ge-plot-0"></svg>
         <svg  class="biomarker-plot plot" id="biomarker-ge-plot-1"></svg>
@@ -61,11 +61,10 @@
               ]).then(response=>{
 
                 let data = {
-                  TDM1: response[0],
-                  TMMAE: response[1]
+                  [`T-DM1`]: response[0],
+                  [`T-MMAE`]: response[1]
                 }
                 this.items = [...new Set(response[0].concat(response[1]).map(d=>d.feature))].sort()
-                console.log(this.items)
 
                 Vis.launch(data)
                 Vis.highlight(this.selected)
