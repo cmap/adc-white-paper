@@ -94,17 +94,35 @@ export default class boxplot {
                 const bandWidth = scale.x.bandwidth();
 
                 d.data.forEach(e => e.jitter = Math.random() * bandWidth)
-                d3.select(this).selectAll("circle")
-                    .data(d.data)
-                    .enter()
-                    .append("circle")
-                    .attr("cx", e => e.jitter)
-                    .attr("cy", e => scale.y(e.y))
-                    .attr("r", e => e.r)
-                    .attr("fill", e=> e.color.pt)
-                    .attr("stroke", e=> e.color.pt)
-                    .attr("stroke-width", 0.5)
-                    .attr("fill-opacity", 0.75)
+          
+          
+
+                d3.select(this).selectAll(".boxplot-pt").data(d.data)
+                     .enter()
+                    .append("g")
+                    .attr("class", "boxplot-pt")
+                    .attr("transform", e=> `translate(${ e.jitter}, ${ scale.y(e.y)})`)
+                    .each(function(e){
+                        d3.select(this).append("circle")
+                        .attr("r", e.r)
+                        .attr("fill", e.color.pt)
+                        .attr("stroke", e.color.pt)
+                        .attr("fill-opacity", .5)
+                    })
+        
+
+          
+                // d3.select(this).selectAll("circle")
+                //     .data(d.data)
+                //     .enter()
+                //     .append("circle")
+                //     .attr("cx", e => e.jitter)
+                //     .attr("cy", e => scale.y(e.y))
+                //     .attr("r", e => e.r)
+                //     .attr("fill", e=> e.color.pt)
+                //     .attr("stroke", e=> e.color.pt)
+                //     .attr("stroke-width", 0.5)
+                //     .attr("fill-opacity", 0.75)
 
                 d3.select(this).append("line")
                     .attr("x1", bandWidth / 2)

@@ -80,18 +80,24 @@ export function launch(data){
     }
 
     new boxplot(plotConfig.data, plotConfig.title, plotConfig.axis, plotConfig.rootId, plotConfig.dimension, plotConfig.padding )
-
+tooltip()
 
 }
 
 
     
 function tooltip(){
-    let eachPlot = d3.selectAll(".biomarker-plot").select("g");
-    let pts = eachPlot.selectAll(".scatter-pt");
+
+    let pts = d3.select(`#expression-across-pools-plot-g`).selectAll("g").selectAll(".boxplot-pt")
+   
     pts.on("mouseover", function(event, d){
-        let selected = pts.filter(e=> e.name == d.name).moveToFront().classed("mouseover", true)
-        selected.append("text").html(d.name).attr("class", "scatter-pt-label").attr("dy", -8).attr("text-anchor", "middle")
+        console.log("D!", d)
+       let selected = d3.select(this).moveToFront().classed("mouseover", true)
+      
+        selected.append("text").html(d.name)
+            .attr("class", "boxplot-pt-label")
+            .attr("dy", -8)
+            .attr("text-anchor", "middle")
         })
         .on("mouseleave", function(){
             pts.selectAll("text").remove()
