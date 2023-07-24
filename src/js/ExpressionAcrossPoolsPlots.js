@@ -99,17 +99,19 @@ function tooltip(){
         })    
 }
 export function highlight(selected){
-    plots.forEach(plot=>{
-        d3.select(`#${plot.rootId}-g`)
+
+        d3.select(`#expression-across-pools-plot-g`)
         .selectAll("circle")
         .attr("r", d=> d.r)
-        .attr("stroke", d=> d.color)
+        .attr("stroke", d=> d.color.pt)
+        .attr("stroke-width", 0.5)
         .filter(d=> selected.includes(d.name))
-        .attr("r", d=> d.r*2)
+        .attr("r", d=> d.r*1.5)
         .attr("stroke", "black")
+        .attr("stroke-width", 1)
         .moveToFront()
 
-    })
+
 }
 
 

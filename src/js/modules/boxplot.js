@@ -103,7 +103,7 @@ export default class boxplot {
                     .attr("r", e => e.r)
                     .attr("fill", e=> e.color.pt)
                     .attr("stroke", e=> e.color.pt)
-                    .attr("stroke-width", .15)
+                    .attr("stroke-width", 0.5)
                     .attr("fill-opacity", 0.75)
 
                 d3.select(this).append("line")

@@ -1,8 +1,8 @@
 <template>
-        <!-- <v-autocomplete
+        <v-autocomplete
           v-model="selected"
           :items="items"
-          label="Search genes to highlight"
+          label="Search cell lines to highlight"
           multiple
           chips
           closable-chips
@@ -10,8 +10,8 @@
           clearable
       >
       </v-autocomplete>
-      <v-btn size="x-small" variant="tonal" color="primary" @click="clickDefault">Highlight ERBB2</v-btn>
-      <small class="px-2">Mouseover over points to show labels</small> -->
+      <v-btn size="x-small" variant="tonal" color="primary" @click="clickDefault">Highlight ERBB2 overexpressing cell lines</v-btn>
+      <small class="px-2">Mouseover over points to show labels</small>
       <div>
         <svg class="plot" id="expression-across-pools-plot"></svg>
       </div>
@@ -28,18 +28,18 @@
         name: 'ExpressionAcrossPoolsPlots',
         data () {
           return {
-          //   items:[],
-          //   selected: ["ERBB2"],
-          //   defaulted: ["ERBB2"]
+            items:[],
+            selected: ["BT474", "EFM192A", "HCC1419", "KYSE410", "MKN7", "NCIH2170", "NCIN87", "OE19", "SKOV3", "TE4"],
+            defaulted: ["BT474", "EFM192A", "HCC1419", "KYSE410", "MKN7", "NCIH2170", "NCIN87", "OE19", "SKOV3", "TE4"]
            }
         },
         mounted(){
           this.getData()
         },
         methods: {
-          // clickDefault(){
-          //   this.selected = this.defaulted;
-          // },
+          clickDefault(){
+            this.selected = this.defaulted;
+          },
            getData() {
 
             Promise.all([
@@ -53,22 +53,18 @@
                 })
               ]).then(response=>{
 
-                // let data = {
-                //   TDM1: response[0],
-                //   TMMAE: response[1]
-                // }
+                let data = response[0].filter(d=> d.cell_line_display_name != "NA")
+                this.items = [...new Set(data.map(d=>d.cell_line_display_name))].sort()
 
-                // this.items = [...new Set(response[0].concat(response[1]).map(d=>d.feature))].sort()
-
-                Vis.launch(response[0].filter(d=> d.cell_line_display_name != "NA"))
-           //     Vis.highlight(this.selected)
+                Vis.launch(data)
+                Vis.highlight(this.selected)
             })
           }
         },
         watch: {
-          // selected(){
-          //   Vis.highlight(this.selected)
-          // }
+          selected(){
+            Vis.highlight(this.selected)
+          }
         }
       }
 </script>
