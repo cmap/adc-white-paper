@@ -151,7 +151,7 @@
         Treatment of each cell line individually confirmed target-specific killing of T-DM1 and T-MMAE. Results showed some dose-related nonspecific cytotoxicity at the highest concentrations for both ADCs, but at lower doses both T-DM1 and T-MMAE were able to kill NCIN87 cells without affecting HCC1806 cells. In the co-culture system, both T-DM1 and T-MMAE efficiently killed the target NCIN87 cells. Cytotoxicity of T-DM1 on HCC1806 was limited to the highest concentrations, consistent with the nonspecific high dose cytotoxicity observed in monoculture format. However, at low doses, HCC1806 cells were unaffected by T-DM1 and there was no shift in sensitivity across different ratios of NCIN87 cells, validating a lack of bystander killing activity by T-DM1. In contrast, we observed pronounced cytotoxicity by T-MMAE in HCC1806 that was both dependent on T-MMAE dose and the amount of NCIN87 cells present. Notably, at a ratio of 1:20, which is approximately similar to the expected abundance of HER2-positive and HER2-negative cells in PRISM pools, T-MMAE did not induce bystander killing of HCC1806 cells. 
 
       </p>
-      FIGURE 8
+      <CoCulturePlots></CoCulturePlots>
       <p>
         Collectively, these results confirm that T-MMAE has bystander killing activity, the extent of which in vitro is dependent on the presence of a sufficient number of HER2-positive cells. Taking this into consideration, given the relatively low number of HER2-positive cell lines in the PRISM set, the minimal off-target cell killing by T-MMAE is not unexpected. 
 
@@ -206,6 +206,7 @@
   import BiomarkerShrnaPlots from '@/components/BiomarkerShrnaPlots.vue'
   import BiomarkerGePlots from '@/components/BiomarkerGePlots.vue'
   import ExpressionAcrossPoolsPlots from '@/components/ExpressionAcrossPoolsPlots.vue'
+  import CoCulturePlots from '@/components/CoCulturePlots.vue'
   import * as d3 from "d3";
   // import * as Vis from '../js/Vis.js';
 
@@ -214,7 +215,8 @@
   const dataPath = "../../data/";
   export default {
         name: 'Home',
-        components: {PaperHeader, PaperSection, PaperSubSection, ImageCard, AucExpressionPlots, BiomarkerGePlots, BiomarkerShrnaPlots, ExpressionAcrossPoolsPlots},
+        components: {PaperHeader, PaperSection, PaperSubSection, ImageCard, AucExpressionPlots, BiomarkerGePlots, 
+          BiomarkerShrnaPlots, ExpressionAcrossPoolsPlots, CoCulturePlots},
         data () {
           return {
 
