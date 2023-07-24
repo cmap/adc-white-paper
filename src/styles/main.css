@@ -82,7 +82,7 @@ li{
 }
 
 
-.scatter-plot > .title{
+.scatter-plot > .title, .boxplot-plot > .title{
   font-size:1.2em;
   font-weight:700;
   fill: #444444;

@@ -61,8 +61,8 @@
               ]).then(response=>{
 
                 let data = {
-                  TDM1: response[0],
-                  TMMAE: response[1]
+                  [`T-DM1`]: response[0],
+                  [`T-MMAE`]: response[1]
                 }
                 this.items = [...new Set(response[0].concat(response[1]).map(d=>d.feature))].sort()
 

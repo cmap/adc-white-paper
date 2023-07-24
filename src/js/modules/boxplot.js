@@ -53,6 +53,7 @@ export default class boxplot {
         let scale = this.scale;
         let svg = d3.select(`#${this.rootId}`)
             .append("g")
+            .attr("class", "boxplot-plot")
             .attr("id", `${this.rootId}-g`)
             .attr("transform", `translate(${this.padding.left}, ${this.padding.top})`)
 
@@ -146,7 +147,7 @@ export default class boxplot {
                 //     .attr("fill-opacity", 0.75)
         })
          this._axis()
-        // this._title()
+         this._title()
     }
 
     _axis() {
@@ -206,27 +207,15 @@ export default class boxplot {
 
         
     }
-
-    // _title() {
-    //     const tool_tip = this.data[0].data[0].tt;
-    //     let svg = d3.select(`#${this.rootId}`)
-    //     svg.append("text")
-    //         .attr("class", "plot-title")
-    //         .attr("x", this.padding.left)
-    //         .attr("y", -this.padding.top / 2)
-    //         .attr("dy", 14)
-    //         .html(this.title).append('title')
-    //         .text(function () {
-    //             if(tool_tip) {
-    //                 return tool_tip.toUpperCase();
-    //             }else{
-    //                 return "";
-    //             }
-    //         });
-
-    //     // < title
-    //     // className = "small-title" > GALLBLADDER_ADENOCARCINOMA < /title>
-    // }
-
+    _title(){
+        const svg = d3.select(`#${this.rootId}-g`)
+        svg
+            .append("text")
+            .attr("class", "title")
+            .attr("transform", `translate(${this.dimension.innerWidth/2}, 0)`)
+            .attr("dy", -25)
+            .attr("text-anchor", "middle")
+            .html(this.title)
+    }
 }
 

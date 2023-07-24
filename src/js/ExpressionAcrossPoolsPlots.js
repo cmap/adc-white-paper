@@ -18,7 +18,7 @@ d3.selection.prototype.moveToBack = function() {
     });
 };
 
-const padding = {top: 50, right: 35, bottom:50, left:65};
+const padding = {top: 75, right: 35, bottom:50, left:65};
 
 export function launch(data){
 
@@ -58,7 +58,7 @@ export function launch(data){
 
 
     let plotConfig = {
-        title: "Title",
+        title: "HER2 expression across pools",
         data: plotData,
         rootId: `expression-across-pools-plot`,
         padding: padding,

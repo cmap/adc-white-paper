@@ -80,9 +80,9 @@
               ]).then(response=>{
 
                 let data = {
-                  TDM1: response[0],
-                  TMMAE: response[1],
-                  TRA: response[2]
+                  ["T-DM1"]: response[0],
+                  ["T-MMAE"]: response[1],
+                  ["Trastuzumab"]: response[2]
                 }
 
                 this.items = [...new Set(response[0].concat(response[1]).concat(response[2]).map(d=>d.cell_line))].sort()
