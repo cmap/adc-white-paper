@@ -39,19 +39,16 @@ export default class boxplot {
         this.render()
 
     }
-
     updateDimensions() {
         this.dimension.innerWidth = this.dimension.width - this.padding.left - this.padding.right;
         this.dimension.innerHeight = this.dimension.height - this.padding.top - this.padding.bottom;
     }
-
     createScale() {
         this.scale = {
-            x: d3.scaleBand().domain(this.axis.x.domain).range([0, this.dimension.innerWidth]).padding(.25),
+            x: d3.scaleBand().domain(this.axis.x.domain).range([0, this.dimension.innerWidth]).padding(0.5),
             y: d3.scaleLinear().domain([this.axis.y.min, this.axis.y.max]).range([this.dimension.innerHeight, 0])
         }
     }
-
     render() {
         let scale = this.scale;
         let svg = d3.select(`#${this.rootId}`)
@@ -59,13 +56,14 @@ export default class boxplot {
             .attr("id", `${this.rootId}-g`)
             .attr("transform", `translate(${this.padding.left}, ${this.padding.top})`)
 
-
         let boxplot = svg.selectAll(".boxplot")
             .data(this.data)
             .enter()
+
         boxplot.exit().remove()
         boxplot
             .append("g")
+            .attr("class", "boxplot")
             .merge(boxplot)
             .attr("transform", d => `translate(${scale.x(d.title)}, 0)`)
             .each(function (d) {
@@ -88,14 +86,39 @@ export default class boxplot {
                     min: r0,
                     max: r1
                 }
-
-
                 // rectangle for the main box
                 const bandWidth = scale.x.bandwidth();
 
+                d3.select(this).append("line")
+                    .attr("class", "boxplot-box")
+                    .attr("x1", bandWidth / 2)
+                    .attr("x2", bandWidth / 2)
+                    .attr("y1", scale.y(stats.min))
+                    .attr("y2", scale.y(stats.max))
+                    .attr("stroke", d.data[0].color.box)
+
+                d3.select(this)
+                    .append("rect")
+                    .attr("class", "boxplot-box")
+                    .attr("x", 0)
+                    .attr("y", scale.y(stats.q3))
+                    .attr("height", scale.y(stats.q1) - scale.y(stats.q3))
+                    .attr("width", bandWidth)
+                    .style("stroke", d.data[0].color.box)
+                    .style("fill", d.data[0].color.box)
+                    .style("fill-opacity", .25)
+
+                // Show the median
+                d3.select(this)
+                    .append("line")
+                    .attr("class", "boxplot-box")
+                    .attr("x1", 0)
+                    .attr("x2", bandWidth)
+                    .attr("y1", scale.y(stats.median))
+                    .attr("y2", scale.y(stats.median))
+                    .style("stroke", d.data[0].color.box)
+
                 d.data.forEach(e => e.jitter = Math.random() * bandWidth)
-          
-          
 
                 d3.select(this).selectAll(".boxplot-pt").data(d.data)
                      .enter()
@@ -109,8 +132,6 @@ export default class boxplot {
                         .attr("stroke", e.color.pt)
                         .attr("fill-opacity", .5)
                     })
-        
-
           
                 // d3.select(this).selectAll("circle")
                 //     .data(d.data)
@@ -123,110 +144,68 @@ export default class boxplot {
                 //     .attr("stroke", e=> e.color.pt)
                 //     .attr("stroke-width", 0.5)
                 //     .attr("fill-opacity", 0.75)
-
-                d3.select(this).append("line")
-                    .attr("x1", bandWidth / 2)
-                    .attr("x2", bandWidth / 2)
-                    .attr("y1", scale.y(stats.min))
-                    .attr("y2", scale.y(stats.max))
-                    .attr("stroke", d.data[0].color.box)
-
-                d3.select(this)
-                    .append("rect")
-                    .attr("x", 0)
-                    .attr("y", scale.y(stats.q3))
-                    .attr("height", scale.y(stats.q1) - scale.y(stats.q3))
-                    .attr("width", bandWidth)
-                    .style("stroke", d.data[0].color.box)
-                    .style("fill", d.data[0].color.box)
-                    .style("fill-opacity", .25)
-
-                // Show the median
-                d3.select(this)
-                    .append("line")
-                    .attr("x1", 0)
-                    .attr("x2", bandWidth)
-                    .attr("y1", scale.y(stats.median))
-                    .attr("y2", scale.y(stats.median))
-                    .style("stroke", d.data[0].color.box)
-
-            })
-        // this._axis()
+        })
+         this._axis()
         // this._title()
     }
 
-    // _axis() {
-    //     let svg = d3.select(`#${this.rootId}-g`)
-    //     let offset = 10;
-    //     const self = this;
-    //     if (self.axis.x.display) {
-    //         const labels = this.axis?.f?.lineage;
-    //         const x = d3.axisBottom()
-    //             .scale(self.scale.x)
+    _axis() {
 
+        const svg = d3.select(`#${this.rootId}-g`),
+        tickPadding = 8;
 
-    //         let xaxis = svg.append("g").attr("class", "axis axis-x")
-    //             .attr("transform", `translate(0,${self.dimension.innerHeight})`)
-    //             .call(x)
+        const renderAxisX=()=>{
+            const x = d3.axisBottom()
+                .scale(this.scale.x)   
+                .ticks(5)
+                .tickPadding(tickPadding)
+             //   .tickSize(-this.dimension.innerHeight)
+                .tickSize(0)
+                .tickSizeInner(-this.dimension.innerHeight);
+            
+                svg.append("g")
+                .attr("class", "axis axis x")
+                .attr("transform", `translate(0,${this.dimension.innerHeight})`)
+                .call(x)
+                .selectAll("text")
+                .attr("text-anchor", "end")
+                .attr("transform", "translate(-5, 0)rotate(-30)")
 
+                svg.append("text")
+                    .attr("class", "axis title")
+                    .attr("x", this.dimension.innerWidth/2)
+                    .attr("y",  this.dimension.innerHeight + (this.padding.bottom))
+                    .attr("text-anchor", "middle")
+                    .html(this.axis.x.title)
+            
+        }
+        const renderAxisY=()=>{
+            const y = d3.axisLeft(this.scale.y) 
+                .ticks(5) 
+                .tickPadding(tickPadding)
+                .tickSize(0)
+                .tickSizeInner(-this.dimension.innerWidth)
 
-    //         xaxis.selectAll("text")
-    //             .attr("text-anchor", "end")
-    //             .attr("transform", "translate(-5, 0)rotate(-30)")
-    //             .filter(d => d === "")
-    //             .html("all")
-    //         xaxis.selectAll("line")
-    //             .attr("y1", -self.dimension.innerHeight)
+            svg.append("g")
+                .attr("class", "axis axis y")
+                .attr("transform", `translate(0,0)`)
+                .call(y)
 
-    //         if (labels && labels.length > 0) {
-    //             let sp = xaxis.selectAll('text')
-    //             sp.append('title')
-    //                 .text(function (d) {
-    //                     const found = _.findWhere(labels, {title: d});
-    //                     if (found && found.lin) {
-    //                         return found.lin.toUpperCase();
-    //                     }
-    //                     return "";
-    //                 });
-    //         }
+            svg.append("text")
+                .attr("class", "axis title")
+                .attr("transform", `translate(${-this.padding.left},${ this.dimension.innerHeight/2})rotate(-90)`)
+                .attr("dy", "1em")
+                .attr("text-anchor", "middle")
+                .html(this.axis.y.title)
 
+        }
 
-    //         xaxis.selectAll(".domain").remove()
-    //     }
+        renderAxisX()
+        renderAxisY()
+    //    svg.selectAll(".domain").remove()
 
-    //     if (this.axis.y.display) {
-    //         const y = d3.axisLeft()
-    //             .scale(this.scale.y)
-    //             .ticks(2)
-
-    //         let yaxis = svg.append("g").attr("class", "axis axis-y")
-    //             .attr("transform", `translate(0,0)`)
-    //             .call(y)
-    //         yaxis.selectAll("line")
-    //             .attr("x2", this.dimension.innerWidth)
-
-    //         yaxis.selectAll(".domain").remove()
-    //         if (!this.axis.y.ticks) {
-    //             yaxis.selectAll("text").remove()
-    //         }
-
-    //         yaxis
-    //             .append("line")
-    //             .attr("x1", -5)
-    //             .attr("x2", this.dimension.innerWidth + 5)
-    //             .attr("y1", this.scale.y(this.axis.y.threshold))
-    //             .attr("y2", this.scale.y(this.axis.y.threshold))
-    //             .attr("class", "dashed")
-    //     }
-
-    //     svg.append("rect")
-    //         .attr("x", 0)
-    //         .attr("y", -offset)
-    //         .attr("width", this.dimension.innerWidth)
-    //         .attr("height", this.dimension.innerHeight + (offset))
-    //         .attr("fill", "none")
-    //         .attr("class", "plot-borderbox")
-    // }
+        
+    }
 
     // _title() {
     //     const tool_tip = this.data[0].data[0].tt;

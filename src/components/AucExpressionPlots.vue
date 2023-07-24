@@ -85,8 +85,8 @@
                   TRA: response[2]
                 }
 
-                this.items = [...new Set(response[0].concat(response[1]).concat(response[2]).map(d=>d.feature))].sort()
-
+                this.items = [...new Set(response[0].concat(response[1]).concat(response[2]).map(d=>d.cell_line))].sort()
+console.log(this.items)
                 Vis.launch(data)
                 Vis.highlight(this.selected)
             })

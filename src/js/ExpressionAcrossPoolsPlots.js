@@ -69,12 +69,12 @@ export function launch(data){
         axis: {
             x: {
                domain: plotData.map(d=>d.title),
-                title: "x title"
+                title: "Pool ID"
             },
             y: {
                 min: yExtent[0],
                 max: yExtent[1],
-                title: "y title"
+                title: "ERBB2 expression"
             }
         }
     }
@@ -91,9 +91,8 @@ function tooltip(){
     let pts = d3.select(`#expression-across-pools-plot-g`).selectAll("g").selectAll(".boxplot-pt")
    
     pts.on("mouseover", function(event, d){
-        console.log("D!", d)
+
        let selected = d3.select(this).moveToFront().classed("mouseover", true)
-      
         selected.append("text").html(d.name)
             .attr("class", "boxplot-pt-label")
             .attr("dy", -8)
@@ -104,22 +103,34 @@ function tooltip(){
             pts.classed("mouseover", false)
         })    
 }
+// export function highlight(selected){
+
+//         d3.select(`#expression-across-pools-plot-g`)
+//         .selectAll("circle")
+//         .attr("r", d=> d.r)
+//         .classed("selected", false)
+//         .filter(d=> selected.includes(d.name))
+//         .attr("r", d=> d.r*1.5)
+//         .classed("selected", true)
+//         .moveToFront()
+
+// }
+
+
 export function highlight(selected){
 
-        d3.select(`#expression-across-pools-plot-g`)
-        .selectAll("circle")
-        .attr("r", d=> d.r)
-        .attr("stroke", d=> d.color.pt)
-        .attr("stroke-width", 0.5)
-        .filter(d=> selected.includes(d.name))
-        .attr("r", d=> d.r*1.5)
-        .attr("stroke", "black")
-        .attr("stroke-width", 1)
-        .moveToFront()
+       let pts = d3.select(`#expression-across-pools-plot-g`).selectAll(".boxplot-pt")
+            .classed("selected", false)
+    
+        pts.selectAll("circle")
+            .attr("r", d=> d.r)
+           
+      let selectedPts =  pts.filter(d=> selected.includes(d.name))
+      selectedPts.moveToFront()
 
+      selectedPts.classed("selected", true).moveToFront()
+            .selectAll("circle")
+            .attr("r", d=> d.r*1.25)
+    
 
-}
-
-
-
-
+    }

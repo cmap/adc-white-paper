@@ -81,11 +81,7 @@ li{
   font-size: 0.9em;
 }
 
-.scatter-pt-label{
-  pointer-events: none;
-  font-size:0.8em;
-  font-weight:800;
-}
+
 .scatter-plot > .title{
   font-size:1.2em;
   font-weight:700;
@@ -110,16 +106,26 @@ a{
   text-decoration:none;
   border-bottom:.5px solid #8e62c2;
 }
-.scatter-pt-label{
+.boxplot-box{
+  pointer-events:none;
+}
+.scatter-pt:hover, .boxplot-pt:hover{
+cursor: pointer;
+}
+.mouseover > circle{
+fill-opacity:1;
+stroke:black;
+}
+.scatter-pt-label, .boxplot-pt-label{
+  pointer-events: none;
+  font-size:0.8em;
+  font-weight:800;
   filter: drop-shadow(.4px .4px .4px rgba(255, 255, 255, 1));
   text-shadow: 0px 0px 3px white,0px 0px 3px white;
 }
-.scatter-pt:hover{
-cursor: pointer;
-}
-.scatter-pt.mouseover > circle{
-fill-opacity:1;
-stroke:black;
+.selected > circle{
+  stroke:black;
+  stroke-width:1.75px;
 }
 
 @media (max-width: 600px){
