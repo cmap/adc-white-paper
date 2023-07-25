@@ -65,7 +65,7 @@ export default class lineplot {
                         y: d3.mean(e[1], f=> f.y)
                     }
                 })
-                console.log(path)
+             
 
 
             d3.select(this).selectAll("circle")
