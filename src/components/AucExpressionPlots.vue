@@ -102,7 +102,7 @@
 <style scoped>
 
 .plot{
-  width:30%;
+  width:32%;
   display:inline-block;
   overflow: visible;
 }
