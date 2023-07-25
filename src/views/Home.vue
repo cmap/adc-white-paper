@@ -255,7 +255,7 @@
 
 
 
-  const dataPath = "../../data/";
+
   export default {
         name: 'Home',
         components: {PaperHeader, PaperSection, PaperSubSection, ImageCard, AucExpressionPlots, BiomarkerGePlots,
@@ -266,167 +266,20 @@
           }
         },
         mounted(){
-      //    this.getData()
+
         },
         methods: {
 
-           getData() {
 
-            Promise.all([
-                d3.csv(`${dataPath}ERBB2 log2(TPM+1) Expression vs T-DM1 AUC.csv`, function(d){
-                    return {
-                      depmap_id: d["DepMap ID"],
-                      TDM1_auc: +d["T-DM1 AUC"],
-                      ERBB2_expression: +d["ERBB2 log2(TPM+1) Expression Public 23Q2"],
-                      cell_line: d["Cell Line Name"],
-                      lineage: d["Lineage"],
-                      primary_disease: d["Primary Disease"]
-                    }
-                }),
-                d3.csv(`${dataPath}ERBB2 log2(TPM+1) Expression vs T-MMAE AUC.csv`, function(d){
-                    return {
-                      depmap_id: d["DepMap ID"],
-                      Trastuzumab_MMAE_auc: +d["Trastuzumab-MMAE AUC"],
-                      ERBB2_expression: +d["ERBB2 log2(TPM+1) Expression Public 23Q2"],
-                      cell_line: d["Cell Line Name"],
-                      lineage: d["Lineage"],
-                      primary_disease: d["Primary Disease"]
-                    }
-                }),
-                d3.csv(`${dataPath}biomarker_GE_T-DM1.csv`, function(d){
-                    return {
-                      feature: d["feature"],
-                      coef: +d["coef"],
-                      qval: +d["log10(q.val)"]
-                    }
-                }),
-                d3.csv(`${dataPath}biomarker_GE_T-MMAE.csv`, function(d){
-                    return {
-                      feature: d["feature"],
-                      coef: +d["coef"],
-                      qval: +d["log10(q.val)"]
-                    }
-                }),
-                d3.csv(`${dataPath}biomarker_shRNA_T-DM1.csv`, function(d){
-                    return {
-                      feature: d["feature"],
-                      coef: +d["coef"],
-                      qval: +d["log10(q.val)"]
-                    }
-                }),
-                d3.csv(`${dataPath}biomarker_shRNA_T-MMAE.csv`, function(d){
-                    return {
-                      feature: d["feature"],
-                      coef: +d["coef"],
-                      qval: +d["log10(q.val)"]
-                    }
-                })
-
-              ]).then(response=>{
-
-
-                let TDM1_AUC_Config = {
-                  data: response[0].map(d=>{
-                    return {
-                        x: d.TDM1_auc,
-                        y: d.ERBB2_expression,
-                        r: 3,
-                        _info: d
-                    }
-                  }),
-                  title: "T-DM1",
-                  rootId: "plot-1"
-                }
-                let TMMAE_AUC_Config = {
-                    data: response[1].map(d=>{
-                    return {
-                        x: d.Trastuzumab_MMAE_auc,
-                        y: d.ERBB2_expression,
-                        r: 3,
-                        _info: d
-                    }
-                  }),
-                  title: "T-MMAE",
-                  rootId: "plot-2"
-                }
-                let TDM1_GE_Config = {
-                    data: response[2].map(d=>{
-                    return {
-                        x: d.coef,
-                        y: d.qval,
-                        r: 3,
-                        _info: d
-                    }
-                  }),
-                  title: "T-MD1:  GE dependency for ERBB2",
-                  rootId: "plot-3"
-                }
-                let TMMAE_GE_Config = {
-                    data: response[3].map(d=>{
-                    return {
-                        x: d.coef,
-                        y: d.qval,
-                        r: 3,
-                        _info: d
-                    }
-                  }),
-                  title: "T-MMAE: GE dependency for ERBB2",
-                  rootId: "plot-4" ,
-                }
-                let TDM1_shRNA_Config = {
-                    data: response[4].map(d=>{
-                    return {
-                        x: d.coef,
-                        y: d.qval,
-                        r: 3,
-                        _info: d
-                    }
-                  }),
-                  title: "T-MD1: shRNA dependency for ERBB2",
-                  rootId: "plot-5"
-                }
-                let TMMAE_shRNA_Config = {
-                    data: response[5].map(d=>{
-                    return {
-                        x: d.coef,
-                        y: d.qval,
-                        r: 3,
-                        _info: d
-                    }
-                  }),
-                  title: "T-MMAE: shRNA dependency for ERBB2",
-                  rootId: "plot-6"
-                }
-
-
-                Vis.useScatter(TDM1_AUC_Config)
-                Vis.useScatter(TMMAE_AUC_Config)
-
-                Vis.useVolcano(TDM1_GE_Config)
-                Vis.useVolcano(TMMAE_GE_Config)
-                Vis.useVolcano(TDM1_shRNA_Config)
-                Vis.useVolcano(TMMAE_shRNA_Config)
-              })
-          }
         }
       }
 </script>
 <style scoped>
 
-.plot{
-  height:420px;
-  width:420px;
-  display:inline-block;
-}
-
 
 
 @media (max-width: 600px){
-  .plot{
-    height:400px;
-    width:98%;
-    display:inline-block;
-  }
+
 
 }
 

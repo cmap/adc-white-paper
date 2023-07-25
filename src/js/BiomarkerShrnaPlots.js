@@ -87,6 +87,7 @@ export function launch(data){
       //  d3.selectAll(".domain").remove()
      })
      tooltip()
+     console.log("shRNA plots", plots)
 
     }
     
