@@ -76,18 +76,16 @@ export function launch(data){
         })
     })    
 
-
+// To DO: make this a global function??
     plotsConfig.forEach(d=>{
         document.getElementById(`${d.rootId}`).style.height = `${d.dimension.height}px`;
         let plot = new scatter(d)
         plots.push(plot)
-       // d3.selectAll(".domain").remove()
-
      })
     tooltip()
 
 }
-
+// To DO: make this a global function??
 function tooltip(){
     let eachPlot = d3.selectAll(".expression-auc-plot").select("g");
     let pts = eachPlot.selectAll(".scatter-pt");
@@ -100,6 +98,26 @@ function tooltip(){
             pts.classed("mouseover", false)
        })    
 }
+
+ // TO DO:  make this a global function
+export function highlight(selected){
+    plots.forEach(plot=>{
+       let pts = d3.select(`#${plot.rootId}-g`).selectAll(".scatter-pt")
+            .classed("selected", false)
+    
+        pts.selectAll("circle")
+            .attr("r", d=> d.r)
+           
+      let selectedPts =  pts.filter(d=> selected.includes(d.name))
+      selectedPts.moveToFront()
+
+      selectedPts.classed("selected", true).moveToFront()
+            .selectAll("circle")
+            .attr("r", d=> d.r*1.5)
+    
+        })
+
+    }
 
 
 // export function highlight(selected){
@@ -115,21 +133,3 @@ function tooltip(){
 
 //     })
 // }
-export function highlight(selected){
-    plots.forEach(plot=>{
-       let pts = d3.select(`#${plot.rootId}-g`).selectAll(".scatter-pt")
-            .classed("selected", false)
-    
-        pts.selectAll("circle")
-            .attr("r", d=> d.r)
-           
-      let selectedPts =  pts.filter(d=> selected.includes(d.name))
-      selectedPts.moveToFront()
-
-      selectedPts.classed("selected", true).moveToFront()
-            .selectAll("circle")
-            .attr("r", d=> d.r*1.25)
-    
-        })
-
-    }
