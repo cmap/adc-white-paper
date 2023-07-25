@@ -38,7 +38,7 @@ export default class lineplot {
     }
     createScale(){
         this.scale = {
-            x: d3.scaleLog().domain([this.axis.x.min, this.axis.x.max]).range([0, this.dimension.innerWidth]).nice(),
+            x: d3.scaleLog().domain([this.axis.x.min, this.axis.x.max]).range([0, this.dimension.innerWidth]).base(2).nice(),
             y: d3.scaleLinear().domain([this.axis.y.min, this.axis.y.max]).range([this.dimension.innerHeight, 0]).nice()
         }
     }
@@ -52,11 +52,11 @@ export default class lineplot {
             .attr("class", "scatter-plot")
             .attr("transform", `translate(${self.padding.left}, ${self.padding.top})`)
 
-        let series = svg.selectAll(".series")
+        let series = svg.selectAll(".lineplot-series")
             .data(self.data)
             .enter()
             .append("g")
-            .attr("class", "series")
+            .attr("class", "lineplot-series")
             .each(function(d){
              
                 let path = d3.groups(d.data, e=> e.x).map(e=>{
@@ -65,24 +65,14 @@ export default class lineplot {
                         y: d3.mean(e[1], f=> f.y)
                     }
                 })
-             
-
-
-            d3.select(this).selectAll("circle")
-                .data(d.data)
-                .enter()
-                .append("circle")
-                .attr("fill", d.color)
-                .attr("r", 2)
-                .attr("cx", e=> self.scale.x(e.x))
-                .attr("cy", e=> self.scale.y(e.y))
- 
-                d3.select(this)
+              
+            d3.select(this)
                 .append("path")
                 .datum(path)
                 .attr("fill", "none")
                 .attr("stroke", d.color)
-                .attr("stroke-width", 1.5)
+                .attr("stroke-width", 2)
+                .attr("stroke-opacity", .75)
                 .attr("d", 
                     d3.line()
                         .x(function(e) { 
@@ -93,7 +83,31 @@ export default class lineplot {
                         })
                         .curve(d3.curveNatural)
                 )
+            d3.select(this).selectAll("circle")
+                .data(d.data)
+                .enter()
+                .append("circle")
+                .attr("class", "lineplot-pt")
+                .attr("fill", d.color)
+                .attr("r", e=>e.r)
+                .attr("cx", e=> self.scale.x(e.x))
+                .attr("cy", e=> self.scale.y(e.y))
+                .attr("fill-opacity", .5)
+                .attr("stroke", d.color)
+
         
+            })
+            .on("mouseover", function(event, d){
+                d3.select(this).classed("mouseover", true).moveToFront()
+                    .selectAll("circle")
+                    .attr("r", (e=> e.r*1.5))
+       
+            })
+            .on("mouseleave", function(event, d){
+                svg.selectAll(".mouseover").classed("mouseover", false)
+                    .selectAll("circle")
+                    .attr("r", (e=> e.r))
+
             })
 
             self._axis()
@@ -105,20 +119,26 @@ export default class lineplot {
     _axis(){
         const self = this;
         const svg = d3.select(`#${this.rootId}-g`),
-        tickPadding = 15;
+        tickPadding = 8;
 
+        let xTicks = self.axis.x.tickValues;
         const renderAxisX=()=>{
             const x = d3.axisBottom()
                 .scale(self.scale.x)   
-                .ticks(5)
+               .tickValues(xTicks)
                 .tickPadding(tickPadding)
                 .tickSize(0)
-               .tickSizeInner(-self.dimension.innerHeight);
+                .tickSizeInner(-self.dimension.innerHeight);
 
                 svg.append("g")
                 .attr("class", "axis axis x")
                 .attr("transform", `translate(0,${self.dimension.innerHeight})`)
                 .call(x)
+                .selectAll("text")
+                .html((d)=>round(d, 1))
+                .attr("text-anchor", "end")
+                .attr("transform", "translate(-5, 0)rotate(-30)")
+
 
                 svg.append("text")
                     .attr("class", "axis title")
@@ -178,14 +198,14 @@ export default class lineplot {
 
 
         legend.selectAll("rect")
-        .data(self.axis.color.domain())
-        .enter()
-        .append("rect")
-        .attr("x", d=> legendScale(d))
-        .attr("y", 0)
-        .attr("width", legendScale.bandwidth())
-        .attr("height", dimension.innerHeight)
-        .attr("fill", d=> self.axis.color(d))
+            .data(self.axis.color.domain())
+            .enter()
+            .append("rect")
+            .attr("x", d=> legendScale(d))
+            .attr("y", 0)
+            .attr("width", legendScale.bandwidth())
+            .attr("height", dimension.innerHeight)
+            .attr("fill", d=> self.axis.color(d))
 
         const x = d3.axisBottom()
         .scale(legendScale)   
@@ -210,3 +230,28 @@ export default class lineplot {
     }
 }
 
+// function round(input) {
+
+//     if(input == 0)
+//        return input;
+
+//     let precision = 0;
+//     let val = input - Math.round(input,0);
+//     while (Math.abs(val) < 1)
+//     {
+//         val *= 10;
+//         precision++;
+//     }
+//     return Math.round(input, precision);
+// }
+
+function round(n, what) {
+    var i = 0;
+    if (n < 1) {
+        while(n < 1) {
+            n = n*10;
+            i++;
+        }
+    }
+    return '0.' + (new Array(i)).join('0') + n.toFixed(what).replace('.','').slice(0,-1);
+}

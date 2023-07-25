@@ -112,10 +112,19 @@ a{
 .scatter-pt:hover, .boxplot-pt:hover{
 cursor: pointer;
 }
-.mouseover > circle{
-fill-opacity:1;
-stroke:black;
+/* .mouseover.boxplot-pt >circle, .mouseover.scatter-pt >circle{ */
+  .mouseover >circle{
+  fill-opacity:1;
+  stroke:black;
 }
+.mouseover.lineplot-series > path{
+stroke-width:6px;
+stroke-opacity:1;
+}
+
+/* .mouseover > .lineplot-pt{
+  fill-opacity:1;
+  } */
 .scatter-pt-label, .boxplot-pt-label{
   pointer-events: none;
   font-size:0.8em;
