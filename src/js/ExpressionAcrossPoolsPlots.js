@@ -37,7 +37,7 @@ export function launch(data){
     })
 
     let yExtent = d3.extent(parsedData.map(d=>d.y))
-    let colorScale =  d3.scaleSequential().interpolator(d3.interpolateHcl("purple", "#ffd46e")).domain(yExtent)
+    let colorScale =  d3.scaleSequential().interpolator(d3.interpolateHcl("#ffd46e", "purple")).domain(yExtent)
     parsedData.forEach(d=>{
         d.color.pt = colorScale(d.y)
         d.color.box = d3.interpolateHcl("purple", "#ffd46e")(0.5)

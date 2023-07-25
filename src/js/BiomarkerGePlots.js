@@ -128,7 +128,7 @@ export function highlight(selected){
 
       selectedPts.classed("selected", true).moveToFront()
             .selectAll("circle")
-            .attr("r", d=> d.r*1.25)
+            .attr("r", d=> d.r*1.5)
     
         })
 

@@ -44,12 +44,14 @@ export function launch(data){
         x: d3.scaleSequential().interpolator(d3.interpolateHcl("purple", "#ffd46e")).domain(xExtent),
         y: d3.scaleSequential().interpolator(d3.interpolateHcl("#ffd46e", "purple")).domain(yExtent)
     } 
-
+// let colorScale = d3.scaleSequential(d3.interpolatePlasma).domain([yExtent[1], 0])
+// let colorScale =  d3.scaleSequential().interpolator(d3.interpolateHcl("#ffd46e", "purple")).domain(yExtent)
 
     let plotsConfig = []
     Object.keys(data).forEach((d,i)=>{
         data[d].forEach(function(e){
-            e.color = d3.interpolateRgbBasis([colorScale.x(e.x), colorScale.y(e.y)])(0.5)
+             e.color = d3.interpolateRgbBasis([colorScale.x(e.x), colorScale.y(e.y)])(0.5)
+            //e.color = colorScale(e.y)
         })
 
         plotsConfig.push({
@@ -129,7 +131,7 @@ export function highlight(selected){
 
       selectedPts.classed("selected", true).moveToFront()
             .selectAll("circle")
-            .attr("r", d=> d.r*1.25)
+            .attr("r", d=> d.r*1.5)
     
         })
 

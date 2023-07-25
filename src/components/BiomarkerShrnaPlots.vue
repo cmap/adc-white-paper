@@ -66,7 +66,7 @@
                 }
 
                 this.items = [...new Set(response[0].concat(response[1]).map(d=>d.feature))].sort()
-             console.log(this.items)
+
 
                 Vis.launch(data)
                 Vis.highlight(this.selected)
