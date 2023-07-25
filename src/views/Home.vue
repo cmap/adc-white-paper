@@ -66,7 +66,7 @@
         <v-row>
             <v-col cols="12" xs="12" sm="4" md="4" lg="3">
               <v-card elevation="1">
-                <v-img src="../../graphics/05_adc_components.png"></v-img>
+                <v-img src="../../public/graphics/05_adc_components.png"></v-img>
               </v-card>
             </v-col>
             <v-col cols="12" xs="12" sm="8" md="8" lg="8">
@@ -91,7 +91,7 @@
             md="6"
           >
             <v-card elevation="1">   
-            <v-img class="center-image" src="../../graphics/06_adc_killing_mechanism.png"></v-img>
+            <v-img class="center-image" src="../../public/graphics/06_adc_killing_mechanism.png"></v-img>
           </v-card>
           </v-col>
         </v-row>

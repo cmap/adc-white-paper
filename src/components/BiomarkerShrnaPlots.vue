@@ -83,8 +83,9 @@
 <style scoped>
 
 .plot{
-  width:30%;
+  width:40%;
   display:inline-block;
+  overflow: visible;
 }
 
 
