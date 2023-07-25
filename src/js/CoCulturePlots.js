@@ -33,7 +33,7 @@ export function launch(data, rootId){
         }
     })
     let xValues = [...new Set(data.map(d=>d.x))]
-    console.log(xValues)
+   
     let xExtent = d3.extent(data.map(d=>d.x))
     let yExtent = d3.extent(data.map(d=>d.y))
 
