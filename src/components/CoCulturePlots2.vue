@@ -1,15 +1,8 @@
 <template>
 
       <div>
-        <div class="plot">
-          <svg  class="co-culture-plot" id="co-culture-plot-tdm1-0"></svg>
-          <svg  class="legend" id="co-culture-plot-tdm1-0-legend"></svg>
-        </div>
-       <div class="plot">
-        <svg  class="co-culture-plot" id="co-culture-plot-tdm1-1"></svg>
-        <svg  class="legend" id="co-culture-plot-tdm1-1-legend"></svg>
-       </div>
-
+        <svg  class="co-culture-plot plot" id="co-culture-plot-0"></svg>
+        <svg  class="co-culture-plot plot" id="co-culture-plot-1"></svg>
       </div>
 </template>
 
@@ -65,7 +58,7 @@
                 }
                 // this.items = [...new Set(response[0].concat(response[1]).map(d=>d.feature))].sort()
 
-                 Vis.launch(response[0], "co-culture-plot-tdm1")
+                 Vis.launch(data)
                 // Vis.highlight(this.selected)
             })
           }
@@ -80,17 +73,11 @@
 <style scoped>
 
 .plot{
-  width:50%;
+  width:30%;
   display:inline-block;
   overflow: visible;
 }
-.co-culture-plot{
-  width:100%;
-}
-.legend{
-  width:100%;
-  height:100px;
-}
+
 
 
 @media (max-width: 600px){

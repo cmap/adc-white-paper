@@ -58,7 +58,17 @@ export default class lineplot {
             .append("g")
             .attr("class", "series")
             .each(function(d){
-                d3.select(this).selectAll("circle")
+             
+                let path = d3.groups(d.data, e=> e.x).map(e=>{
+                    return{
+                        x: e[0],
+                        y: d3.mean(e[1], f=> f.y)
+                    }
+                })
+                console.log(path)
+
+
+            d3.select(this).selectAll("circle")
                 .data(d.data)
                 .enter()
                 .append("circle")
@@ -66,50 +76,29 @@ export default class lineplot {
                 .attr("r", 2)
                 .attr("cx", e=> self.scale.x(e.x))
                 .attr("cy", e=> self.scale.y(e.y))
-              
-                // d3.select(this)
-                // .append("path")
-                // .datum(d.data)
-                // .attr("fill", "none")
-                // .attr("stroke", d.color)
-                // .attr("stroke-width", 1.5)
-                // .attr("d", d3.line()
-                //     .x(function(e) { return self.scale.x(e.x) })
-                //     .y(function(e) { return self.scale.y(e.y) })
-                //     )
+ 
+                d3.select(this)
+                .append("path")
+                .datum(path)
+                .attr("fill", "none")
+                .attr("stroke", d.color)
+                .attr("stroke-width", 1.5)
+                .attr("d", 
+                    d3.line()
+                        .x(function(e) { 
+                            return self.scale.x(e.x) 
+                        })
+                        .y(function(e) { 
+                        return self.scale.y(e.y) 
+                        })
+                        .curve(d3.curveNatural)
+                )
         
             })
 
-
-        //     let series = d3.groups(self.data, d => d.series).sort((a, b) => {
-        //         return d3.ascending(a[0], b[0])
-        //     }).map(d => {
-        //         return {
-        //             series: d[0],
-        //             points: d[1]
-        //         }
-        //     })
-        
-
-        // let scatterPt = svg.selectAll(".scatter-pt")
-        //     .data(self.data)
-
-        // scatterPt.exit().remove()
-        // scatterPt
-        //     .enter()
-        //     .append("circle")
-        //     .merge(scatterPt)
-        //     .attr("class", "scatter-pt")
-        //     .attr("cx", d=> self.scale.x(d.x))
-        //     .attr("cy", d=> self.scale.y(d.y))
-        //     .attr("r", d=>d.r)
-        //     .attr("fill", d=>d.color)
-        //     .attr("stroke", d=>d.color)
-        //     .attr("fill-opacity", .5)
-
-
             self._axis()
             self._title()
+            self._legend()
 
     }
 
@@ -172,6 +161,52 @@ export default class lineplot {
             .attr("dy", -14)
             .attr("text-anchor", "middle")
             .html(this.title)
+    }
+    // this should be custom code, not part of line plot (unless it is given a config)
+    _legend(){
+
+        const self = this;
+        const padding = { top: 20, right: self.padding.right, bottom: 50, left: self.padding.left}
+        const svg = d3.select(`#${self.rootId}-legend`)
+        const dimension =  {
+            innerWidth: svg.node().clientWidth - padding.left - padding.right,
+            innerHeight: svg.node().clientHeight - padding.top - padding.bottom
+        }
+
+        let legendScale = d3.scaleBand().domain(self.axis.color.domain()).range([0, dimension.innerWidth]).padding(.1)
+        let legend = svg.append("g").attr("id", "legend").attr("transform", `translate(${padding.left}, ${[padding.top]})`)
+
+
+        legend.selectAll("rect")
+        .data(self.axis.color.domain())
+        .enter()
+        .append("rect")
+        .attr("x", d=> legendScale(d))
+        .attr("y", 0)
+        .attr("width", legendScale.bandwidth())
+        .attr("height", dimension.innerHeight)
+        .attr("fill", d=> self.axis.color(d))
+
+        const x = d3.axisBottom()
+        .scale(legendScale)   
+        .tickPadding(5)
+        .tickSize(0)
+
+        legend.append("g")
+        .attr("class", "axis axis x")
+        .attr("transform", `translate(0,${dimension.innerHeight})`)
+        .call(x)
+
+        legend.append("text")
+            .attr("class", "axis title")
+            .attr("x", dimension.innerWidth/2)
+            .attr("y",  dimension.innerHeight)
+            .attr("dy", "2.5em")
+            .attr("text-anchor", "middle")
+            .html("Cell Ratio")
+    
+        legend.select(".domain").remove()
+
     }
 }
 
