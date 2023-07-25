@@ -11,6 +11,17 @@
        </div>
 
       </div>
+      <div>
+        <div class="plot">
+          <svg  class="co-culture-plot" id="co-culture-plot-tmmae-0"></svg>
+          <svg  class="legend" id="co-culture-plot-tmmae-0-legend"></svg>
+        </div>
+       <div class="plot">
+        <svg  class="co-culture-plot" id="co-culture-plot-tmmae-1"></svg>
+        <svg  class="legend" id="co-culture-plot-tmmae-1-legend"></svg>
+       </div>
+
+      </div>
 </template>
 
 <script>
@@ -37,6 +48,7 @@
             Promise.all([
                 d3.csv(`${dataPath}co-culture results_T-DM1.csv`, function(d){
                     return {
+                      compound: "T-DM1",
                       viability: +d["Viability"],
                       cells: d["Cells"],
                       pert_dose: +d["pert_dose"],
@@ -48,6 +60,7 @@
                 }),
                 d3.csv(`${dataPath}co-culture results_T-MMAE.csv`, function(d){
                     return {
+                      compound: "T-MMAE",
                       viability: +d["Viability"],
                       cells: d["Cells"],
                       pert_dose: +d["pert_dose"],
@@ -66,6 +79,7 @@
                 // this.items = [...new Set(response[0].concat(response[1]).map(d=>d.feature))].sort()
 
                  Vis.launch(response[0], "co-culture-plot-tdm1")
+                 Vis.launch(response[1], "co-culture-plot-tmmae")
                 // Vis.highlight(this.selected)
             })
           }
@@ -80,7 +94,7 @@
 <style scoped>
 
 .plot{
-  width:50%;
+  width:40%;
   display:inline-block;
   overflow: visible;
 }
@@ -89,7 +103,7 @@
 }
 .legend{
   width:100%;
-  height:100px;
+  height:75px;
 }
 
 

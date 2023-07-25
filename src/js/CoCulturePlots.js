@@ -52,10 +52,14 @@ let groups =  d3.groups(data, d => d.group).map(d=>{
         })
     }
 })
-
+// lt colorPallet = d3.schemeTableau10;
+//let colorPallet = ["#d7191c","#fdae61","#ffffbf","#abdda4","#2b83ba"]
+let colorPallet;
+colorPallet = ["#d7191c","#fdae61","#ffffbf","#abd9e9","#2c7bb6"];
+colorPallet = ["#440154","#3b528b","#21918c","#5ec962","#fde725"];
 groups.forEach(d=>{
     let seriesDomain = [...new Set(d.data.map(d=>d.name))]
-    let colorScale = d3.scaleOrdinal(seriesDomain, d3.schemeTableau10)
+    let colorScale = d3.scaleOrdinal(seriesDomain, colorPallet)
     d.colorScale = colorScale; // temporary hack!
 
     d.data.forEach((e,i)=>{
@@ -68,17 +72,13 @@ groups.forEach(d=>{
 let plotsConfig = [];
 groups.forEach((d,i)=>{
     plotsConfig.push({
-        title: d.name,
+        title: `${d.data[0].data[0]._info.compound}: ${d.name}`,
         data: d.data,
         rootId: `${rootId}-${i}`,
         padding: padding,
         dimension: {   
             width: d3.select(`#${rootId}-${i}`).node().clientWidth, 
             height: d3.select(`#${rootId}-${i}`).node().clientWidth
-                //     width: d3.select(`#${rootId}-${i}`).node().clientWidth, 
-                //     height: d3.select(`#${rootId}-${i}`).node().clientWidth + legendHeight,
-                //    innerWidth: d3.select(`#${rootId}-${i}`).node().clientWidth - padding.left - padding.right,
-                //    innerHeight: this.dimension.height - padding.top - padding.bottom
                 },
         axis: {
             x: {
