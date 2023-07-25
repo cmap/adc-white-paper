@@ -11,6 +11,7 @@
        </div>
 
       </div>
+      <p>In contrast, we observed pronounced cytotoxicity by T-MMAE in HCC1806 that was both dependent on T-MMAE dose and the amount of NCIN87 cells present. Notably, at a ratio of 1:20, which is approximately similar to the expected abundance of HER2-positive and HER2-negative cells in PRISM pools, T-MMAE did not induce bystander killing of HCC1806 cells.</p>
       <div>
         <div class="plot">
           <svg  class="co-culture-plot" id="co-culture-plot-tmmae-0"></svg>
