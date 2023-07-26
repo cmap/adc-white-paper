@@ -12,7 +12,7 @@
       </v-autocomplete>
       <v-btn size="x-small" variant="tonal" color="primary" @click="clickDefault">Highlight ERBB2</v-btn>
       <small class="px-2">Mouseover over points to show labels</small>
-      <div>
+      <div class="py-4">
         <svg  class="biomarker-plot plot" id="biomarker-ge-plot-0"></svg>
         <svg  class="biomarker-plot plot" id="biomarker-ge-plot-1"></svg>
       </div>

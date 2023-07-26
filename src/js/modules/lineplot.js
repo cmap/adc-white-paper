@@ -102,12 +102,22 @@ export default class lineplot {
                 d3.select(this).classed("mouseover", true).moveToFront()
                     .selectAll("circle")
                     .attr("r", (e=> e.r*1.5))
+
+                d3.select(this).append("text").html(d.name)
+                    .attr("x", d=> self.scale.x(d.data[`${d.data.length - 1}`].x) + 10)
+                    .attr("y", d=> self.scale.y(d.data[`${d.data.length - 1}`].y))
+                    .attr("dy", "6px")
+                    .attr("class","lineplot-series-label")
        
             })
             .on("mouseleave", function(event, d){
+                
                 svg.selectAll(".mouseover").classed("mouseover", false)
                     .selectAll("circle")
                     .attr("r", (e=> e.r))
+                
+
+                    svg.selectAll(".lineplot-series-label").remove()
 
             })
 

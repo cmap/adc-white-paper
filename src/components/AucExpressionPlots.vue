@@ -13,7 +13,8 @@
       </v-autocomplete>
       <v-btn size="x-small" variant="tonal" color="primary" @click="clickDefault">Highlight ERBB2 (HER2) overexpressing cell lines</v-btn>
       <small class="px-2">Mouseover points to show labels</small>
-      <div>
+      
+      <div class="py-4">
         <svg  class="plot expression-auc-plot" id="expression-auc-plot-0"></svg>
         <svg  class="plot expression-auc-plot" id="expression-auc-plot-1"></svg>
         <svg  class="plot expression-auc-plot" id="expression-auc-plot-2"></svg>
