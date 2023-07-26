@@ -55,7 +55,7 @@ export function launch(data){
         })
 
         plotsConfig.push({
-            title: `${d}: shRNA Knockdown`,
+            title: `${d} - shRNA Knockdown`,
             data: data[d],
             rootId: `biomarker-shrna-plot-${i}`,
             padding: padding,
@@ -87,36 +87,35 @@ export function launch(data){
       //  d3.selectAll(".domain").remove()
      })
      tooltip()
-     console.log("shRNA plots", plots)
+  
 
     }
     
 function tooltip(){
     let eachPlot = d3.selectAll(".biomarker-plot").select("g");
-    let pts = eachPlot.selectAll(".scatter-pt");
+
+    eachPlot.selectAll(".scatter-pt")
+        .filter(e=> e.name == "ERBB2")
+        .moveToFront()
+        .classed("mouseover", true)
+        .classed("keep-alive", true)
+        .append("text")
+        .html(d=> d.name)
+        .attr("class", "scatter-pt-label")
+        .attr("dy", -8)
+        .attr("text-anchor", "middle")
+
+        let pts = eachPlot.selectAll(".scatter-pt:not(.keep-alive)");
+
     pts.on("mouseover", function(event, d){
         let selected = pts.filter(e=> e.name == d.name).moveToFront().classed("mouseover", true)
         selected.append("text").html(d.name).attr("class", "scatter-pt-label").attr("dy", -8).attr("text-anchor", "middle")
         })
         .on("mouseleave", function(){
-            pts.selectAll("text").remove()
-            pts.classed("mouseover", false)
+            pts.classed("mouseover", false).selectAll("text").remove()
+              eachPlot.selectAll(".selected").moveToFront()
         })    
 }
-// export function highlight(selected){
-// plots.forEach(plot=>{
-//     d3.select(`#${plot.rootId}-g`)
-//         .selectAll("circle")
-//         .attr("r", d=> d.r)
-        
-//         .attr("stroke", d=> d.color)
-//         .filter(d=> selected.includes(d.name))
-//         .attr("r", d=> d.r*2)
-//         .attr("stroke", "black")
-//         .moveToFront()
-
-//     })
-// }
 
 
 export function highlight(selected){

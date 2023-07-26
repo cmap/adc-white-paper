@@ -49,14 +49,14 @@ export function launch(data, rootId){
         }
     })
 
-    let PuBl = ["#800F7A", "#87429B", "#8E75BC", "#95A8DD", "#9CD9FC"] // last is B: 80 from 28
-    let BlPu = ["#04598B", "#406BA5", "#7C7EBE", "#B891D7", "#F4A4F0"]
+    // let PuBl = ["#800F7A", "#87429B", "#8E75BC", "#95A8DD", "#9CD9FC"] 
+    // let BlPu = ["#04598B", "#406BA5", "#7C7EBE", "#B891D7", "#F4A4F0"]
+// let colorPallets = [PuBl, BlPu]
 
    let colorPallets = [["#d0d1e6","#a6bddb","#74a9cf","#2b8cbe","#045a8d"], ["#bfd3e6","#9ebcda","#8c96c6","#8856a7","#810f7c"]]
-   // let colorPallets = [PuBl, BlPu]
-
+   
     groups.forEach((d, index)=>{
-        let seriesDomain = [...new Set(d.data.map(d=>d.name))]
+        let seriesDomain = [...new Set(d.data.map(d=>d.name))].sort()
         let colorScale = d3.scaleOrdinal(seriesDomain, colorPallets[index])
         d.colorScale = colorScale; 
 
@@ -81,7 +81,7 @@ export function launch(data, rootId){
     let plotsConfig = [];
     groups.forEach((d,i)=>{
         plotsConfig.push({
-            title: `${d.data[0].data[0]._info.compound}: ${d.name}`,
+            title: `${d.data[0].data[0]._info.compound} - ${d.name}`,
             data: d.data,
             rootId: `${rootId}-${i}`,
             padding: padding,

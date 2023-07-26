@@ -1,23 +1,23 @@
 <template>
 
-      <div>
-        <div class="plot">
-          <svg  class="co-culture-plot" id="co-culture-plot-tdm1-0"></svg>
+<div class="py-4">
+        <div class="plot-wrapper">
+          <svg  class="plot co-culture-plot" id="co-culture-plot-tdm1-0"></svg>
           <svg  class="legend" id="co-culture-plot-tdm1-0-legend"></svg>
         </div>
-       <div class="plot">
-        <svg  class="co-culture-plot" id="co-culture-plot-tdm1-1"></svg>
+       <div class="plot-wrapper">
+        <svg  class="plot co-culture-plot" id="co-culture-plot-tdm1-1"></svg>
         <svg  class="legend" id="co-culture-plot-tdm1-1-legend"></svg>
        </div>
 
       </div>
       <p>In contrast, we observed pronounced cytotoxicity by T-MMAE in HCC1806 that was both dependent on T-MMAE dose and the amount of NCIN87 cells present. Notably, at a ratio of 1:20, which is approximately similar to the expected abundance of HER2-positive and HER2-negative cells in PRISM pools, T-MMAE did not induce bystander killing of HCC1806 cells.</p>
-      <div>
-        <div class="plot">
+      <div class="py-4">
+        <div class="plot-wrapper">
           <svg  class="co-culture-plot" id="co-culture-plot-tmmae-0"></svg>
           <svg  class="legend" id="co-culture-plot-tmmae-0-legend"></svg>
         </div>
-       <div class="plot">
+       <div class="plot-wrapper">
         <svg  class="co-culture-plot" id="co-culture-plot-tmmae-1"></svg>
         <svg  class="legend" id="co-culture-plot-tmmae-1-legend"></svg>
        </div>
@@ -47,7 +47,7 @@
            getData() {
 
             Promise.all([
-                d3.csv(`${dataPath}co-culture results_T-DM1.csv`, function(d){
+                d3.csv(`${dataPath}co-culture results_normalized_T-DM1.csv`, function(d){
                     return {
                       compound: "T-DM1",
                       viability: +d["Viability"],
@@ -59,7 +59,7 @@
                       culture_type: d["culture_type"]
                     }
                 }),
-                d3.csv(`${dataPath}co-culture results_T-MMAE.csv`, function(d){
+                d3.csv(`${dataPath}co-culture results_normalized_T-MMAE.csv`, function(d){
                     return {
                       compound: "T-MMAE",
                       viability: +d["Viability"],
@@ -94,13 +94,14 @@
 </script>
 <style scoped>
 
-.plot{
+.plot-wrapper{
   width:40%;
   display:inline-block;
   overflow: visible;
 }
 .co-culture-plot{
   width:100%;
+  overflow: visible;
 }
 .legend{
   width:100%;
@@ -109,7 +110,7 @@
 
 
 @media (max-width: 600px){
-  .plot{
+  .plot-wrapper{
     width:98%;
   }
 

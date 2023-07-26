@@ -3,6 +3,9 @@ main, body, #app{
   color:#282828;
   font-family: 'Inter Tight', sans-serif !important;
 }
+.plot{
+  overflow:visible !important;
+}
 p.text-body-1 {
   font-family: 'Inter Tight', sans-serif !important;
   margin: 1rem 0px;
@@ -103,8 +106,8 @@ li{
 
 
 .scatter-plot > .title, .boxplot-plot > .title{
-  font-size:1.2em;
-  font-weight:700;
+  font-size:1em;
+  font-weight:900;
   fill: #444444;
 }
 .tick > line{
@@ -145,7 +148,7 @@ stroke-opacity:1;
 /* .mouseover > .lineplot-pt{
   fill-opacity:1;
   } */
-.scatter-pt-label, .boxplot-pt-label{
+.scatter-pt-label, .boxplot-pt-label, .lineplot-series-label{
   pointer-events: none;
   font-size:0.8em;
   font-weight:800;
