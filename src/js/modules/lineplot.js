@@ -28,7 +28,7 @@ export default class lineplot {
         this.dimension = config.dimension; 
         this.padding = config.padding;  
         this.legend = config.legend;  
-    console.log(this)
+ 
         this.updateDimensions(); 
         this.createScale();
         this.render()

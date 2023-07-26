@@ -56,7 +56,9 @@ export function launch(data, rootId){
    // let colorPallets = [PuBl, BlPu]
 
     groups.forEach((d, index)=>{
-        let seriesDomain = [...new Set(d.data.map(d=>d.name))]
+        let seriesDomain = [...new Set(d.data.map(d=>d.name))].sort()
+        // seriesDomain.push(seriesDomain.splice(seriesDomain.indexOf("HCC1806 only"), 1)[0]);
+        // seriesDomain.push(seriesDomain.splice(seriesDomain.indexOf("NCIN87 only"), 1)[0]);
         let colorScale = d3.scaleOrdinal(seriesDomain, colorPallets[index])
         d.colorScale = colorScale; 
 

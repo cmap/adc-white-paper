@@ -47,7 +47,7 @@
            getData() {
 
             Promise.all([
-                d3.csv(`${dataPath}co-culture results_T-DM1.csv`, function(d){
+                d3.csv(`${dataPath}co-culture results_normalized_T-DM1.csv`, function(d){
                     return {
                       compound: "T-DM1",
                       viability: +d["Viability"],
@@ -59,7 +59,7 @@
                       culture_type: d["culture_type"]
                     }
                 }),
-                d3.csv(`${dataPath}co-culture results_T-MMAE.csv`, function(d){
+                d3.csv(`${dataPath}co-culture results_normalized_T-MMAE.csv`, function(d){
                     return {
                       compound: "T-MMAE",
                       viability: +d["Viability"],
