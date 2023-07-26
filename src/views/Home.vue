@@ -149,12 +149,14 @@
                   <v-list-item-subtitle>
                     an ADC consisting of trastuzumab conjugated via a non-cleavable linker (MCC; maleimidomethyl cyclohexane-1-carboxylate) to mertansine (also called DM1), a cytotoxic microtubule inhibitor, with a DAR of 3.518. After T-DM1 is internalized into cells, the released payload (emtansine) is unable to cross the membrane of surrounding HER2-negative cells and is therefore not associated with a bystander killing effect. T-DM1 is FDA approved for the treatment of HER2-overexpressing breast cancer. It is sold under the brand name Kadcyla.
                   </v-list-item-subtitle>
+                  <v-img class="compound-img" src="../../public/graphics/T-DM1.png"></v-img>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>Trastuzumab-monomethyl auristatin E (T-MMAE)</v-list-item-title>
                   <v-list-item-subtitle>
                     An ADC consisting of trastuzumab conjugated with a cleavable MC—VC—PAB (maleimidocaproyl— valine-citrulline— para-amino benzyl alcohol) linker to monomethyl auristatin E (MMAE), a microtubule inhibitor, at a DAR of 4. T-MMAE was specifically designed to release MMAE, a cell-permeable payload that therefore can exert bystander killing activity.
                   </v-list-item-subtitle>
+                  <v-img class="compound-img" src="../../public/graphics/T-MMAE.png"></v-img>
                 </v-list-item>
               </v-list>
 
@@ -342,14 +344,22 @@
 </script>
 <style scoped>
 
-
+.compound-img{
+  height:200px;
+  float:left;
+}
 
 @media (max-width: 600px){
+  .compound-img{
+  width:100%;
+
+}
 
 
 }
 
 @media (min-width: 600) {
+
 
 
 }
