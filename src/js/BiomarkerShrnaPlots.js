@@ -55,7 +55,7 @@ export function launch(data){
         })
 
         plotsConfig.push({
-            title: d,
+            title: `${d}: shRNA Knockdown`,
             data: data[d],
             rootId: `biomarker-shrna-plot-${i}`,
             padding: padding,

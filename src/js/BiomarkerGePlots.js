@@ -53,7 +53,7 @@ export function launch(data){
         })
 
         plotsConfig.push({
-            title: d,
+            title: `${d}: Gene Expression`,
             data: data[d],
             rootId: `biomarker-ge-plot-${i}`,
             padding: padding,

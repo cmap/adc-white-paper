@@ -26,8 +26,9 @@ export default class lineplot {
         this.axis = config.axis;
         this.rootId = config.rootId;
         this.dimension = config.dimension; 
-        this.padding = config.padding;    
-    
+        this.padding = config.padding;  
+        this.legend = config.legend;  
+    console.log(this)
         this.updateDimensions(); 
         this.createScale();
         this.render()
@@ -112,7 +113,11 @@ export default class lineplot {
 
             self._axis()
             self._title()
-            self._legend()
+
+            if (self.legend.display == true){
+                self._legend()
+            }
+            
 
     }
 
@@ -186,29 +191,29 @@ export default class lineplot {
     _legend(){
 
         const self = this;
-        const padding = { top: 20, right: self.padding.right, bottom: 50, left: self.padding.left}
         const svg = d3.select(`#${self.rootId}-legend`)
+        const padding = { top: 20, right: self.padding.right, bottom: 50, left: self.padding.left}
         const dimension =  {
             innerWidth: svg.node().clientWidth - padding.left - padding.right,
             innerHeight: svg.node().clientHeight - padding.top - padding.bottom
         }
 
-        let legendScale = d3.scaleBand().domain(self.axis.color.domain()).range([0, dimension.innerWidth]).padding(.1)
+        let scale = d3.scaleBand().domain(self.legend.scale.domain()).range([0, dimension.innerWidth]).padding(.1)
         let legend = svg.append("g").attr("id", "legend").attr("transform", `translate(${padding.left}, ${[padding.top]})`)
 
 
         legend.selectAll("rect")
-            .data(self.axis.color.domain())
+            .data(self.legend.scale.domain())
             .enter()
             .append("rect")
-            .attr("x", d=> legendScale(d))
+            .attr("x", d=> scale(d))
             .attr("y", 0)
-            .attr("width", legendScale.bandwidth())
+            .attr("width", scale.bandwidth())
             .attr("height", dimension.innerHeight)
-            .attr("fill", d=> self.axis.color(d))
+            .attr("fill", d=> self.legend.scale(d))
 
         const x = d3.axisBottom()
-        .scale(legendScale)   
+        .scale(scale)   
         .tickPadding(5)
         .tickSize(0)
 
@@ -223,7 +228,7 @@ export default class lineplot {
             .attr("y",  dimension.innerHeight)
             .attr("dy", "2.5em")
             .attr("text-anchor", "middle")
-            .html("Cell Ratio")
+            .html(self.legend.title)
     
         legend.select(".domain").remove()
 
