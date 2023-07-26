@@ -52,8 +52,8 @@ export function launch(data, rootId){
     let PuBl = ["#800F7A", "#87429B", "#8E75BC", "#95A8DD", "#9CD9FC"] // last is B: 80 from 28
     let BlPu = ["#04598B", "#406BA5", "#7C7EBE", "#B891D7", "#F4A4F0"]
 
-   //let colorPallets = [["#d0d1e6","#a6bddb","#74a9cf","#2b8cbe","#045a8d"], ["#bfd3e6","#9ebcda","#8c96c6","#8856a7","#810f7c"]]
-    let colorPallets = [PuBl, BlPu]
+   let colorPallets = [["#d0d1e6","#a6bddb","#74a9cf","#2b8cbe","#045a8d"], ["#bfd3e6","#9ebcda","#8c96c6","#8856a7","#810f7c"]]
+   // let colorPallets = [PuBl, BlPu]
 
     groups.forEach((d, index)=>{
         let seriesDomain = [...new Set(d.data.map(d=>d.name))]
@@ -70,9 +70,10 @@ export function launch(data, rootId){
 
     let getLegendTitle = (name)=>{
         if (name == "HCC1806"){
-            return `HCC1806 : NCIN87 Cell Ratio`
-        } else {
             return `NCIN87 : HCC1806 Cell Ratio`
+            
+        } else {
+            return `HCC1806 : NCIN87 Cell Ratio`
         }
     }
 
