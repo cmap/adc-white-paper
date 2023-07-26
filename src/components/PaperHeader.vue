@@ -1,8 +1,10 @@
 <template>
-  <div class="wrapper">
-    <span class="sup-title">{{ supTitle }}</span>
-    <h1 class="title">{{  title  }}</h1>    
-    <span class="date">{{  date }} </span>    
+  <div>
+    <span class="sup-title">{{ supTitle }}</span>  
+    <h1>{{  title  }}</h1>    
+    <div v-if="date" class="date">{{  date }} </div>  
+    <div v-if="authors" class="authors">{{  authors }} </div>    
+
   </div>
 </template>
 
@@ -16,7 +18,11 @@ export default {
         },
         supTitle: {
         type: String,
-        required: true
+        required: false
+        },
+        authors: {
+          type: String,
+          required: false
         },
         date: {
             type: String,
@@ -27,26 +33,31 @@ export default {
 }
 </script>
 <style scoped>
-.wrapper{
-  margin:32px 0px;
-}
 h1{
+  margin-top:4px;
+}
+.date, .sup-title, .authors{
   margin:8px 0px;
 }
 
 .sup-title{
   font-size: 0.8em;
-  line-height:1em;
-  margin:0px;
-  font-weight:600;
+  line-height:1.4em;
+  font-weight:900;
   color:#8e62c2;
   text-transform:uppercase;
 }
  .date{
   font-size: 0.8em;
+  line-height:1.4em;
+  font-weight:900;
+  color:#868686;
+}
+.authors{
+  font-size: 1em;
   font-weight:400;
-  line-height:1em;
-  margin:0px;
+  line-height:1.4em;
+  color: #868686;
 }
 
 

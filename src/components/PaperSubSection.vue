@@ -18,6 +18,6 @@ export default {
 </script>
 <style scoped>
 section{
-  margin:56px 0px;
+  margin:48px 0px;
 }
 </style>
