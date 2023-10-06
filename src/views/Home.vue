@@ -245,7 +245,7 @@
       </p>
       <PaperSubSection>
         <h3>
-          Explore and interact with the data on the <a href="https://prism.clue.io/portal/projects/MRSN001/ADC_WHITEPAPER/compounds" target="_blank">PRISM Data Portal &rarr;
+          Explore and interact with the data on the <a href="https://theprismlab.org/portal/projects/MRSN001/ADC_WHITEPAPER/compounds" target="_blank">PRISM Data Portal &rarr;
           </a>
         </h3>
     </PaperSubSection>
