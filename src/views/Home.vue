@@ -21,7 +21,7 @@
             sm="3"
             md="3"
           >
-            <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../graphics/01_PRISM_assay.png"/>
+            <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" :img="imgPath + '01_PRISM_assay.png'"/>
           </v-col>
           <v-col
             cols="12"
@@ -29,7 +29,7 @@
             sm="3"
             md="3"
           >
-            <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../graphics/02_PRISM_assay.png"/>
+            <ImageCard title="Antibody-drug conjugate" description="test agents" :img="imgPath + '02_PRISM_assay.png'"/>
           </v-col>
           <v-col
             cols="12"
@@ -37,7 +37,7 @@
             sm="3"
             md="3"
           >
-            <ImageCard title="5-day viability assay" description="plated+treated" img="../../graphics/03_PRISM_assay.png"/>
+            <ImageCard title="5-day viability assay" description="plated+treated" :img="imgPath + '03_PRISM_assay.png'"/>
 
           </v-col>
           <v-col
@@ -46,7 +46,7 @@
             sm="3"
             md="3"
           >
-          <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../graphics/04_PRISM_assay.png"/>
+          <ImageCard title="Target validation + discovery" description="comprehensive data" :img="imgPath + '04_PRISM_assay.png'"/>
           </v-col>
 
         </v-row>
@@ -87,7 +87,7 @@
         <v-row class="py-6">
             <v-col cols="12" xs="12" sm="4" md="4" lg="3">
               <v-card elevation="1">
-                <v-img src="../../public/graphics/05_adc_components.png"></v-img>
+                <v-img :src="imgPath + '05_adc_components.png'"></v-img>
               </v-card>
             </v-col>
             <v-col cols="12" xs="12" sm="8" md="8" lg="8">
@@ -119,7 +119,7 @@
         <v-row class="py-6">
           <v-col cols="12" sm="10" md="6">
             <v-card elevation="1">
-              <v-img class="center-image" src="../../public/graphics/06_adc_killing_mechanism.png"></v-img>
+              <v-img class="center-image" :src="imgPath + '06_adc_killing_mechanism.png'"></v-img>
             </v-card>
           </v-col>
         </v-row>
@@ -329,8 +329,12 @@
         components: {PaperHeader, PaperSection, PaperSubSection, ImageCard, AucExpressionPlots, BiomarkerGePlots,
           BiomarkerShrnaPlots, ExpressionAcrossPoolsPlots, CoCulturePlots},
         data () {
+          const imgPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../graphics/";
+          console.log(imgPath);
+          console.log(import.meta.env.BASE_URL);
+          console.log(import.meta.env.PROD);
           return {
-
+            imgPath: import.meta.env.PROD ? import.meta.env.BASE_URL + "/graphics/" : "../../graphics/",
           }
         },
         mounted(){

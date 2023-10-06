@@ -31,7 +31,7 @@
   import * as Vis from '../js/CoCulturePlots.js';
 
 
-  const dataPath = "../../data/";
+  const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
   export default {
         name: 'BiomarkerGePlots',
         data () {

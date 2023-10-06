@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: '/',
+    path: '/adc-whitepaper',
     component: () => import('@/layouts/default/Default.vue'),
     children: [
       {
@@ -19,6 +19,7 @@ const routes = [
 ]
 
 const router = createRouter({
+  base: "adc-whitepaper",
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
