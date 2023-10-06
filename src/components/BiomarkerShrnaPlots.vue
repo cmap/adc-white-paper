@@ -19,12 +19,10 @@
 </template>
 
 <script>
-
   import * as d3 from "d3";
   import * as Vis from '../js/BiomarkerShrnaPlots.js';
 
-
-  const dataPath = "../../data/";
+  const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
   export default {
         name: 'BiomarkerShrnaPlots',
         data () {

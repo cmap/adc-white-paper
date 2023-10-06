@@ -19,6 +19,7 @@ const routes = [
 ]
 
 const router = createRouter({
+  base: "adc-whitepaper",
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })

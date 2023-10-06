@@ -27,7 +27,7 @@
   import * as Vis from '../js/AucExpressionPlots.js';
 
 
-  const dataPath = "../../data/";
+  const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
   export default {
         name: 'AucExpressionPlots',
         data () {
