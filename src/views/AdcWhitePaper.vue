@@ -1,7 +1,11 @@
 <template>
   <v-container>
     <PaperSection>
-      <PaperHeader title="PRISM high throughput screening of antibody-drug conjugates uncovers clinically relevant targets" sup-title="White Paper" date="07/27/2023" authors="Jillian N. Eskra, Ellen Nguyen, Aydin Golabi, Shiker Nair, Antonella Masciotti, Nashielli Diaz, Anthony Fazio, Lia Petronio, Mustafa Kocak, Melissa Ronan, Matthew G. Rees, Jennifer A. Roth"/>
+      <PaperHeader 
+      title="PRISM high throughput screening of antibody-drug conjugates uncovers clinically relevant targets" 
+      badge="White paper"
+      date="07/27/2023" 
+      authors="Jillian N. Eskra, Ellen Nguyen, Aydin Golabi, Shiker Nair, Antonella Masciotti, Nashielli Diaz, Anthony Fazio, Lia Petronio, Mustafa Kocak, Melissa Ronan, Matthew G. Rees, Jennifer A. Roth"/>
     </PaperSection>
 
     <PaperSection title="Introduction">
@@ -325,7 +329,7 @@
 
 
   export default {
-        name: 'Home',
+        name: 'AdcWhitePaper',
         components: {PaperHeader, PaperSection, PaperSubSection, ImageCard, AucExpressionPlots, BiomarkerGePlots,
           BiomarkerShrnaPlots, ExpressionAcrossPoolsPlots, CoCulturePlots},
         data () {
