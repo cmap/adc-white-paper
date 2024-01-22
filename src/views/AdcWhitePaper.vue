@@ -1,7 +1,11 @@
 <template>
   <v-container>
     <PaperSection>
-      <PaperHeader title="PRISM high throughput screening of antibody-drug conjugates uncovers clinically relevant targets" sup-title="White Paper" date="07/27/2023" authors="Jillian N. Eskra, Ellen Nguyen, Aydin Golabi, Shiker Nair, Antonella Masciotti, Nashielli Diaz, Anthony Fazio, Lia Petronio, Mustafa Kocak, Melissa Ronan, Matthew G. Rees, Jennifer A. Roth"/>
+      <PaperHeader 
+      title="PRISM high throughput screening of antibody-drug conjugates uncovers clinically relevant targets" 
+      badge="White paper"
+      date="07/27/2023" 
+      authors="Jillian N. Eskra, Ellen Nguyen, Aydin Golabi, Shiker Nair, Antonella Masciotti, Nashielli Diaz, Anthony Fazio, Lia Petronio, Mustafa Kocak, Melissa Ronan, Matthew G. Rees, Jennifer A. Roth"/>
     </PaperSection>
 
     <PaperSection title="Introduction">
@@ -21,7 +25,7 @@
             sm="3"
             md="3"
           >
-            <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" img="../../graphics/01_PRISM_assay.png"/>
+            <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" :img="imgPath + '01_PRISM_assay.png'"/>
           </v-col>
           <v-col
             cols="12"
@@ -29,7 +33,7 @@
             sm="3"
             md="3"
           >
-            <ImageCard title="Antibody-drug conjugate" description="test agents" img="../../graphics/02_PRISM_assay.png"/>
+            <ImageCard title="Antibody-drug conjugate" description="test agents" :img="imgPath + '02_PRISM_assay.png'"/>
           </v-col>
           <v-col
             cols="12"
@@ -37,7 +41,7 @@
             sm="3"
             md="3"
           >
-            <ImageCard title="5-day viability assay" description="plated+treated" img="../../graphics/03_PRISM_assay.png"/>
+            <ImageCard title="5-day viability assay" description="plated+treated" :img="imgPath + '03_PRISM_assay.png'"/>
 
           </v-col>
           <v-col
@@ -46,7 +50,7 @@
             sm="3"
             md="3"
           >
-          <ImageCard title="Target validation + discovery" description="comprehensive data" img="../../graphics/04_PRISM_assay.png"/>
+          <ImageCard title="Target validation + discovery" description="comprehensive data" :img="imgPath + '04_PRISM_assay.png'"/>
           </v-col>
 
         </v-row>
@@ -87,7 +91,7 @@
         <v-row class="py-6">
             <v-col cols="12" xs="12" sm="4" md="4" lg="3">
               <v-card elevation="1">
-                <v-img src="../../public/graphics/05_adc_components.png"></v-img>
+                <v-img :src="imgPath + '05_adc_components.png'"></v-img>
               </v-card>
             </v-col>
             <v-col cols="12" xs="12" sm="8" md="8" lg="8">
@@ -119,7 +123,7 @@
         <v-row class="py-6">
           <v-col cols="12" sm="10" md="6">
             <v-card elevation="1">
-              <v-img class="center-image" src="../../public/graphics/06_adc_killing_mechanism.png"></v-img>
+              <v-img class="center-image" :src="imgPath + '06_adc_killing_mechanism.png'"></v-img>
             </v-card>
           </v-col>
         </v-row>
@@ -245,7 +249,7 @@
       </p>
       <PaperSubSection>
         <h3>
-          Explore and interact with the data on the <a href="https://prism.clue.io/portal/projects/MRSN001/ADC_WHITEPAPER/compounds" target="_blank">PRISM Data Portal &rarr;
+          Explore and interact with the data on the <a href="https://theprismlab.org/portal/projects/MRSN001/ADC_WHITEPAPER/compounds" target="_blank">PRISM Data Portal &rarr;
           </a>
         </h3>
     </PaperSubSection>
@@ -325,12 +329,16 @@
 
 
   export default {
-        name: 'Home',
+        name: 'AdcWhitePaper',
         components: {PaperHeader, PaperSection, PaperSubSection, ImageCard, AucExpressionPlots, BiomarkerGePlots,
           BiomarkerShrnaPlots, ExpressionAcrossPoolsPlots, CoCulturePlots},
         data () {
+          const imgPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../graphics/";
+          console.log(imgPath);
+          console.log(import.meta.env.BASE_URL);
+          console.log(import.meta.env.PROD);
           return {
-
+            imgPath: import.meta.env.PROD ? import.meta.env.BASE_URL + "/graphics/" : "../../graphics/",
           }
         },
         mounted(){

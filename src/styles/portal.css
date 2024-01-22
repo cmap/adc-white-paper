@@ -1,0 +1,308 @@
+.v-application,
+.v-application>*, 
+main{
+  font-family: 'Inter Tight', sans-serif !important;
+  color: black !important;
+  font-size: 14px !important;
+}
+
+h1 {
+  font-size: 2.15rem !important;
+  margin: 8px 0px 24px 0px !important;
+  font-weight: 700 !important;
+}
+
+h2 {
+  font-size: 1.5rem !important;
+  margin: .75em 0 .5em 0 !important;
+  font-weight: 600 !important;
+}
+
+h3 {
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2em !important;
+  text-align: left !important;
+  color: #575757 !important;
+}
+h4 {
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  line-height: 1.2em !important;
+  text-align: left !important;
+  color: #575757 !important;
+}
+h5 {
+  font-size: .8rem !important;
+  text-transform: uppercase !important;
+  font-weight: 900 !important;
+}
+.h-caption {
+  font-weight: 200;
+  line-height: 1em;
+  font-size:1.2rem;
+}
+
+
+a:not(.v-list-item):not(.v-tab), a:not(.v-list-item):not(.v-tab) >*{
+  color:#3D7DCC !important;
+}
+
+p,
+.p-caption {
+  font-size: 1.1em;
+  line-height: 1.36em;
+}
+
+ol,
+ul {
+  margin: 1em 0em !important;
+}
+
+ul.no-bullets {
+  list-style-type: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+li {
+  margin: .25em 0em !important;
+}
+
+
+.mt-0 {
+  margin-top: 0px;
+}
+
+.mb-0 {
+  margin-bottom: 0px;
+}
+
+.mtb-sm {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.banner {
+  text-align: center;
+  padding: 32px 0px;
+  width: 100%;
+  background-color: #DDEBF8;
+}
+
+.text-block {
+  margin: 1em 0em;
+  padding: 1em !important;
+  box-shadow: none !important;
+  background-color: #f5f5f5 !important;
+  border: .5px solid #e8e8e8;
+}
+
+.v-slide-group__content {
+  width: 200px !important;
+  word-break: break-word !important;
+  text-align: left !important;
+  white-space: normal !important;
+}
+
+.v-progress-circular {
+  position: fixed !important;
+  top: 45vh;
+  left: 45vw;
+  z-index: 1000;
+  color: #ff5569;
+}
+
+.noPointerEvents {
+  pointer-events: none !important;
+}
+
+
+.hidden {
+  display: none;
+}
+
+.light {
+  font-weight: 200;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+/* .rainbow-border-bottom {
+  background-color: white !important;
+  border-bottom: 5px solid transparent;
+  border-image: linear-gradient(90deg, #2cb670, #00afd7, #056eb6, #603293, #e41e2d, #f05323);
+  border-image-slice: 1;
+} */
+.v-chip{
+  font-weight:700 !important;
+}
+.v-select__selections >*{
+  font-weight:400 !important;
+}
+
+
+.theme--light.v-banner.v-sheet:not(.v-sheet--outlined):not(.v-sheet--shaped) .v-banner__wrapper {
+  border-bottom: none !important;
+}
+
+.b-sidebar {
+  width:40vw !important;
+  padding:24px !important;
+}
+.b-sidebar.bg-light {
+  background-color:#ffffff !important;
+}
+.v-tab{
+text-transform:none !important;
+}
+.modal-content>*{
+  font-family: 'Inter Tight', sans-serif !important;
+}
+.modal-header{
+  background-color:#0E7AFF !important;
+  color:#ffffff !important;
+}
+.custom-control-label{
+ font-size:.9rem !important;
+}
+.custom-control-input{
+  margin-right:4px !important;
+}
+
+
+.b-sidebar.b-sidebar-right>.b-sidebar-header .close {
+  margin-right: 10px !important;
+}
+
+.v-application .error {
+  color: #ff5252 !important;
+  background-color: white !important;
+}
+
+.primary-light-badge{
+  color:#0E7AFF !important;
+  background-color:#F0F6FF !important;
+}
+.orange-light-badge{
+  /* color:#FFA427 !important; */
+  color:#f49b1f !important;
+  background-color:#fff5e6 !important;
+}
+.grey-light-badge{
+  color:#999999 !important;
+  background-color:#eeeeee !important;
+}
+.purple-light-badge{
+  color:#8e62c2 !important;
+  background-color:#f9f4ff !important;
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #0E7AFF !important;
+  --bs-btn-border-color: #0E7AFF !important;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #0E7AFF !important;
+  --bs-btn-hover-border-color: #0E7AFF !important;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #0E7AFF !important;
+  --bs-btn-active-border-color: #0E7AFF !important;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #0E7AFF !important;
+  --bs-btn-disabled-border-color: #0E7AFF !important;
+}
+.btn-primary:hover{
+  background-color: #0d72ed !important;
+}
+
+.btn-secondary {
+    --bs-btn-color: #333 !important;
+    --bs-btn-bg: #f2f2f2 !important;
+    --bs-btn-border-color: #f2f2f2 !important;
+    --bs-btn-hover-color: #333 !important;
+    --bs-btn-hover-bg: #f2f2f2 !important;
+    --bs-btn-hover-border-color: #f2f2f2 !important;
+    --bs-btn-focus-shadow-rgb: 130, 138, 145;
+    --bs-btn-active-color: #333 !important;
+    --bs-btn-active-bg: #f2f2f2 !important;
+    --bs-btn-active-border-color: #f2f2f2;
+    --bs-btn-active-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #333 !important;
+    --bs-btn-disabled-bg: #f2f2f2 !important;
+    --bs-btn-disabled-border-color: #f2f2f2 !important;
+}
+.btn-secondary:hover{
+  background-color: #e2e2e2 !important;
+}
+
+
+.primary-dark-badge{
+  color:#0E7AFF !important;
+  background-color:#000F1A;
+}
+
+.primary-badge{
+  color:#F0F6FF !important;
+  background-color:#0E7AFF;
+}
+.primary-color{
+  color:#0E7AFF !important;
+}
+.primary-dark-button{
+  color:#9bc8ff !important;
+  background-color: #0c2335 !important;
+  font-weight:700 !important;
+}
+.dark-link{
+  color:#000F1A;
+  text-decoration:underline;
+}
+.light-button > *{
+  color:#999999 !important;
+  font-weight:700 !important;
+}
+.v-btn:not(.v-btn--round).v-size--small {
+  min-width: 1rem !important;
+}
+
+@media (max-width: 550px) {
+
+  main {
+    font-size: 16px;
+  }
+  .b-sidebar {
+    width:90vw !important;
+    padding:12px !important;
+  }
+
+
+}
+
+@media (min-width: 1264px) {
+
+  main {
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 1400px !important;
+  }
+
+}
+
+@media (min-width: 960px) {
+  /* .container {
+    max-width: 900px;
+  } */
+}
+
+@media (min-width: 1904px) {
+  .container {
+    max-width: 1400px;
+  }
+}
