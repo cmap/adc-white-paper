@@ -1,6 +1,7 @@
 <template>
   <div>
-    <svg id="matrix-svg"></svg>
+    <svg id="matrix-svg1"></svg>
+    <svg id="matrix-svg2"></svg>
   </div>
 
 </template>
@@ -11,17 +12,15 @@
 // https://gis.stackexchange.com/questions/98244/creating-multivariate-choropleth-map-with-diverging-color-schemes
 // https://pro.arcgis.com/en/pro-app/latest/help/mapping/layer-properties/color-schemes.htm
 // https://jakubnowosad.com/posts/2020-08-25-cbc-bp2/
+
+// NOTE: define topL, topR, bottomL  and calc bottomR via interpolating  topR and bottomL
   export default {
     name: 'ColorMatrix',
     components: {
 
     },
     props:{
-        c1: String, // top left
-        c2: String, // top right
-        c3: String, // bottom right
-        c4: String, // bottom left
-        num: Number // future: make num for rows and cols based on anchor|varied doses
+
     },
     data: () => ({
       loading: false,
@@ -31,11 +30,16 @@
      mounted() {
       let rowfirst = this.createColorRange([1,2,3,4,5,6], "viridis")
       let rowlast = this.createColorRange([1,2,3,4,5,6], "plasma")
-console.log(rowfirst, rowlast)
-     // let c1 = 
-     this.colmat = this.colormatrix(rowfirst, rowlast);
-    // this.colmat = this.colormatrix_trbl(this.c1, this.c2, this.c3, this.c4, this.num);
-      this.viewbivariate(this.colmat);
+    
+      let PuGl = ["#E8E8E8", "#9972AF", "#804D36", "#C8B35A"]
+      let YlGnPi = ["#F7F285", "#70C266", "#292770", "#EE0884"]
+      let scheme = PuGl;
+      let num  = 5;
+    // this.colmat = this.colormatrix(rowfirst, rowlast);
+
+      this.colmat = this.colormatrix_trbl(scheme[0], scheme[1], scheme[2], scheme[3], num);
+      this.viewbivariate(this.colmat, "matrix-svg1");
+      // this.viewbivariate(this.colmat, "matrix-svg2");
     },
     methods: {
       colormatrix(rowfirst, rowlast){
@@ -117,14 +121,14 @@ console.log(rowfirst, rowlast)
         })
         return colmat;
       },
-      viewbivariate(bicolormat){
+      viewbivariate(bicolormat, rootId){
         let margin = {top:50,left:100,right:35,bottom:50},
         width  = 900 - margin.left - margin.right,
         height = 600 - margin.top  - margin.bottom;  
         let num = bicolormat.length, 
         sqlen = 20; 
           
-        const svg = d3.select('#matrix-svg')
+        const svg = d3.select(`#${rootId}`)
         .attr("width", width)
         .attr("height", height);
 
