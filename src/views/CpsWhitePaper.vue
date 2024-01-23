@@ -52,7 +52,7 @@ import PageContent from '@/components/PageContent.vue';
 import PaperHeader from '@/components/PaperHeader.vue';
 import PaperSection from '@/components/PaperSection.vue';
 import PaperSubSection from '@/components/PaperSubSection.vue';
-import SynergyByDosePlots from '@/components/cps/SynergyByDosePlots.vue';
+import SynergyByDosePlots from '@/components/SynergyByDosePlots.vue';
 
 export default {
   name: 'CpsWhitePaper',
