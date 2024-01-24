@@ -28,18 +28,39 @@
     }),
 
      mounted() {
-      let rowfirst = this.createColorRange([1,2,3,4,5,6], "viridis")
-      let rowlast = this.createColorRange([1,2,3,4,5,6], "plasma")
-    
-      let PuGl = ["#E8E8E8", "#9972AF", "#804D36", "#C8B35A"]
-      let YlGnPi = ["#F7F285", "#70C266", "#292770", "#EE0884"]
-      let scheme = PuGl;
-      let num  = 5;
-    // this.colmat = this.colormatrix(rowfirst, rowlast);
+      let rowfirst = this.createColorRange([1,2,3,4,5,6,7], "viridis")
+      let rowlast = this.createColorRange([1,2,3,4,5,6,7], "magma")
 
-      this.colmat = this.colormatrix_trbl(scheme[0], scheme[1], scheme[2], scheme[3], num);
-      this.viewbivariate(this.colmat, "matrix-svg1");
-      // this.viewbivariate(this.colmat, "matrix-svg2");
+      let matrix = [];
+      for (let i = 0; i < rowfirst.length; i++) {
+        let temp = [];
+        for (let j = 0; j < rowlast.length; j++) {
+          let r0 = rowfirst[i][0],
+              g0 = rowfirst[i][1],
+              b0 = rowfirst[i][2],
+              r1 = rowlast[j][0],
+              g1 = rowlast[j][1],
+              b1 = rowlast[j][2];
+          let rChange = (r1 - r0) / (rowlast.length - 1),
+              gChange = (g1 - g0) / (rowlast.length - 1),
+              bChange = (b1 - b0) / (rowlast.length - 1);
+          let r = Math.round(r0 + rChange * j),
+              g = Math.round(g0 + gChange * j),
+              b = Math.round(b0 + bChange * j);
+          temp.push(`rgb(${r}, ${g}, ${b})`);
+        }
+        matrix.push(temp);
+      }
+    console.log(matrix)
+    //   let PuGl = ["#E8E8E8", "#9972AF", "#804D36", "#C8B35A"]
+    //   let YlGnPi = ["#F7F285", "#70C266", "#292770", "#EE0884"]
+    //   let scheme = PuGl;
+    //   let num  = 5;
+    //  this.colmat = this.colormatrix(rowfirst, rowlast);
+
+    //   this.colmat = this.colormatrix_trbl(scheme[0], scheme[1], scheme[2], scheme[3], num);
+    //   this.viewbivariate(this.colmat, "matrix-svg1");
+       this.viewbivariate(matrix, "matrix-svg2");
     },
     methods: {
       colormatrix(rowfirst, rowlast){
@@ -122,6 +143,7 @@
         return colmat;
       },
       viewbivariate(bicolormat, rootId){
+        console.log("bicolormat", bicolormat)
         let margin = {top:50,left:100,right:35,bottom:50},
         width  = 900 - margin.left - margin.right,
         height = 600 - margin.top  - margin.bottom;  
@@ -157,23 +179,28 @@
           }); 
       },
       createColorRange(domain=['1', '2', '3', '4', '5'], colorTheme="viridis") {
-        let arr = domain.map((d, i) => i + 1) // turn strings into numbers
+        let step = 0;
+        let arr = domain.map((d, i) => i + step) // turn strings into numbers
 
         if (arr.length <= 2) {
-            arr = [...Array(4).keys()].map((d, i) => i + 1) // if only 2 doses, turn into 4 doses so that color scale colors are not so far apart
+            arr = [...Array(4).keys()].map((d, i) => i + step) // if only 2 doses, turn into 4 doses so that color scale colors are not so far apart
         }
-        let step = 0; // old / not in use
+  
         let values = [];
         let max = d3.max(arr) + step;
         let min = step;
         let scale;
-        if (colorTheme === "plasma") {
+          if (colorTheme === "plasma") {
               scale = d3.scaleSequential(d3.interpolatePlasma).domain([max, min])
           } else if (colorTheme === "viridis") {
               scale = d3.scaleSequential(d3.interpolateViridis).domain([max, min])
           } else if (colorTheme === "inferno") {
               scale = d3.scaleSequential(d3.interpolateInferno).domain([max, min])
           }
+          else if (colorTheme === "magma") {
+              scale = d3.scaleSequential(d3.interpolateMagma).domain([max, min])
+          } 
+          
           arr.forEach((d) => {
             let rgb = d3.rgb(scale(d + step))
             // let formatRgb = `rgb(${rgb.r},${rgb.g},${rgb.b})`
