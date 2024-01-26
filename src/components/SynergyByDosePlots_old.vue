@@ -1,5 +1,6 @@
 <template>
     <div :id="rootName">
+    <ColorMatrix></ColorMatrix>
     <div :id="`${rootName}-plots`">
       <v-row v-for="row in grid" :id="`${rootName}-${row.index}`" :key="row.index" class="plot-row">
         <v-col cols="1" style="margin: auto;"><div class="y-axis-title">-log10 (q value)</div></v-col>

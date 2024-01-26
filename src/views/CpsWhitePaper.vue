@@ -1,8 +1,6 @@
 <template>
   <div v-if="loading==false">
-    <LatticeGrid>
 
-</LatticeGrid>
     <page-content> 
       <PaperHeader 
       title="Multiplexed cancer cell line combination screening using PRISM" 
@@ -25,7 +23,7 @@
         <PaperSubSection title="Selection of test combinations">
         </PaperSubSection>
         <PaperSubSection title="Pooled combination screening results">
-        <!-- <SynergyByDosePlots 
+        <SynergyByDosePlots 
           pert_id="BRD-K32107296_BRD-K92041145"
           pert_plate="PCPS020"
           project="CPS010_VALIDATION_COMPOUNDS"
@@ -41,7 +39,7 @@
           screen="CPS010"
           rootName="BRD-K00005264_BRD-K50731585"
         >
-        </SynergyByDosePlots> -->
+        </SynergyByDosePlots>
         </PaperSubSection>
 
       </PaperSection>
@@ -68,8 +66,8 @@ import PaperHeader from '@/components/PaperHeader.vue';
 import PaperSection from '@/components/PaperSection.vue';
 import PaperSubSection from '@/components/PaperSubSection.vue';
 import SynergyByDosePlots from '@/components/SynergyByDosePlots.vue';
-import LatticeGrid from '@/components/LatticeGrid.vue';
 
+import * as d3 from 'd3';
 export default {
   name: 'CpsWhitePaper',
   components: {
@@ -77,21 +75,25 @@ export default {
     PaperHeader,
     PaperSection,
     PaperSubSection,
-   // SynergyByDosePlots,
-    LatticeGrid
+   SynergyByDosePlots
   },
   props: {
 
   },
   data: () => ({
-    loading: false
+    loading: false,
+    latticePlots: null,
+    data: null,
+    config: null,
+    mouseover: null,
+    click:null,
+    highlight: null
   }),
   computed: {
 
   },
 
  async created() {
-
 
   },
   methods: {
@@ -106,6 +108,15 @@ export default {
 </script>
 
 <style>
+  #lattice-id{
+    width:1000;
+    height:1000;
+    position:relative;
+  }
 
+.lattice-plot{
+position:absolute;
+  border: 1px solid black;
 
+}
 </style>

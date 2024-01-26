@@ -1,7 +1,5 @@
 <template>
-    <div class="">
 
-    </div>
 </template>
 <script>
 import scatter from './scatter.js';
@@ -67,7 +65,9 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style>
+
+
 
 .relative-plot-wrapper{
   position:relative;
@@ -76,5 +76,18 @@ export default {
 }
 #scatter-plot-legend{
   width:100%;
+}
+
+/* .plot{
+  position:relative;
+} */
+.plot-svg, .plot-canvas{
+  position:absolute;
+  top:0px;
+  left:0px;
+}
+.plot-svg{
+  z-index:1;
+  pointer-events: none;
 }
 </style>

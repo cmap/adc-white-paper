@@ -57,6 +57,7 @@ console.log(latticePlots)
     },
 
     methods: {
+      
        processGrid(data) {
           var rows = Math.ceil(Math.sqrt(data.length));
           var columns = rows;

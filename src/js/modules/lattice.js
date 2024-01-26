@@ -56,7 +56,7 @@ export default class lattice {
             .each(function(d){
              //s   d3.select(this).datum(d);
                 d3.select(this).append("text").html("hi")
-            // new scatter(d.data, this.id, {width: self.scale.x.bandwidth(), height: self.scale.y.bandwidth()}, {top:0, right:0, bottom:0, left:0});
+              //  new scatter(d.data, this.id, {width: self.scale.x.bandwidth(), height: self.scale.y.bandwidth()}, {top:0, right:0, bottom:0, left:0});
             })
 
     }
