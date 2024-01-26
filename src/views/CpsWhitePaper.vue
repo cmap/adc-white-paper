@@ -1,5 +1,8 @@
 <template>
   <div v-if="loading==false">
+    <LatticeGrid>
+
+</LatticeGrid>
     <page-content> 
       <PaperHeader 
       title="Multiplexed cancer cell line combination screening using PRISM" 
@@ -22,14 +25,25 @@
         <PaperSubSection title="Selection of test combinations">
         </PaperSubSection>
         <PaperSubSection title="Pooled combination screening results">
-        </PaperSubSection>
-        <SynergyByDosePlots 
+        <!-- <SynergyByDosePlots 
           pert_id="BRD-K32107296_BRD-K92041145"
           pert_plate="PCPS020"
           project="CPS010_VALIDATION_COMPOUNDS"
           screen="CPS010"
+          rootName="BRD-K32107296_BRD-K92041145"
         >
         </SynergyByDosePlots>
+
+        <SynergyByDosePlots 
+          pert_id="BRD-K00005264_BRD-K50731585"
+          pert_plate="PCPS020"
+          project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
+          screen="CPS010"
+          rootName="BRD-K00005264_BRD-K50731585"
+        >
+        </SynergyByDosePlots> -->
+        </PaperSubSection>
+
       </PaperSection>
       <PaperSection title="Conclusion">
         <p class="text-body-1">Paragraph</p>
@@ -44,6 +58,7 @@
     </v-card>
       </PaperSection>
     </page-content>
+
   </div>
 </template>
 <script>
@@ -53,6 +68,7 @@ import PaperHeader from '@/components/PaperHeader.vue';
 import PaperSection from '@/components/PaperSection.vue';
 import PaperSubSection from '@/components/PaperSubSection.vue';
 import SynergyByDosePlots from '@/components/SynergyByDosePlots.vue';
+import LatticeGrid from '@/components/LatticeGrid.vue';
 
 export default {
   name: 'CpsWhitePaper',
@@ -61,7 +77,8 @@ export default {
     PaperHeader,
     PaperSection,
     PaperSubSection,
-    SynergyByDosePlots
+   // SynergyByDosePlots,
+    LatticeGrid
   },
   props: {
 
@@ -72,9 +89,7 @@ export default {
   computed: {
 
   },
-  mounted(){
 
-  },
  async created() {
 
 
@@ -90,7 +105,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 
 </style>
