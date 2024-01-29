@@ -1,0 +1,429 @@
+import * as d3 from "d3";
+import * as helpers from '@/js/utils/helpers.js';
+// import $ from "jquery";
+
+d3.selection.prototype.moveToFront = function() {
+    return this.each(function(){
+      this.parentNode.appendChild(this);
+    });
+  };
+
+  d3.selection.prototype.moveToBack = function() {  
+    return this.each(function() { 
+        var firstChild = this.parentNode.firstChild; 
+        if (firstChild) { 
+            this.parentNode.insertBefore(this, firstChild); 
+        } 
+    });
+};
+
+
+export default class scatter {
+    constructor(
+        rootId, 
+        data,
+        config,
+        states
+    ) { 
+        this.rootId = rootId;
+        this.data = data.sort((a,b)=> d3.ascending(a.y, b.y));
+        this.states = states;
+        this.title = config.title;
+        this.axis = config.axis;
+        this.tooltipConfig = config.tooltipConfig;
+        if (!this.axis.x){ this.axis.x = { } }
+        if (!this.axis.y){ this.axis.y = { } }
+        if (!this.axis.x.ticks){ this.axis.x.ticks = 5 }
+        if (!this.axis.y.ticks){ this.axis.y.ticks = 5 }
+        this.scale = config.scale;
+        if (!this.scale){ this.scale = { } }
+        this.dimension = config.dimension; 
+        if (!this.dimension){
+            this.dimension = {
+                width: d3.select(`#${this.rootId}`).node().clientWidth,
+                height:  d3.select(`#${this.rootId}`).node().clientHeight
+            }
+        }
+        this.padding = config.padding;    
+        if (!this.padding){ this.padding = { top:20, right:20, bottom:20, left:20 } }
+        this.display = config.display
+        if (!this.display){ this.display = { title: true, legend: false, xAxisTitle: true, yAxisTitle: true, xAxisTicks: true, yAxisTicks: true } }
+    
+        this.updateDimensions(); 
+        this.createScale();
+        this.renderCanvas();
+        this.renderPlot();
+
+        if (this.display.legend){ // requires createScale() for setting scale.c 
+            this.legend = config.legend;
+            this.renderLegend();
+        }
+    }
+    updateDimensions() {
+        this.dimension.innerWidth = this.dimension.width - this.padding.left - this.padding.right;
+        this.dimension.innerHeight = this.dimension.height - this.padding.top - this.padding.bottom;
+    }
+    createScale(){
+        const self = this;
+
+        const getxExtent = ()=>{
+            if (!this.axis.x.domain){ return d3.extent(this.data.map(d=>d.x))}
+            else { return this.axis.x.domain }
+        }
+        const getyExtent = ()=>{
+            if (!this.axis.y.domain){ return d3.extent(this.data.map(d=>d.y))}
+            else { return this.axis.y.domain }
+        }
+        const getcDomain = ()=>{
+            if (!this.axis.c.domain){ return [...new Set(this.data.map(d=>d.c))]}
+            else { return this.axis.c.domain }
+        }
+        const getcExtent= ()=>{
+            if (!this.axis.c.domain){  return d3.extent(this.data.map(d=>d.c))}
+            else { return this.axis.c.domain }
+        }
+
+        const getColorScale = ()=>{
+            if (this.axis.c.type == "sequential"){
+                return d3.scaleSequential().domain(getcExtent()).interpolator(d3.interpolateYlOrRd)
+            } else if (this.axis.c.type == "linear"){
+                return d3.scaleLinear().domain(getcExtent()).range(this.axis.c.range)
+            } else if (this.axis.c.type == "ordinal"){
+                return d3.scaleOrdinal().domain(getcDomain()).range(this.axis.c.range) 
+            }
+        }
+
+        const getRRange = ()=>{
+            if (self.innerWidth > 50){ return [7,7]} 
+            else { return [3,3]}
+        }
+
+        if (!this.scale.r){ this.scale.r = d3.scaleSqrt().domain(d3.extent(self.data.map(d=>d.r))).range(getRRange()) }
+        if (!this.scale.x){ this.scale.x = d3.scaleLinear().domain(getxExtent()).range([0, this.dimension.innerWidth-getRRange()[1]]).nice(); }
+        if (!this.scale.y){ this.scale.y = d3.scaleLinear().domain(getyExtent()).range([this.dimension.innerHeight, getRRange()[1]]).nice();}
+        if (!this.scale.c){ this.scale.c = getColorScale(); }
+   
+    }
+
+    renderCanvas(){
+        const self = this;
+        const container = d3.select(`#${self.rootId}`)
+        // Init Svg
+        container.append('svg')
+        .attr('width', self.dimension.width)
+        .attr('height', self.dimension.height)
+        .attr('id', `${self.rootId}-svg`)
+        .attr("class", "plot-svg")
+        .append('g')
+        .attr("id", `${self.rootId}-g`)
+        .attr("class", "plot-g")
+        .attr('transform', `translate(${self.padding.left}, ${self.padding.top})`);
+        
+        // Init Canvas
+        container.append('canvas')
+        .attr('width', self.dimension.innerWidth)
+        .attr('height', self.dimension.innerHeight)
+        .style('margin-left', self.padding.left + 'px')
+        .style('margin-top', self.padding.top + 'px')
+        .attr("class", "plot-canvas")
+        .attr('id', `${self.rootId}-canvas`);
+
+        // Init tooltip
+        container.append('div')
+        .style('margin-left', self.padding.left + 'px')
+        .style('margin-top', self.padding.top + 'px')
+        .attr("class", "plot-tooltip")
+        .attr('id', `${self.rootId}-tooltip`);
+
+        this.hideTooltip()
+    }
+    renderPlot(){
+        this.renderAxis()
+        this.renderPoints()
+        if (this.display.title){  this.renderTitle() }
+    }
+    renderPoints(){
+        const self = this;
+        const canvas = d3.select(`#${self.rootId}-canvas`)
+        const context = canvas.node().getContext('2d');
+        context.clearRect(0, 0, self.dimension.innerWidth, self.dimension.innerHeight);
+
+       
+        let highlighted, unhighlighted;
+        if (self.states.highlight.length==0){
+            unhighlighted = [];
+            highlighted = self.data;
+            
+            // self.data.forEach(point => {
+            //     renderFocus(point, 0.5)
+            // });
+        } else {
+            unhighlighted =  self.data.filter(d=> !self.states.highlight.includes(d.c))
+            highlighted =  self.data.filter(d=> self.states.highlight.includes(d.c))
+
+        //     self.data.filter(d=> !self.states.highlight.includes(d.c)).forEach(point => {
+        //         renderContext(point, 1) // points are light grey
+        //     });
+        //    self.data.filter(d=> self.states.highlight.includes(d.c)).forEach(point => {
+        //         renderFocus(point, 0.75)
+        //     });
+
+        }
+
+        unhighlighted.forEach(point => {
+            renderContext(point, 1) // points are light grey
+        });
+       highlighted.forEach(point => {
+            renderFocus(point, 0.75)
+        });
+        let selected = self.data.filter(d=> self.states.click.includes(d.id) || self.states.mouseover == d.id)
+        selected.forEach(point => {
+            context.save()
+            context.globalAlpha = 1;
+            context.beginPath();
+            context.strokeStyle = "black";
+            context.lineWidth = 2;
+            context.fillStyle = self.scale.c(point.c);
+            const px = self.scale.x(point.x);
+            const py =  self.scale.y(point.y);
+            const pr =  self.scale.r(point.r);
+            context.arc(px, py, pr*1.25, 0, 2 * Math.PI, true);
+            context.fill();
+            context.stroke();
+            context.restore();
+        });
+
+        // self.data.filter(d=> self.states.click.includes(d.id) || self.states.mouseover == d.id)
+        // .forEach(point => {
+        //     context.save()
+        //     context.globalAlpha = 1;
+        //     context.beginPath();
+        //     context.strokeStyle = "black";
+        //     context.lineWidth = 2;
+        //     context.fillStyle = self.scale.c(point.c);
+        //     const px = self.scale.x(point.x);
+        //     const py =  self.scale.y(point.y);
+        //     const pr =  self.scale.r(point.r);
+        //     context.arc(px, py, pr*1.25, 0, 2 * Math.PI, true);
+        //     context.fill();
+        //     context.stroke();
+        //     context.restore();
+        // });
+
+
+
+        function renderFocus(point, opa){
+            context.save()
+            context.globalAlpha = opa;
+            context.beginPath();
+            // context.strokeStyle = self.scale.c(point.c);
+            context.strokeStyle = "black";
+            context.lineWidth = 0.1;
+            context.fillStyle = self.scale.c(point.c);
+            const px = self.scale.x(point.x);
+            const py =  self.scale.y(point.y);
+            const pr =  self.scale.r(point.r);
+            context.arc(px, py, pr, 0, 2 * Math.PI, true);
+            context.fill();
+            context.stroke();
+            context.restore();
+        }
+        function renderContext(point, opa){
+            context.save()
+            // context.globalAlpha = 0.25;
+            context.globalAlpha = opa;
+            context.beginPath();
+            context.strokeStyle = "#e2e2e2";
+            context.fillStyle =  "#e2e2e2";
+            const px = self.scale.x(point.x);
+            const py =  self.scale.y(point.y);
+            const pr =  self.scale.r(point.r);
+            context.arc(px, py, pr, 0, 2 * Math.PI, true);
+            context.fill();
+            context.stroke();
+            context.restore();
+        }
+    }
+
+    renderAxis(){
+        const svg = d3.select(`#${this.rootId}-g`),
+        tickPadding = 5;
+
+        const renderAxisX=()=>{
+            const x = d3.axisBottom()
+            .scale(this.scale.x)   
+            .ticks(this.axis.x.ticks)
+            .tickPadding(tickPadding)
+            .tickSize(0)
+            .tickSizeInner(-this.dimension.innerHeight);
+
+            svg.append("g")
+            .attr("class", "axis x")
+            .attr("transform", `translate(0,${this.dimension.innerHeight})`)
+            .call(x)
+            if (!this.display.xAxisTicks){
+                svg.selectAll(".axis.x .tick text").remove()
+            }
+        if (this.display.xAxisTitle){
+            d3.select(`#${this.rootId}-svg`)
+            .append("text")
+            .attr("class", "axis-title")
+            .attr("x", this.dimension.width/2)
+            .attr("text-anchor", "middle")
+            .attr("y",  this.dimension.height)
+            .attr("dy", "-1.25em")
+            .html(this.axis.x.title)
+        }
+    }
+
+        const renderAxisY=()=>{
+            const y = d3.axisLeft(this.scale.y) 
+            .ticks(this.axis.y.ticks)
+            .tickPadding(tickPadding)
+            .tickSize(0)
+            .tickSizeInner(-this.dimension.innerWidth)
+
+            svg.append("g")
+            .attr("class", "axis y")
+            .attr("transform", `translate(0,0)`)
+            .call(y)
+            if (!this.display.yAxisTicks){
+                svg.selectAll(".axis.y .tick text").remove()
+            }
+            if (this.display.yAxisTitle){
+                d3.select(`#${this.rootId}-svg`)
+                .append("text")
+                .attr("class", "axis-title")
+                .attr("transform", `translate(${0},${ this.dimension.height/2})rotate(-90)`)
+                  .attr("dy", "2em")
+                .attr("text-anchor", "middle")
+                .html(this.axis.y.title)
+            }
+
+        }
+        renderAxisX()
+        renderAxisY()        
+    }
+    renderTitle(){
+        let lines = this.title.split("<br>").length;
+        let lineheight = 10;
+        // let top = ()=>{
+        //     if (lines>1){
+        //         return `-${(lines-1)*lineheight}px`
+        //     } else {
+        //         return 0
+        //     }
+        // }
+        let top = ()=>{
+            if (lines>1){
+                return 0
+            } else {
+                return lineheight
+            }
+        }
+
+
+        const plot = d3.select(`#${this.rootId}`)
+        plot
+            .append("div")
+            .style("width", `${this.dimension.width}px`)
+            .attr("class", "plot-title")
+            .style("position", "absolute")
+            .style("top", top())
+            .style("left", `${this.padding.left/4}px`)
+            .style("text-align", "center")
+            .html(this.title)
+    }
+    renderPoint(points, mouseEvent){
+        
+        const self = this;
+        let plot = d3.select(`#${self.rootId}-g`)    
+        let circle = plot.selectAll(`.${mouseEvent}`)
+           .data(points)
+      
+        circle.exit().remove()
+       
+        circle.enter().append("circle")
+            .merge(circle)
+            .attr("cx", d=>self.scale.x(d.x))
+            .attr("cy", d=>self.scale.y(d.y))
+            .attr("r",d=>self.scale.r(d.r))
+            .attr("fill", d=> self.scale.c(d.c))
+            .attr("stroke", "black")
+            .attr("stroke-width", 2)
+            .attr("class", mouseEvent)
+    }
+
+
+    showTooltip(point, mouse){
+        const self = this;
+        const tooltip = d3.select(`#${self.rootId}-tooltip`);
+        let string; 
+        if (self.tooltipConfig == null){  
+            string = `${point.label}<br><b>${self.axis.x.title}:</b> ${point.x}<br><b>${self.axis.y.title}:</b> ${point.y}`
+        } else {
+            string = '';
+            self.tooltipConfig.forEach((d,i)=>{
+                string += `<b>${d.label}:</b> ${point[d.field]}<br>`
+            })
+        }
+
+        tooltip
+        .html(string)
+        .style(`top`, `${mouse[1]-(12*6)}px`) 
+        .style(`left`, `${mouse[0]+14 }px`)
+
+        tooltip.transition().duration(100).style("opacity", 1)
+    }
+    hideTooltip(){
+        const self = this;
+        const tooltip = d3.select(`#${self.rootId}-tooltip`);
+        tooltip.transition().duration(100).style("opacity", 0)
+    }   
+    renderLegend(){
+        const self = this;
+        const domain = self.scale.c.domain();
+        const radius = 6;
+        const diameter = radius*3;
+
+        this.legend.dimension = {
+            width: d3.select(`#${this.legend.rootId}`).node().clientWidth,
+            height: (diameter*(domain.length)) + this.legend.padding.top + this.legend.padding.bottom,
+            innerWidth: d3.select(`#${this.legend.rootId}`).node().clientWidth - this.legend.padding.left - this.legend.padding.right,
+            innerHeight: diameter*(domain.length)
+        }
+
+        const scale = d3.scaleBand().domain(domain).range([0, this.legend.dimension.innerHeight]).padding(.5)
+
+        const svg = d3.select(`#${this.legend.rootId}`)
+        .attr('width', self.legend.dimension.width)
+        .attr('height', self.legend.dimension.height)
+            .append("g")
+            .attr('transform', `translate(${self.legend.padding.left}, ${self.legend.padding.top})`);
+      
+            const ticks = svg.selectAll(".legend.tick")
+            .data(domain)
+            .enter()
+            .append("g")
+            .attr("class", "legend tick")
+            .attr("id", (d,i)=> `legend-tick-${i}`)
+            .attr('transform', d=>`translate(0, ${scale(d)})`)
+            .each(function(d){
+                d3.select(this).append("circle")
+                .attr("cx", 0)
+                .attr("cy", 0)
+                .attr("r", radius)
+                .attr("fill", self.scale.c(d))
+
+                d3.select(this).append("text")
+                .text(d)
+                .attr("y", radius/ 2)
+                .attr("x", radius *2)
+                .attr("text-anchor", "start")
+                .style("font-size", "14px")
+
+            })
+            
+    }
+
+}

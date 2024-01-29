@@ -12,19 +12,23 @@ const routes = [
       {
         path: 'prism-high-throughput-screening-of-antibody-drug-conjugates-uncovers-clinically-relevant-targets',
         name: 'AdcWhitePaper',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: AdcWhitePaper
       },
       {
         path: 'multiplexed-cancer-cell-line-combination-screening-using-prism',
         name: 'CpsWhitePaper',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: CpsWhitePaper
       },
+      {
+        path: 'lattice-demo',
+        name: 'LatticeDemo',
+        component: () => import('@/views/LatticeDemo.vue')
+      },
+      {
+        path: 'lattice-demo2',
+        name: 'LatticeDemo2',
+        component: () => import('@/views/LatticeDemo2.vue')
+      }
     ],
   },
   {

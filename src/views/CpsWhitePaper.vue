@@ -1,5 +1,6 @@
 <template>
   <div v-if="loading==false">
+
     <page-content> 
       <PaperHeader 
       title="Multiplexed cancer cell line combination screening using PRISM" 
@@ -8,7 +9,7 @@
       authors="... Matthew G. Rees, Jennifer A. Roth"/>
       <PaperSection title="Introduction">
         <p class="text-body-1">Combination therapies are routinely used in cancer care, and patient cure is almost never achieved by monotherapy<sup>1</sup>. However, which combinations will benefit specific cancer patients is largely unknown. While many studies have used cell culture and animal model systems to characterize combination effects, the sheer number of clinical, investigational, and tool anticancer agents, coupled with the diversity and heterogeneity of cancer, precludes comprehensive investigation<sup>2-5</sup>. Accordingly, most such studies are restricted to a small number of drugs or a restricted set of cancer contexts. Methods to address these limitations, such as those that enable measurement of candidate combinations in many cell lines simultaneously, would greatly increase the potential scale of combinations research, generating preclinical evidence that may help identify candidate combinations for clinical trials.
-</p>
+        </p>
       </PaperSection>
       <PaperSection title="Analysis of combination data">
         <p class="text-body-1">Paragraph</p>
@@ -22,7 +23,25 @@
         <PaperSubSection title="Selection of test combinations">
         </PaperSubSection>
         <PaperSubSection title="Pooled combination screening results">
+        <SynergyByDosePlots 
+          pert_id="BRD-K32107296_BRD-K92041145"
+          pert_plate="PCPS020"
+          project="CPS010_VALIDATION_COMPOUNDS"
+          screen="CPS010"
+          rootName="BRD-K32107296_BRD-K92041145"
+        >
+        </SynergyByDosePlots>
+
+        <SynergyByDosePlots 
+          pert_id="BRD-K00005264_BRD-K50731585"
+          pert_plate="PCPS020"
+          project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
+          screen="CPS010"
+          rootName="BRD-K00005264_BRD-K50731585"
+        >
+        </SynergyByDosePlots>
         </PaperSubSection>
+
       </PaperSection>
       <PaperSection title="Conclusion">
         <p class="text-body-1">Paragraph</p>
@@ -37,41 +56,49 @@
     </v-card>
       </PaperSection>
     </page-content>
+
   </div>
 </template>
 <script>
 
 import PageContent from '@/components/PageContent.vue';
-import PaperHeader from '@/components/PaperHeader.vue'
-import PaperSection from '@/components/PaperSection.vue'
-import PaperSubSection from '@/components/PaperSubSection.vue'
+import PaperHeader from '@/components/PaperHeader.vue';
+import PaperSection from '@/components/PaperSection.vue';
+import PaperSubSection from '@/components/PaperSubSection.vue';
+import SynergyByDosePlots from '@/components/SynergyByDosePlots.vue';
 
-
+import * as d3 from 'd3';
 export default {
   name: 'CpsWhitePaper',
   components: {
     PageContent,
     PaperHeader,
     PaperSection,
-    PaperSubSection
-    
+    PaperSubSection,
+   SynergyByDosePlots
   },
   props: {
 
   },
   data: () => ({
-    loading: false
+    loading: false,
+    latticePlots: null,
+    data: null,
+    config: null,
+    mouseover: null,
+    click:null,
+    highlight: null
   }),
   computed: {
 
   },
-  mounted(){
 
-  },
  async created() {
 
   },
   methods: {
+
+
 
   },
   watch: {
@@ -80,7 +107,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+  #lattice-id{
+    width:1000;
+    height:1000;
+    position:relative;
+  }
 
+.lattice-plot{
+position:absolute;
+  border: 1px solid black;
 
+}
 </style>
