@@ -51,8 +51,7 @@ export default class scatter {
     
         this.updateDimensions(); 
         this.createScale();
-        this.renderCanvas();
-        this.renderPlot();
+        this.render();
 
         if (this.display.legend){ // requires createScale() for setting scale.c 
             this.legend = config.legend;
@@ -105,7 +104,7 @@ export default class scatter {
    
     }
 
-    renderCanvas(){
+    render(){
         const self = this;
         const container = d3.select(`#${self.rootId}`)
         // Init Svg
@@ -136,88 +135,22 @@ export default class scatter {
         .attr('id', `${self.rootId}-tooltip`);
 
         this.hideTooltip()
-    }
-    renderPlot(){
         this.renderAxis()
         this.renderPoints()
         if (this.display.title){  this.renderTitle() }
     }
+
     renderPoints(){
         const self = this;
         const canvas = d3.select(`#${self.rootId}-canvas`)
         const context = canvas.node().getContext('2d');
         context.clearRect(0, 0, self.dimension.innerWidth, self.dimension.innerHeight);
-
-       
-        let highlighted, unhighlighted;
-        if (self.states.highlight.length==0){
-            unhighlighted = [];
-            highlighted = self.data;
-            
-            // self.data.forEach(point => {
-            //     renderFocus(point, 0.5)
-            // });
-        } else {
-            unhighlighted =  self.data.filter(d=> !self.states.highlight.includes(d.c))
-            highlighted =  self.data.filter(d=> self.states.highlight.includes(d.c))
-
-        //     self.data.filter(d=> !self.states.highlight.includes(d.c)).forEach(point => {
-        //         renderContext(point, 1) // points are light grey
-        //     });
-        //    self.data.filter(d=> self.states.highlight.includes(d.c)).forEach(point => {
-        //         renderFocus(point, 0.75)
-        //     });
-
-        }
-
-        unhighlighted.forEach(point => {
-            renderContext(point, 1) // points are light grey
-        });
-       highlighted.forEach(point => {
-            renderFocus(point, 0.75)
-        });
-        let selected = self.data.filter(d=> self.states.click.includes(d.id) || self.states.mouseover == d.id)
-        selected.forEach(point => {
+console.log(self.states.click)
+        self.data.forEach(point => {
             context.save()
-            context.globalAlpha = 1;
+            context.globalAlpha = 0.7;
             context.beginPath();
-            context.strokeStyle = "black";
-            context.lineWidth = 2;
-            context.fillStyle = self.scale.c(point.c);
-            const px = self.scale.x(point.x);
-            const py =  self.scale.y(point.y);
-            const pr =  self.scale.r(point.r);
-            context.arc(px, py, pr*1.25, 0, 2 * Math.PI, true);
-            context.fill();
-            context.stroke();
-            context.restore();
-        });
-
-        // self.data.filter(d=> self.states.click.includes(d.id) || self.states.mouseover == d.id)
-        // .forEach(point => {
-        //     context.save()
-        //     context.globalAlpha = 1;
-        //     context.beginPath();
-        //     context.strokeStyle = "black";
-        //     context.lineWidth = 2;
-        //     context.fillStyle = self.scale.c(point.c);
-        //     const px = self.scale.x(point.x);
-        //     const py =  self.scale.y(point.y);
-        //     const pr =  self.scale.r(point.r);
-        //     context.arc(px, py, pr*1.25, 0, 2 * Math.PI, true);
-        //     context.fill();
-        //     context.stroke();
-        //     context.restore();
-        // });
-
-
-
-        function renderFocus(point, opa){
-            context.save()
-            context.globalAlpha = opa;
-            context.beginPath();
-            // context.strokeStyle = self.scale.c(point.c);
-            context.strokeStyle = "black";
+            context.strokeStyle = "white";
             context.lineWidth = 0.1;
             context.fillStyle = self.scale.c(point.c);
             const px = self.scale.x(point.x);
@@ -227,22 +160,24 @@ export default class scatter {
             context.fill();
             context.stroke();
             context.restore();
-        }
-        function renderContext(point, opa){
+        });
+
+        let selected = self.data.filter(d=> self.states.click.includes(d.id) || self.states.mouseover == d.id)
+        selected.forEach(point => {
             context.save()
-            // context.globalAlpha = 0.25;
-            context.globalAlpha = opa;
+            context.globalAlpha = 1;
             context.beginPath();
-            context.strokeStyle = "#e2e2e2";
-            context.fillStyle =  "#e2e2e2";
+            context.strokeStyle = "black";
+            context.lineWidth = 2;
+            context.fillStyle = "black";
             const px = self.scale.x(point.x);
             const py =  self.scale.y(point.y);
             const pr =  self.scale.r(point.r);
-            context.arc(px, py, pr, 0, 2 * Math.PI, true);
+            context.arc(px, py, pr*1.25, 0, 2 * Math.PI, true);
             context.fill();
             context.stroke();
             context.restore();
-        }
+        });
     }
 
     renderAxis(){
@@ -305,31 +240,13 @@ export default class scatter {
         renderAxisY()        
     }
     renderTitle(){
-        let lines = this.title.split("<br>").length;
-        let lineheight = 10;
-        // let top = ()=>{
-        //     if (lines>1){
-        //         return `-${(lines-1)*lineheight}px`
-        //     } else {
-        //         return 0
-        //     }
-        // }
-        let top = ()=>{
-            if (lines>1){
-                return 0
-            } else {
-                return lineheight
-            }
-        }
-
-
         const plot = d3.select(`#${this.rootId}`)
         plot
             .append("div")
             .style("width", `${this.dimension.width}px`)
             .attr("class", "plot-title")
             .style("position", "absolute")
-            .style("top", top())
+            .style("top", 0)
             .style("left", `${this.padding.left/4}px`)
             .style("text-align", "center")
             .html(this.title)
@@ -373,12 +290,12 @@ export default class scatter {
         .style(`top`, `${mouse[1]-(12*6)}px`) 
         .style(`left`, `${mouse[0]+14 }px`)
 
-        tooltip.transition().duration(100).style("opacity", 1)
+        tooltip.transition().duration(50).style("opacity", 1)
     }
     hideTooltip(){
         const self = this;
         const tooltip = d3.select(`#${self.rootId}-tooltip`);
-        tooltip.transition().duration(100).style("opacity", 0)
+        tooltip.transition().duration(50).style("opacity", 0)
     }   
     renderLegend(){
         const self = this;

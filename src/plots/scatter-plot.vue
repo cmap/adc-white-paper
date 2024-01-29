@@ -1,72 +1,168 @@
 <template>
 
 </template>
+
+
+
 <script>
 import scatter from './scatter.js';
 import * as d3 from "d3";
 import * as helpers from '@/js/utils/helpers.js';
-const maxDistance = 0.0075;
-export default {
-    name: 'ScatterPlot',
-    components: {
-      
-    },
-    data: function () {
-      return {
-        pLegendSelections: null,
-        plot: null
-      }
-    },
-    props: {
-      rootId: String,
-      config: Object,
-      data: Array,
-      highlight:Array
-    },
-    computed: {
-    },
-    mounted(){
-      this.configPlot();
-    },
-    methods: {
-      configPlot(){
-        const self = this;
-        this.plot = new scatter(self.rootId, self.data, self.config, self.config.states);
-        this.$emit("plot", self.plot)
 
-      },
-    },
-    watch:{
-      data(){
-        this.plot.data = this.data;
-        this.plot.renderPoints();
+export default {
+  name: 'ScatterPlot',
+  components: {
+
+  },
+  data: function () {
+    return {
+      pLegendSelections: null,
+      plot: null,
+      maxDistance: 0.05
+    }
+  },
+  props: {
+    rootId: String,
+    config: Object,
+    data: Array,
+    mouseover: String,
+    click: Array,
+    highlight: Array
+  },
+  computed: {
+    states(){
+      return {
+        mouseover: this.mouseover,
+        click: this.click,
+        highlight: this.highlight
       }
     }
+  },
+  mounted(){
+    this.configPlot();
+  },
+
+  methods: {
+    configPlot(){
+      const self = this;
+      this.plot = new scatter(self.rootId, self.data, self.config, self.states);
+      this.plotMouseEvents(); 
+    },
+    plotMouseEvents(){
+      const self = this;
+      const canvas = d3.select(`#${self.plot.rootId}-canvas`)
+      const context = canvas.node().getContext('2d');
+
+      let onClick = (event)=>{
+        const data = self.plot.data
+
+        const tree = d3.quadtree()
+          .x(d=> d.x)
+          .y(d=> d.y)
+          .extent([[0, 0], [self.plot.dimension.innerWidth, self.plot.dimension.innerHeight] ])
+          .addAll(data);
+
+          let mouse = d3.pointer(event);
+          let closest = tree.find( self.plot.scale.x.invert(mouse[0]),
+          self.plot.scale.y.invert(mouse[1]) );
+          let distance;
+          if (data.length!=0  && closest!=undefined){
+            distance = helpers.euclidDistance(closest.x,closest.y, self.plot.scale.x.invert(mouse[0]), self.plot.scale.y.invert(mouse[1]))
+            if (distance <=this.maxDistance){
+                this.$emit("update:click",  helpers.updateSelectedArray(self.click, closest.id))
+                console.log( self.click, closest.id)
+            }
+          } else {
+            // do nothing!
+          }
+
+      }
+      let onMouseout = (event)=>{
+        this.$emit("update:mouseover", null)
+        self.plot.hideTooltip();
+      }
+      let onMousemove = (event)=>{
+    
+        const data = self.plot.data;
+
+        const tree = d3.quadtree()
+          .x(d=> d.x)
+          .y(d=> d.y)
+          .extent([[0, 0], [self.plot.dimension.innerWidth, self.plot.dimension.innerHeight] ])
+          .addAll(data);
+
+          let mouse = d3.pointer(event);
+          let closest = tree.find( self.plot.scale.x.invert(mouse[0]),
+          self.plot.scale.y.invert(mouse[1]) );
+
+          if (data.length!=0 && closest!=undefined){
+            let distance = helpers.euclidDistance(
+              closest.x,closest.y,
+              self.plot.scale.x.invert(mouse[0]),
+              self.plot.scale.y.invert(mouse[1])
+            )
+            if (distance <= this.maxDistance){
+              this.$emit("update:mouseover", closest.id)
+              self.plot.showTooltip(closest, mouse)
+            }
+            else {
+              onMouseout()
+            }
+          } else {
+            // do nothing!
+          }
+      }
+
+      context.canvas.addEventListener('mousemove', onMousemove );
+      context.canvas.addEventListener('click', onClick );
+      context.canvas.addEventListener ("mouseout", onMouseout);
+  },
+  plotLegendEvents(){
+      const self = this;
+      const legend = d3.select(`#${self.plot.legend.rootId} g`)
+      let highlight;
+      legend.selectAll(".legend.tick")
+        .on("click", function(event, d){
+        if (self.highlight == d){
+          d3.selectAll(".legend.tick.active").classed("active", false)
+
+          highlight = []
+         // self.plot.scale.c.domain()
+        } else {
+          d3.selectAll(".legend.tick.active").classed("active", false)
+          d3.select(this).classed("active", true)
+          highlight = [d]
+        }
+        self.$emit("update:highlight", highlight)
+      })
+    }
+  },
+  watch:{
+    mouseover(){
+      this.plot.states.mouseover = this.mouseover;
+      this.plot.renderPoints();
+    },
+    click(){
+      console.log("click", this.click)
+      this.plot.states.click = this.click;
+      this.plot.renderPoints();
+    },
+    highlight(){
+      this.plot.states.highlight = this.highlight;
+      this.plot.renderPoints();
+    },
+    // data(){
+
+    //   this.plot.data = this.data;
+    //   this.plot.states.mouseover = this.mouseover;
+    //   this.plot.states.click = this.click;
+    //   this.plot.states.highlight = this.highlight;
+    //   this.plot.renderPoints();
+    // }
+  }
 }
 </script>
-<style>
+<style scoped>
 
 
-
-.relative-plot-wrapper{
-  position:relative;
-  width:100%;
-  height:100%;
-}
-#scatter-plot-legend{
-  width:100%;
-}
-
-/* .plot{
-  position:relative;
-} */
-.plot-svg, .plot-canvas{
-  position:absolute;
-  top:0px;
-  left:0px;
-}
-.plot-svg{
-  z-index:1;
-  pointer-events: none;
-}
 </style>

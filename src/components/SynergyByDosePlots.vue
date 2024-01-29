@@ -7,11 +7,10 @@
         :rootId="plot.id"
         :config="plot.config"
         :data="plot.data"
-        :mouseover.sync="mouseover"
-        :click.sync="click"
-        :highlight.sync="highlight"
-        :multi-select="true"
-      >
+        v-model:mouseover="mouseover"
+        v-model:click="click"
+        v-model:highlight="highlight"
+        >
       </scatter-plot>
       </div>
     </div>
@@ -48,7 +47,6 @@ export default {
       yAxisTitle: "-log10 (q value)",
     },
     plots: null,
-    // config: null,
     mouseover: null,
     click: [],
     highlight: []
@@ -89,16 +87,11 @@ export default {
         d.r = 3;
         d.c = d.ccle_name;
         d.label = d.ccle_name;
-        d.id = `${d.ccle_name}-${d.pert_dose}`;
-        d.mouseover_id = d.ccle_name;
+        d.id = d.ccle_name;
         Object.assign(d, self.getSelectionAttributes());
       })
 
       this.plots = this.createLatticeData(scatter);
-      // this.config = this.configure();
-      console.log(this.plots)
-  
-
       } catch (error) {
         console.error(error)
       //  handleAxiosError(error, self.$route.fullPath);
@@ -156,7 +149,7 @@ export default {
 
     // },
     configure(plots, plot) {
-      console.log(plots, plot)
+
       const self = this;
       let data = plots.map(d=>d.data).flat();
 
@@ -186,12 +179,6 @@ export default {
             c: d3.scaleOrdinal().domain(cExtent).range(["red", "red"])
         },
         display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: displayXAxisTicks, yAxisTicks: displayYAxisTicks},
-        mouseEvents: true,
-        states: {
-            mouseover: null,
-            click: [],
-            highlight: []
-        },
         tooltipConfig: [
           {label: "CCLE name", field: "ccle_name"},
           {label: this.GlobalConfig.xAxisTitle, field: "x"},
@@ -208,13 +195,35 @@ export default {
             mouseover: false
         }
       }
+    },
+    watch: {
+      mouseover(){
+        console.log("mouseover", this.mouseover)
+      },
+      click(){
+        console.log("click is being watched", this.click)
+      },
+      highlight(){
+        console.log("highlight", this.highlight)
+      }
     }
   }
   </script>
   
   <style>
 
-
+.plot-tooltip, #plot-tooltip{
+  position:absolute !important;
+  white-space: nowrap;
+  font-size:12px;
+  line-height: 1.5em;
+  background:white !important;
+  z-index: 10000;
+  padding:.5em;
+  box-shadow: 0.5px 0.5px 10px 0px rgba(141, 137, 137, 0.5) !important; 
+  min-width:200px;
+  pointer-events: none !important;
+}
 
 .lattice-plot{
   position:absolute;
@@ -227,15 +236,15 @@ export default {
 }
 .plot-svg{
   z-index:1;
-  pointer-events: none;
+  pointer-events: none !important;
   overflow: visible;
 }
-.y-axis-title{
+/* .y-axis-title{
   transform: rotate(-90deg);
   text-align:center;
 }
 .x-axis-title{
   text-align:center;
-}
+} */
   </style>
   

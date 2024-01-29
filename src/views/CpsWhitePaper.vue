@@ -34,7 +34,7 @@
           >
           </SynergyByDosePlots>
         </div>
-        <div>
+        <!-- <div>
           <SynergyByDosePlots 
               pert_id="BRD-K00005264_BRD-K50731585"
               pert_plate="PCPS020"
@@ -43,7 +43,7 @@
               rootName="BRD-K00005264_BRD-K50731585"
             >
             </SynergyByDosePlots>
-        </div>
+        </div> -->
 
 
         </PaperSubSection>
@@ -114,15 +114,5 @@ export default {
 </script>
 
 <style>
-  /* #lattice-id{
-    width:1000;
-    height:1000;
-    position:relative;
-  }
 
-.lattice-plot{
-position:absolute;
-  border: 1px solid black;
-
-} */
 </style>

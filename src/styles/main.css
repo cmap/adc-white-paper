@@ -3,9 +3,10 @@ main, body, #app{
   color:#282828;
   font-family: 'Inter Tight', sans-serif !important;
 }
-.plot{
+/* .plot{
   overflow:visible !important;
-}
+} */
+
 p.text-body-1 {
   font-family: 'Inter Tight', sans-serif !important;
   margin: 1rem 0px;
@@ -159,6 +160,20 @@ stroke-opacity:1;
 .selected > circle{
   stroke:black;
   stroke-width:1.75px;
+}
+
+
+.plot-tooltip, #plot-tooltip{
+  position:absolute !important;
+  white-space: nowrap;
+  font-size:12px;
+  line-height: 1.5em;
+  background:white !important;
+  z-index: 10000;
+  padding:.5em;
+  box-shadow: 0.5px 0.5px 10px 0px rgba(141, 137, 137, 0.5) !important; 
+  min-width:200px;
+  pointer-events: none !important;
 }
 
 @media (max-width: 600px){
