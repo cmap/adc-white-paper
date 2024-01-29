@@ -23,23 +23,29 @@
         <PaperSubSection title="Selection of test combinations">
         </PaperSubSection>
         <PaperSubSection title="Pooled combination screening results">
-        <SynergyByDosePlots 
-          pert_id="BRD-K32107296_BRD-K92041145"
-          pert_plate="PCPS020"
-          project="CPS010_VALIDATION_COMPOUNDS"
-          screen="CPS010"
-          rootName="BRD-K32107296_BRD-K92041145"
-        >
-        </SynergyByDosePlots>
+          
+          <div>
+            <SynergyByDosePlots 
+            pert_id="BRD-K32107296_BRD-K92041145"
+            pert_plate="PCPS020"
+            project="CPS010_VALIDATION_COMPOUNDS"
+            screen="CPS010"
+            rootName="BRD-K32107296_BRD-K92041145"
+          >
+          </SynergyByDosePlots>
+        </div>
+        <div>
+          <SynergyByDosePlots 
+              pert_id="BRD-K00005264_BRD-K50731585"
+              pert_plate="PCPS020"
+              project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
+              screen="CPS010"
+              rootName="BRD-K00005264_BRD-K50731585"
+            >
+            </SynergyByDosePlots>
+        </div>
 
-        <SynergyByDosePlots 
-          pert_id="BRD-K00005264_BRD-K50731585"
-          pert_plate="PCPS020"
-          project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
-          screen="CPS010"
-          rootName="BRD-K00005264_BRD-K50731585"
-        >
-        </SynergyByDosePlots>
+
         </PaperSubSection>
 
       </PaperSection>
@@ -108,7 +114,7 @@ export default {
 </script>
 
 <style>
-  #lattice-id{
+  /* #lattice-id{
     width:1000;
     height:1000;
     position:relative;
@@ -118,5 +124,5 @@ export default {
 position:absolute;
   border: 1px solid black;
 
-}
+} */
 </style>

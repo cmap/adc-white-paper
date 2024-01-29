@@ -33,29 +33,8 @@ export default {
         const self = this;
         this.plot = new scatter(self.rootId, self.data, self.config, self.config.states);
         this.$emit("plot", self.plot)
-        if (this.config.display.legend){
-          this.plotLegendEvents();
-        }
-      },
-    plotLegendEvents(){
-        const self = this;
-        const legend = d3.select(`#${self.plot.legend.rootId} g`)
-        let highlight;
-        legend.selectAll(".legend.tick")
-          .on("click", function(event, d){
-          if (self.highlight == d){
-            d3.selectAll(".legend.tick.active").classed("active", false)
 
-            highlight = []
-            //self.plot.scale.c.domain()
-          } else {
-            d3.selectAll(".legend.tick.active").classed("active", false)
-            d3.select(this).classed("active", true)
-            highlight = [d]
-          }
-          self.$emit("update:highlight", highlight)
-        })
-      }
+      },
     },
     watch:{
       data(){
