@@ -5,9 +5,11 @@
 
 
 <script>
+
 import scatter from './scatter.js';
 import * as d3 from "d3";
 import * as helpers from '@/js/utils/helpers.js';
+
 
 export default {
   name: 'ScatterPlot',
@@ -29,6 +31,7 @@ export default {
     click: Array,
     highlight: Array
   },
+  emits: ['update:mouseover', 'update:click', 'update:highlight'],
   computed: {
     states(){
       return {
@@ -70,7 +73,6 @@ export default {
             distance = helpers.euclidDistance(closest.x,closest.y, self.plot.scale.x.invert(mouse[0]), self.plot.scale.y.invert(mouse[1]))
             if (distance <=this.maxDistance){
                 this.$emit("update:click",  helpers.updateSelectedArray(self.click, closest.id))
-                console.log( self.click, closest.id)
             }
           } else {
             // do nothing!
@@ -143,22 +145,16 @@ export default {
       this.plot.renderPoints();
     },
     click(){
-      console.log("click", this.click)
       this.plot.states.click = this.click;
       this.plot.renderPoints();
     },
     highlight(){
-      this.plot.states.highlight = this.highlight;
-      this.plot.renderPoints();
+      // this.plot.states.highlight = this.highlight;
+      // this.plot.renderPoints();
     },
-    // data(){
+    data(){
 
-    //   this.plot.data = this.data;
-    //   this.plot.states.mouseover = this.mouseover;
-    //   this.plot.states.click = this.click;
-    //   this.plot.states.highlight = this.highlight;
-    //   this.plot.renderPoints();
-    // }
+    }
   }
 }
 </script>

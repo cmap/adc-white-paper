@@ -94,7 +94,6 @@ export default {
       this.plots = this.createLatticeData(scatter);
       } catch (error) {
         console.error(error)
-      //  handleAxiosError(error, self.$route.fullPath);
       } finally {
         self.loading = false;
       }
@@ -120,7 +119,6 @@ export default {
       }).flat();
       self.updateLatticeData(lattice);
       return lattice;
-    
     },
     updateLatticeData(data) {
       const self = this;
@@ -149,10 +147,8 @@ export default {
 
     // },
     configure(plots, plot) {
-
       const self = this;
       let data = plots.map(d=>d.data).flat();
-
       let xExtent = d3.extent(data.map(d => d.x))
       let yExtent = d3.extent(data.map(d => d.y))
       let cExtent = [...new Set(d3.extent(data.map(d => d.x)))]
@@ -197,15 +193,15 @@ export default {
       }
     },
     watch: {
-      mouseover(){
-        console.log("mouseover", this.mouseover)
-      },
-      click(){
-        console.log("click is being watched", this.click)
-      },
-      highlight(){
-        console.log("highlight", this.highlight)
-      }
+      // mouseover(){
+      //   console.log("mouseover", this.mouseover)
+      // },
+      // click(){
+      //   console.log("click", this.click)
+      // },
+      // highlight(){
+      //   console.log("highlight", this.highlight)
+      // }
     }
   }
   </script>

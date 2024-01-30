@@ -145,7 +145,6 @@ export default class scatter {
         const canvas = d3.select(`#${self.rootId}-canvas`)
         const context = canvas.node().getContext('2d');
         context.clearRect(0, 0, self.dimension.innerWidth, self.dimension.innerHeight);
-console.log(self.states.click)
         self.data.forEach(point => {
             context.save()
             context.globalAlpha = 0.7;
