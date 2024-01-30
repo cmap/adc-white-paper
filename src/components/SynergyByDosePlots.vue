@@ -21,11 +21,6 @@ import * as api from '@/js/utils/api.js';
 import {axiosGET, handleAxiosError} from '@/js/utils/api.js';
 import ScatterPlot from '@/plots/scatter-plot.vue';
 
-let api_url = "https://dev-api.clue.io/api/";
-let email = "clue_demo@clue.io";
-let password = "clue_anonymous";
-
-
 
 export default {
   name: 'SynergyByDosePlots',
@@ -68,6 +63,7 @@ export default {
         throw "No API Key";
       }
       self.$USER_KEY = apikey;
+      
 
     await this.getData();
   },
@@ -75,7 +71,7 @@ export default {
     async getData() {
       const self = this;
       try {
-        const responses = await axiosGET([`${api_url}prism-portal/synergy_table?filter=${JSON.stringify(self.params)}`],  `${self.$USER_KEY}`);
+        const responses = await axiosGET([`${self.$API_URL}prism-portal/synergy_table?filter=${JSON.stringify(self.params)}`],  `${self.$USER_KEY}`);
         let scatter = responses[0].data;
         scatter.forEach((d, i) => {
         d.pert_iname_varied = d.pert_iname.split("|")[0];
@@ -126,7 +122,6 @@ export default {
       scale = {};
  
       dimension.width = d3.select(`#${this.rootName}`).node().clientWidth;
-      // scale.x = d3.scaleBand().domain([...new Set(data.map(d=>d.column))]).range([0, dimension.width]); // grid based on local data
       scale.x = d3.scaleBand().domain([0,1,2,3,4,5,6]).range([0, dimension.width]); // grid based on global data
       let rows = d3.max(data.map(d=>d.row)) + 1; // add 1 to account for 0 indexing
 
@@ -143,9 +138,6 @@ export default {
           d.config = self.configure(data, d);
       })
     },
-    // adjSizeForAxisPadding(){
-
-    // },
     configure(plots, plot) {
       const self = this;
       let data = plots.map(d=>d.data).flat();
@@ -193,15 +185,7 @@ export default {
       }
     },
     watch: {
-      // mouseover(){
-      //   console.log("mouseover", this.mouseover)
-      // },
-      // click(){
-      //   console.log("click", this.click)
-      // },
-      // highlight(){
-      //   console.log("highlight", this.highlight)
-      // }
+
     }
   }
   </script>

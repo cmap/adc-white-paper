@@ -53,6 +53,9 @@ export default class scatter {
         this.createScale();
         this.render();
 
+     //   this.renderContext(); // should return a canvas, then use set it to render 'on screen' 
+        // this.renderFocus(); 
+
         if (this.display.legend){ // requires createScale() for setting scale.c 
             this.legend = config.legend;
             this.renderLegend();
@@ -119,70 +122,112 @@ export default class scatter {
         .attr('transform', `translate(${self.padding.left}, ${self.padding.top})`);
         
         // Init Canvas
+        // container.append('canvas')
+        // .attr('width', self.dimension.innerWidth)
+        // .attr('height', self.dimension.innerHeight)
+        // .style('margin-left', self.padding.left + 'px')
+        // .style('margin-top', self.padding.top + 'px')
+        // .attr("class", "plot-canvas")
+        // .style("pointer-events", "none")
+        // .attr('id', `${self.rootId}-canvasContext`);
+
         container.append('canvas')
         .attr('width', self.dimension.innerWidth)
         .attr('height', self.dimension.innerHeight)
         .style('margin-left', self.padding.left + 'px')
         .style('margin-top', self.padding.top + 'px')
         .attr("class", "plot-canvas")
-        .attr('id', `${self.rootId}-canvas`);
+        .attr('id', `${self.rootId}-canvasFocus`);
+
+        container.append('canvas')
+        .attr('width', self.dimension.innerWidth)
+        .attr('height', self.dimension.innerHeight)
+        .style('margin-left', self.padding.left + 'px')
+        .style('margin-top', self.padding.top + 'px')
+        .attr("class", "plot-canvas")
+        .style("pointer-events", "none")
+        .attr('id', `${self.rootId}-canvasSelections`);
 
         // Init tooltip
         container.append('div')
         .style('margin-left', self.padding.left + 'px')
         .style('margin-top', self.padding.top + 'px')
         .attr("class", "plot-tooltip")
-        .attr('id', `${self.rootId}-tooltip`);
+        .attr('id', `${self.rootId}-tooltip`)
+        .style("opacity", 0);
 
-        this.hideTooltip()
         this.renderAxis()
-        this.renderPoints()
-        if (this.display.title){  this.renderTitle() }
+        this.renderFocus(); 
+      //  if (this.display.title){  this.renderTitle() }
     }
-
-    renderPoints(){
+    renderContext(){
         const self = this;
-        const canvas = d3.select(`#${self.rootId}-canvas`)
-        const context = canvas.node().getContext('2d');
-        context.clearRect(0, 0, self.dimension.innerWidth, self.dimension.innerHeight);
-        self.data.forEach(point => {
-            context.save()
-            context.globalAlpha = 0.7;
-            context.beginPath();
-            context.strokeStyle = "white";
-            context.lineWidth = 0.1;
-            context.fillStyle = self.scale.c(point.c);
-            const px = self.scale.x(point.x);
-            const py =  self.scale.y(point.y);
-            const pr =  self.scale.r(point.r);
-            context.arc(px, py, pr, 0, 2 * Math.PI, true);
-            context.fill();
-            context.stroke();
-            context.restore();
-        });
+        const canvas = d3.select(`#${self.rootId}-canvasContext`)
+        const ctx = canvas.node().getContext('2d');
+        let data = this.data;
 
-        let selected = self.data.filter(d=> self.states.click.includes(d.id) || self.states.mouseover == d.id)
-        selected.forEach(point => {
-            context.save()
-            context.globalAlpha = 1;
-            context.beginPath();
-            context.strokeStyle = "black";
-            context.lineWidth = 2;
-            context.fillStyle = "black";
+        data.forEach(point => {
+            ctx.globalAlpha = 0.7;
+            ctx.beginPath();
+            ctx.strokeStyle = "white";
+            ctx.lineWidth = 0.25;
+            ctx.fillStyle = "#e2e2e2";
             const px = self.scale.x(point.x);
             const py =  self.scale.y(point.y);
             const pr =  self.scale.r(point.r);
-            context.arc(px, py, pr*1.25, 0, 2 * Math.PI, true);
-            context.fill();
-            context.stroke();
-            context.restore();
+            ctx.arc(px, py, pr, 0, 2 * Math.PI, true);
+            ctx.fill();
+            ctx.stroke();
         });
     }
 
+    renderFocus(){ // aka: render highlights 
+        console.log("render focus")
+        const self = this;
+        const canvas = d3.select(`#${self.rootId}-canvasFocus`)
+        const ctx = canvas.node().getContext('2d');
+        let data = this.data;
+
+        data.forEach(point => {
+            ctx.globalAlpha = 0.7;
+            ctx.beginPath();
+            ctx.strokeStyle = "white";
+            ctx.lineWidth = 0.25;
+            ctx.fillStyle = self.scale.c(point.c);
+            const px = self.scale.x(point.x);
+            const py =  self.scale.y(point.y);
+            const pr =  self.scale.r(point.r);
+            ctx.arc(px, py, pr, 0, 2 * Math.PI, true);
+            ctx.fill();
+            ctx.stroke();
+        });
+    }
+    renderSelections(){ // should input data objs from states.click + states.mouseover rather than filtering all data? or use crosfilter.js?
+        console.log("render selections")
+        const self = this;
+        const canvas = d3.select(`#${self.rootId}-canvasSelections`)
+        const ctx = canvas.node().getContext('2d');
+        ctx.clearRect(0, 0, self.dimension.innerWidth, self.dimension.innerHeight);
+        let data = this.data.filter(d=> self.states.click.includes(d.id) || self.states.mouseover == d.id)
+
+        data.forEach(point => {
+            ctx.globalAlpha = 0.7;
+            ctx.beginPath();
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 1;
+            ctx.fillStyle = self.scale.c(point.c);
+            const px = self.scale.x(point.x);
+            const py =  self.scale.y(point.y);
+            const pr =  self.scale.r(point.r);
+            ctx.arc(px, py, pr, 0, 2 * Math.PI, true);
+            ctx.fill();
+            ctx.stroke();
+        });
+
+    }
     renderAxis(){
         const svg = d3.select(`#${this.rootId}-g`),
         tickPadding = 5;
-
         const renderAxisX=()=>{
             const x = d3.axisBottom()
             .scale(this.scale.x)   
@@ -198,17 +243,17 @@ export default class scatter {
             if (!this.display.xAxisTicks){
                 svg.selectAll(".axis.x .tick text").remove()
             }
-        if (this.display.xAxisTitle){
-            d3.select(`#${this.rootId}-svg`)
-            .append("text")
-            .attr("class", "axis-title")
-            .attr("x", this.dimension.width/2)
-            .attr("text-anchor", "middle")
-            .attr("y",  this.dimension.height)
-            .attr("dy", "-1.25em")
-            .html(this.axis.x.title)
+            if (this.display.xAxisTitle){
+                d3.select(`#${this.rootId}-svg`)
+                .append("text")
+                .attr("class", "axis-title")
+                .attr("x", this.dimension.width/2)
+                .attr("text-anchor", "middle")
+                .attr("y",  this.dimension.height)
+                .attr("dy", "-1.25em")
+                .html(this.axis.x.title)
+            }
         }
-    }
 
         const renderAxisY=()=>{
             const y = d3.axisLeft(this.scale.y) 
@@ -250,27 +295,6 @@ export default class scatter {
             .style("text-align", "center")
             .html(this.title)
     }
-    renderPoint(points, mouseEvent){
-        
-        const self = this;
-        let plot = d3.select(`#${self.rootId}-g`)    
-        let circle = plot.selectAll(`.${mouseEvent}`)
-           .data(points)
-      
-        circle.exit().remove()
-       
-        circle.enter().append("circle")
-            .merge(circle)
-            .attr("cx", d=>self.scale.x(d.x))
-            .attr("cy", d=>self.scale.y(d.y))
-            .attr("r",d=>self.scale.r(d.r))
-            .attr("fill", d=> self.scale.c(d.c))
-            .attr("stroke", "black")
-            .attr("stroke-width", 2)
-            .attr("class", mouseEvent)
-    }
-
-
     showTooltip(point, mouse){
         const self = this;
         const tooltip = d3.select(`#${self.rootId}-tooltip`);

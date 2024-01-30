@@ -23,7 +23,6 @@
         <PaperSubSection title="Selection of test combinations">
         </PaperSubSection>
         <PaperSubSection title="Pooled combination screening results">
-          
           <div>
             <SynergyByDosePlots 
             pert_id="BRD-K32107296_BRD-K92041145"
@@ -44,8 +43,16 @@
             >
             </SynergyByDosePlots>
         </div>
-
-
+        <div>
+          <SynergyByDosePlots 
+              pert_id="BRD-K01877528_BRD-K97375133"
+              pert_plate="PCPS020"
+              project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
+              screen="CPS010"
+              rootName="BRD-K01877528_BRD-K97375133"
+            >
+            </SynergyByDosePlots>
+        </div>
         </PaperSubSection>
 
       </PaperSection>

@@ -49,11 +49,12 @@ export default {
     configPlot(){
       const self = this;
       this.plot = new scatter(self.rootId, self.data, self.config, self.states);
+      
       this.plotMouseEvents(); 
     },
     plotMouseEvents(){
       const self = this;
-      const canvas = d3.select(`#${self.plot.rootId}-canvas`)
+      const canvas = d3.select(`#${self.plot.rootId}-canvasFocus`)
       const context = canvas.node().getContext('2d');
 
       let onClick = (event)=>{
@@ -114,7 +115,6 @@ export default {
             // do nothing!
           }
       }
-
       context.canvas.addEventListener('mousemove', onMousemove );
       context.canvas.addEventListener('click', onClick );
       context.canvas.addEventListener ("mouseout", onMouseout);
@@ -137,16 +137,23 @@ export default {
         }
         self.$emit("update:highlight", highlight)
       })
+    },
+    updateCanvasOpacity(){
+      let opacity; 
+      this.click.length > 0 || this.mouseover ? opacity = 0.4 : opacity = 1; 
+      d3.select(`#${this.plot.rootId}-canvasFocus`).style("opacity", opacity)
     }
   },
   watch:{
     mouseover(){
       this.plot.states.mouseover = this.mouseover;
-      this.plot.renderPoints();
+      this.updateCanvasOpacity()
+      this.plot.renderSelections();
     },
     click(){
       this.plot.states.click = this.click;
-      this.plot.renderPoints();
+      this.updateCanvasOpacity()
+      this.plot.renderSelections();
     },
     highlight(){
       // this.plot.states.highlight = this.highlight;
