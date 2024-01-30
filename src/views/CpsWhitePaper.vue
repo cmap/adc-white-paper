@@ -23,28 +23,36 @@
         <PaperSubSection title="Selection of test combinations">
         </PaperSubSection>
         <PaperSubSection title="Pooled combination screening results">
-          <div>
+        <v-row>
+          <v-col>
+            <h4>temozolomide|O6-benzylguanine</h4>
             <SynergyByDosePlots 
             pert_id="BRD-K32107296_BRD-K92041145"
             pert_plate="PCPS020"
             project="CPS010_VALIDATION_COMPOUNDS"
             screen="CPS010"
             rootName="BRD-K32107296_BRD-K92041145"
-          >
-          </SynergyByDosePlots>
-        </div>
-        <div>
-          <SynergyByDosePlots 
-              pert_id="BRD-K00005264_BRD-K50731585"
-              pert_plate="PCPS020"
-              project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
-              screen="CPS010"
-              rootName="BRD-K00005264_BRD-K50731585"
             >
             </SynergyByDosePlots>
-        </div>
-        <div>
-          <SynergyByDosePlots 
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <h4>A-1331852+AZD5991</h4>
+            <SynergyByDosePlots 
+                pert_id="BRD-K00005264_BRD-K50731585"
+                pert_plate="PCPS020"
+                project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
+                screen="CPS010"
+                rootName="BRD-K00005264_BRD-K50731585"
+              >
+              </SynergyByDosePlots>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <h4>ML210+ferrostatin-1</h4>
+            <SynergyByDosePlots 
               pert_id="BRD-K01877528_BRD-K97375133"
               pert_plate="PCPS020"
               project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
@@ -52,7 +60,8 @@
               rootName="BRD-K01877528_BRD-K97375133"
             >
             </SynergyByDosePlots>
-        </div>
+          </v-col>
+          </v-row>
         </PaperSubSection>
 
       </PaperSection>
