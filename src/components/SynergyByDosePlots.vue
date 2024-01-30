@@ -1,4 +1,18 @@
 <template>
+  <div>
+      <v-autocomplete
+          v-model="click"
+          :items="items"
+          label="Search cell lines to highlight"
+          multiple
+          chips
+          closable-chips
+          clearable
+          variant="underlined"
+          elevation="0"
+      >
+      </v-autocomplete>
+      <!-- <v-btn size="x-small" variant="tonal" color="primary" @click="clickDefault">Highlight ERBB2 (HER2) overexpressing cell lines</v-btn> -->
   <div style="position: relative; " :id="rootName">
       <div v-if="loading==false"  v-for="plot in plots" :id="plot.id" class="lattice-plot"
       :style="{'top': `${plot.y}px`, 'left': `${plot.x}px`, 'width': `${plot.width}px`, 'height': `${plot.height}px`}"
@@ -15,6 +29,7 @@
       </scatter-plot>
       </div>
     </div>
+  </div>
 </template>  
 <script>
 import * as d3 from 'd3';
@@ -37,6 +52,9 @@ export default {
   },
   data: () => ({
     loading: true,
+    items:[],
+    // selected: ["BT474", "EFM192A", "HCC1419", "KYSE410", "MKN7", "NCIH2170", "NCIN87", "OE19", "SKOV3", "TE4"],
+    defaulted: ["AGS_STOMACH"],
     GlobalConfig: {
       padding: {top: 0, right: 0, bottom: 10, left: 10},
       xAxisTitle: "Synergy",
@@ -44,7 +62,7 @@ export default {
     },
     plots: null,
     mouseover: null,
-    click: [],
+    click: ["AGS_STOMACH"],
     highlight: []
   }),
   computed: {
@@ -87,7 +105,7 @@ export default {
         d.id = d.ccle_name;
         Object.assign(d, self.getSelectionAttributes());
       })
-
+      this.items = [...new Set(scatter.map(d=>d.ccle_name))].sort()
       this.plots = this.createLatticeData(scatter);
       } catch (error) {
         console.error(error)
