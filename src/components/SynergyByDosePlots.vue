@@ -1,8 +1,9 @@
 <template>
-  <div style="position: relative;" :id="rootName">
+  <div style="position: relative; " :id="rootName">
       <div v-if="loading==false"  v-for="plot in plots" :id="plot.id" class="lattice-plot"
       :style="{'top': `${plot.y}px`, 'left': `${plot.x}px`, 'width': `${plot.width}px`, 'height': `${plot.height}px`}"
       >
+      <!-- <div v-if="plot.row==0" style="position:absolute; top:0px; left:0px; width:100%; height:100%; pointer-events: none !important; text-align:center">{{  plot.columnName }}</div> -->
       <scatter-plot
         :rootId="plot.id"
         :config="plot.config"
@@ -108,7 +109,9 @@ export default {
         return d[1].map((e, colIndex) => { 
             return {
               column: colIndex,
+              columnName: e[0],
               row: rowIndex,
+              rowName: d[0],
               data: e[1]
             }
           })
@@ -145,6 +148,7 @@ export default {
       let yExtent = d3.extent(data.map(d => d.y))
       let cExtent = [...new Set(d3.extent(data.map(d => d.x)))]
       let displayXAxisTicks, displayYAxisTicks;
+
       if (plot.row ===  d3.max(plots.map(d=>d.row))) { displayXAxisTicks = true; } 
       else { displayXAxisTicks = false; }
       if (plot.column === 0) { displayYAxisTicks = true } 
@@ -152,7 +156,7 @@ export default {
         
         return {
         padding: self.GlobalConfig.padding,
-        title: `title`,
+        title: `${plot.columnName} | ${plot.rowName}`,
         axis: {
             x: {
             domain: xExtent,

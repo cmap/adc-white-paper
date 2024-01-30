@@ -158,7 +158,7 @@ export default class scatter {
 
         this.renderAxis()
         this.renderFocus(); 
-      //  if (this.display.title){  this.renderTitle() }
+        if (this.display.title){  this.renderTitle() }
     }
     renderContext(){
         const self = this;
