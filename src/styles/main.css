@@ -1,42 +1,41 @@
 main, body, #app{
   font-size:16.5px !important;
-  color:#282828;
+  color:#282828 !important;
   font-family: 'Inter Tight', sans-serif !important;
 }
-.plot{
+/* .plot{
   overflow:visible !important;
-}
+} */
+
 p.text-body-1 {
   font-family: 'Inter Tight', sans-serif !important;
   margin: 1rem 0px;
 }
 h1, h2, h3, h4, h5{
-  font-weight:900;
+  font-weight:800 !important;
+  color:#282828 !important;
+  margin: 16px 0px !important;
 }
 h1{
-  font-size:3em;
-  line-height:1.05em;
-  color:#282828;
-  margin:16px 0px;
+  font-size:2.8em !important;
+  line-height:1.15em !important;
 }
 
 h2{
-  font-size:2.2em;
-  line-height:1.2em;
-  color:#282828;
-  margin: 16px 0px;
+  font-size:2em !important;
+  line-height:1.2em !important;
 }
 h3{
-  font-size:1.4em;
-  line-height:1.2em;
-  color:#282828;
-  margin: 16px 0px;
+  font-size:1.4em !important;
+  line-height:1.2em !important;
+  font-weight:700 !important;
 }
 h4{
-  font-size:1.2em;
+  font-size:1.2em !important;
   line-height:1.2em;
-  color:#282828;
   margin: 4px 0px;
+  color: #414141 !important;
+  font-weight: 600 !important;
 }
 
 
@@ -159,6 +158,20 @@ stroke-opacity:1;
 .selected > circle{
   stroke:black;
   stroke-width:1.75px;
+}
+
+
+.plot-tooltip{
+  position:absolute !important;
+  white-space: nowrap;
+  font-size:12px;
+  line-height: 1.5em;
+  background:white !important;
+  z-index: 10000;
+  padding:.5em;
+  box-shadow: 0.5px 0.5px 10px 0px rgba(141, 137, 137, 0.5) !important; 
+  min-width:200px;
+  pointer-events: none !important;
 }
 
 @media (max-width: 600px){
