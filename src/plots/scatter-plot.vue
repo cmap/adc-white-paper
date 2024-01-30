@@ -49,7 +49,6 @@ export default {
     configPlot(){
       const self = this;
       this.plot = new scatter(self.rootId, self.data, self.config, self.states);
-      
       this.plotMouseEvents(); 
     },
     plotMouseEvents(){

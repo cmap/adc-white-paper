@@ -62,7 +62,7 @@ export default {
     },
     plots: null,
     mouseover: null,
-    click: ["AGS_STOMACH"],
+    click: [],
     highlight: []
   }),
   computed: {
@@ -85,6 +85,7 @@ export default {
       
 
     await this.getData();
+    this.click = this.defaulted;
   },
   methods: {
     async getData() {
@@ -107,6 +108,7 @@ export default {
       })
       this.items = [...new Set(scatter.map(d=>d.ccle_name))].sort()
       this.plots = this.createLatticeData(scatter);
+
       } catch (error) {
         console.error(error)
       } finally {
