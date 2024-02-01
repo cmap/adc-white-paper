@@ -12,7 +12,7 @@
           elevation="0"
       >
       </v-autocomplete>
-      <!-- <v-btn size="x-small" variant="tonal" color="primary" @click="clickDefault">Highlight ERBB2 (HER2) overexpressing cell lines</v-btn> -->
+ 
   <div style="position: relative; " :id="rootName">
       <div v-if="loading==false"  v-for="plot in plots" :id="plot.id" class="lattice-plot"
       :style="{'top': `${plot.y}px`, 'left': `${plot.x}px`, 'width': `${plot.width}px`, 'height': `${plot.height}px`}"
@@ -53,7 +53,6 @@ export default {
   data: () => ({
     loading: true,
     items:[],
-    // selected: ["BT474", "EFM192A", "HCC1419", "KYSE410", "MKN7", "NCIH2170", "NCIN87", "OE19", "SKOV3", "TE4"],
     defaulted: ["AGS_STOMACH"],
     GlobalConfig: {
       padding: {top: 0, right: 0, bottom: 10, left: 10},
@@ -108,6 +107,10 @@ export default {
       })
       this.items = [...new Set(scatter.map(d=>d.ccle_name))].sort()
       this.plots = this.createLatticeData(scatter);
+      console.log(this.plots)
+      let firstcol = this.plots.filter(d=>d.column === 0)
+      let firstrow = this.plots.filter(d=>d.row === 0)
+      console.log(firstcol, firstrow)
 
       } catch (error) {
         console.error(error)
@@ -142,15 +145,17 @@ export default {
     updateLatticeData(data) {
       const self = this;
       let dimension =  {}, 
-      scale = {};
+      scale = {},
+      left = 0,
+      top = 0;
  
       dimension.width = d3.select(`#${this.rootName}`).node().clientWidth;
-      scale.x = d3.scaleBand().domain([0,1,2,3,4,5,6]).range([0, dimension.width]); // grid based on global data
+      scale.x = d3.scaleBand().domain([0,1,2,3,4,5,6]).range([left, dimension.width]); // grid based on global data
       let rows = d3.max(data.map(d=>d.row)) + 1; // add 1 to account for 0 indexing
 
       dimension.height = scale.x.bandwidth() * rows;
       d3.select(`#${this.rootName}`).style("height", `${dimension.height}px`);
-      scale.y = d3.scaleBand().domain([...new Set(data.map(d=>d.row))]).range([0, dimension.height])
+      scale.y = d3.scaleBand().domain([...new Set(data.map(d=>d.row))]).range([top, dimension.height])
 
       data.forEach(d=>{
           d.id = `${self.rootName}-x-${d.column}-${d.row}-y`

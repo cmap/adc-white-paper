@@ -18,7 +18,7 @@ export default {
   },
   data: function () {
     return {
-      pLegendSelections: null,
+      // pLegendSelections: null,
       plot: null,
       maxDistance: 0.05
     }
@@ -118,25 +118,25 @@ export default {
       context.canvas.addEventListener('click', onClick );
       context.canvas.addEventListener ("mouseout", onMouseout);
   },
-  plotLegendEvents(){
-      const self = this;
-      const legend = d3.select(`#${self.plot.legend.rootId} g`)
-      let highlight;
-      legend.selectAll(".legend.tick")
-        .on("click", function(event, d){
-        if (self.highlight == d){
-          d3.selectAll(".legend.tick.active").classed("active", false)
+  // plotLegendEvents(){
+  //     const self = this;
+  //     const legend = d3.select(`#${self.plot.legend.rootId} g`)
+  //     let highlight;
+  //     legend.selectAll(".legend.tick")
+  //       .on("click", function(event, d){
+  //       if (self.highlight == d){
+  //         d3.selectAll(".legend.tick.active").classed("active", false)
 
-          highlight = []
-         // self.plot.scale.c.domain()
-        } else {
-          d3.selectAll(".legend.tick.active").classed("active", false)
-          d3.select(this).classed("active", true)
-          highlight = [d]
-        }
-        self.$emit("update:highlight", highlight)
-      })
-    },
+  //         highlight = []
+  //        // self.plot.scale.c.domain()
+  //       } else {
+  //         d3.selectAll(".legend.tick.active").classed("active", false)
+  //         d3.select(this).classed("active", true)
+  //         highlight = [d]
+  //       }
+  //       self.$emit("update:highlight", highlight)
+  //     })
+  //   },
     updateCanvasOpacity(){
       let opacity; 
       this.click.length > 0 || this.mouseover ? opacity = 0.4 : opacity = 1; 
