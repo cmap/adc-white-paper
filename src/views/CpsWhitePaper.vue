@@ -17,7 +17,6 @@
       <PaperSection title="Considerations for dose selection">
         <p class="text-body-1">Paragraph</p>
       </PaperSection>
-      
       <PaperSection title="Results">
         <p class="text-body-1">Paragraph</p>
         <PaperSubSection title="Selection of test combinations">
@@ -87,9 +86,10 @@ import PageContent from '@/components/PageContent.vue';
 import PaperHeader from '@/components/PaperHeader.vue';
 import PaperSection from '@/components/PaperSection.vue';
 import PaperSubSection from '@/components/PaperSubSection.vue';
-import SynergyByDosePlots from '@/components/SynergyByDosePlots.vue';
+import SynergyByDosePlots from './cps_2024/SynergyByDosePlots.vue';
+import ViabilityMatrixPlots from './cps_2024/ViabilityMatrixPlots.vue';
+import ColorMatrix from '@/components/ColorMatrix.vue';
 
-import * as d3 from 'd3';
 export default {
   name: 'CpsWhitePaper',
   components: {
@@ -97,25 +97,23 @@ export default {
     PaperHeader,
     PaperSection,
     PaperSubSection,
-   SynergyByDosePlots
+   SynergyByDosePlots,
+    ViabilityMatrixPlots
   },
   props: {
 
   },
   data: () => ({
-    loading: false,
-    latticePlots: null,
-    data: null,
-    config: null,
-    mouseover: null,
-    click:null,
-    highlight: null
+    loading: false
   }),
   computed: {
 
   },
 
  async created() {
+
+  },
+  mounted(){
 
   },
   methods: {
