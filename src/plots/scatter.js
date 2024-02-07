@@ -1,5 +1,6 @@
 import * as d3 from "d3";
 import * as helpers from '@/js/utils/helpers.js';
+import { get } from "underscore";
 // import $ from "jquery";
 
 d3.selection.prototype.moveToFront = function() {
@@ -33,8 +34,10 @@ export default class scatter {
         this.tooltipConfig = config.tooltipConfig;
         if (!this.axis.x){ this.axis.x = { } }
         if (!this.axis.y){ this.axis.y = { } }
-        if (!this.axis.x.ticks){ this.axis.x.ticks = 5 }
-        if (!this.axis.y.ticks){ this.axis.y.ticks = 5 }
+        if (!this.axis.x.ticks){ this.axis.x.ticks = 3 }
+        if (!this.axis.y.ticks){ this.axis.y.ticks = 3 }
+        if (!this.axis.x.threshold){ this.axis.x.threshold = false }
+        if (!this.axis.y.threshold){ this.axis.y.threshold = false }
         this.scale = config.scale;
         if (!this.scale){ this.scale = { } }
         this.dimension = config.dimension; 
@@ -100,9 +103,11 @@ export default class scatter {
             else { return [3,3]}
         }
 
+        let offsetRadius = getRRange()[1];
+
         if (!this.scale.r){ this.scale.r = d3.scaleSqrt().domain(d3.extent(self.data.map(d=>d.r))).range(getRRange()) }
-        if (!this.scale.x){ this.scale.x = d3.scaleLinear().domain(getxExtent()).range([0, this.dimension.innerWidth-getRRange()[1]]).nice(); }
-        if (!this.scale.y){ this.scale.y = d3.scaleLinear().domain(getyExtent()).range([this.dimension.innerHeight, getRRange()[1]]).nice();}
+        if (!this.scale.x){ this.scale.x = d3.scaleLinear().domain(getxExtent()).range([offsetRadius, this.dimension.innerWidth-offsetRadius]).nice(); }
+        if (!this.scale.y){ this.scale.y = d3.scaleLinear().domain(getyExtent()).range([this.dimension.innerHeight-offsetRadius, offsetRadius]).nice();}
         if (!this.scale.c){ this.scale.c = getColorScale(); }
    
     }
@@ -120,16 +125,7 @@ export default class scatter {
         .attr("id", `${self.rootId}-g`)
         .attr("class", "plot-g")
         .attr('transform', `translate(${self.padding.left}, ${self.padding.top})`);
-        
-        // Init Canvas
-        // container.append('canvas')
-        // .attr('width', self.dimension.innerWidth)
-        // .attr('height', self.dimension.innerHeight)
-        // .style('margin-left', self.padding.left + 'px')
-        // .style('margin-top', self.padding.top + 'px')
-        // .attr("class", "plot-canvas")
-        // .style("pointer-events", "none")
-        // .attr('id', `${self.rootId}-canvasContext`);
+
 
         container.append('canvas')
         .attr('width', self.dimension.innerWidth)
@@ -227,61 +223,71 @@ export default class scatter {
     }
     renderAxis(){
         const svg = d3.select(`#${this.rootId}-g`),
-        tickPadding = 5;
-        const renderAxisX=()=>{
-            const x = d3.axisBottom()
-            .scale(this.scale.x)   
-            .ticks(this.axis.x.ticks)
-            .tickPadding(tickPadding)
-            .tickSize(0)
-            .tickSizeInner(-this.dimension.innerHeight);
+        tickPadding = 2.5,
+        self = this;
 
-            svg.append("g")
-            .attr("class", "axis x")
-            .attr("transform", `translate(0,${this.dimension.innerHeight})`)
-            .call(x)
-            if (!this.display.xAxisTicks){
-                svg.selectAll(".axis.x .tick text").remove()
-            }
-            if (this.display.xAxisTitle){
-                d3.select(`#${this.rootId}-svg`)
-                .append("text")
-                .attr("class", "axis-title")
-                .attr("x", this.dimension.width/2)
-                .attr("text-anchor", "middle")
-                .attr("y",  this.dimension.height)
-                .attr("dy", "-1.25em")
-                .html(this.axis.x.title)
-            }
+        const y = d3.axisLeft(this.scale.y) 
+        .ticks(this.axis.y.ticks)
+        .tickPadding(tickPadding)
+
+        svg.append("g")
+        .attr("class", "axis y")
+        .attr("transform", `translate(0,0)`)
+        .call(y)
+     
+
+
+        const x = d3.axisBottom()
+        .scale(this.scale.x)   
+        .ticks(this.axis.x.ticks)
+        .tickPadding(tickPadding)
+
+        svg.append("g")
+        .attr("class", "axis x")
+        .attr("transform", `translate(0,${this.dimension.innerHeight})`)
+        .call(x)
+
+        svg.selectAll(".axis.y .tick line").attr("x1", self.dimension.innerWidth);
+        // svg.selectAll(".axis.x .tick line").attr("y1", -self.dimension.innerHeight)
+
+
+        svg.selectAll(".domain").remove();
+
+
+        if (!this.axis.x.threshold){
+            svg.selectAll(".axis.x .tick line").filter(d=>d==0)
+            .attr("y1", -self.dimension.innerHeight)
+            .style("stroke-dasharray", "4,4")
+           .style("stroke", "black")
+            .style("stroke-width", "0.5px")
         }
 
-        const renderAxisY=()=>{
-            const y = d3.axisLeft(this.scale.y) 
-            .ticks(this.axis.y.ticks)
-            .tickPadding(tickPadding)
-            .tickSize(0)
-            .tickSizeInner(-this.dimension.innerWidth)
-
-            svg.append("g")
-            .attr("class", "axis y")
-            .attr("transform", `translate(0,0)`)
-            .call(y)
-            if (!this.display.yAxisTicks){
-                svg.selectAll(".axis.y .tick text").remove()
-            }
-            if (this.display.yAxisTitle){
-                d3.select(`#${this.rootId}-svg`)
-                .append("text")
-                .attr("class", "axis-title")
-                .attr("transform", `translate(${0},${ this.dimension.height/2})rotate(-90)`)
-                  .attr("dy", "2em")
-                .attr("text-anchor", "middle")
-                .html(this.axis.y.title)
-            }
-
+        if (!this.display.xAxisTicks){
+            svg.selectAll(".axis.x .tick text").remove()
         }
-        renderAxisX()
-        renderAxisY()        
+        if (this.display.xAxisTitle){
+            d3.select(`#${this.rootId}-svg`)
+            .append("text")
+            .attr("class", "axis-title")
+            .attr("x", this.dimension.width/2)
+            .attr("text-anchor", "middle")
+            .attr("y",  this.dimension.height)
+            .attr("dy", "-1.25em")
+            .html(this.axis.x.title)
+        }
+
+        if (!this.display.yAxisTicks){
+            svg.selectAll(".axis.y .tick text").remove()
+        }
+        if (this.display.yAxisTitle){
+            d3.select(`#${this.rootId}-svg`)
+            .append("text")
+            .attr("class", "axis-title")
+            .attr("transform", `translate(${0},${ this.dimension.height/2})rotate(-90)`)
+                .attr("dy", "2em")
+            .attr("text-anchor", "middle")
+            .html(this.axis.y.title)
+        }
     }
     renderTitle(){
         const plot = d3.select(`#${this.rootId}`)
