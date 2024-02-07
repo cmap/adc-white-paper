@@ -86,8 +86,8 @@ import PageContent from '@/components/PageContent.vue';
 import PaperHeader from '@/components/PaperHeader.vue';
 import PaperSection from '@/components/PaperSection.vue';
 import PaperSubSection from '@/components/PaperSubSection.vue';
-import SynergyByDosePlots from './cps_2024/SynergyByDosePlots.vue';
-import ViabilityMatrixPlots from './cps_2024/ViabilityMatrixPlots.vue';
+import SynergyByDosePlots from './2024_04_cps/SynergyByDosePlots.vue';
+import ViabilityMatrixPlots from './2024_04_cps/ViabilityMatrixPlots.vue';
 import ColorMatrix from '@/components/ColorMatrix.vue';
 
 export default {

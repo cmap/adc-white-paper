@@ -317,13 +317,12 @@
   import PaperSection from '@/components/PaperSection.vue'
   import PaperSubSection from '@/components/PaperSubSection.vue'
   import ImageCard from '@/components/ImageCard.vue'
-  import AucExpressionPlots from '@/components/AucExpressionPlots.vue'
-  import BiomarkerShrnaPlots from '@/components/BiomarkerShrnaPlots.vue'
-  import BiomarkerGePlots from '@/components/BiomarkerGePlots.vue'
-  import ExpressionAcrossPoolsPlots from '@/components/ExpressionAcrossPoolsPlots.vue'
-  import CoCulturePlots from '@/components/CoCulturePlots.vue'
-  import * as d3 from "d3";
-  // import * as Vis from '../js/Vis.js';
+  import AucExpressionPlots from './2023_07_adc/AucExpressionPlots.vue'
+  import BiomarkerShrnaPlots from './2023_07_adc/BiomarkerShrnaPlots.vue'
+  import BiomarkerGePlots from './2023_07_adc/BiomarkerGePlots.vue'
+  import ExpressionAcrossPoolsPlots from './2023_07_adc/ExpressionAcrossPoolsPlots.vue'
+  import CoCulturePlots from './2023_07_adc/CoCulturePlots.vue'
+
 
 
 

@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import scatter from './modules/scatter.js';
+import scatter from '../../js/modules/scatter.js';
 
 
 

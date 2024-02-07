@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import lineplot from './modules/lineplot.js';
+import lineplot from '../../js/modules/lineplot.js';
 
 
 

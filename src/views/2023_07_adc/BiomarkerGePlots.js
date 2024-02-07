@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import scatter from './modules/scatter.js';
+import scatter from '../../js/modules/scatter.js';
 
 
 
@@ -17,8 +17,8 @@ d3.selection.prototype.moveToBack = function() {
         }
     });
 };
-
 let plots = [];
+
 const padding = {top: 50, right: 35, bottom:50, left:65};
 
 export function launch(data){
@@ -27,10 +27,10 @@ export function launch(data){
     Object.keys(data).forEach((d,i)=>{
        data[d] = data[d].map(e=>{
             return {
-                x: e.auc,
-                y: e.expression,
+                x: e.coef,
+                y: e.qval,
                 r: 3,
-                name: e.cell_line,
+                name: e.feature,
                 _info: e
             }
         }),
@@ -53,53 +53,67 @@ export function launch(data){
         })
 
         plotsConfig.push({
-            title: d,
+            title: `${d} - Gene Expression`,
             data: data[d],
-            rootId: `expression-auc-plot-${i}`,
+            rootId: `biomarker-ge-plot-${i}`,
             padding: padding,
             dimension: {   
-                        width: d3.select(`#expression-auc-plot-${i}`).node().clientWidth, 
-                        height: d3.select(`#expression-auc-plot-${i}`).node().clientWidth
+                        width: d3.select(`#biomarker-ge-plot-${i}`).node().clientWidth, 
+                        height: d3.select(`#biomarker-ge-plot-${i}`).node().clientWidth
                     },
             axis: {
                 x: {
                     min: xExtent[0],
                     max: xExtent[1],
-                    title: "AUC"
+                    title: "Correlation"
                 },
                 y: {
-                    min: yExtent[0],
+                    min: 0,
                     max: yExtent[1],
-                    title: "ERBB2 expression"
+                    title: "-log10 (q value)"
                 }
             }
         })
     })    
 
-// To DO: make this a global function??
-    plotsConfig.forEach(d=>{
-        document.getElementById(`${d.rootId}`).style.height = `${d.dimension.height}px`;
-        let plot = new scatter(d)
-        plots.push(plot)
-     })
-    tooltip()
+
+ plotsConfig.forEach(d=>{
+    document.getElementById(`${d.rootId}`).style.height = `${d.dimension.height}px`;
+    let plot = new scatter(d)
+    plots.push(plot)
+ //   d3.selectAll(".domain").remove()
+ })
+ tooltip()
 
 }
-// To DO: make this a global function??
+
 function tooltip(){
-    let eachPlot = d3.selectAll(".expression-auc-plot").select("g");
-    let pts = eachPlot.selectAll(".scatter-pt");
+    let eachPlot = d3.selectAll(".biomarker-plot").select("g");
+
+    eachPlot.selectAll(".scatter-pt")
+        .filter(e=> e.name == "ERBB2")
+        .moveToFront()
+        .classed("mouseover", true)
+        .classed("keep-alive", true)
+        .append("text")
+        .html(d=> d.name)
+        .attr("class", "scatter-pt-label")
+        .attr("dy", -8)
+        .attr("text-anchor", "middle")
+
+        let pts = eachPlot.selectAll(".scatter-pt:not(.keep-alive)");
+
     pts.on("mouseover", function(event, d){
         let selected = pts.filter(e=> e.name == d.name).moveToFront().classed("mouseover", true)
         selected.append("text").html(d.name).attr("class", "scatter-pt-label").attr("dy", -8).attr("text-anchor", "middle")
-       })
-       .on("mouseleave", function(){
-            pts.selectAll("text").remove()
-            pts.classed("mouseover", false)
-       })    
+        })
+        .on("mouseleave", function(){
+            pts.classed("mouseover", false).selectAll("text").remove()
+            eachPlot.selectAll(".selected").moveToFront()
+        })    
 }
 
- // TO DO:  make this a global function
+
 export function highlight(selected){
     plots.forEach(plot=>{
        let pts = d3.select(`#${plot.rootId}-g`).selectAll(".scatter-pt")
@@ -118,18 +132,3 @@ export function highlight(selected){
         })
 
     }
-
-
-// export function highlight(selected){
-// plots.forEach(plot=>{
-//     d3.select(`#${plot.rootId}-g`)
-//         .selectAll("circle")
-//         .attr("r", d=> d.r)
-//         .attr("stroke", d=> d.color)
-//         .filter(d=> selected.includes(d.name))
-//         .attr("r", d=> d.r*2)
-//         .attr("stroke", "black")
-//         .moveToFront()
-
-//     })
-// }

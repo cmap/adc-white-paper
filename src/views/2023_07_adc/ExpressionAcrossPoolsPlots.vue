@@ -20,7 +20,7 @@
 <script>
 
   import * as d3 from "d3";
-  import * as Vis from '../js/ExpressionAcrossPoolsPlots.js';
+  import * as Vis from './ExpressionAcrossPoolsPlots.js';
 
 
   const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";

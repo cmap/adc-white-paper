@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import boxplot from './modules/boxplot.js';
+import boxplot from '../../js/modules/boxplot.js';
 
 
 

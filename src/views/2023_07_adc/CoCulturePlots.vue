@@ -28,7 +28,7 @@
 <script>
 
   import * as d3 from "d3";
-  import * as Vis from '../js/CoCulturePlots.js';
+  import * as Vis from './CoCulturePlots.js';
 
 
   const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
