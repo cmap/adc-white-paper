@@ -99,9 +99,11 @@ export default class scatter {
         }
 
         const getRRange = ()=>{
-            if (self.innerWidth > 50){ return [7,7]} 
-            else { return [3,3]}
+            return d3.extent(self.data.map(d=>d.r))
+            // if (self.innerWidth > 50){ return [7,7]} 
+            // else { return [3,3]}
         }
+
 
         let offsetRadius = getRRange()[1];
 
@@ -272,7 +274,7 @@ export default class scatter {
             .attr("x", this.dimension.width/2)
             .attr("text-anchor", "middle")
             .attr("y",  this.dimension.height)
-            .attr("dy", "-1.25em")
+            .attr("dy", "0em")
             .html(this.axis.x.title)
         }
 
@@ -284,7 +286,7 @@ export default class scatter {
             .append("text")
             .attr("class", "axis-title")
             .attr("transform", `translate(${0},${ this.dimension.height/2})rotate(-90)`)
-                .attr("dy", "2em")
+        .attr("dy", "0em")
             .attr("text-anchor", "middle")
             .html(this.axis.y.title)
         }

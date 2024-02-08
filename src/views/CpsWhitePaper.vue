@@ -31,6 +31,7 @@
             project="CPS010_VALIDATION_COMPOUNDS"
             screen="CPS010"
             rootName="BRD-K32107296_BRD-K92041145"
+            :dict="Mgmt_Ge_Dict"
             >
             </SynergyByDosePlots>
           </v-col>
@@ -44,6 +45,7 @@
                 project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
                 screen="CPS010"
                 rootName="BRD-K00005264_BRD-K50731585"
+                :dict="Mgmt_Ge_Dict"
               >
               </SynergyByDosePlots>
           </v-col>
@@ -57,6 +59,7 @@
               project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
               screen="CPS010"
               rootName="BRD-K01877528_BRD-K97375133"
+              :dict="Mgmt_Ge_Dict"
             >
             </SynergyByDosePlots>
           </v-col>
@@ -81,7 +84,8 @@
   </div>
 </template>
 <script>
-
+const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
+import * as d3 from 'd3';
 import PageContent from '@/components/PageContent.vue';
 import PaperHeader from '@/components/PaperHeader.vue';
 import PaperSection from '@/components/PaperSection.vue';
@@ -104,20 +108,30 @@ export default {
 
   },
   data: () => ({
-    loading: false
+    loading: false,
+    Mgmt_Ge_Dict: {}
   }),
   computed: {
 
   },
 
  async created() {
-
+  await this.getMGMTGeDict();
   },
   mounted(){
 
   },
   methods: {
-
+    async getMGMTGeDict(){
+    let dict = {};
+      Promise.all([
+                d3.csv(`${dataPath}2024_04_cps/temo_benzyl_data.csv`, function(d){
+                  dict[d["ccle_name"]] = d["GE_MGMT"]
+                })
+              ]).then(response=>{
+                this.Mgmt_Ge_Dict = dict;
+            })
+    }
 
 
   },
