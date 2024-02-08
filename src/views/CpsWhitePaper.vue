@@ -36,7 +36,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col>
+          <v-col cols="8">
             <h4>A-1331852+AZD5991</h4>
             <SynergyByDosePlots 
                 pert_id="BRD-K00005264_BRD-K50731585"
