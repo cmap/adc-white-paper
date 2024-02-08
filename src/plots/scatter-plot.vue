@@ -20,7 +20,7 @@ export default {
     return {
       // pLegendSelections: null,
       plot: null,
-      maxDistance: 0.05
+      maxDistance: 0.15
     }
   },
   props: {
