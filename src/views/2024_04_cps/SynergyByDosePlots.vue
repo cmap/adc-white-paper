@@ -1,6 +1,8 @@
 <template>
   <div>
-      <v-autocomplete
+    <v-row>
+      <v-col cols="6">
+        <v-autocomplete
           v-model="click"
           :items="items"
           label="Search cell lines to highlight"
@@ -12,7 +14,9 @@
           elevation="0"
       >
       </v-autocomplete>
- 
+      </v-col>
+    </v-row>
+
     <div class="my-6" style="position: relative;" :id="rootName">
 
       <div v-for="plot in firstRow" :style="{'position': 'absolute', 'top': `${LatticePadding.top/2}px`, 'left': `${plot.x}px`,  'width': `${plot.width}px`, 'text-align': 'center'}">
@@ -63,12 +67,12 @@ export default {
   data: () => ({
     loading: false,
     items:[],
-    defaulted: ["AGS_STOMACH"],
+    defaulted: [],
     LatticePadding: {top: 40, right: 40, bottom: 0, left: 0},
     GlobalConfig: {
       padding: {top: 0, right: 0, bottom: 25, left: 25},
       xAxisTitle: "Synergy",
-      yAxisTitle: "-log10 (q value)",
+      yAxisTitle: "Gene Expression",
     },
     plots: null,
     mouseover: null,

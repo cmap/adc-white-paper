@@ -168,7 +168,7 @@ export default class scatter {
             ctx.globalAlpha = 0.7;
             ctx.beginPath();
             ctx.strokeStyle = "white";
-            ctx.lineWidth = 0.25;
+            ctx.lineWidth = 0.15;
             ctx.fillStyle = "#e2e2e2";
             const px = self.scale.x(point.x);
             const py =  self.scale.y(point.y);
@@ -189,8 +189,8 @@ export default class scatter {
         data.forEach(point => {
             ctx.globalAlpha = 0.7;
             ctx.beginPath();
-            ctx.strokeStyle = "white";
-            ctx.lineWidth = 0.25;
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 0.15;
             ctx.fillStyle = self.scale.c(point.c);
             const px = self.scale.x(point.x);
             const py =  self.scale.y(point.y);
