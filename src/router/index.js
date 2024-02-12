@@ -7,7 +7,7 @@ const CpsWhitePaper = () => import('@/views/CpsWhitePaper.vue')
 
 const routes = [
   {
-    path: '/adc-whitepaper',
+    path: '/white-papers',
     children: [
       {
         path: 'prism-high-throughput-screening-of-antibody-drug-conjugates-uncovers-clinically-relevant-targets',
@@ -32,12 +32,12 @@ const routes = [
     ],
   },
   {
-    
+
   }
 ]
 
 const router = createRouter({
-  base: "adc-whitepaper",
+  base: "white-papers",
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
