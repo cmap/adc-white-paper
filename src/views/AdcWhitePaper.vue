@@ -249,7 +249,7 @@
       </p>
       <PaperSubSection>
         <h3>
-          Explore and interact with the data on the <a href="https://theprismlab.org/portal/projects/MRSN001/ADC_WHITEPAPER/compounds" target="_blank">PRISM Data Portal &rarr;
+          Explore and interact with the data on the <a style="border: none !important;" href="https://theprismlab.org/portal/projects/MRSN001/ADC_WHITEPAPER/compounds" target="_blank">PRISM Data Portal <v-icon style="font-size:1em;">mdi-open-in-new</v-icon>
           </a>
         </h3>
     </PaperSubSection>
@@ -258,10 +258,10 @@
  
 </v-container>
 
-<div class="backgroundGradient">
+<div class="gradient-lt-orange">
   <v-container>
     <PaperSection title="Interested in collaborating with us?">
-    <v-btn target="_blank" href="https://www.theprismlab.org/contact-us/" size="x-large" color="primary">Contact us <v-icon class="pl-4">mdi-open-in-new</v-icon></v-btn>
+    <v-btn target="_blank" href="https://www.theprismlab.org/contact-us/" size="x-large" color="secondary">Contact us <v-icon class="pl-4">mdi-open-in-new</v-icon></v-btn>
   </PaperSection>
   </v-container>
 </div>
