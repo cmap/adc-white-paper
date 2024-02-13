@@ -11,7 +11,7 @@
           elevation="0"
       >
       </v-autocomplete>
-      <v-btn size="x-small" variant="tonal" color="primary" @click="clickDefault">Highlight ERBB2 (HER2) overexpressing cell lines</v-btn>
+      <v-btn size="x-small" variant="outlined" color="secondary" @click="clickDefault">Highlight ERBB2 (HER2) overexpressing cell lines</v-btn>
       <small class="px-2">Mouseover points to show labels</small>
       
       <div class="py-4">

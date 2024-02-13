@@ -1,6 +1,6 @@
 <template>
     <v-app-bar color="white" light>
-        <router-link to="/" tag="span" style="cursor: pointer; border-bottom: none;">
+        <router-link to="/" tag="span" style="cursor: pointer;" id="app-logo">
         <img id="prism_logo_secondary" alt="PRISM Logo" width="130" src="../../public/images/logo-primary.svg"/>
       </router-link>
 
@@ -36,7 +36,11 @@
   img {
     vertical-align: middle;
 }
-
+#app-logo,
+#app-logo>*{
+  border: none !important; 
+  text-decoration:none !important;
+}
   
   </style>
   

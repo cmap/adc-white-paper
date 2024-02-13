@@ -2,56 +2,64 @@
 .v-application>*, 
 main{
   font-family: 'Inter Tight', sans-serif !important;
-  color: black !important;
+  color: #262626 !important;
   font-size: 14px !important;
 }
 
-/* h1 {
+h1 {
   font-size: 2.15rem !important;
   margin: 8px 0px 24px 0px !important;
   font-weight: 700 !important;
 }
 
-h2 {
-  font-size: 1.5rem !important;
-  margin: .75em 0 .5em 0 !important;
-  font-weight: 600 !important;
+h2, .h2 {
+  font-size: 1.6rem !important;
+  margin: 4px 0 6px 0;
+  font-weight: 900;
 }
-
-h3 {
+/* need to change some h3's in portal pages to h4, then make this font size bigger */
+h3, .h3 {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2em !important;
+  margin: 4px 0 6px 0;
+  text-align: left !important;
+}
+h4, .h4 {
   font-size: 1rem !important;
   font-weight: 700 !important;
   line-height: 1.2em !important;
+  margin: 6px 0 6px 0 !important;
   text-align: left !important;
-  color: #575757 !important;
 }
-h4 {
-  font-size: 1rem !important;
-  font-weight: 500 !important;
-  line-height: 1.2em !important;
-  text-align: left !important;
-  color: #575757 !important;
-}
-h5 {
+h5, .h5 {
   font-size: .8rem !important;
   text-transform: uppercase !important;
   font-weight: 900 !important;
+}
+.h5{
+  color:#262626 !important;
+  font-weight:900;
 }
 .h-caption {
   font-weight: 200;
   line-height: 1em;
   font-size:1.2rem;
-} */
+}
 
 
-a:not(.v-list-item):not(.v-tab), a:not(.v-list-item):not(.v-tab) >*{
-  color:#3D7DCC !important;
+a:not(.v-list-item):not(.v-tab), 
+a:not(.v-list-item):not(.v-tab) >*{
+  color:#0E7AFF !important;
+}
+a.v-btn >.v-btn__content{
+  color:white !important;
 }
 
 p,
 .p-caption {
   font-size: 1.1em;
-  line-height: 1.36em;
+  line-height: 1.36em !important;
 }
 
 ol,
@@ -69,19 +77,6 @@ li {
   margin: .25em 0em !important;
 }
 
-
-.mt-0 {
-  margin-top: 0px;
-}
-
-.mb-0 {
-  margin-bottom: 0px;
-}
-
-.mtb-sm {
-  margin-top: 4px;
-  margin-bottom: 4px;
-}
 
 .banner {
   text-align: center;
@@ -113,32 +108,7 @@ li {
   color: #ff5569;
 }
 
-.noPointerEvents {
-  pointer-events: none !important;
-}
 
-
-.hidden {
-  display: none;
-}
-
-.light {
-  font-weight: 200;
-}
-
-.inline-block {
-  display: inline-block !important;
-}
-
-/* .rainbow-border-bottom {
-  background-color: white !important;
-  border-bottom: 5px solid transparent;
-  border-image: linear-gradient(90deg, #2cb670, #00afd7, #056eb6, #603293, #e41e2d, #f05323);
-  border-image-slice: 1;
-} */
-.v-chip{
-  font-weight:700 !important;
-}
 .v-select__selections >*{
   font-weight:400 !important;
 }
@@ -177,97 +147,9 @@ text-transform:none !important;
   margin-right: 10px !important;
 }
 
-.v-application .error {
-  color: #ff5252 !important;
-  background-color: white !important;
-}
-
-.primary-light-badge{
-  color:#0E7AFF !important;
-  background-color:#F0F6FF !important;
-}
-.orange-light-badge{
-  color:#f49b1f !important;
-  background-color:#fff5e6 !important;
-}
-.grey-light-badge{
-  color:#999999 !important;
-  background-color:#eeeeee !important;
-}
-.purple-light-badge{
-  color:#8e62c2 !important;
-  background-color:#f9f4ff !important;
-}
-
-.btn-primary {
-  --bs-btn-color: #fff;
-  --bs-btn-bg: #0E7AFF !important;
-  --bs-btn-border-color: #0E7AFF !important;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #0E7AFF !important;
-  --bs-btn-hover-border-color: #0E7AFF !important;
-  --bs-btn-focus-shadow-rgb: 49, 132, 253;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #0E7AFF !important;
-  --bs-btn-active-border-color: #0E7AFF !important;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: #0E7AFF !important;
-  --bs-btn-disabled-border-color: #0E7AFF !important;
-}
-.btn-primary:hover{
-  background-color: #0d72ed !important;
-}
-
-.btn-secondary {
-    --bs-btn-color: #333 !important;
-    --bs-btn-bg: #f2f2f2 !important;
-    --bs-btn-border-color: #f2f2f2 !important;
-    --bs-btn-hover-color: #333 !important;
-    --bs-btn-hover-bg: #f2f2f2 !important;
-    --bs-btn-hover-border-color: #f2f2f2 !important;
-    --bs-btn-focus-shadow-rgb: 130, 138, 145;
-    --bs-btn-active-color: #333 !important;
-    --bs-btn-active-bg: #f2f2f2 !important;
-    --bs-btn-active-border-color: #f2f2f2;
-    --bs-btn-active-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #333 !important;
-    --bs-btn-disabled-bg: #f2f2f2 !important;
-    --bs-btn-disabled-border-color: #f2f2f2 !important;
-}
-.btn-secondary:hover{
-  background-color: #e2e2e2 !important;
-}
 
 
-.primary-dark-badge{
-  color:#0E7AFF !important;
-  background-color:#000F1A;
-}
 
-.primary-badge{
-  color:#F0F6FF !important;
-  background-color:#0E7AFF;
-}
-.primary-color{
-  color:#0E7AFF !important;
-}
-.primary-dark-button{
-  color:#9bc8ff !important;
-  background-color: #0c2335 !important;
-  font-weight:700 !important;
-}
-.dark-link{
-  color:#000F1A;
-  text-decoration:underline;
-}
-.light-button > *{
-  color:#999999 !important;
-  font-weight:700 !important;
-}
-.v-btn:not(.v-btn--round).v-size--small {
-  min-width: 1rem !important;
-}
 
 @media (max-width: 550px) {
 
@@ -305,4 +187,3 @@ text-transform:none !important;
     max-width: 1400px;
   }
 }
-
