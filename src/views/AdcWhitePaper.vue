@@ -25,7 +25,7 @@
             sm="3"
             md="3"
           >
-            <ImageCard title="900+ cancer cell lines" description="pooled+barcoded" :img="imgPath + '01_PRISM_assay.png'"/>
+            <ImageCard min-height="3em"  title="900+ cancer cell lines" description="pooled+barcoded" :img="imgPath + '01_PRISM_assay.png'"/>
           </v-col>
           <v-col
             cols="12"
@@ -33,7 +33,7 @@
             sm="3"
             md="3"
           >
-            <ImageCard title="Antibody-drug conjugate" description="test agents" :img="imgPath + '02_PRISM_assay.png'"/>
+            <ImageCard min-height="3em" title="Antibody-drug conjugate" description="test agents" :img="imgPath + '02_PRISM_assay.png'"/>
           </v-col>
           <v-col
             cols="12"
@@ -41,7 +41,7 @@
             sm="3"
             md="3"
           >
-            <ImageCard title="5-day viability assay" description="plated+treated" :img="imgPath + '03_PRISM_assay.png'"/>
+            <ImageCard min-height="3em" title="5-day viability assay" description="plated+treated" :img="imgPath + '03_PRISM_assay.png'"/>
 
           </v-col>
           <v-col
@@ -50,7 +50,7 @@
             sm="3"
             md="3"
           >
-          <ImageCard title="Target validation + discovery" description="comprehensive data" :img="imgPath + '04_PRISM_assay.png'"/>
+          <ImageCard min-height="3em" title="Target validation + discovery" description="comprehensive data" :img="imgPath + '04_PRISM_assay.png'"/>
           </v-col>
 
         </v-row>
