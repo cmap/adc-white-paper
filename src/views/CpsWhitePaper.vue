@@ -178,7 +178,7 @@
                 project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
                 screen="CPS010"
                 rootName="BRD-K01877528_BRD-K97375133-synergy-plots"
-                :dict="Mgmt_Ge_Dict"
+                :dict="Gpx4_Xpr_Dict"
               >
               </SynergyByDosePlots>
           </PaperSubSection>
@@ -192,7 +192,7 @@
                 project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
                 screen="CPS010"
                 rootName="BRD-K00005264_BRD-K50731585-synergy-plots"
-                :dict="Mgmt_Ge_Dict"
+                :dict="Gpx4_Xpr_Dict"
               >
               </SynergyByDosePlots>
           </PaperSubSection>
@@ -251,7 +251,8 @@ export default {
   },
   data: () => ({
     loading: false,
-    Mgmt_Ge_Dict: {}
+    Mgmt_Ge_Dict: {},
+    Gpx4_Xpr_Dict: {}
   }),
   computed: {
     imgPath () {
@@ -270,13 +271,18 @@ export default {
   },
   methods: {
     async getMGMTGeDict(){
-    let dict = {};
+    let dict1 = {}, dict2={};
       Promise.all([
                 d3.csv(`${dataPath}2024_04_cps/temo_benzyl_data.csv`, function(d){
-                  dict[d["ccle_name"]] = d["GE_MGMT"]
-                })
+                  dict1[d["ccle_name"]] = d["GE_MGMT"]
+                }),
+                d3.csv(`${dataPath}2024_04_cps/ml210_ferro_data.csv`, function(d){
+                  dict2[d["ccle_name"]] = d["XPR_GPX4"]
+                }),
               ]).then(response=>{
-                this.Mgmt_Ge_Dict = dict;
+                this.Mgmt_Ge_Dict = dict1;
+                this.Gpx4_Xpr_Dict = dict2;
+                
             })
     }
 

@@ -110,6 +110,7 @@ export default {
       const self = this;
       try {
         const responses = await axiosGET([`${self.$API_URL}prism-portal/synergy_table?filter=${JSON.stringify(self.params)}`],  `${self.$USER_KEY}`);
+       
         let scatter = responses[0].data;
         scatter.forEach((d, i) => {
           let pert_iname = d.pert_iname.split("|");
