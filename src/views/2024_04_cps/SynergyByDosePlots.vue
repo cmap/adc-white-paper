@@ -1,5 +1,5 @@
 <template>
-  <div>
+      <div>
     <v-row>
       <v-col cols="6">
         <v-autocomplete
@@ -16,35 +16,37 @@
       </v-autocomplete>
       </v-col>
     </v-row>
+<div class="mobile-overflow-x-scroll">
+  <div class="my-6" style="position: relative; min-width:768px;" :id="rootName">
 
-    <div class="my-6" style="position: relative;" :id="rootName">
+<!-- <div v-for="plot in firstRow" :style="{'position': 'absolute', 'top': `${LatticePadding.top/2}px`, 'left': `${plot.x}px`,  'width': `${plot.width}px`, 'text-align': 'center'}">
+  <strong v-if="plot.column==0" :style="{'position': 'absolute', 'top': `-${LatticePadding.top/2}px`}"> {{ columnsTitle }} </strong>
+  {{ plot.columnName }} 
+</div>
+<div v-for="plot in lastColumn" class="rotate" :style="{'position': 'absolute', 'top': `${plot.y + (plot.height/1.5)}px`, 'left': `${plot.x + plot.width + 10 }px`, 'width': `${plot.width}px`}">
+<strong v-if="plot.row==0" :style="{'position': 'absolute', 'top': `-${LatticePadding.right/2}px`}"> {{ rowsTitle }} </strong> 
+{{ plot.rowName }}
+</div> -->
+<!-- <div  v-if="loading==false"  class="rotate" :style="{'position': 'absolute', 'top': `${plots[0].y}`, 'left': `${plots[0].x }px`}">
 
-      <!-- <div v-for="plot in firstRow" :style="{'position': 'absolute', 'top': `${LatticePadding.top/2}px`, 'left': `${plot.x}px`,  'width': `${plot.width}px`, 'text-align': 'center'}">
-        <strong v-if="plot.column==0" :style="{'position': 'absolute', 'top': `-${LatticePadding.top/2}px`}"> {{ columnsTitle }} </strong>
-        {{ plot.columnName }} 
-      </div>
-     <div v-for="plot in lastColumn" class="rotate" :style="{'position': 'absolute', 'top': `${plot.y + (plot.height/1.5)}px`, 'left': `${plot.x + plot.width + 10 }px`, 'width': `${plot.width}px`}">
-      <strong v-if="plot.row==0" :style="{'position': 'absolute', 'top': `-${LatticePadding.right/2}px`}"> {{ rowsTitle }} </strong> 
-      {{ plot.rowName }}
-      </div> -->
-      <!-- <div  v-if="loading==false"  class="rotate" :style="{'position': 'absolute', 'top': `${plots[0].y}`, 'left': `${plots[0].x }px`}">
-hi     
-      </div> -->
-      <div class="axis-title x-axis-title"> {{ config[pert_id].xAxisTitle }}</div>
-      <div class="axis-title y-axis-title">{{ config[pert_id].yAxisTitle }}</div>
+</div> -->
+<div class="axis-title x-axis-title"> {{ config[pert_id].xAxisTitle }}</div>
+<div class="axis-title y-axis-title">{{ config[pert_id].yAxisTitle }}</div>
 
-        <div v-if="loading==false"  v-for="plot in plots" :id="plot.id" class="lattice-plot" :style="{'position': 'absolute', 'top': `${plot.y}px`, 'left': `${plot.x}px`, 'width': `${plot.width}px`, 'height': `${plot.height}px`}">
-        <scatter-plot
-          :rootId="plot.id"
-          :config="plot.config"
-          :data="plot.data"
-          v-model:mouseover="mouseover"
-          v-model:click="click"
-          v-model:highlight="highlight"
-          >
-        </scatter-plot>
-      </div>
-    </div>
+  <div v-if="loading==false"  v-for="plot in plots" :id="plot.id" class="lattice-plot" :style="{'position': 'absolute', 'top': `${plot.y}px`, 'left': `${plot.x}px`, 'width': `${plot.width}px`, 'height': `${plot.height}px`}">
+  <scatter-plot
+    :rootId="plot.id"
+    :config="plot.config"
+    :data="plot.data"
+    v-model:mouseover="mouseover"
+    v-model:click="click"
+    v-model:highlight="highlight"
+    >
+  </scatter-plot>
+</div>
+</div>
+</div>
+
   </div>
 </template>  
 <script>
@@ -354,7 +356,8 @@ export default {
 .plot-title{
   font-size:12px !important;
   font-weight:700 !important;
-  line-height:0px;
+  text-overflow: clip;
+  white-space: nowrap;
 }
 .x-axis-title{
   position: absolute;
@@ -369,6 +372,16 @@ export default {
   -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
   -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
   transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
+}
+
+
+
+@media screen and (min-width: 200px) and (max-width: 768px) {
+
+  .mobile-overflow-x-scroll{
+  overflow-x:scroll;
+}
+
 }
   </style>
   

@@ -11,8 +11,8 @@
           </heatmap-plot>
   </div>
   <div class="legend-wrapper">
-    <small style="text-align:center"><i>% combination.fitted &lt; 0.3</i></small>
-        <svg width="100%" :id="`${rootName}-heatmap-legend`"></svg>
+    <small style="text-align:center"><i>Cell Lines Killed (Viability &lt; 0.3)</i></small>
+    <svg width="100%" :id="`${rootName}-heatmap-legend`"></svg>
   </div>
 
   </div>
@@ -23,7 +23,7 @@ import * as d3 from 'd3';
 import * as api from '@/js/utils/api.js';
 import HeatmapPlot from '@/plots/heatmap-plot.vue';
 const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
-const padding =  {top: 30, right: 30, bottom: 60, left: 60}
+const padding =   {top: 20, right: 20, bottom: 60, left: 40}
 export default {
   name: 'ViabilityMatrixPlots',
   components: {
@@ -41,24 +41,24 @@ export default {
     config: {
       "BRD-K32107296_BRD-K92041145":{
         "fileName": "temo_benzyl_data.csv",
-        "title": "title",
-        "xAxisTitle": "Pert 1",
-        "yAxisTitle": "Pert 2",
+        "title": "Sensitivity Across Doses",
+        "xAxisTitle": "temozolomide Dose",
+        "yAxisTitle": "O6-benzylguanine Dose",
         "padding": padding
       },
       "BRD-K01877528_BRD-K97375133":{
         "fileName": "ml210_ferro_data.csv",
-        "title": "title",
-        "xAxisTitle": "Pert 1",
-        "yAxisTitle": "Pert 2",
-        "padding": padding
+        "title": "Sensitivity Across Doses",
+        "xAxisTitle": "ML210 Dose",
+        "yAxisTitle": "ferrostatin-1 Dose",
+        "padding":  {top: 20, right: 10, bottom: 60, left: 40}
       },
       "BRD-K00005264_BRD-K50731585":{
         "fileName": "azd_a133_sensitivity.csv",
-        "title": "title",
-        "xAxisTitle": "Pert 1",
-        "yAxisTitle": "Pert 2",
-        "padding": padding
+        "title": "Sensitivity Across Doses",
+        "xAxisTitle": "AZD7762 Dose",
+        "yAxisTitle": "A-1331852 Dose",
+        "padding":  {top: 20, right: 10, bottom: 60, left: 70}
       
       }
     },
@@ -211,18 +211,33 @@ export default {
   
   <style>
 .legend-wrapper{
-  width:100%;
+  width:300px;
   text-align: center;
 }
 #BRD-K32107296_BRD-K92041145-viability-heatmap-plot,
 #BRD-K01877528_BRD-K97375133-viability-heatmap-plot{
   width:300px;
-  height:150px;
+  height:200px;
 }
 
 #BRD-K00005264_BRD-K50731585-viability-heatmap-plot{
   width:300px;
   height:300px;
+}
+.tick > text{
+  font-size: 9.5px !important;
+  fill: #000;
+}
+.axis-title{
+  font-size:11px !important;
+  font-weight:500 !important;
+  color:#454545;
+  fill: #454545;
+}
+.plot-title{
+  font-size:12px !important;
+  font-weight:700 !important;
+  line-height:0px;
 }
 
   </style>

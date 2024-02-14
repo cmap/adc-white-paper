@@ -166,7 +166,8 @@
             <p>
               In the presence of O6-benzylguanine, cell lines that expressed MGMT were sensitized to temozolomide (i.e., synergy was observed) (figure 3). Intriguingly, while MGMT expression appeared necessary for sensitization to temozolomide, a subset of cell lines remained resistant to temozolomide even in the presence of O6-benzylguanine. Accordingly, we asked whether any baseline genomic features were associated with the calculated temozolomide+O6-benzylguanine synergy score in MGMT-high expressing cell lines (MGMT expression > 1.5, see figure X). We found that low expression of the MSH6 gene (and low protein levels of MSH6, or its heterodimeric partner protein MSH2) were associated with lack of synergy in MGMT-proficient cell lines. MSH2 and MSH6 are genes involved in DNA mismatch repair, and their loss has been previously suggested to be associated with resistance to temozolomide16,17.
             </p>
-            <SynergyByDosePlots 
+       
+              <SynergyByDosePlots 
               pert_id="BRD-K32107296_BRD-K92041145"
               pert_plate="PCPS020"
               project="CPS010_VALIDATION_COMPOUNDS"
@@ -175,6 +176,8 @@
               :dict="Mgmt_Ge_Dict"
               >
               </SynergyByDosePlots>
+   
+
           </PaperSubSection>
         
           <PaperSubSection>
