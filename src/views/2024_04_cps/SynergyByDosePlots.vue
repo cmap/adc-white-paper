@@ -74,11 +74,6 @@ export default {
     items:[],
     defaulted: [],
     LatticePadding: {top: 40, right: 40, bottom: 0, left: 0},
-    GlobalConfig: {
-      padding: {top: 0, right: 0, bottom: 25, left: 25},
-      xAxisTitle: "Synergy",
-      yAxisTitle: "Gene Expression",
-    },
     plots: null,
     mouseover: null,
     click: [],
@@ -103,7 +98,7 @@ export default {
       "BRD-K00005264_BRD-K50731585":{
         "title": "BRD-K00005264_BRD-K50731585",
         "xAxisTitle": "Synergy",
-        "yAxisTitle": "p value",
+        "yAxisTitle": "-log10 (q value)",
         "padding": {top: 10, right: 0, bottom: 15, left: 25}
       
       }
@@ -311,7 +306,9 @@ export default {
   </script>
   
   <style>
-
+#BRD-K00005264_BRD-K50731585-synergy-plots{
+  width:80%;
+}
 .plot-tooltip, #plot-tooltip{
   position:absolute !important;
   white-space: nowrap;

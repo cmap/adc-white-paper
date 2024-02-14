@@ -84,24 +84,12 @@
         <PaperSubSection title="Pooled combination screening results">
           <p>Because O6-benzylguanine and ferrostatin-1 demonstrated minimal effects on viability as single agents across a large panel of cell lines, we screened a single dose (5 µM and 10 µM, respectively) in combination with 7 concentrations of temozolomide (top concentration: 100µM; threefold dilution) and ML210 (top concentration: 10µM; threefold dilution), respectively. As both A-1331852 and AZD5991 had dose-dependent effects on cell viability, we screened a 5x5 matrix (threefold dilution) of these compounds (top concentrations: 0.041 and 0.37µM, respectively). Combinations and all component single agents at matching concentrations were plated using an HP D300e drug printer and screened in nearly 900 cancer cell lines using standard PRISM conditions and data processing [link]. </p>
       
-          <PaperSubSection>
-            <h4>Synergy Scores</h4>
-            <p>
-            We calculated a synergy score for combination effects at each dose combination pair based on the Bliss model, where under the null hypothesis (no interaction between perturbations) viability effects are multiplicative (i.e., log-viability effects are additive). In particular, the synergy score was defined as LFCa+LFCb−LFCc, where LFCa and LFCb are the log(2)-fold change (relative to vehicle treatment) in each constituent single-agent compound and LFCc is the log(2)-fold change in the combination. Large positive values indicate synergy (LFCa+LFCb > LFCc) while large negative values (LFCa+LFCb &lt; LFCc) indicate antagonism. Significance (q values) for synergy scores were calculated based on the standard error of each cell line‡.</p>
 
-            
-            [GRAPHIC]
-          </PaperSubSection>
-       
+
           <PaperSubSection>
-              <v-row>
-              <v-col cols="12">
-                <small><strong>Single anchor dose: library agent testing at single anchor dose in a 7x1 format</strong></small> 
-              </v-col>
+            <v-row>
               <v-col xs="12" sm="12" md="4" lg="4">
-                [MEAN VIABILITY HEATMAP]
-              </v-col>
-              <v-col>  
+                <v-list-item-subtitle>7 concentrations <br>top concentration: 10µM; threefold dilution</v-list-item-subtitle>
                 <v-list>
                   <v-list-item>
                     <v-list-item-title>temozolomide</v-list-item-title>
@@ -112,13 +100,15 @@
                     <v-list-item-subtitle>1 concentration: 5 µM</v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
+
+                <ViabilityMatrixPlots
+                pert_id="BRD-K32107296_BRD-K92041145"
+                rootName="BRD-K32107296_BRD-K92041145-viability-heatmap-plot"
+                >
+                </ViabilityMatrixPlots>
               </v-col>
-            </v-row>
-            <v-row>
               <v-col xs="12" sm="12" md="4" lg="4">
-                [MEAN VIABILITY HEATMAP]
-              </v-col>
-              <v-col>
+                <v-list-item-subtitle>7 concentrations <br>top concentration: 10µM; threefold dilution</v-list-item-subtitle>
                 <v-list>
                   <v-list-item>
                     <v-list-item-title>ML210</v-list-item-title>
@@ -128,17 +118,16 @@
                     <v-list-item-title>ferrostatin-1</v-list-item-title>
                     <v-list-item-subtitle>1 concentration:  10 µM</v-list-item-subtitle>
                   </v-list-item>
+                  
                 </v-list>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12">
-                <small><strong>Matrix: library agent and anchor agent tested at 5 doses in a 5x5 format</strong></small>
+                <ViabilityMatrixPlots
+                pert_id="BRD-K01877528_BRD-K97375133"
+                rootName="BRD-K01877528_BRD-K97375133-viability-heatmap-plot"
+                >
+                </ViabilityMatrixPlots>
               </v-col>
               <v-col xs="12" sm="12" md="4" lg="4">
-                [MEAN VIABILITY HEATMAP]
-              </v-col>
-              <v-col>
+                <v-list-item-subtitle>Matrix: library agent and anchor agent tested at 5 doses in a 5x5 format</v-list-item-subtitle>
                 <v-list>
                   <v-list-item>
                     <v-list-item-title>A-1331852</v-list-item-title>
@@ -149,9 +138,28 @@
                     <v-list-item-subtitle>5 concentrations <br>top concentration: 0.037µM; threefold dilution</v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
+                <ViabilityMatrixPlots
+                pert_id="BRD-K00005264_BRD-K50731585"
+                rootName="BRD-K00005264_BRD-K50731585-viability-heatmap-plot"
+                >
+                </ViabilityMatrixPlots>
               </v-col>
             </v-row>
           </PaperSubSection>
+
+
+
+
+          <PaperSubSection>
+            <h4>Synergy Scores</h4>
+            <p>
+            We calculated a synergy score for combination effects at each dose combination pair based on the Bliss model, where under the null hypothesis (no interaction between perturbations) viability effects are multiplicative (i.e., log-viability effects are additive). In particular, the synergy score was defined as LFCa+LFCb−LFCc, where LFCa and LFCb are the log(2)-fold change (relative to vehicle treatment) in each constituent single-agent compound and LFCc is the log(2)-fold change in the combination. Large positive values indicate synergy (LFCa+LFCb > LFCc) while large negative values (LFCa+LFCb &lt; LFCc) indicate antagonism. Significance (q values) for synergy scores were calculated based on the standard error of each cell line‡.</p>
+
+            
+            [GRAPHIC]
+          </PaperSubSection>
+       
+
         
           <PaperSubSection>
             <h4>temozolomide+O6-benzylguanine</h4>

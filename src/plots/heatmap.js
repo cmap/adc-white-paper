@@ -44,6 +44,7 @@ export default class heatmap {
                 height:  d3.select(`#${this.rootId}`).node().clientHeight
             }
         }
+
         this.padding = config.padding;    
         this.padding = config.padding;    
         if (!this.padding){ this.padding = { top:20, right:20, bottom:20, left:20 } }
@@ -348,17 +349,6 @@ export default class heatmap {
                 .attr("width", scale.bandwidth())
                 .attr("height", self.legend.dimension.innerHeight/2)
                 .attr("fill", self.scale.c(d))
-                // if (self.scale.c.domain().includes(d)){
-                // d3.select(this).append("text")
-                // .text(d)
-                // .attr("y", self.legend.dimension.innerHeight/2)
-                // .attr("x", 0)
-                // .attr("dy", 14)
-                // .attr("text-anchor", "start")
-
-                // .style("font-size", "14px")
-                // }
-
             })
 
 

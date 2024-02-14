@@ -180,7 +180,7 @@ export default class scatter {
     }
 
     renderFocus(){ // aka: render highlights 
-        console.log("render focus")
+    //    console.log("render focus")
         const self = this;
         const canvas = d3.select(`#${self.rootId}-canvasFocus`)
         const ctx = canvas.node().getContext('2d');
@@ -201,7 +201,7 @@ export default class scatter {
         });
     }
     renderSelections(){ // should input data objs from states.click + states.mouseover rather than filtering all data? or use crosfilter.js?
-        console.log("render selections")
+       // console.log("render selections")
         const self = this;
         const canvas = d3.select(`#${self.rootId}-canvasSelections`)
         const ctx = canvas.node().getContext('2d');

@@ -1,143 +1,206 @@
 <template>
-    <div  class="my-6" style="position: relative;" :id="rootName">
-     {{ rootName }} 
-    <heatmap-plot
+  <div v-if="!loading">
+        <div class="my-6" style="position: relative;" :id="rootName">
+        <heatmap-plot
           :rootId="rootName"
-          :config="configure"
-          :data="data"
-          v-model:mouseover="mouseover"
-          v-model:click="click"
-          v-model:highlight="highlight"
-
+          :config="plot.config"
+          :data="plot.data"
+          :click="click"
+          :highlight="highlight"
             >
           </heatmap-plot>
   </div>
+  <div class="legend-wrapper">
+    <small style="text-align:center"><i>% combination.fitted &lt; 0.3</i></small>
+        <svg width="100%" :id="`${rootName}-heatmap-legend`"></svg>
+  </div>
+
+  </div>
+ 
 </template>  
 <script>
 import * as d3 from 'd3';
 import * as api from '@/js/utils/api.js';
 import HeatmapPlot from '@/plots/heatmap-plot.vue';
-
+const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
+const padding =  {top: 30, right: 30, bottom: 60, left: 60}
 export default {
   name: 'ViabilityMatrixPlots',
   components: {
     HeatmapPlot
   },
   props: {
-    rootName: String
+    rootName: String,
+    pert_id: String
   },
   data: () => ({
+    loading: true,
     mouseover: null,
     click: [],
     highlight: [],
-    plotConfig: {
-      padding: {top: 10, right: 10, bottom: 25, left: 25},
-      xAxisTitle: "x title",
-      yAxisTitle: "y title",
-      cAxisTitle: "c title",
-    
+    config: {
+      "BRD-K32107296_BRD-K92041145":{
+        "fileName": "temo_benzyl_data.csv",
+        "title": "title",
+        "xAxisTitle": "Pert 1",
+        "yAxisTitle": "Pert 2",
+        "padding": padding
+      },
+      "BRD-K01877528_BRD-K97375133":{
+        "fileName": "ml210_ferro_data.csv",
+        "title": "title",
+        "xAxisTitle": "Pert 1",
+        "yAxisTitle": "Pert 2",
+        "padding": padding
+      },
+      "BRD-K00005264_BRD-K50731585":{
+        "fileName": "azd_a133_sensitivity.csv",
+        "title": "title",
+        "xAxisTitle": "Pert 1",
+        "yAxisTitle": "Pert 2",
+        "padding": padding
+      
+      }
     },
-    data: [ {
-          "x": 0.1372,
-          "y": 5.0,
-          "c": 0.7,
-          "id":1
-        },
-        {
-          "x": 0.4115,
-          "y": 5.0,
-          "c": 0.6,
-          "id":2
-        },
-        {
-          "x": 1.235,
-          "y": 5.0,
-          "c": 0.5,
-          "id":3
-        },
-        {
-          "x": 3.704,
-          "y": 5.0,
-          "c": 0.4,
-          "id":4
-        },
-        {
-          "x": 11.11,
-          "y": 5.0,
-          "c": 0.3,
-          "id":5
-        },
-        {
-          "x": 33.33,
-          "y": 5.0,
-          "c": 0.2,
-          "id":6
-        },
-        {
-          "x": 100,
-          "y": 5.0,
-          "c": 0.1,
-          "id":7
-        }],
-    plot: null
+    plot: {}
   }),
   computed: {
-    configure(){
-        const self = this;
-        let cExtent = d3.extent(self.data, d=>d.c);
+    // configure(){
+    //     const self = this;
+    //     let cExtent = d3.extent(self.data, d=>d.c);
 
-        return {
-          padding: this.plotConfig.padding,
-          title: 'title',
-          axis: {
-            x: {
-                title: this.plotConfig.xAxisTitle
-            },
-            y: {
-              title: this.plotConfig.yAxisTitle
-            },
-            c: {
-              title: this.plotConfig.cAxisTitle
+    //     return {
+    //       padding: this.plotConfig.padding,
+    //       title: 'title',
+    //       axis: {
+    //         x: {
+    //             title: this.plotConfig.xAxisTitle
+    //         },
+    //         y: {
+    //           title: this.plotConfig.yAxisTitle
+    //         },
+    //         c: {
+    //           title: this.plotConfig.cAxisTitle
 
-            }
-          },
-          scale: {
-            c: d3.scaleLinear()
-              .domain(cExtent)
-              .range(["blue", "red"])
-          },
-          display: { 
-              title: true,             
-              legend: false,
-              xAxisTitle: true,
-              yAxisTitle:true
-            }, 
-          legend: {
-            rootId:  `${self.rootName}-heatmap-legend`,
-            padding: {top: 15, right: 15, bottom:50, left: 15}
-          },
-          tooltipConfig: [
-              {label: "c", field: "c"},
-              {label: "x", field: "x"},
-              {label: "y", field: "y"},
-            ]
-        }
-    }
+    //         }
+    //       },
+    //       scale: {
+    //         c: d3.scaleLinear()
+    //           .domain(cExtent)
+    //           .range(["blue", "red"])
+    //       },
+    //       display: { 
+    //           title: true,             
+    //           legend: false,
+    //           xAxisTitle: true,
+    //           yAxisTitle:true
+    //         }, 
+    //       legend: {
+    //         rootId:  `${self.rootName}-heatmap-legend`,
+    //         padding: {top: 15, right: 15, bottom:50, left: 15}
+    //       },
+    //       tooltipConfig: [
+    //           {label: "c", field: "c"},
+    //           {label: "x", field: "x"},
+    //           {label: "y", field: "y"},
+    //         ]
+    //     }
+    // }
 
   },
- mounted(){
-   this.load()
+ async created(){
+
+  await this.getData();
 
 
   },
   methods: {
-    load(){
+       async getData(){
       const self = this;
+      let config = self.config[self.pert_id];
 
+      Promise.all([
+                d3.csv(`${dataPath}2024_04_cps/${config.fileName}`, function(d){
+                    return {
+                      ccle_name: d["ccle_name"],
+                      pert1: d["pert1"],
+                      pert2: d["pert2"],
+                      dose1: d["dose1"],
+                      dose2: d["dose2"],
+                      ccle_name: d["ccle_name"],
+                      group: `${d["pert1"]}_${d["dose1"]}_${d["pert2"]}_${d["dose2"]}`,
+                      value: +d["combination.fitted"] < 0.3 ? true : false
+                    }
+                })
+              ]).then(response=>{
+                let data = response[0];
 
+                let groups = d3.groups(data, d => d.dose2, d => d.dose1);
+                //Sort the groups here
+                groups.forEach(d => {
+                  d[1].sort((a, b) => d3.ascending(parseFloat(a[0]), parseFloat(b[0])))
+                })
+                groups = groups.sort(function (a, b) {
+                  return d3.ascending(parseFloat(a[0]), parseFloat(b[0]))
+                })
+                let heatmap = groups.map((d) => {
+                  return d[1].map((e) => { 
+                      return {
+                        x: e[0],
+                        y: d[0],
+                        // c: ((e[1].filter(f => f.value === true).length)/e[1].length)*100,
+                        c: e[1].filter(f => f.value === true).length,
+                        id: `${e[0]}_${d[0]}`
+                      }
+                    })
+                }).flat();
 
-    },
-
+                this.plot = {data: heatmap, config: self.configure(heatmap, config)}
+                self.loading = false;
+            })
+            },
+            configure(data, config) {
+              const self = this;
+              let xExtent = d3.extent(data.map(d => d.x))
+              let yExtent = d3.extent(data.map(d => d.y))
+              let cExtent = d3.extent(data.map(d => d.c))
+              console.log(cExtent)
+              return {
+                padding: config.padding,
+                title: config.title,
+                axis: {
+                  x: {
+                 //   domain: xExtent,
+                    title: config.xAxisTitle,
+                  },
+                    y: {
+                 //   domain: yExtent,
+                    title: config.yAxisTitle
+                  }
+                },
+                scale: {
+                  c: d3.scaleSequential([0, Math.floor(cExtent[1])], d3.interpolateYlOrRd)
+                //  c: d3.scaleLinear([0, Math.floor(cExtent[1])], ["yellow", "red"])
+                },
+                display: { 
+                  title: true, 
+                  legend: true, 
+                  xAxisTitle: true, 
+                  yAxisTitle: true, 
+                  xAxisTicks: true, 
+                  yAxisTicks: true 
+                },
+                legend: {
+                  rootId:  `${self.rootName}-heatmap-legend`,
+                  padding:  {top: 0, right: padding.right, bottom: 20, left: padding.left}
+                },
+                tooltipConfig: [
+                  {label: config.xAxisTitle, field: "x"},
+                  {label: config.yAxisTitle, field: "y"},
+                  {label: "Value", field: "c"}
+                ]
+              }
+            }
    
     },
     watch: {
@@ -147,9 +210,19 @@ export default {
   </script>
   
   <style>
+.legend-wrapper{
+  width:100%;
+  text-align: center;
+}
+#BRD-K32107296_BRD-K92041145-viability-heatmap-plot,
+#BRD-K01877528_BRD-K97375133-viability-heatmap-plot{
+  width:300px;
+  height:150px;
+}
 
-#test{
-  height:500px;
+#BRD-K00005264_BRD-K50731585-viability-heatmap-plot{
+  width:300px;
+  height:300px;
 }
 
   </style>
