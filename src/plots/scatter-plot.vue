@@ -139,7 +139,7 @@ export default {
   //   },
     updateCanvasOpacity(){
       let opacity; 
-      this.click.length > 0 || this.mouseover ? opacity = 0.4 : opacity = 1; 
+      this.click.length > 0 || this.mouseover ? opacity = 0.7 : opacity = 1; 
       d3.select(`#${this.plot.rootId}-canvasFocus`).style("opacity", opacity)
     }
   },

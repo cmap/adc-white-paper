@@ -1,8 +1,10 @@
 <template>
     <v-card elevation="0">
+      <div :style="{'min-height': `${titleHeight}`, 'text-align': `${align} !important`, 'max-width': `${cardWidth}px`}">
         <div class="card-title"> {{ title }}</div>
         <div class="card-description">{{  description }}</div>
-        <v-img  class="card-image" :src="img"></v-img>
+      </div>
+        <v-img :style="`max-width: ${cardWidth}px`" class="card-image" :src="img"></v-img>
    </v-card>
 </template>
 <script>
@@ -22,8 +24,32 @@ props: {
    img: {
    type: String,
    required: false
-   }
-
+   },
+   maxWidth: {
+   type: String,
+   required: false
+   },
+    alignText: {
+     type: String,
+      required: false
+    },
+    minHeight: {
+      type: String,
+      required: false
+    }
+},
+computed: {
+  cardWidth(){
+    return this.maxWidth ? this.maxWidth : 400;
+  },
+  align(){
+    let align =  this.alignText ? this.alignText : 'left';
+    return this.alignText ? this.alignText : 'left';
+  },
+  titleHeight(){
+    return this.minHeight ? this.minHeight : 'auto';
+  }
+  
 }
 }
 </script>
