@@ -197,7 +197,7 @@ export default {
                 tooltipConfig: [
                   {label: config.xAxisTitle, field: "x"},
                   {label: config.yAxisTitle, field: "y"},
-                  {label: "Value", field: "c"}
+                  {label: "Cell lines killed (Viability < 0.3)", field: "c"}
                 ]
               }
             }

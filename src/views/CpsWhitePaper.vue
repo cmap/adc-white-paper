@@ -11,7 +11,8 @@
         <p class="text-body-1">Combination therapies are routinely used in cancer care, and patient cure is almost never achieved by monotherapy1. However, which combinations will benefit specific cancer patients is largely unknown. While many studies have used cell culture and animal model systems to characterize combination effects, the sheer number of clinical, investigational, and tool anticancer agents, coupled with the diversity and heterogeneity of cancer, precludes comprehensive investigation2–5. Accordingly, most such studies are restricted to a small number of drugs or a restricted set of cancer contexts. Methods to address these limitations, such as those that enable measurement of candidate combinations in many cell lines simultaneously, would greatly increase the potential scale of combinations research, generating preclinical evidence that may help identify candidate combinations for clinical trials.
         </p>
         <h3>The PRISM Combination Assay</h3>
-        <v-row>
+        <img style="width:100%;" :src="imgPath + 'main-graphic.png'">
+        <!-- <v-row>
           <v-col>
             <ImageCard min-height="3em" title="900+ cancer cell lines"  :img="imgPath + 'PRISM_assay_cps_cell lines.png'"/>
           </v-col>
@@ -32,8 +33,9 @@
           <v-col>
             <ImageCard min-height="3em" title="Identify candidates for clinical trials" :img="imgPath + 'PRISM_assay_cps_application.png'"/>
           </v-col>
-        </v-row>
+        </v-row> -->
       </PaperSection>
+
       <PaperSection title="Analysis of combination data">
         <p class="text-body-1">Experimental combinations are generally benchmarked by comparing the effects of two (or more) agents to the corresponding single-agent activities, using established metrics to describe the combined effects (e.g., independent action, additivity, synergy, antagonism)6. For example, the Bliss model assesses proportional cell killing, where under the null hypothesis (no interaction between two or more perturbations) viability effects are multiplicative7. The quantification and classification of combination effects may aid prioritization of combinations for additional investigation while also providing biological and mechanistic insights. For example, antagonistic combinations might be deprioritized from further study, while synergistic combinations may be useful in overcoming resistance8. Independent (or additive) combinations may be useful to combat inter- or intra-patient heterogeneity; this behavior is characteristic of many effective clinical combinations (and most curative combinations) described to date9,10. 
       </p>
@@ -55,7 +57,7 @@
         <br><br>
         For combination components with minimal differential viability effects, testing a single dose may represent the most efficient combinatorial design. By contrast, strong differential viability effects of one combination partner across cell lines supports the use of multiple doses; this approach also facilitates aggregation of the viability readout across doses (e.g., through fitting of dose-response curves). Where it is not possible to span the entire range of response to a given compound, it is recommended to focus on the lower end of the ideal concentration range (i.e., less cell viability effects) to facilitate identification of increased cell killing (e.g., additivity or synergy)–unless the experimental goal is to identify and characterize antagonistic combinations (e.g., drug rescue screens). 
         </p>
-       [GRAPHIC]
+        <img id="dose-selction-img" :src="imgPath + 'dose-selection.png'">
       </PaperSection>
       <PaperSection title="Results">
         <PaperSubSection title="Selection of test combinations">
@@ -313,4 +315,15 @@ export default {
 .card-title{
   font-size: 0.9em !important;
 }
+#dose-selction-img{
+    width: 60%;
+  }
+
+@media screen and (min-width: 200px) and (max-width: 768px) {
+  #dose-selction-img{
+    width: 100%;
+  }
+
+}
+
 </style>
