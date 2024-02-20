@@ -8,7 +8,7 @@ export function createLatticeData(data, rowField = "pert_dose_anchor", columnFie
       d[1].sort((a, b) => d3.ascending(parseFloat(a[0]), parseFloat(b[0])))
     })
     groups = groups.sort(function (a, b) {
-      return d3.descending(parseFloat(a[0]), parseFloat(b[0]))
+      return d3.ascending(parseFloat(a[0]), parseFloat(b[0]))
     })
     let lattice = groups.map((d, rowIndex) => {
       return d[1].map((e, colIndex) => { 
