@@ -38,8 +38,11 @@ h4{
 }
 
 
-b, strong{
+b{
   font-weight: 600 !important;
+}
+strong{
+  font-weight: 800 !important;
 }
 small{
   color:#868686;
@@ -89,8 +92,24 @@ li{
   border:none;
   word-break:normal !important;
 }
+
+.v-card-title {
+    word-break:normal !important;
+    word-wrap: normal !important;
+    white-space: wrap !important;
+}
+.card-subtitle{
+  font-weight:600;
+}
+.v-list-item-title{
+  word-break:normal !important;
+  word-wrap: normal !important;
+  white-space: wrap !important;
+}
 .v-card.elevation-1{
-  box-shadow: 0.5px 0.5px 15px 0px rgba(220, 220, 220, 0.5) !important; 
+  /* offset x, offset y, blur radius, spread radius, color */
+  box-shadow: 2px 2px 7px 3px rgba(220, 220, 220, 0.5) !important; 
+  
 }
 .v-card>ul>li{
   font-size: 0.9em;
