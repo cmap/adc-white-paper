@@ -9,38 +9,51 @@
       <PaperSection title="Introduction">
         <p>Combination therapies are routinely used in cancer care, and patient cure is almost never achieved by monotherapy1. However, which combinations will benefit specific cancer patients is largely unknown. While many studies have used cell culture and animal model systems to characterize combination effects, the sheer number of clinical, investigational, and tool anticancer agents, coupled with the diversity and heterogeneity of cancer, precludes comprehensive investigation2–5. Accordingly, most such studies are restricted to a small number of drugs or a restricted set of cancer contexts. Methods to address these limitations, such as those that enable measurement of candidate combinations in many cell lines simultaneously, would greatly increase the potential scale of combinations research, generating preclinical evidence that may help identify candidate combinations for clinical trials.
         </p>
-        <v-card elevation="0" title="The PRISM Combination Assay">
-          <img style="width:100%;" :src="imgPath + 'main-graphic.png'">
-          </v-card>
-
+          <h4>The PRISM Combination Assay</h4>
+          <v-row>
+            <v-col cols="12" sm="6" md="3" lg="3" xl="3">
+              <ImageCard min-height="3em" title="900+ cancer cell lines" description="pooled + barcoded" :img="imgPath + 'main-graphic-46.png'"/>
+            </v-col>
+            <v-col cols="12" sm="6" md="3" lg="3" xl="3">
+              <ImageCard min-height="3em" title="Single-agent + combination" description="plated + treated pools" :img="imgPath + 'main-graphic-47.png'"/>
+            </v-col>
+            <v-col cols="12" sm="6" md="3" lg="3" xl="3">
+              <ImageCard min-height="3em" title="Sensitivity profile" description="Comparisons across doses" :img="imgPath + 'main-graphic-48.png'"/>
+            </v-col>
+            <v-col cols="12" sm="6" md="3" lg="3" xl="3">
+              <ImageCard min-height="3em" title="Candidate combination discovery" description="Comparisons across doses" :img="imgPath + 'main-graphic-49.png'"/>
+            </v-col>
+          </v-row>
+          <!-- <img style="width:100%;" :src="imgPath + 'main-graphic.png'"> -->
       </PaperSection>
 
       <PaperSection title="Analysis of combination data">
         <p>Experimental combinations are generally benchmarked by comparing the effects of two (or more) agents to the corresponding single-agent activities, using established metrics to describe the combined effects (e.g., independent action, additivity, synergy, antagonism)6. For example, the Bliss model assesses proportional cell killing, where under the null hypothesis (no interaction between two or more perturbations) viability effects are multiplicative7. The quantification and classification of combination effects may aid prioritization of combinations for additional investigation while also providing biological and mechanistic insights. For example, antagonistic combinations might be deprioritized from further study, while synergistic combinations may be useful in overcoming resistance8. Independent (or additive) combinations may be useful to combat inter- or intra-patient heterogeneity; this behavior is characteristic of many effective clinical combinations (and most curative combinations) described to date9,10. 
         </p>
-        <v-card elevation="0" title="Classifications of combination effects">
+          <h4>Classifications of combination effects</h4>
           <v-row>
             <v-col cols="12" sm="12" md="4" lg="4" xl="4">
-              <div style="text-align:center">Additive</div>
-              <v-img class="px-6" :src="imgPath + 'combo_effects-1.svg'"></v-img>
+                <ImageCard align-text="center" title="Additive" :img="imgPath + 'combo_effects-1.svg'"/>
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4" xl="4">
-              <div style="text-align:center">Antagonistic</div>
-              <v-img class="px-6" :src="imgPath + 'combo_effects-2.svg'"></v-img>
+              <ImageCard align-text="center" title="Antagonistic" :img="imgPath + 'combo_effects-2.svg'"/>
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4" xl="4">
-              <div style="text-align:center">Synergistic</div>
-              <v-img class="px-6" :src="imgPath + 'combo_effects-3.svg'"></v-img>
+              <ImageCard align-text="center" title="Synergistic" :img="imgPath + 'combo_effects-3.svg'"/>
+              <!-- <div style="text-align:center"><b>Synergistic</b></div>
+              <v-img class="px-6" :src="imgPath + 'combo_effects-3.svg'"></v-img> -->
             </v-col>
           </v-row>
-        </v-card>
+
+
       </PaperSection>
       <PaperSection title="Considerations for dose selection">
         <p>The ideal dose range for the single-agent components in combination screening would span at least one concentration with no effect on cell line viability but evidence for cellular activity (e.g., target engagement) across all models to be tested, and one dose where the maximal effects attributable to on-mechanism activity are observed. To facilitate determining this dose range for test combinations, we routinely assess single agents over a range of concentrations in up to 900 cell lines using PRISM. An alternative approach would test single-agent concentration ranges in a number of individual cell lines, and/or, if available, leverage published cell biology or screening data (e.g., at depmap.org).
         <br><br>
         For combination components with minimal differential viability effects, testing a single dose may represent the most efficient combinatorial design. By contrast, strong differential viability effects of one combination partner across cell lines supports the use of multiple doses; this approach also facilitates aggregation of the viability readout across doses (e.g., through fitting of dose-response curves). Where it is not possible to span the entire range of response to a given compound, it is recommended to focus on the lower end of the ideal concentration range (i.e., less cell viability effects) to facilitate identification of increased cell killing (e.g., additivity or synergy)–unless the experimental goal is to identify and characterize antagonistic combinations (e.g., drug rescue screens). 
         </p>
-        <v-card elevation="0" title="Pairing combination components based on differential viability effects">
+        <!-- <v-card elevation="0" title="Pairing combination components based on differential viability effects"> -->
+          <h4>Pairing combination components based on differential viability effects</h4>
           <v-row>
             <v-col cols="12" sm="12" md="4" lg="4" xl="4">
               <v-img class="px-6" :src="imgPath + 'combination_components-7x1.png'"></v-img>
@@ -49,7 +62,7 @@
               <v-img class="px-6" :src="imgPath + 'combination_components-5x5.png'"></v-img>
             </v-col>
           </v-row>
-        </v-card>
+        <!-- </v-card> -->
       </PaperSection>
       <PaperSection title="Results">
         <PaperSubSection title="Selection of test combinations">
@@ -310,6 +323,7 @@ export default {
 </script>
 
 <style>
+
 .paper-sub-sub-section{
   margin-top: 32px !important;
   margin-bottom: 32px !important;
@@ -317,6 +331,7 @@ export default {
 .card-title{
   color:black !important;
   font-weight:600 !important;
+  /* font-size:1.2rem !important; */
 }
 .combination_design-img{
     width: 100%;

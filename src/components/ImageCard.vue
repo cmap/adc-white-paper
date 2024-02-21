@@ -1,10 +1,10 @@
 <template>
-    <v-card elevation="0">
+    <v-card elevation="0" >
       <div :style="{'min-height': `${titleHeight}`, 'text-align': `${align} !important`, 'max-width': `${cardWidth}px`}">
         <div class="card-title"> {{ title }}</div>
         <div class="card-description">{{  description }}</div>
       </div>
-        <v-img :style="`max-width: ${cardWidth}px`" class="card-image" :src="img"></v-img>
+        <v-img :style="`max-width: ${cardWidth}px`" class="card-image px-4" :src="img"></v-img>
    </v-card>
 </template>
 <script>
