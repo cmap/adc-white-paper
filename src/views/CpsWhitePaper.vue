@@ -20,13 +20,13 @@
       <h3>Classifications of combination effects</h3>
       <v-row>
         <v-col>
-          <ImageCard alignText="center" max-width="250" title="Additive" :img="imgPath + 'classification_additive.png'"/>
+          <ImageCard alignText="center" max-width="250" title="Additive" :img="imgPath + 'classify_additive.png'"/>
         </v-col>
         <v-col>
-          <ImageCard align-text="center" max-width="250" title="Antagonistic"  :img="imgPath + 'classification_antagonistic.png'"/>
+          <ImageCard align-text="center" max-width="250" title="Antagonistic"  :img="imgPath + 'classify_antagonistic.png'"/>
         </v-col>
         <v-col>
-          <ImageCard align-text="center" max-width="250" title="Synergistic"  :img="imgPath + 'classification_synergistic.png'"/>
+          <ImageCard align-text="center" max-width="250" title="Synergistic"  :img="imgPath + 'classify_synergistic.png'"/>
         </v-col>
       </v-row>
       </PaperSection>
