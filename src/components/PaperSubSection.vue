@@ -20,7 +20,4 @@ export default {
 section{
   margin:48px 0px;
 }
-h3{
-  font-size:1.4em !important;
-}
 </style>
