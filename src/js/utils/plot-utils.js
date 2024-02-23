@@ -3,6 +3,7 @@ import * as d3 from "d3";
 export function createLatticeData(data, rowField = "pert_dose_anchor", columnField = "pert_dose_varied", rootName = "lattice", padding = { top: 10, right: 10, bottom: 10, left: 10 }) {
     const self = this;
     let groups = d3.groups(data, d => d[rowField], d => d[columnField]);
+    console.log(data, rowField, columnField, rootName, padding)
     //Sort the groups here
     groups.forEach(d => {
       d[1].sort((a, b) => d3.ascending(parseFloat(a[0]), parseFloat(b[0])))
