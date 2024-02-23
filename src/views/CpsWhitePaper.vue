@@ -151,22 +151,29 @@
             <p>
               In the presence of O6-benzylguanine, cell lines that expressed MGMT were sensitized to temozolomide (i.e., synergy was observed) (figure 3). Intriguingly, while MGMT expression appeared necessary for sensitization to temozolomide, a subset of cell lines remained resistant to temozolomide even in the presence of O6-benzylguanine. Accordingly, we asked whether any baseline genomic features were associated with the calculated temozolomide+O6-benzylguanine synergy score in MGMT-high expressing cell lines (MGMT expression > 1.5, see figure X). We found that low expression of the MSH6 gene (and low protein levels of MSH6, or its heterodimeric partner protein MSH2) were associated with lack of synergy in MGMT-proficient cell lines. MSH2 and MSH6 are genes involved in DNA mismatch repair, and their loss has been previously suggested to be associated with resistance to temozolomide16,17.
             </p>
-
               <SynergyByDosePlots 
                 :data="temo_benzyl_data" 
                 rootName="temo_benzyl_synergy_plots" 
                 combinationName="temo_benzyl"
               ></SynergyByDosePlots>
-           
-
+          
           </PaperSubSection>
           <PaperSubSection>
             <h4>ML210 + ferrostatin-1</h4>
             <p>Universally across cell lines, we observed that ferrostatin-1 antagonized the effects of ML210. [analytical: confirm support for this statement] (figure 3)</p>
-
+            <SynergyByDosePlots 
+                :data="ml210_ferro_data" 
+                rootName="ml210_ferro_synergy_plots" 
+                combinationName="ml210_ferro"
+              ></SynergyByDosePlots>
           </PaperSubSection>
           <PaperSubSection>
             <h4>A-1331852 + AZD5991</h4>
+            <SynergyByDosePlots 
+                :data="azd_a133_data" 
+                rootName="azd_a133_synergy_plots" 
+                combinationName="azd_a133"
+              ></SynergyByDosePlots>
 
           </PaperSubSection>
         </PaperSubSection>
@@ -311,6 +318,7 @@ export default {
           this.temo_benzyl_data = response[0];
           this.ml210_ferro_data = response[1];
           this.azd_a133_data = response[2];
+
           this.loading = false;
         //  return {temo_benzyl: temo_benzyl_data, ml210_ferro: ml210_ferro_data, azd_a133: azd_a133_data};
  

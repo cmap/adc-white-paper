@@ -56,9 +56,6 @@ export default class scatter {
         this.createScale();
         this.render();
 
-     //   this.renderContext(); // should return a canvas, then use set it to render 'on screen' 
-        // this.renderFocus(); 
-
         if (this.display.legend){ // requires createScale() for setting scale.c 
             this.legend = config.legend;
             this.renderLegend();
@@ -70,7 +67,6 @@ export default class scatter {
     }
     createScale(){
         const self = this;
-
         const getxExtent = ()=>{
             if (!this.axis.x.domain){ return d3.extent(this.data.map(d=>d.x))}
             else { return this.axis.x.domain }
@@ -87,7 +83,6 @@ export default class scatter {
             if (!this.axis.c.domain){  return d3.extent(this.data.map(d=>d.c))}
             else { return this.axis.c.domain }
         }
-
         const getColorScale = ()=>{
             if (this.axis.c.type == "sequential"){
                 return d3.scaleSequential().domain(getcExtent()).interpolator(d3.interpolateYlOrRd)
@@ -97,23 +92,11 @@ export default class scatter {
                 return d3.scaleOrdinal().domain(getcDomain()).range(this.axis.c.range) 
             }
         }
-
-        const getRRange = ()=>{
-            return d3.extent(self.data.map(d=>d.r))
-            // if (self.innerWidth > 50){ return [7,7]} 
-            // else { return [3,3]}
-        }
-
-
-        let offsetRadius = getRRange()[1];
-
-        if (!this.scale.r){ this.scale.r = d3.scaleSqrt().domain(d3.extent(self.data.map(d=>d.r))).range(getRRange()) }
-        if (!this.scale.x){ this.scale.x = d3.scaleLinear().domain(getxExtent()).range([offsetRadius, this.dimension.innerWidth-offsetRadius]).nice(); }
-        if (!this.scale.y){ this.scale.y = d3.scaleLinear().domain(getyExtent()).range([this.dimension.innerHeight-offsetRadius, offsetRadius]).nice();}
+        const padder = d3.max(self.data.map(d=>d.r))*2.25;
+        if (!this.scale.x){ this.scale.x = d3.scaleLinear().domain(getxExtent()).range([padder, this.dimension.innerWidth-padder]).nice(); }
+        if (!this.scale.y){ this.scale.y = d3.scaleLinear().domain(getyExtent()).range([this.dimension.innerHeight-padder, padder]).nice(); }
         if (!this.scale.c){ this.scale.c = getColorScale(); }
-   
     }
-
     render(){
         const self = this;
         const container = d3.select(`#${self.rootId}`)
@@ -127,7 +110,6 @@ export default class scatter {
         .attr("id", `${self.rootId}-g`)
         .attr("class", "plot-g")
         .attr('transform', `translate(${self.padding.left}, ${self.padding.top})`);
-
 
         container.append('canvas')
         .attr('width', self.dimension.innerWidth)
@@ -172,7 +154,7 @@ export default class scatter {
             ctx.fillStyle = "#e2e2e2";
             const px = self.scale.x(point.x);
             const py =  self.scale.y(point.y);
-            const pr =  self.scale.r(point.r);
+            const pr =  point.r;
             ctx.arc(px, py, pr, 0, 2 * Math.PI, true);
             ctx.fill();
             ctx.stroke();
@@ -180,7 +162,6 @@ export default class scatter {
     }
 
     renderFocus(){ // aka: render highlights 
-    //    console.log("render focus")
         const self = this;
         const canvas = d3.select(`#${self.rootId}-canvasFocus`)
         const ctx = canvas.node().getContext('2d');
@@ -194,14 +175,13 @@ export default class scatter {
             ctx.fillStyle = self.scale.c(point.c);
             const px = self.scale.x(point.x);
             const py =  self.scale.y(point.y);
-            const pr =  self.scale.r(point.r);
+            const pr =  point.r;
             ctx.arc(px, py, pr, 0, 2 * Math.PI, true);
             ctx.fill();
             ctx.stroke();
         });
     }
     renderSelections(){ // should input data objs from states.click + states.mouseover rather than filtering all data? or use crosfilter.js?
-       // console.log("render selections")
         const self = this;
         const canvas = d3.select(`#${self.rootId}-canvasSelections`)
         const ctx = canvas.node().getContext('2d');
@@ -216,7 +196,7 @@ export default class scatter {
             ctx.fillStyle = self.scale.c(point.c);
             const px = self.scale.x(point.x);
             const py =  self.scale.y(point.y);
-            const pr =  self.scale.r(point.r);
+            const pr =  point.r;
             ctx.arc(px, py, pr, 0, 2 * Math.PI, true);
             ctx.fill();
             ctx.stroke();
@@ -224,9 +204,9 @@ export default class scatter {
 
     }
     renderAxis(){
-        const svg = d3.select(`#${this.rootId}-g`),
-        tickPadding = 2.5,
-        self = this;
+        const self = this,
+        svg = d3.select(`#${this.rootId}-g`),
+        tickPadding = 2.5;
 
         const y = d3.axisLeft(this.scale.y) 
         .ticks(this.axis.y.ticks)
@@ -236,8 +216,6 @@ export default class scatter {
         .attr("class", "axis y")
         .attr("transform", `translate(0,0)`)
         .call(y)
-     
-
 
         const x = d3.axisBottom()
         .scale(this.scale.x)   
@@ -250,11 +228,7 @@ export default class scatter {
         .call(x)
 
         svg.selectAll(".axis.y .tick line").attr("x1", self.dimension.innerWidth);
-        // svg.selectAll(".axis.x .tick line").attr("y1", -self.dimension.innerHeight)
-
-
         svg.selectAll(".domain").remove();
-
 
         if (!this.axis.x.threshold){
             svg.selectAll(".axis.x .tick line").filter(d=>d==0)
@@ -299,7 +273,7 @@ export default class scatter {
             .attr("class", "plot-title")
             .style("position", "absolute")
             .style("top", 0)
-            .style("left", `${this.padding.left/4}px`)
+            .style("left", 0)
             .style("text-align", "center")
             .html(this.title)
     }

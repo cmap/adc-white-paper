@@ -106,20 +106,44 @@ export default {
 
       switch (this.combinationName){
           case "temo_benzyl":
-            scatterData = self.data.map(d=>{
-            return {
-              x: d.synergy,
-              y: d.ge_mgmt,
-              c: d.synergy_count,
-              id: `${d.ccle_name}-${d.culture}`,
-              r: 3,
-              rowField: d.pert2_dose,
-              columnField: d.pert1_dose,
-              _info: d
-            }
+          //   scatterData = self.data.map(d=>{
+          //   return {
+          //     // dont retype all this.. do it in js
+          //     ccle_name: d.ccle_name,
+          //       culture: d.culture,
+          //       pert1_name: d.pert1_name,
+          //       pert2_name: d.pert2_name,
+          //       pert1_dose: d.pert1_dose,
+          //       pert2_dose: d.pert2_dose,
+          //       pert1_viability: d.pert1_viability,
+          //       pert2_viability: d.pert2_viability,
+          //       combination_viability: d.combination_viability,
+          //       synergy: d.synergy,
+          //       ge_mgmt: d.ge_mgmt,
+          //       synergy_count: d.synergy_count,
+          //     x: d.synergy,
+          //     y: d.ge_mgmt,
+          //     c: d.synergy_count,
+          //     id: `${d.ccle_name}-${d.culture}`,
+          //     r: 3,
+          //     rowField: d.pert2_dose,
+          //     columnField: d.pert1_dose,
+          //     _info: d
+          //   }
+          // })
+          scatterData = self.data
+          scatterData.forEach(d=>{
+            d.x = d.synergy;
+            d.y = d.ge_mgmt;
+            d.c = d.synergy_count;
+            d.id = `${d.ccle_name}-${d.culture}`;
+            d.r = 3;
+            d.rowField = d.pert2_dose;
+            d.columnField = d.pert1_dose;
+
+   
           })
           scatterConfig = {
-            padding: {top: 10, right: 0, bottom: 15, left: 25},
             title: "temozolomide + O6-benzylguanine",
             xAxisTitle: "Synergy",
             yAxisTitle: "MGMT Expression"
@@ -128,9 +152,21 @@ export default {
           case "ml210_ferro":
             scatterData = self.data.map(d=>{
             return {
+              ccle_name: d.ccle_name,
+                culture: d.culture,
+                pert1_name: d.pert1_name,
+                pert2_name: d.pert2_name,
+                pert1_dose: d.pert1_dose,
+                pert2_dose: d.pert2_dose,
+                pert1_viability: d.pert1_viability,
+                pert2_viability: d.pert2_viability,
+                combination_viability: d.combination_viability,
+                synergy: d.synergy,
+                xpr_gpx4: d.xpr_gpx4,
+                antagony_count: d.antagony_count,
               x: d.synergy,
-              y: d.gpx4_dependency,
-              c: d.synergy_count,
+              y: d.xpr_gpx4,
+              c: d.antagony_count,
               id: `${d.ccle_name}-${d.culture}`,
               r: 3,
               rowField: d.pert2_dose,
@@ -139,7 +175,6 @@ export default {
             }
           })
           scatterConfig = {
-            padding: {top: 10, right: 0, bottom: 15, left: 25},
             title: "ML210 + ferrostatin-1",
             xAxisTitle: "Synergy",
             yAxisTitle: "GPX4 Dependency"
@@ -159,7 +194,6 @@ export default {
             }
           })
           scatterConfig = {
-            padding: {top: 10, right: 0, bottom: 15, left: 25},
             title: "A-1331852 + AZD5991",
             xAxisTitle: "A-1331852 Viability",
             yAxisTitle: "AZD5991 Viability"
@@ -167,8 +201,8 @@ export default {
       }
 
       // should some of this be done in a 'lattice' component??? ie: on for use on the portal
-      let latticeData = plotUtils.createLatticeData(scatterData, "rowField", "columnField", self.rootName, self.LatticePadding)
-
+      let latticeData = plotUtils.createLatticeData(scatterData, "rowField", "columnField")
+       plotUtils.updateLatticeData(latticeData, self.rootName, self.LatticePadding, {columns: 7})
     
       let xExtent = d3.extent(scatterData.map(d => d.x))
       let yExtent = d3.extent(scatterData.map(d => d.y))
@@ -182,7 +216,7 @@ export default {
         if (plot.column === 0) { displayYAxisTicks = true } 
         else { displayYAxisTicks = false }
         plot.config = {
-          padding: scatterConfig.padding,
+          padding: {top: 15, right: 5, bottom: 15, left: 25},
           title: `${plot.columnName} + ${plot.rowName}`,
           axis: {
             x: {
@@ -196,7 +230,7 @@ export default {
             }
           },
           scale: {
-              c: d3.scaleLinear().domain(cExtent).range(["blue", "#e2e2e2", "red"])
+              c: d3.scaleLinear().domain(cExtent).range(["grey", "red"])
           },
           display: { title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: displayXAxisTicks, yAxisTicks: displayYAxisTicks },
           tooltipConfig: [
@@ -237,7 +271,10 @@ export default {
   </script>
   
   <style>
-.synergy-plots, #temo_benzyl_synergy_plots{
+  /* #azd_a133_synergy_plots{
+    width:80% !important;
+  } */
+.lattice-plots{
   position: relative;
   width:1000px;
   height:100%;
@@ -277,15 +314,16 @@ export default {
   fill: #000;
 }
 .axis-title{
-  font-size:12px !important;
+  font-size:11.5px !important;
   font-weight:500 !important;
   color:#454545;
   fill: #454545;
 }
 .plot-title{
-  font-size:12px !important;
+  font-size:11.5px !important;
   font-weight:700 !important;
-  text-overflow: clip;
+
+  /* text-overflow: clip; */
   white-space: nowrap;
 }
 .x-axis-title{
