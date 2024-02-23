@@ -101,37 +101,11 @@ export default {
      async launch() {
       const self = this;
       
-      let scatterData;
+      let scatterData = self.data;
       let scatterConfig;
 
       switch (this.combinationName){
-          case "temo_benzyl":
-          //   scatterData = self.data.map(d=>{
-          //   return {
-          //     // dont retype all this.. do it in js
-          //     ccle_name: d.ccle_name,
-          //       culture: d.culture,
-          //       pert1_name: d.pert1_name,
-          //       pert2_name: d.pert2_name,
-          //       pert1_dose: d.pert1_dose,
-          //       pert2_dose: d.pert2_dose,
-          //       pert1_viability: d.pert1_viability,
-          //       pert2_viability: d.pert2_viability,
-          //       combination_viability: d.combination_viability,
-          //       synergy: d.synergy,
-          //       ge_mgmt: d.ge_mgmt,
-          //       synergy_count: d.synergy_count,
-          //     x: d.synergy,
-          //     y: d.ge_mgmt,
-          //     c: d.synergy_count,
-          //     id: `${d.ccle_name}-${d.culture}`,
-          //     r: 3,
-          //     rowField: d.pert2_dose,
-          //     columnField: d.pert1_dose,
-          //     _info: d
-          //   }
-          // })
-          scatterData = self.data
+          case "temo_benzyl":  
           scatterData.forEach(d=>{
             d.x = d.synergy;
             d.y = d.ge_mgmt;
@@ -140,8 +114,6 @@ export default {
             d.r = 3;
             d.rowField = d.pert2_dose;
             d.columnField = d.pert1_dose;
-
-   
           })
           scatterConfig = {
             title: "temozolomide + O6-benzylguanine",
@@ -150,30 +122,15 @@ export default {
           }
           break;
           case "ml210_ferro":
-            scatterData = self.data.map(d=>{
-            return {
-              ccle_name: d.ccle_name,
-                culture: d.culture,
-                pert1_name: d.pert1_name,
-                pert2_name: d.pert2_name,
-                pert1_dose: d.pert1_dose,
-                pert2_dose: d.pert2_dose,
-                pert1_viability: d.pert1_viability,
-                pert2_viability: d.pert2_viability,
-                combination_viability: d.combination_viability,
-                synergy: d.synergy,
-                xpr_gpx4: d.xpr_gpx4,
-                antagony_count: d.antagony_count,
-              x: d.synergy,
-              y: d.xpr_gpx4,
-              c: d.antagony_count,
-              id: `${d.ccle_name}-${d.culture}`,
-              r: 3,
-              rowField: d.pert2_dose,
-              columnField: d.pert1_dose,
-              _info: d
-            }
-          })
+          scatterData.forEach(d=>{
+              d.x = d.synergy;
+              d.y = d.xpr_gpx4;
+              d.c = d.antagony_count;
+              d.id = `${d.ccle_name}-${d.culture}`;
+              d.r = 3;
+              d.rowField = d.pert2_dose;
+              d.columnField = d.pert1_dose;
+            })
           scatterConfig = {
             title: "ML210 + ferrostatin-1",
             xAxisTitle: "Synergy",
@@ -181,18 +138,15 @@ export default {
           }
           break;
           case "azd_a133":
-            scatterData = self.data.map(d=>{
-            return {
-              x: d.pert1_viability,
-              y: d.pert2_viability,
-              c: d.combination_viability,
-              id: `${d.ccle_name}-${d.culture}`,
-              r: 3,
-              rowField: d.pert2_dose,
-              columnField: d.pert1_dose,
-              _info: d
-            }
-          })
+            scatterData.forEach(d=>{
+              d.x = d.pert1_viability;
+              d.y = d.pert2_viability;
+              d.c = d.combination_viability;
+              d.id = `${d.ccle_name}-${d.culture}`;
+              d.r = 3;
+              d.rowField = d.pert2_dose;
+              d.columnField = d.pert1_dose;
+            })
           scatterConfig = {
             title: "A-1331852 + AZD5991",
             xAxisTitle: "A-1331852 Viability",
