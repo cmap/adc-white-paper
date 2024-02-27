@@ -42,8 +42,8 @@ export function createLatticeData(data, rowField = "rowField", columnField = "co
     if (!grid.rows) {
       rows = d3.max(data.map(d=>d.row)) + 1; // add 1 to account for 0 indexing
     }
-let xDomain = [...Array(columns).keys()];
-let yDomain = [...Array(rows).keys()];
+    let xDomain = [...Array(columns).keys()];
+    let yDomain = [...Array(rows).keys()];
     scale.x = d3.scaleBand().domain(xDomain).range([padding.left, dimension.innerWidth]);
     dimension.innerHeight = (scale.x.bandwidth() * rows) + padding.top + padding.bottom;
     dimension.height = dimension.innerHeight + padding.top + padding.bottom;
@@ -58,20 +58,4 @@ let yDomain = [...Array(rows).keys()];
         d.width = scale.x.bandwidth();
         d.height = scale.y.bandwidth();
     })
-  //  scale.x = d3.scaleBand().domain([...new Set(data.map(d=>d.column))]).range([padding.left, dimension.innerWidth]);
-  //   let rows = d3.max(data.map(d=>d.row)) + 1; // add 1 to account for 0 indexing
-
-  //   dimension.innerHeight = (scale.x.bandwidth() * rows) + padding.top + padding.bottom;
-  //   dimension.height = dimension.innerHeight + padding.top + padding.bottom;
-
-  //   d3.select(`#${rootName}`).style("height", `${dimension.height}px`);
-  //   scale.y = d3.scaleBand().domain([...new Set(data.map(d=>d.row))]).range([padding.top, dimension.innerHeight])
-
-  //   data.forEach(d=>{
-  //       d.id = `${rootName}-x-${d.column}-${d.row}-y`
-  //       d.x = scale.x(d.column);
-  //       d.y = scale.y(d.row);
-  //       d.width = scale.x.bandwidth();
-  //       d.height = scale.y.bandwidth();
-  //   })
   }

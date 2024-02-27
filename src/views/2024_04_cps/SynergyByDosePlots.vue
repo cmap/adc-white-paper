@@ -40,6 +40,7 @@
         v-model:highlight="highlight"
         >
       </scatter-plot>
+
     </div>
   </div>
 </div>
@@ -101,11 +102,17 @@ export default {
      async launch() {
       const self = this;
       
-      let scatterData = self.data;
+      let scatterData = self.data.map(a => ({...a}))
+      let histogramData = self.data.map(a => ({...a}))
+      let latticeData;
       let scatterConfig;
 
       switch (this.combinationName){
           case "temo_benzyl":  
+        histogramData.forEach(d=>{
+          d.bin = d.synergy;
+          d.c = 1;
+        });
           scatterData.forEach(d=>{
             d.x = d.synergy;
             d.y = d.ge_mgmt;
@@ -120,6 +127,12 @@ export default {
             xAxisTitle: "Synergy",
             yAxisTitle: "MGMT Expression"
           }
+
+          latticeData = plotUtils.createLatticeData(scatterData, "rowField", "columnField")
+
+        let latticeData2 = latticeData.map(a => ({...a}))
+        latticeData2.forEach(d=> d.row = 1)
+        latticeData = latticeData.concat(latticeData2)
           break;
           case "ml210_ferro":
           scatterData.forEach(d=>{
@@ -136,6 +149,7 @@ export default {
             xAxisTitle: "Synergy",
             yAxisTitle: "GPX4 Dependency"
           }
+          latticeData = plotUtils.createLatticeData(scatterData, "rowField", "columnField")
           break;
           case "azd_a133":
             scatterData.forEach(d=>{
@@ -152,11 +166,16 @@ export default {
             xAxisTitle: "A-1331852 Viability",
             yAxisTitle: "AZD5991 Viability"
           }
+          latticeData = plotUtils.createLatticeData(scatterData, "rowField", "columnField")
       }
 
       // should some of this be done in a 'lattice' component??? ie: on for use on the portal
-      let latticeData = plotUtils.createLatticeData(scatterData, "rowField", "columnField")
-       plotUtils.updateLatticeData(latticeData, self.rootName, self.LatticePadding, {columns: 7})
+    //  let latticeData = plotUtils.createLatticeData(scatterData, "rowField", "columnField")
+      // let latticeData2 = latticeData;
+      // latticeData2.forEach(d=> d.row = 1)
+      // latticeData = latticeData.concat(latticeData2)
+
+      plotUtils.updateLatticeData(latticeData, self.rootName, self.LatticePadding, {columns: 7})
     
       let xExtent = d3.extent(scatterData.map(d => d.x))
       let yExtent = d3.extent(scatterData.map(d => d.y))
@@ -169,6 +188,7 @@ export default {
 
         if (plot.column === 0) { displayYAxisTicks = true } 
         else { displayYAxisTicks = false }
+
         plot.config = {
           padding: {top: 15, right: 5, bottom: 15, left: 25},
           title: `${plot.columnName} + ${plot.rowName}`,
@@ -199,12 +219,13 @@ export default {
             {label: "Pert2 Viability", field: "pert2_viability"}
           ]
         }
+        
       })
 
 
       this.plots = latticeData; // set plots to data to render plots in template
       this.click = this.defaulted;
-    this.items = [...new Set(self.data.map(d=>d.ccle_name))].sort(); 
+      this.items = [...new Set(self.data.map(d=>d.ccle_name))].sort(); 
       console.log(this.plots)
 
 
