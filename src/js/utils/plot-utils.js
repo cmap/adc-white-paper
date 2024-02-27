@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 
-export function createLatticeData(data, rowField = "rowField", columnField = "columnField", rootName = "lattice", padding = { top: 10, right: 10, bottom: 10, left: 10 }) {
+export function createLatticeData(data, rowField = "rowField", columnField = "columnField") {
     const self = this;
     let groups = d3.groups(data, d => d[rowField], d => d[columnField]);
     //Sort the groups here

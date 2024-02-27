@@ -151,11 +151,11 @@
             <p>
               In the presence of O6-benzylguanine, cell lines that expressed MGMT were sensitized to temozolomide (i.e., synergy was observed) (figure 3). Intriguingly, while MGMT expression appeared necessary for sensitization to temozolomide, a subset of cell lines remained resistant to temozolomide even in the presence of O6-benzylguanine. Accordingly, we asked whether any baseline genomic features were associated with the calculated temozolomide+O6-benzylguanine synergy score in MGMT-high expressing cell lines (MGMT expression > 1.5, see figure X). We found that low expression of the MSH6 gene (and low protein levels of MSH6, or its heterodimeric partner protein MSH2) were associated with lack of synergy in MGMT-proficient cell lines. MSH2 and MSH6 are genes involved in DNA mismatch repair, and their loss has been previously suggested to be associated with resistance to temozolomide16,17.
             </p>
-              <SynergyByDosePlots 
+              <TemoSynergyByDosePlots 
                 :data="temo_benzyl_data" 
                 rootName="temo_benzyl_synergy_plots" 
                 combinationName="temo_benzyl"
-              ></SynergyByDosePlots>
+              ></TemoSynergyByDosePlots>
           
           </PaperSubSection>
           <PaperSubSection>
@@ -169,11 +169,11 @@
           </PaperSubSection>
           <PaperSubSection>
             <h4>A-1331852 + AZD5991</h4>
-            <SynergyByDosePlots 
+            <!-- <SynergyByDosePlots 
                 :data="azd_a133_data" 
                 rootName="azd_a133_synergy_plots" 
                 combinationName="azd_a133"
-              ></SynergyByDosePlots>
+              ></SynergyByDosePlots> -->
 
           </PaperSubSection>
         </PaperSubSection>
@@ -224,6 +224,7 @@ import PaperHeader from '@/components/PaperHeader.vue';
 import PaperSection from '@/components/PaperSection.vue';
 import PaperSubSection from '@/components/PaperSubSection.vue';
 import SynergyByDosePlots from './2024_04_cps/SynergyByDosePlots.vue';
+import TemoSynergyByDosePlots from './2024_04_cps/Temo_SynergyByDosePlots.vue';
 import ImageCard from '@/components/ImageCard.vue'
 
 export default {
@@ -234,6 +235,7 @@ export default {
     PaperSection,
     PaperSubSection,
     SynergyByDosePlots,
+    TemoSynergyByDosePlots,
     ImageCard
 },
   props: {
@@ -278,7 +280,7 @@ export default {
             //     ge_mgmt: +d["GE_MGMT"],
             //     synergy_count: Math.random()*100
             // }
-            d3.csv(`${dataPath}2024_04_cps/CPS10_data/temo06.csv`, function(d){
+            d3.csv(`${dataPath}2024_04_cps/temo_benzyl_data.csv`, function(d){
             return {
                 ccle_name: d["ccle_name"],
                 culture: d["culture"],
@@ -291,7 +293,7 @@ export default {
                 combination_viability: +d["capped_combination"],
                 synergy: +d["S"],
                 synergy_count: +d["synergy_count_across_doses"],
-                EXP_MGMT: +d["GE_MGMT"],
+                EXP_MGMT: +d["EXP_MGMT"],
                 EXP_MSH6: +d["EXP_MSH6"],
                 RPPA_MSH2_MSH2: +d["RPPA_MSH2_MSH2"],
                 RPPA_MSH6_Caution_MSH6: +d["RPPA_MSH6_Caution_MSH6"]
@@ -332,16 +334,13 @@ export default {
               xpr_bclw: +d["XPR_BCLW"]
 
             }
-          }),
+          })
         ]).then(response=>{
           this.temo_benzyl_data = response[0];
           this.ml210_ferro_data = response[1];
           this.azd_a133_data = response[2];
-
           this.loading = false;
         //  return {temo_benzyl: temo_benzyl_data, ml210_ferro: ml210_ferro_data, azd_a133: azd_a133_data};
- 
-          
         })
       },
       // parseScatterplotData(temo_benzyl_data, ml210_ferro_data, azd_a133_data){
