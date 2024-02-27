@@ -263,7 +263,22 @@ export default {
 
      this.loading = true;
       Promise.all([
-          d3.csv(`${dataPath}2024_04_cps/temo_benzyl_data.csv`, function(d){
+          // d3.csv(`${dataPath}2024_04_cps/temo_benzyl_data.csv`, function(d){
+            // return {
+            //     ccle_name: d["ccle_name"],
+            //     culture: d["culture"],
+            //     pert1_name: d["pert1"],
+            //     pert2_name: d["pert2"],
+            //     pert1_dose: d["dose1"],
+            //     pert2_dose: d["dose2"], 
+            //     pert1_viability: +d["library.fitted"],
+            //     pert2_viability: +d["anchor.fitted"],
+            //     combination_viability: +d["combination.fitted"],
+            //     synergy: +d["S"],
+            //     ge_mgmt: +d["GE_MGMT"],
+            //     synergy_count: Math.random()*100
+            // }
+            d3.csv(`${dataPath}2024_04_cps/CPS10_data/temo06.csv`, function(d){
             return {
                 ccle_name: d["ccle_name"],
                 culture: d["culture"],
@@ -271,12 +286,16 @@ export default {
                 pert2_name: d["pert2"],
                 pert1_dose: d["dose1"],
                 pert2_dose: d["dose2"], 
-                pert1_viability: +d["library.fitted"],
-                pert2_viability: +d["anchor.fitted"],
-                combination_viability: +d["combination.fitted"],
+                pert1_viability: +d["capped_library"],
+                pert2_viability: +d["capped_anchor"],
+                combination_viability: +d["capped_combination"],
                 synergy: +d["S"],
-                ge_mgmt: +d["GE_MGMT"],
-                synergy_count: Math.random()*100
+                synergy_count: +d["synergy_count_across_doses"],
+                EXP_MGMT: +d["GE_MGMT"],
+                EXP_MSH6: +d["EXP_MSH6"],
+                RPPA_MSH2_MSH2: +d["RPPA_MSH2_MSH2"],
+                RPPA_MSH6_Caution_MSH6: +d["RPPA_MSH6_Caution_MSH6"]
+
             }
           }),
           d3.csv(`${dataPath}2024_04_cps/ml210_ferro_data.csv`, function(d){

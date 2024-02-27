@@ -115,7 +115,7 @@ export default {
         });
           scatterData.forEach(d=>{
             d.x = d.synergy;
-            d.y = d.ge_mgmt;
+            d.y = d.EXP_MGMT;
             d.c = d.synergy_count;
             d.id = `${d.ccle_name}-${d.culture}`;
             d.r = 3;
@@ -219,7 +219,7 @@ export default {
             {label: "Pert2 Viability", field: "pert2_viability"}
           ]
         }
-        
+
       })
 
 
