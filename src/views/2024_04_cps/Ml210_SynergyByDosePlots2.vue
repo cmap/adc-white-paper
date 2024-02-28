@@ -62,11 +62,12 @@ import * as plotUtils from '@/js/utils/plot-utils.js';
 import ScatterPlot from '@/plots/scatter-plot.vue';
 import HistogramPlot from '@/plots/histogram-plot2.vue';
 
+
 //const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
 
 
 export default {
-  name: 'Ml210SynergyByDosePlots',
+  name: 'Ml210SynergyByDosePlots2',
   components: {
   ScatterPlot,
   HistogramPlot
@@ -121,12 +122,43 @@ async created() {
             this.data = response[0];
             let scatterData = this.createScatterData();
             let latticeScatterData = this.createLatticeScatterData(scatterData);
-
             let histogramData = this.createHistogramData();
             let latticeHistogramData = this.createLatticeHistogramData(histogramData);
+            // combine scatter and histogram data for optimizing lattice layout
+            let plots = latticeScatterData.concat(latticeHistogramData);
+            const maxRow = d3.max(plots.map(d=>d.row));
+            plotUtils.updateLatticeLayout(plots, this.rootName);
+            this.setLatticeDisplay(plots);
+            // plots.forEach(d=>{
+            //     let displayXAxisTicks, 
+            //     displayYAxisTicks,
+            //     displayXAxisTitle,
+            //     displayYAxisTitle;
 
-            this.plots = latticeScatterData.concat(latticeHistogramData);
+            //     if (d.row ===  maxRow) {  displayXAxisTicks = true;  } 
+            //     else { displayXAxisTicks = false; }
 
+            //     if (d.column === 0) { displayYAxisTicks = true } 
+            //     else { displayYAxisTicks = false }
+
+            //     if (d.column === 0 && d.row == 0) { displayYAxisTitle = true } 
+            //     else { displayYAxisTitle = false }
+
+            //     if (d.column === 0 && d.row == maxRow) { displayXAxisTitle = true } 
+            //     else { displayXAxisTitle = false }
+            //     d.config.padding = d.padding;
+            //     d.config.display = { 
+            //         title: true, 
+            //         legend: false, 
+            //         xAxisTitle: displayXAxisTitle, 
+            //         yAxisTitle: displayYAxisTitle, 
+            //         xAxisTicks: displayXAxisTicks, 
+            //         yAxisTicks: displayYAxisTicks 
+            //     }
+            // })
+
+this.plots = plots;
+           // this.plots = latticeScatterData.concat(latticeHistogramData);
             this.loading = false;
         })
     },
@@ -139,14 +171,12 @@ async created() {
             d.c = d.antagonism_count;
             d.id = `${d.ccle_name}`;
             d.r = 3;
-            d.title = `${d.pert1_name} + ${d.pert2_name}`;
         })
         return data;
     },
     createLatticeScatterData(scatterData){
         const self = this;
         let latticeScatterData = plotUtils.createLatticeData(scatterData, "pert2_dose", "pert1_dose");
-      //  const maxRow = d3.max(latticeScatterData.map(d=>d.row)); // concat scatter and histogram data?
         const xExtent = d3.extent(scatterData.map(d => d.x))
         const yExtent = d3.extent(scatterData.map(d => d.y))
         const cExtent = d3.extent(scatterData.map(d => d.c))
@@ -154,13 +184,12 @@ async created() {
             xAxisTitle: "Synergy &rarr;",
             yAxisTitle: "MGMT Expression &rarr;"
         }
-        plotUtils.updateLatticeLayout(latticeScatterData, self.rootName);
-
+       
         latticeScatterData.forEach(d=> {
             d.config = {
                 title: `${d.rowName} + ${d.columnName}`,
                 type: "scatter",
-                padding: d.padding,
+                padding: {},
                 axis: {
                     x: {
                     domain: xExtent,
@@ -175,6 +204,7 @@ async created() {
                 scale: {
                     c: d3.scaleLinear().domain(cExtent).range(["grey", "red"])
                 },
+                display: {},
                 tooltipConfig: [
                     {label: "CCLE name", field: "ccle_name"},
                     {label: scatterConfig.xAxisTitle, field: "x"},
@@ -188,7 +218,6 @@ async created() {
                 ]
             }
         })
-        self.setLatticeDisplay(latticeScatterData);
         return latticeScatterData;
     },
     createHistogramData(){
@@ -197,7 +226,6 @@ async created() {
         data.forEach(d=>{
             d.x = d.synergy;
             d.y = d.XPR_GPX4;
-            d.title = `${d.pert1_name} + ${d.pert2_name}`;
         })
         return data;
 
@@ -222,13 +250,12 @@ async created() {
         const yExtent = [0, d3.max(yValues)]
         const xAxisTitle = "Synergy &rarr;";
         const yAxisTitle = "Num cell lines &rarr;"
-        plotUtils.updateLatticeLayout(latticeData, self.rootName);
-
+        
         latticeData.forEach(d=> {
             d.config = {
                 title: `${d.rowName} + ${d.columnName}`,
                 type: "histogram",
-                padding: d.padding,
+                padding: {},
                 axis: {
                     x: {
                     domain: xExtent,
@@ -238,10 +265,10 @@ async created() {
                     domain: yExtent,
                     title: yAxisTitle
                     }
-                }
+                },
+                display: {}
             }
         })
-        self.setLatticeDisplay(latticeData);
         return latticeData;
     },
     setLatticeDisplay(plots){
@@ -258,8 +285,7 @@ async created() {
             if (d.column === 0) { displayYAxisTicks = true } 
             else { displayYAxisTicks = false }
 
-            // if (d.column === 0 && d.row == 0) { displayYAxisTitle = true } 
-            if (d.column == 0) { displayYAxisTitle = true } 
+            if (d.column === 0) { displayYAxisTitle = true } 
             else { displayYAxisTitle = false }
 
             if (d.column === 0 && d.row == maxRow) { displayXAxisTitle = true } 
@@ -274,6 +300,7 @@ async created() {
                     yAxisTicks: displayYAxisTicks 
                 }
             d.config.display = display;
+            d.config.padding = d.padding;
         })
     },
     getSelectionAttributes() {

@@ -164,6 +164,10 @@
                 :data="ml210_ferro_data" 
                 rootName="ml210_ferro_synergy_plots" 
               ></Ml210SynergyByDosePlots>
+              <Ml210SynergyByDosePlots2 
+                :data="ml210_ferro_data" 
+                rootName="ml210_ferro_synergy_plots2" 
+              ></Ml210SynergyByDosePlots2>
           </PaperSubSection>
           <PaperSubSection>
             <h4>A-1331852 + AZD5991</h4>
@@ -224,6 +228,7 @@ import PaperSubSection from '@/components/PaperSubSection.vue';
 import SynergyByDosePlots from './2024_04_cps/SynergyByDosePlots.vue';
 import TemoSynergyByDosePlots from './2024_04_cps/Temo_SynergyByDosePlots.vue';
 import Ml210SynergyByDosePlots from './2024_04_cps/Ml210_SynergyByDosePlots.vue';
+import Ml210SynergyByDosePlots2 from './2024_04_cps/Ml210_SynergyByDosePlots2.vue';
 import ImageCard from '@/components/ImageCard.vue'
 
 export default {
@@ -236,6 +241,7 @@ export default {
     SynergyByDosePlots,
     TemoSynergyByDosePlots,
     Ml210SynergyByDosePlots,
+    Ml210SynergyByDosePlots2,
     ImageCard
 },
   props: {

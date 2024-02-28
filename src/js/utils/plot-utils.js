@@ -76,7 +76,6 @@ export function createLatticeData(data, rowField = "rowField", columnField = "co
     let xSize = (dimension.innerWidth - addPadding) / columns;
 
     data.forEach(d=>{
-      let p = { top: 10, right: 10, bottom: 10, left: 10 }
       d.id = `${rootName}-x-${d.column}-${d.row}-y`
       let width, height, paddingLeft, paddingBottom;
 
