@@ -106,6 +106,9 @@ export default class scatter {
         .attr('height', self.dimension.height)
         .attr('id', `${self.rootId}-svg`)
         .attr("class", "plot-svg")
+        .style("position", "absolute")
+        .style("top", "0px")
+        .style("left", "0px")
         .append('g')
         .attr("id", `${self.rootId}-g`)
         .attr("class", "plot-g")
@@ -117,6 +120,9 @@ export default class scatter {
         .style('margin-left', self.padding.left + 'px')
         .style('margin-top', self.padding.top + 'px')
         .attr("class", "plot-canvas")
+        .style("position", "absolute")
+        .style("top", "0px")
+        .style("left", "0px")
         .attr('id', `${self.rootId}-canvasFocus`);
 
         container.append('canvas')
@@ -125,6 +131,9 @@ export default class scatter {
         .style('margin-left', self.padding.left + 'px')
         .style('margin-top', self.padding.top + 'px')
         .attr("class", "plot-canvas")
+        .style("position", "absolute")
+        .style("top", "0px")
+        .style("left", "0px")
         .style("pointer-events", "none")
         .attr('id', `${self.rootId}-canvasSelections`);
 

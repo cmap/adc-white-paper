@@ -19,19 +19,17 @@
 
     <div class="lattice-plots" :id="rootName">
 
-      <div v-for="plot in plots" 
+        <div v-for="plot in plots" 
       :id="plot.id" 
       class="lattice-plot" 
       :style="
       {
-        'position': 'absolute', 
-        'top': `${plot.y}px`, 
-        'left': `${plot.x}px`, 
+        'display': 'inline-block',
+        'position': 'relative', 
         'width': `${plot.width}px`, 
         'height': `${plot.height}px`
         }
         ">
-
       <scatter-plot
         v-if="plot.config.type === 'scatter'"
         :rootId="plot.id"
@@ -256,82 +254,9 @@ export default {
   </script>
   
   <style>
-  /* #azd_a133_synergy_plots{
-    width:80% !important;
-  } */
-.lattice-plots{
-  position: relative;
-  width:1000px;
-  height:100%;
-  min-width:768px;
-}
-.plot-tooltip, #plot-tooltip{
-  position:absolute !important;
-  white-space: nowrap;
-  font-size:12px;
-  line-height: 1.5em;
-  background:white !important;
-  z-index: 10000;
-  padding:.5em;
-  box-shadow: 0.5px 0.5px 10px 0px rgba(141, 137, 137, 0.5) !important; 
-  min-width:200px;
-  pointer-events: none !important;
-}
-
-
-.plot-svg, .plot-canvas{
-  position:absolute;
-  top:0px;
-  left:0px;
-}
-.plot-svg{
-  z-index:1;
-  pointer-events: none !important;
-
-}
-.rotate{
-  -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
-  -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
-  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
-}
-.tick > text{
-  font-size: 9px !important;
-  fill: #000;
-}
-.axis-title{
-  font-size:11.5px !important;
-  font-weight:500 !important;
-  color:#454545;
-  fill: #454545;
-}
-.plot-title{
-  font-size:11.5px !important;
-  font-weight:700 !important;
-
-  /* text-overflow: clip; */
-  white-space: nowrap;
-}
-.x-axis-title{
-  position: absolute;
-  bottom:0px;
-  left:45%;
-}
-.y-axis-title{
-  position: absolute;
-  bottom:50%;
-  left:-10px;
-  line-height:0px;
-  -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
-  -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
-  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
-}
 
 
 
-@media screen and (min-width: 200px) and (max-width: 768px) {
 
-
-
-}
   </style>
   

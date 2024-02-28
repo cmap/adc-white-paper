@@ -137,7 +137,7 @@ export default {
 </script>
 
 <style>
-  #lattice-id{
+  /* #lattice-id{
     width:1000;
     height:1000;
     position:relative;
@@ -147,5 +147,5 @@ export default {
 position:absolute;
   border: 1px solid black;
 
-}
+} */
 </style>

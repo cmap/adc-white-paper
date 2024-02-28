@@ -169,11 +169,11 @@
           </PaperSubSection>
           <PaperSubSection>
             <h4>A-1331852 + AZD5991</h4>
-            <!-- <SynergyByDosePlots 
+            <SynergyByDosePlots 
                 :data="azd_a133_data" 
                 rootName="azd_a133_synergy_plots" 
                 combinationName="azd_a133"
-              ></SynergyByDosePlots> -->
+              ></SynergyByDosePlots>
 
           </PaperSubSection>
         </PaperSubSection>
@@ -412,12 +412,44 @@ export default {
 .full-width{
   width: 100%;
 }
-.synergy-plots, #temo_benzyl_synergy_plots{
-  position: relative;
-  width:1000px;
-  height:100%;
-  min-width:768px;
+
+.rotate{
+  -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
 }
+.tick > text{
+  font-size: 9px !important;
+  fill: #000;
+}
+.axis-title{
+  font-size:11.5px !important;
+  font-weight:500 !important;
+  color:#454545;
+  fill: #454545;
+}
+.plot-title{
+  font-size:11.5px !important;
+  font-weight:700 !important;
+
+  /* text-overflow: clip; */
+  white-space: nowrap;
+}
+.x-axis-title{
+  position: absolute;
+  bottom:0px;
+  left:45%;
+}
+.y-axis-title{
+  position: absolute;
+  bottom:50%;
+  left:-10px;
+  line-height:0px;
+  -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
+}
+
 @media screen and (min-width: 200px) and (max-width: 768px) {
   .combination_design-img{
     width: 100%;
