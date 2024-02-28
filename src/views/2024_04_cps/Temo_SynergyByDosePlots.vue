@@ -229,14 +229,9 @@ export default {
         plot.config = config;
 
       })
-
-
       this.plots = latticeData; // set plots to data to render plots in template
       this.click = this.defaulted;
       this.items = [...new Set(self.data.map(d=>d.ccle_name))].sort(); 
-      console.log(this.plots)
-
-
     },
 
     getSelectionAttributes() {

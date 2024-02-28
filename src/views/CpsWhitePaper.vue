@@ -154,18 +154,16 @@
               <TemoSynergyByDosePlots 
                 :data="temo_benzyl_data" 
                 rootName="temo_benzyl_synergy_plots" 
-                combinationName="temo_benzyl"
               ></TemoSynergyByDosePlots>
           
           </PaperSubSection>
           <PaperSubSection>
             <h4>ML210 + ferrostatin-1</h4>
             <p>Universally across cell lines, we observed that ferrostatin-1 antagonized the effects of ML210. [analytical: confirm support for this statement] (figure 3)</p>
-            <SynergyByDosePlots 
+            <Ml210SynergyByDosePlots 
                 :data="ml210_ferro_data" 
                 rootName="ml210_ferro_synergy_plots" 
-                combinationName="ml210_ferro"
-              ></SynergyByDosePlots>
+              ></Ml210SynergyByDosePlots>
           </PaperSubSection>
           <PaperSubSection>
             <h4>A-1331852 + AZD5991</h4>
@@ -225,6 +223,7 @@ import PaperSection from '@/components/PaperSection.vue';
 import PaperSubSection from '@/components/PaperSubSection.vue';
 import SynergyByDosePlots from './2024_04_cps/SynergyByDosePlots.vue';
 import TemoSynergyByDosePlots from './2024_04_cps/Temo_SynergyByDosePlots.vue';
+import Ml210SynergyByDosePlots from './2024_04_cps/Ml210_SynergyByDosePlots.vue';
 import ImageCard from '@/components/ImageCard.vue'
 
 export default {
@@ -236,6 +235,7 @@ export default {
     PaperSubSection,
     SynergyByDosePlots,
     TemoSynergyByDosePlots,
+    Ml210SynergyByDosePlots,
     ImageCard
 },
   props: {
@@ -265,21 +265,6 @@ export default {
 
      this.loading = true;
       Promise.all([
-          // d3.csv(`${dataPath}2024_04_cps/temo_benzyl_data.csv`, function(d){
-            // return {
-            //     ccle_name: d["ccle_name"],
-            //     culture: d["culture"],
-            //     pert1_name: d["pert1"],
-            //     pert2_name: d["pert2"],
-            //     pert1_dose: d["dose1"],
-            //     pert2_dose: d["dose2"], 
-            //     pert1_viability: +d["library.fitted"],
-            //     pert2_viability: +d["anchor.fitted"],
-            //     combination_viability: +d["combination.fitted"],
-            //     synergy: +d["S"],
-            //     ge_mgmt: +d["GE_MGMT"],
-            //     synergy_count: Math.random()*100
-            // }
             d3.csv(`${dataPath}2024_04_cps/temo_benzyl_data.csv`, function(d){
             return {
                 ccle_name: d["ccle_name"],
@@ -303,17 +288,18 @@ export default {
           d3.csv(`${dataPath}2024_04_cps/ml210_ferro_data.csv`, function(d){
             return {
               ccle_name: d["ccle_name"],
-              culture: d["culture"],
-              pert1_name: d["pert1"],
-              pert2_name: d["pert2"],
-              pert1_dose: d["dose1"],
-              pert2_dose: d["dose2"], 
-              pert1_viability: +d["library.fitted"],
-              pert2_viability: +d["anchor.fitted"],
-              combination_viability: +d["combination.fitted"],
-              synergy: +d["S"],
-              xpr_gpx4: +d["XPR_GPX4"],
-              antagony_count: Math.random()*100
+                culture: d["culture"],
+                pert1_name: d["pert1"],
+                pert2_name: d["pert2"],
+                pert1_dose: d["dose1"],
+                pert2_dose: d["dose2"], 
+                pert1_viability: +d["capped_library"],
+                pert2_viability: +d["capped_anchor"],
+                combination_viability: +d["capped_combination"],
+                synergy: +d["S"],
+                antagonism_count: +d["antagonism_count_across_doses"],
+                XPR_GPX4: +d["XPR_GPX4"]
+
             }
           }),
           d3.csv(`${dataPath}2024_04_cps/azd_a133_data.csv`, function(d){

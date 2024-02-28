@@ -59,3 +59,64 @@ export function createLatticeData(data, rowField = "rowField", columnField = "co
         d.height = scale.y.bandwidth();
     })
   }
+  export function updateLatticeLayout(data, rootName="lattice", padding = { top: 10, right: 10, bottom: 10, left: 10 }, grid = {rows: null, columns: null}) {
+    const self = this;
+    let dimension =  {}, 
+    scale = {},
+    columns = grid.columns,
+    rows = grid.rows;
+
+    dimension.width = d3.select(`#${rootName}`).node().clientWidth;
+    dimension.innerWidth =  dimension.width - padding.left - padding.right;
+
+    if (!columns) { columns = d3.max(data.map(d=>d.column)) + 1; } // add 1 to account for 0 indexing  
+    if (!grid.rows) { rows = d3.max(data.map(d=>d.row)) + 1; } // add 1 to account for 0 indexing
+
+    let addPadding = 35;
+    let xSize = (dimension.innerWidth - addPadding) / columns;
+
+    data.forEach(d=>{
+      let p = { top: 10, right: 10, bottom: 10, left: 10 }
+      d.id = `${rootName}-x-${d.column}-${d.row}-y`
+      let width, height, paddingLeft, paddingBottom;
+
+      if (d.column == 0){
+          paddingLeft = padding.left + addPadding;
+          width = xSize + addPadding;
+      } else {
+          paddingLeft = padding.left;
+          width = xSize;
+      }
+
+      if (d.row == (rows - 1)) {
+        paddingBottom = addPadding + padding.bottom;
+        height = xSize + addPadding;    
+      } else {
+        height = xSize;
+        paddingBottom = padding.bottom;
+      }
+      d.padding = {
+        left: paddingLeft,
+        bottom: paddingBottom,
+        top: padding.top,
+        right: padding.right
+      }
+      d.width = width;
+      d.height = height;
+  })
+  console.log(data)
+
+    // data.forEach(d=>{
+    //     d.id = `${rootName}-x-${d.column}-${d.row}-y`
+    //     d.x = scale.x(d.column);
+    //     d.y = scale.y(d.row);
+    //     let width;
+    //     if (d.column == 0){
+    //         width = scale.x.bandwidth() + padding.left;
+    //     } else {
+    //         width = scale.x.bandwidth();
+    //     }
+    //     d.width = width;
+    //     d.height = scale.y.bandwidth();
+    // })
+  }

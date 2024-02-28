@@ -257,7 +257,7 @@ export default class scatter {
             .attr("x", this.dimension.width/2)
             .attr("text-anchor", "middle")
             .attr("y",  this.dimension.height)
-            .attr("dy", "0em")
+            .attr("dy", "-1.0em")
             .html(this.axis.x.title)
         }
 
@@ -269,7 +269,7 @@ export default class scatter {
             .append("text")
             .attr("class", "axis-title")
             .attr("transform", `translate(${0},${ this.dimension.height/2})rotate(-90)`)
-        .attr("dy", "0em")
+            .attr("dy", "1.0em")
             .attr("text-anchor", "middle")
             .html(this.axis.y.title)
         }
