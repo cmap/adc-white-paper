@@ -169,7 +169,7 @@ async created() {
        self.GE_Y_Extent = yExtent;
         latticeScatterData.forEach(d=> {
             d.config = {
-                title: `${d.rowName} + ${d.columnName}`,
+                title: `${d.columnName} + ${d.rowName}`,
                 type: "scatter",
                 padding: {},
                 axis: {

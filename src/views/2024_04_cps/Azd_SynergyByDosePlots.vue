@@ -137,13 +137,13 @@ async created() {
         const yExtent = d3.extent(scatterData.map(d => d.y))
         const cExtent = d3.extent(scatterData.map(d => d.c))
         const scatterConfig = {
-            xAxisTitle: "AZD5582 Viability",
-            yAxisTitle: "A-1331852 Viability"
+            xAxisTitle: "Pert1 Viability &rarr;",
+            yAxisTitle: "Pert2 Viability &rarr;"
         }
        self.GE_Y_Extent = yExtent;
         latticeScatterData.forEach(d=> {
             d.config = {
-                title: `${d.rowName} + ${d.columnName}`,
+                title: `${d.columnName} + ${d.rowName}`,
                 type: "scatter",
                 padding: {},
                 axis: {
@@ -166,8 +166,8 @@ async created() {
                     {label: "CCLE name", field: "ccle_name"},
                     {label: scatterConfig.xAxisTitle, field: "x"},
                     {label: scatterConfig.yAxisTitle, field: "y"},
-                    {label: "Pert1", field: "pert1_name"}, //AZD5582
-                    {label: "Pert2", field: "pert2_name"}, //A-1331852
+                    {label: "Pert1", field: "pert1_name"},
+                    {label: "Pert2", field: "pert2_name"},
                     {label: "Pert1 Dose", field: "pert1_dose"},
                     {label: "Pert2 Dose", field: "pert2_dose"}
                 ]
@@ -196,7 +196,7 @@ async created() {
             if (d.column === 0 && d.row == 2 ) { displayYAxisTitle = true } 
             else { displayYAxisTitle = false }
 
-            if ((d.column === 2 && d.row == maxRow)) { displayXAxisTitle = true } 
+            if ((d.column === 0 && d.row == maxRow)) { displayXAxisTitle = true } 
             else { displayXAxisTitle = false }
 
             let display = { 

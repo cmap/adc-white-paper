@@ -130,16 +130,17 @@
               <v-col xs="12" sm="12" md="4" lg="4">
                 <v-list>
                   <v-list-item>
-                    <v-list-item-title><strong>A-1331852 + AZD5991</strong></v-list-item-title>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-title>A-1331852</v-list-item-title>
-                    <v-list-item-subtitle>5 concentrations <br>top concentration: 0.041µM; threefold dilution</v-list-item-subtitle>
+                    <v-list-item-title><strong>AZD5991 + A-1331852</strong></v-list-item-title>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-title>AZD5991</v-list-item-title>
                     <v-list-item-subtitle>5 concentrations <br>top concentration: 0.037µM; threefold dilution</v-list-item-subtitle>
                   </v-list-item>
+                  <v-list-item>
+                    <v-list-item-title>A-1331852</v-list-item-title>
+                    <v-list-item-subtitle>5 concentrations <br>top concentration: 0.041µM; threefold dilution</v-list-item-subtitle>
+                  </v-list-item>
+                 
                 </v-list>
                 <ViabilityMatrixPlots
                   pert_id="BRD-K00005264_BRD-K50731585"
@@ -177,7 +178,7 @@
               ></Ml210SynergyByDosePlots>
           </PaperSubSection>
           <PaperSubSection>
-            <h4>A-1331852 + AZD5991</h4>
+            <h4>AZD5991 + A-1331852</h4>
             <Azd_SynergyByDosePlots 
                 rootName="azd_a133_synergy_plots" 
               ></Azd_SynergyByDosePlots>

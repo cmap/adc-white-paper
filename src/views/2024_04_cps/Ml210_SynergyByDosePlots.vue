@@ -158,7 +158,7 @@ async created() {
     },
     createLatticeScatterData(scatterData){
         const self = this;
-        let latticeScatterData = plotUtils.createLatticeData(scatterData, "pert2_dose", "pert1_dose");
+        let latticeScatterData = plotUtils.createLatticeData(scatterData, "pert2_dose", "pert1_dose"); 
         const xExtent = d3.extent(scatterData.map(d => d.x))
         const yExtent = d3.extent(scatterData.map(d => d.y))
         const cExtent = d3.extent(scatterData.map(d => d.c))
@@ -169,7 +169,7 @@ async created() {
        self.GE_Y_Extent = yExtent;
         latticeScatterData.forEach(d=> {
             d.config = {
-                title: `${d.rowName} + ${d.columnName}`,
+                title: `${d.columnName} + ${d.rowName}`,
                 type: "scatter",
                 padding: {},
                 axis: {
