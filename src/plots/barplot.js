@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 
 
-export default class histogram {
+export default class barplot {
     constructor(
         rootId, 
         data,
@@ -75,42 +75,7 @@ export default class histogram {
         if (this.display.title){  this.renderTitle() }
         this.update()
     }
-    // plot.append("g")
-    // .attr("transform", "translate(0," + self.dimension.innerHeight + ")")
-    // .call(d3.axisBottom(self.scale.x));
 
-    // plot.append("g")
-    // .call(d3.axisLeft(self.scale.y));
-
-    //     if (this.display.xAxisTitle){
-    //         d3.select(`#${this.rootId}-svg`)
-    //         .append("text")
-    //         .attr("class", "axis-title")
-    //         .attr("x", this.dimension.width/2)
-    //         .attr("text-anchor", "middle")
-    //         .attr("y",  this.dimension.height)
-    //         .attr("dy", "-1em")
-    //         .html(this.axis.x.title)
-    //     }
-    //     if (this.display.yAxisTitle){
-    //         d3.select(`#${this.rootId}-svg`)
-    //         .append("text")
-    //         .attr("class", "axis-title")
-    //         .attr("transform", `translate(${0},${ this.dimension.height/2})rotate(-90)`)
-    //         .attr("dy", "1.5em")
-    //         .attr("text-anchor", "middle")
-    //         .html(this.axis.y.title)
-    //     }
-    //     if (this.display.title){
-    //         d3.select(`#${this.rootId}-svg`)
-    //         .append("text")
-    //         .attr("class", "plot-title")
-    //         .attr("x", this.dimension.width/2)
-    //         .attr("y", 0)
-    //         .attr("text-anchor", "middle")
-    //         .attr("dy",  "2em")
-    //         .html(this.title)
-    //     }
     renderAxis(){
         const self = this,
         svg = d3.select(`#${this.rootId}-g`),
@@ -186,20 +151,19 @@ export default class histogram {
             .html(this.title)
     }
     update(){
-    const self = this;
-    let plot =  d3.select(`#${self.rootId}-g`)
-    let bar = plot.selectAll("rect")
-     .data(self.data)
+        const self = this;
+        let plot =  d3.select(`#${self.rootId}-g`)
+        let bar = plot.selectAll("rect")
+        .data(self.data)
 
-     bar.exit().remove()
-     bar
+        bar.exit().remove()
+        bar
          .enter()
          .append("rect")
          .merge(bar)
-
-         .attr("transform", function(d) { return "translate(" + self.scale.x(d.x0) + "," + self.scale.y(d.length) + ")"; })
-         .attr("width", function(d) { return self.scale.x(d.x1) - self.scale.x(d.x0) -1 ; })
-         .attr("height", function(d) { return self.dimension.innerHeight - self.scale.y(d.length); })
-         .style("fill", d=> "#e2e2e2")
-    }
+        .attr("transform", function(d) { return "translate(" + self.scale.x(d.x0) + "," + self.scale.y(d.y0) + ")"; })
+        .attr("height", function(d) { return self.scale.y(d.y0) - self.scale.y(d.y1) -1 ; })
+        .attr("width", function(d) { return self.scale.x(d.x1); })
+        .style("fill", d=> "#e2e2e2")
+   }
 }

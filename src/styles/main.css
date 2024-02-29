@@ -190,6 +190,9 @@ stroke-opacity:1;
   min-width:200px;
   pointer-events: none !important;
 }
+svg{
+  overflow:visible !important;
+}
 
 @media (max-width: 600px){
 

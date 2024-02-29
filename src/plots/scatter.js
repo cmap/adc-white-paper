@@ -92,7 +92,8 @@ export default class scatter {
                 return d3.scaleOrdinal().domain(getcDomain()).range(this.axis.c.range) 
             }
         }
-        const padder = d3.max(self.data.map(d=>d.r))*2.25;
+        // const padder = d3.max(self.data.map(d=>d.r))*2.25;
+        const padder = 0; // using 0 bc alignment with other plot types+same axis is effected by this
         if (!this.scale.x){ this.scale.x = d3.scaleLinear().domain(getxExtent()).range([padder, this.dimension.innerWidth-padder]).nice(); }
         if (!this.scale.y){ this.scale.y = d3.scaleLinear().domain(getyExtent()).range([this.dimension.innerHeight-padder, padder]).nice(); }
         if (!this.scale.c){ this.scale.c = getColorScale(); }
