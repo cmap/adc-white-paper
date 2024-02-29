@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-
+import defaultPlotConfig from './default-plot-config.js';
 
 d3.selection.prototype.moveToFront = function() {
     return this.each(function(){
@@ -17,40 +17,19 @@ d3.selection.prototype.moveToFront = function() {
 };
 
 
-export default class heatmap {
+export default class heatmap extends defaultPlotConfig{
     constructor(
         rootId, 
         data,
         config,
         states
     ) { 
-        this.rootId = rootId;
+        super(rootId, config);
+        let defaults = new defaultPlotConfig(rootId, config);
+        Object.assign(defaults.getDefaults(), this );
+
         this.data = data;
         this.states = states;
-        this.title = config.title;
-        this.axis = config.axis;
-        this.tooltipConfig = config.tooltipConfig;
-        if (!this.axis.x){ this.axis.x = { } }
-        if (!this.axis.y){ this.axis.y = { } }
-    
-        if (!config.scale){ this.scale = { } }
-        else { this.scale = config.scale }
-
-
-        this.dimension = config.dimension; 
-        if (!this.dimension){
-            this.dimension = {
-                width: d3.select(`#${this.rootId}`).node().clientWidth,
-                height:  d3.select(`#${this.rootId}`).node().clientHeight
-            }
-        }
-
-        this.padding = config.padding;    
-        this.padding = config.padding;    
-        if (!this.padding){ this.padding = { top:20, right:20, bottom:20, left:20 } }
-        this.display = config.display
-        if (!this.display){ this.display = { title: true, legend: false, xAxisTitle: true, yAxisTitle: true } }
-        this.updateDimensions(); 
         this.createScale();
         this.render();
 
@@ -102,6 +81,9 @@ export default class heatmap {
         .attr('height', self.dimension.height)
         .attr('id', `${self.rootId}-svg`)
         .attr("class", "plot-svg")
+        .style("position", "absolute")
+        .style("top", "0px")
+        .style("left", "0px")
         .append('g')
         .attr("id", `${self.rootId}-g`)
         .attr("class", "plot-g")
@@ -114,6 +96,9 @@ export default class heatmap {
         .style('margin-left', self.padding.left + 'px')
         .style('margin-top', self.padding.top + 'px')
         .attr("class", "plot-canvas")
+        .style("position", "absolute")
+        .style("top", "0px")
+        .style("left", "0px")
         .attr('id', `${self.rootId}-canvas`);
 
         // Init tooltip

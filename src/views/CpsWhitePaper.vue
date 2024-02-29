@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading==false">
+  <div v-if="!loading">
     <page-content> 
       <PaperHeader 
       title="Multiplexed cancer cell line combination screening using PRISM" 
@@ -24,7 +24,6 @@
               <ImageCard min-height="3em" title="Candidate combination discovery" description="Comparisons across doses" :img="imgPath + 'main-graphic-49.png'"/>
             </v-col>
           </v-row>
-          <!-- <img style="width:100%;" :src="imgPath + 'main-graphic.png'"> -->
       </PaperSection>
 
       <PaperSection title="Analysis of combination data">
@@ -40,8 +39,6 @@
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4" xl="4">
               <ImageCard align-text="center" title="Synergistic" :img="imgPath + 'combo_effects-3.svg'"/>
-              <!-- <div style="text-align:center"><b>Synergistic</b></div>
-              <v-img class="px-6" :src="imgPath + 'combo_effects-3.svg'"></v-img> -->
             </v-col>
           </v-row>
 
@@ -52,7 +49,6 @@
         <br><br>
         For combination components with minimal differential viability effects, testing a single dose may represent the most efficient combinatorial design. By contrast, strong differential viability effects of one combination partner across cell lines supports the use of multiple doses; this approach also facilitates aggregation of the viability readout across doses (e.g., through fitting of dose-response curves). Where it is not possible to span the entire range of response to a given compound, it is recommended to focus on the lower end of the ideal concentration range (i.e., less cell viability effects) to facilitate identification of increased cell killing (e.g., additivity or synergy)–unless the experimental goal is to identify and characterize antagonistic combinations (e.g., drug rescue screens). 
         </p>
-        <!-- <v-card elevation="0" title="Pairing combination components based on differential viability effects"> -->
           <h4>Pairing combination components based on differential viability effects</h4>
           <v-row>
             <v-col cols="12" sm="12" md="4" lg="4" xl="4">
@@ -62,7 +58,6 @@
               <v-img class="px-6" :src="imgPath + 'combination_components-5x5.png'"></v-img>
             </v-col>
           </v-row>
-        <!-- </v-card> -->
       </PaperSection>
       <PaperSection title="Results">
         <PaperSubSection title="Selection of test combinations">
@@ -87,6 +82,7 @@
                   </v-list-item-subtitle>
                 </v-list-item>
               </v-list>
+
         </PaperSubSection>
         <PaperSubSection title="Pooled combination screening results">
           <p>Because O6-benzylguanine and ferrostatin-1 demonstrated minimal effects on viability as single agents across a large panel of cell lines, we screened a single dose (5 µM and 10 µM, respectively) in combination with 7 concentrations of temozolomide (top concentration: 100µM; threefold dilution) and ML210 (top concentration: 10µM; threefold dilution), respectively. As both A-1331852 and AZD5991 had dose-dependent effects on cell viability, we screened a 5x5 matrix (threefold dilution) of these compounds (top concentrations: 0.041 and 0.37µM, respectively). Combinations and all component single agents at matching concentrations were plated using an HP D300e drug printer and screened in nearly 900 cancer cell lines using standard PRISM conditions and data processing [link]. </p>
@@ -107,11 +103,9 @@
                     <v-list-item-subtitle>1 concentration: 5 µM</v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
-
                 <ViabilityMatrixPlots
-                pert_id="BRD-K32107296_BRD-K92041145"
-                rootName="BRD-K32107296_BRD-K92041145-viability-heatmap-plot"
-                >
+                  pert_id="BRD-K32107296_BRD-K92041145"
+                  rootName="BRD-K32107296_BRD-K92041145-viability-heatmap-plot">
                 </ViabilityMatrixPlots>
               </v-col>
               <v-col xs="12" sm="12" md="4" lg="4">
@@ -136,16 +130,17 @@
               <v-col xs="12" sm="12" md="4" lg="4">
                 <v-list>
                   <v-list-item>
-                    <v-list-item-title><strong>A-1331852 + AZD5991</strong></v-list-item-title>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-title>A-1331852</v-list-item-title>
-                    <v-list-item-subtitle>5 concentrations <br>top concentration: 0.041µM; threefold dilution</v-list-item-subtitle>
+                    <v-list-item-title><strong>AZD5991 + A-1331852</strong></v-list-item-title>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-title>AZD5991</v-list-item-title>
                     <v-list-item-subtitle>5 concentrations <br>top concentration: 0.037µM; threefold dilution</v-list-item-subtitle>
                   </v-list-item>
+                  <v-list-item>
+                    <v-list-item-title>A-1331852</v-list-item-title>
+                    <v-list-item-subtitle>5 concentrations <br>top concentration: 0.041µM; threefold dilution</v-list-item-subtitle>
+                  </v-list-item>
+                 
                 </v-list>
                 <ViabilityMatrixPlots
                   pert_id="BRD-K00005264_BRD-K50731585"
@@ -170,41 +165,25 @@
             <p>
               In the presence of O6-benzylguanine, cell lines that expressed MGMT were sensitized to temozolomide (i.e., synergy was observed) (figure 3). Intriguingly, while MGMT expression appeared necessary for sensitization to temozolomide, a subset of cell lines remained resistant to temozolomide even in the presence of O6-benzylguanine. Accordingly, we asked whether any baseline genomic features were associated with the calculated temozolomide+O6-benzylguanine synergy score in MGMT-high expressing cell lines (MGMT expression > 1.5, see figure X). We found that low expression of the MSH6 gene (and low protein levels of MSH6, or its heterodimeric partner protein MSH2) were associated with lack of synergy in MGMT-proficient cell lines. MSH2 and MSH6 are genes involved in DNA mismatch repair, and their loss has been previously suggested to be associated with resistance to temozolomide16,17.
             </p>
-              <SynergyByDosePlots 
-              pert_id="BRD-K32107296_BRD-K92041145"
-              pert_plate="PCPS020"
-              project="CPS010_VALIDATION_COMPOUNDS"
-              screen="CPS010"
-              rootName="BRD-K32107296_BRD-K92041145-synergy-plots"
-              :dict="Mgmt_Ge_Dict"
-              >
-              </SynergyByDosePlots>
+              <TemoSynergyByDosePlots 
+                rootName="temo_benzyl_synergy_plots" 
+              ></TemoSynergyByDosePlots>
+          
           </PaperSubSection>
           <PaperSubSection>
             <h4>ML210 + ferrostatin-1</h4>
             <p>Universally across cell lines, we observed that ferrostatin-1 antagonized the effects of ML210. [analytical: confirm support for this statement] (figure 3)</p>
-              <SynergyByDosePlots 
-                pert_id="BRD-K01877528_BRD-K97375133"
-                pert_plate="PCPS020"
-                project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
-                screen="CPS010"
-                rootName="BRD-K01877528_BRD-K97375133-synergy-plots"
-                :dict="Gpx4_Xpr_Dict"
-              >
-              </SynergyByDosePlots>
+            <Ml210SynergyByDosePlots 
+                rootName="ml210_ferro_synergy_plots" 
+              ></Ml210SynergyByDosePlots>
           </PaperSubSection>
           <PaperSubSection>
-            <h4>A-1331852 + AZD5991</h4>
-            <p>Universally across doses and across cell lines, we observed that BCL-xL and MCL1 inhibition were synergistic [analytical: can we say anything about biomarkers, cell lines that show less/more synergy, etc.?] (figure 3).</p>
-              <SynergyByDosePlots 
-                pert_id="BRD-K00005264_BRD-K50731585"
-                pert_plate="PCPS020"
-                project="CPS010_VALIDATION_COMPOUNDS_INTERNAL"
-                screen="CPS010"
-                rootName="BRD-K00005264_BRD-K50731585-synergy-plots"
-                :dict="Gpx4_Xpr_Dict"
-              >
-              </SynergyByDosePlots>
+            <h4>AZD5991 + A-1331852</h4>
+            <Azd_SynergyByDosePlots 
+                rootName="azd_a133_synergy_plots" 
+              ></Azd_SynergyByDosePlots>
+
+
           </PaperSubSection>
         </PaperSubSection>
       </PaperSection>
@@ -219,30 +198,28 @@
           Currently, combination screening is offered through PRISM using a variety of formats [link]. 7x1 combinations are useful where one component (the “anchor” agent) has limited differential viability effects, facilitating identification of a single concentration informative for screening. Where both agents have strong differential viability effects, we recommend matrixed designs such as 5x3 or 5x5. 
         </p>
       </PaperSection>
-
-      
       <PaperSection title="References">
         <v-card elevation="0" class="py-0">
-      <ol>
-       <li>Eder, J. P. & Hafez, N. Principles of dose, schedule, and combination therapy. Holland-Frei Cancer Medicine 1–13 Preprint at https://doi.org/10.1002/9781119000822.hfcm055.pub3 (2022).</li>
-        <li>Griner, L. A. M. et al. High-throughput combinatorial screening identifies drugs that cooperate with ibrutinib to kill activated B-cell–like diffuse large B-cell lymphoma cells. Proceedings of the National Academy of Sciences 111, 2349–2354 (2014).</li>
-        <li>Jaaks, P. et al. Effective drug combinations in breast, colon and pancreatic cancer cells. Nature 603, 166–173 (2022).</li>
-        <li>Menden, M. P. et al. Community assessment to advance computational prediction of cancer drug combinations in a pharmacogenomic screen. Nat. Commun. 10, 2674 (2019).</li>
-        <li>Gao, H. et al. High-throughput screening using patient-derived tumor xenografts to predict clinical trial drug response. Nat. Med. 21, 1318–1325 (2015).</li>
-        <li>Berenbaum, M. C. What is synergy? Pharmacol. Rev. 41, 93–141 (1989).</li>
-        <li>Bliss, C. I. THE TOXICITY OF POISONS APPLIED JOINTLY1. Ann. Appl. Biol. 26, 585–615 (1939).</li>
-        <li>Rees, M. G. et al. Systematic identification of biomarker-driven drug combinations to overcome resistance. Nat. Chem. Biol. 18, 615–624 (2022).</li>
-        <li>Palmer, A. C. & Sorger, P. K. Combination Cancer Therapy Can Confer Benefit via Patient-to-Patient Variability without Drug Additivity or Synergy. Cell 171, 1678–1691.e13 (2017).</li>
-        <li>Frei, E., 3rd & Freireich, E. J. Progress and perspectives in the chemotherapy of acute leukemia. Adv. Chemother. 2, 269–298 (1965).</li>
-        <li>Hegi, M. E. et al. MGMT gene silencing and benefit from temozolomide in glioblastoma. N. Engl. J. Med. 352, 997–1003 (2005).</li>
-        <li>Najm, F. J. et al. Orthologous CRISPR-Cas9 enzymes for combinatorial genetic screens. Nat. Biotechnol. 36, 179–189 (2018).</li>
-        <li>Abdul Rahman, S. F. et al. Co-inhibition of BCL-XL and MCL-1 with selective BCL-2 family inhibitors enhances cytotoxicity of cervical cancer cell lines. Biochem Biophys Rep 22, 100756 (2020).</li>
-        <li>Dixon, S. J. et al. Ferroptosis: an iron-dependent form of nonapoptotic cell death. Cell 149, 1060–1072 (2012).</li>
-        <li>Yang, W. S. et al. Regulation of ferroptotic cancer cell death by GPX4. Cell 156, 317–331 (2014).</li>
-        <li>Cahill, D. P. et al. Loss of the mismatch repair protein MSH6 in human glioblastomas is associated with tumor progression during temozolomide treatment. Clin. Cancer Res. 13, 2038–2045 (2007).</li>
-        <li>McFaline-Figueroa, J. L. et al. Minor Changes in Expression of the Mismatch Repair Protein MSH2 Exert a Major Impact on Glioblastoma Response to Temozolomide. Cancer Res. 75, 3127–3138 (2015).</li>
-      </ol>
-    </v-card>
+          <ol>
+          <li>Eder, J. P. & Hafez, N. Principles of dose, schedule, and combination therapy. Holland-Frei Cancer Medicine 1–13 Preprint at https://doi.org/10.1002/9781119000822.hfcm055.pub3 (2022).</li>
+            <li>Griner, L. A. M. et al. High-throughput combinatorial screening identifies drugs that cooperate with ibrutinib to kill activated B-cell–like diffuse large B-cell lymphoma cells. Proceedings of the National Academy of Sciences 111, 2349–2354 (2014).</li>
+            <li>Jaaks, P. et al. Effective drug combinations in breast, colon and pancreatic cancer cells. Nature 603, 166–173 (2022).</li>
+            <li>Menden, M. P. et al. Community assessment to advance computational prediction of cancer drug combinations in a pharmacogenomic screen. Nat. Commun. 10, 2674 (2019).</li>
+            <li>Gao, H. et al. High-throughput screening using patient-derived tumor xenografts to predict clinical trial drug response. Nat. Med. 21, 1318–1325 (2015).</li>
+            <li>Berenbaum, M. C. What is synergy? Pharmacol. Rev. 41, 93–141 (1989).</li>
+            <li>Bliss, C. I. THE TOXICITY OF POISONS APPLIED JOINTLY1. Ann. Appl. Biol. 26, 585–615 (1939).</li>
+            <li>Rees, M. G. et al. Systematic identification of biomarker-driven drug combinations to overcome resistance. Nat. Chem. Biol. 18, 615–624 (2022).</li>
+            <li>Palmer, A. C. & Sorger, P. K. Combination Cancer Therapy Can Confer Benefit via Patient-to-Patient Variability without Drug Additivity or Synergy. Cell 171, 1678–1691.e13 (2017).</li>
+            <li>Frei, E., 3rd & Freireich, E. J. Progress and perspectives in the chemotherapy of acute leukemia. Adv. Chemother. 2, 269–298 (1965).</li>
+            <li>Hegi, M. E. et al. MGMT gene silencing and benefit from temozolomide in glioblastoma. N. Engl. J. Med. 352, 997–1003 (2005).</li>
+            <li>Najm, F. J. et al. Orthologous CRISPR-Cas9 enzymes for combinatorial genetic screens. Nat. Biotechnol. 36, 179–189 (2018).</li>
+            <li>Abdul Rahman, S. F. et al. Co-inhibition of BCL-XL and MCL-1 with selective BCL-2 family inhibitors enhances cytotoxicity of cervical cancer cell lines. Biochem Biophys Rep 22, 100756 (2020).</li>
+            <li>Dixon, S. J. et al. Ferroptosis: an iron-dependent form of nonapoptotic cell death. Cell 149, 1060–1072 (2012).</li>
+            <li>Yang, W. S. et al. Regulation of ferroptotic cancer cell death by GPX4. Cell 156, 317–331 (2014).</li>
+            <li>Cahill, D. P. et al. Loss of the mismatch repair protein MSH6 in human glioblastomas is associated with tumor progression during temozolomide treatment. Clin. Cancer Res. 13, 2038–2045 (2007).</li>
+            <li>McFaline-Figueroa, J. L. et al. Minor Changes in Expression of the Mismatch Repair Protein MSH2 Exert a Major Impact on Glioblastoma Response to Temozolomide. Cancer Res. 75, 3127–3138 (2015).</li>
+          </ol>
+        </v-card>
       </PaperSection>
     </page-content>
 
@@ -255,10 +232,11 @@ import PageContent from '@/components/PageContent.vue';
 import PaperHeader from '@/components/PaperHeader.vue';
 import PaperSection from '@/components/PaperSection.vue';
 import PaperSubSection from '@/components/PaperSubSection.vue';
-import BlockContent from '@/components/BlockContent.vue';
-import SynergyByDosePlots from './2024_04_cps/SynergyByDosePlots.vue';
+
+import TemoSynergyByDosePlots from './2024_04_cps/Temo_SynergyByDosePlots.vue';
+import Ml210SynergyByDosePlots from './2024_04_cps/Ml210_SynergyByDosePlots.vue';
+import Azd_SynergyByDosePlots from './2024_04_cps/Azd_SynergyByDosePlots.vue';
 import ViabilityMatrixPlots from './2024_04_cps/ViabilityMatrixPlots.vue';
-import ColorMatrix from '@/components/ColorMatrix.vue';
 import ImageCard from '@/components/ImageCard.vue'
 
 export default {
@@ -268,51 +246,147 @@ export default {
     PaperHeader,
     PaperSection,
     PaperSubSection,
-   SynergyByDosePlots,
+    TemoSynergyByDosePlots,
+    Ml210SynergyByDosePlots,
+    Azd_SynergyByDosePlots,
     ViabilityMatrixPlots,
     ImageCard
-    
-// BlockContent
-  },
+},
   props: {
 
   },
   data: () => ({
-    loading: false,
-    Mgmt_Ge_Dict: {},
-    Gpx4_Xpr_Dict: {}
+    loading: true,
+    temo_benzyl_data: null,
+    ml210_ferro_data: null,
+    azd_a133_data: null
   }),
   computed: {
     imgPath () {
-
           return import.meta.env.PROD ? import.meta.env.BASE_URL + "/graphics/2024_04_cps/" : "../../graphics/2024_04_cps/";
-          
         }
-
   },
 
  async created() {
-  await this.getMGMTGeDict();
+ await this.loadData()
+
   },
   mounted(){
 
   },
   methods: {
-    async getMGMTGeDict(){
-    let dict1 = {}, dict2={};
+    async loadData(){
+
+     this.loading = true;
       Promise.all([
-                d3.csv(`${dataPath}2024_04_cps/temo_benzyl_data.csv`, function(d){
-                  dict1[d["ccle_name"]] = d["GE_MGMT"]
-                }),
-                d3.csv(`${dataPath}2024_04_cps/ml210_ferro_data.csv`, function(d){
-                  dict2[d["ccle_name"]] = d["XPR_GPX4"]
-                }),
-              ]).then(response=>{
-                this.Mgmt_Ge_Dict = dict1;
-                this.Gpx4_Xpr_Dict = dict2;
-                
-            })
-    }
+            d3.csv(`${dataPath}2024_04_cps/temo_benzyl_data.csv`, function(d){
+            return {
+                ccle_name: d["ccle_name"],
+                culture: d["culture"],
+                pert1_name: d["pert1"],
+                pert2_name: d["pert2"],
+                pert1_dose: d["dose1"],
+                pert2_dose: d["dose2"], 
+                pert1_viability: +d["capped_library"],
+                pert2_viability: +d["capped_anchor"],
+                combination_viability: +d["capped_combination"],
+                synergy: +d["S"],
+                synergy_count: +d["synergy_count_across_doses"],
+                EXP_MGMT: +d["EXP_MGMT"],
+                EXP_MSH6: +d["EXP_MSH6"],
+                RPPA_MSH2_MSH2: +d["RPPA_MSH2_MSH2"],
+                RPPA_MSH6_Caution_MSH6: +d["RPPA_MSH6_Caution_MSH6"]
+
+            }
+          }),
+          d3.csv(`${dataPath}2024_04_cps/ml210_ferro_data.csv`, function(d){
+            return {
+              ccle_name: d["ccle_name"],
+                culture: d["culture"],
+                pert1_name: d["pert1"],
+                pert2_name: d["pert2"],
+                pert1_dose: d["dose1"],
+                pert2_dose: d["dose2"], 
+                pert1_viability: +d["capped_library"],
+                pert2_viability: +d["capped_anchor"],
+                combination_viability: +d["capped_combination"],
+                synergy: +d["S"],
+                antagonism_count: +d["antagonism_count_across_doses"],
+                XPR_GPX4: +d["XPR_GPX4"]
+
+            }
+          }),
+          d3.csv(`${dataPath}2024_04_cps/azd_a133_data.csv`, function(d){
+            return {
+              ccle_name: d["ccle_name"],
+              culture: d["culture"],
+              pert1_name: d["pert1"],
+              pert2_name: d["pert2"],
+              pert1_dose: d["dose1"],
+              pert2_dose: d["dose2"], 
+              pert1_viability: +d["library.fitted"],
+              pert2_viability: +d["anchor.fitted"],
+              combination_viability: +d["combination.fitted"],
+              synergy: +d["S"],
+              xpr_mcl1: +d["XPR_MCL1"],
+              xpr_bclxl: +d["XPR_BCLXL"],
+              xpr_bcl2: +d["XPR_BCL2"],
+              xpr_bclw: +d["XPR_BCLW"]
+
+            }
+          })
+        ]).then(response=>{
+          this.temo_benzyl_data = response[0];
+          this.ml210_ferro_data = response[1];
+          this.azd_a133_data = response[2];
+          this.loading = false;
+        //  return {temo_benzyl: temo_benzyl_data, ml210_ferro: ml210_ferro_data, azd_a133: azd_a133_data};
+        })
+      },
+      // parseScatterplotData(temo_benzyl_data, ml210_ferro_data, azd_a133_data){
+
+      //   let temo_benzyl_scatter = temo_benzyl_data.map(d=>{
+      //       return {
+      //         x: d.synergy,
+      //         y: d.ge_mgmt,
+      //         c: d.synergy_count,
+      //         id: `${d.ccle_name}-${d.culture}`,
+      //         r: 3,
+      //         _info: d
+      //       }
+      //     })
+
+
+      //     let ml210_ferro_scatter = ml210_ferro_data.map(d=>{
+      //       return {
+      //         x: d.synergy,
+      //         y: d.xpr_gpx4,
+      //         c: d.antagony_count,
+      //         id: `${d.ccle_name}-${d.culture}`,
+      //         r: 3,
+      //         _info: d
+      //       }
+      //     })
+
+      //     let azd_a133_scatter = azd_a133_data.map(d=>{
+      //       return {
+      //         x: d.pert1_viability,
+      //         y: d.pert2_viability,
+      //         c: d.combination_viability,
+      //         id: `${d.ccle_name}-${d.culture}`,
+      //         r: 3,
+      //         _info: d
+      //       }
+      //     })
+
+      //   return {
+      //     temo_benzyl: temo_benzyl_scatter,
+      //     ml210_ferro: ml210_ferro_scatter,
+      //     azd_a133: azd_a133_scatter
+      //   }
+
+      // }
+
 
 
   },
@@ -331,7 +405,6 @@ export default {
 .card-title{
   color:black !important;
   font-weight:600 !important;
-  /* font-size:1.2rem !important; */
 }
 .combination_design-img{
     width: 100%;
@@ -339,6 +412,44 @@ export default {
 .full-width{
   width: 100%;
 }
+
+.rotate{
+  -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
+}
+.tick > text{
+  font-size: 9px !important;
+  fill: #000;
+}
+.axis-title{
+  font-size:11.5px !important;
+  font-weight:500 !important;
+  color:#454545;
+  fill: #454545;
+}
+.plot-title{
+  font-size:11.5px !important;
+  font-weight:700 !important;
+
+  /* text-overflow: clip; */
+  white-space: nowrap;
+}
+.x-axis-title{
+  position: absolute;
+  bottom:0px;
+  left:45%;
+}
+.y-axis-title{
+  position: absolute;
+  bottom:50%;
+  left:-10px;
+  line-height:0px;
+  -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
+}
+
 @media screen and (min-width: 200px) and (max-width: 768px) {
   .combination_design-img{
     width: 100%;
