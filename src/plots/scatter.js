@@ -1,7 +1,6 @@
 import * as d3 from "d3";
-import * as helpers from '@/js/utils/helpers.js';
-import { get } from "underscore";
-// import $ from "jquery";
+import * as plotUtils from '@/js/utils/plot-utils.js';
+
 
 d3.selection.prototype.moveToFront = function() {
     return this.each(function(){
@@ -28,43 +27,51 @@ export default class scatter {
     ) { 
         this.rootId = rootId;
         this.data = data.sort((a,b)=> d3.ascending(a.c, b.c));
-        this.states = states;
-        this.title = config.title;
-        this.axis = config.axis;
+        this.states = states; // make defaults for this.......
+        if (config.hasOwnProperty("title")){ this.title = config.title } else { this.title = "" }
+        if (config.hasOwnProperty("axis")){ this.axis = config.axis } else { this.axis = { } }
+        if (!this.axis.hasOwnProperty("x")){ this.axis.x = { } }
+        if (!this.axis.hasOwnProperty("y")){ this.axis.y = { } }
+        if (!this.axis.x.hasOwnProperty("title")){ this.axis.x.title = "X" }
+        if (!this.axis.y.hasOwnProperty("title")){ this.axis.y.title = "Y" }
+        if (!this.axis.x.hasOwnProperty("ticks")){ this.axis.x.ticks = 3 }
+        if (!this.axis.y.hasOwnProperty("ticks")){ this.axis.y.ticks = 3 }
+        if (!this.axis.x.hasOwnProperty("threshold")){ this.axis.x.threshold = false } // dashed line at specified value
+        if (!this.axis.y.hasOwnProperty("threshold")){ this.axis.y.threshold = false } // dashed line at specified value
+        if (!this.axis.hasOwnProperty("innerPadding")){ this.axis.innerPadding = 8 } // padding between axis/scatter points and edge of plot
+        if (config.hasOwnProperty("scale")){ this.scale = config.scale } else { this.scale = { } }
+        // handle scale here???
+        if (config.hasOwnProperty("padding")){ this.padding = config.padding } else { this.padding = { top:20, right:20, bottom:20, left:20 } }
+        if (config.hasOwnProperty("dimension")){ this.dimension = config.dimension } else { this.dimension = { width: d3.select(`#${this.rootId}`).node().clientWidth, height:  d3.select(`#${this.rootId}`).node().clientHeight } }
+        if (!this.dimension.hasOwnProperty("width")){ this.dimension.width = d3.select(`#${this.rootId}`).node().clientWidth }
+        if (!this.dimension.hasOwnProperty("height")){ this.dimension.height = d3.select(`#${this.rootId}`).node().clientHeight }
+       
+       
+       console.log(this.dimension.width, this.dimension.height, this.padding.left, this.padding.right)
+        this.dimension.innerWidth = this.dimension.width - this.padding.left - this.padding.right;
+        this.dimension.innerHeight = this.dimension.height - this.padding.top - this.padding.bottom;
+       
+        if (config.hasOwnProperty("display")){ this.display = config.display } else { this.display = { } }
+        if (!this.display.hasOwnProperty("xAxisTicks")){ this.display.xAxisTicks = true }
+        if (!this.display.hasOwnProperty("yAxisTicks")){ this.display.yAxisTicks = true }
+        if (!this.display.hasOwnProperty("xAxisTitle")){ this.display.xAxisTitle = true }
+        if (!this.display.hasOwnProperty("yAxisTitle")){ this.display.yAxisTitle = true }
+        if (!this.display.hasOwnProperty("legend")){ this.display.legend = false }
+        if (!this.display.hasOwnProperty("title")){ this.display.title = true }
+        if (!this.display.hasOwnProperty("tooltip")){ this.display.tooltip = true }
+
         this.tooltipConfig = config.tooltipConfig;
-        if (!this.axis.x){ this.axis.x = { } }
-        if (!this.axis.y){ this.axis.y = { } }
-        if (!this.axis.x.ticks){ this.axis.x.ticks = 3 }
-        if (!this.axis.y.ticks){ this.axis.y.ticks = 3 }
-        if (!this.axis.x.threshold){ this.axis.x.threshold = false }
-        if (!this.axis.y.threshold){ this.axis.y.threshold = false }
-        this.scale = config.scale;
-        if (!this.scale){ this.scale = { } }
-        this.dimension = config.dimension; 
-        if (!this.dimension){
-            this.dimension = {
-                width: d3.select(`#${this.rootId}`).node().clientWidth,
-                height:  d3.select(`#${this.rootId}`).node().clientHeight
-            }
-        }
-        this.padding = config.padding;    
-        if (!this.padding){ this.padding = { top:20, right:20, bottom:20, left:20 } }
-        this.display = config.display
-        if (!this.display){ this.display = { title: true, legend: false, xAxisTitle: true, yAxisTitle: true, xAxisTicks: true, yAxisTicks: true } }
-    
-        this.updateDimensions(); 
+
         this.createScale();
         this.render();
 
+        // TO DO: create legend component????? Render legend independent of scatter plot????
         if (this.display.legend){ // requires createScale() for setting scale.c 
             this.legend = config.legend;
             this.renderLegend();
         }
     }
-    updateDimensions() {
-        this.dimension.innerWidth = this.dimension.width - this.padding.left - this.padding.right;
-        this.dimension.innerHeight = this.dimension.height - this.padding.top - this.padding.bottom;
-    }
+
     createScale(){
         const self = this;
         const getxExtent = ()=>{
@@ -92,10 +99,9 @@ export default class scatter {
                 return d3.scaleOrdinal().domain(getcDomain()).range(this.axis.c.range) 
             }
         }
-        // const padder = d3.max(self.data.map(d=>d.r))*2.25;
-        const padder = 0; // using 0 bc alignment with other plot types+same axis is effected by this
-        if (!this.scale.x){ this.scale.x = d3.scaleLinear().domain(getxExtent()).range([padder, this.dimension.innerWidth-padder]).nice(); }
-        if (!this.scale.y){ this.scale.y = d3.scaleLinear().domain(getyExtent()).range([this.dimension.innerHeight-padder, padder]).nice(); }
+
+        if (!this.scale.x){ this.scale.x = d3.scaleLinear().domain(getxExtent()).range([this.axis.innerPadding, this.dimension.innerWidth-this.axis.innerPadding]).nice(); }
+        if (!this.scale.y){ this.scale.y = d3.scaleLinear().domain(getyExtent()).range([this.dimension.innerHeight-this.axis.innerPadding, this.axis.innerPadding]).nice(); }
         if (!this.scale.c){ this.scale.c = getColorScale(); }
     }
     render(){
@@ -148,7 +154,7 @@ export default class scatter {
 
         this.renderAxis()
         this.renderFocus(); 
-        if (this.display.title){  this.renderTitle() }
+        if (this.display.title){ plotUtils.plotTitle(this) }
     }
     renderContext(){
         const self = this;
@@ -275,18 +281,7 @@ export default class scatter {
             .html(this.axis.y.title)
         }
     }
-    renderTitle(){
-        const plot = d3.select(`#${this.rootId}`)
-        plot
-            .append("div")
-            .style("width", `${this.dimension.width}px`)
-            .attr("class", "plot-title")
-            .style("position", "absolute")
-            .style("top", 0)
-            .style("left", 0)
-            .style("text-align", "center")
-            .html(this.title)
-    }
+
     showTooltip(point, mouse){
         const self = this;
         const tooltip = d3.select(`#${self.rootId}-tooltip`);

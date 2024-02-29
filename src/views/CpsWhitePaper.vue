@@ -82,6 +82,7 @@
                   </v-list-item-subtitle>
                 </v-list-item>
               </v-list>
+
         </PaperSubSection>
         <PaperSubSection title="Pooled combination screening results">
           <p>Because O6-benzylguanine and ferrostatin-1 demonstrated minimal effects on viability as single agents across a large panel of cell lines, we screened a single dose (5 µM and 10 µM, respectively) in combination with 7 concentrations of temozolomide (top concentration: 100µM; threefold dilution) and ML210 (top concentration: 10µM; threefold dilution), respectively. As both A-1331852 and AZD5991 had dose-dependent effects on cell viability, we screened a 5x5 matrix (threefold dilution) of these compounds (top concentrations: 0.041 and 0.37µM, respectively). Combinations and all component single agents at matching concentrations were plated using an HP D300e drug printer and screened in nearly 900 cancer cell lines using standard PRISM conditions and data processing [link]. </p>
@@ -102,6 +103,10 @@
                     <v-list-item-subtitle>1 concentration: 5 µM</v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
+                <ViabilityMatrixPlots
+                  pert_id="BRD-K32107296_BRD-K92041145"
+                  rootName="BRD-K32107296_BRD-K92041145-viability-heatmap-plot">
+                </ViabilityMatrixPlots>
               </v-col>
               <v-col xs="12" sm="12" md="4" lg="4">
                 <v-list>
@@ -117,6 +122,10 @@
                     <v-list-item-subtitle>1 concentration:  10 µM</v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
+                <ViabilityMatrixPlots
+                  pert_id="BRD-K01877528_BRD-K97375133"
+                  rootName="BRD-K01877528_BRD-K97375133-viability-heatmap-plot">
+                </ViabilityMatrixPlots>
               </v-col>
               <v-col xs="12" sm="12" md="4" lg="4">
                 <v-list>
@@ -132,6 +141,10 @@
                     <v-list-item-subtitle>5 concentrations <br>top concentration: 0.037µM; threefold dilution</v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
+                <ViabilityMatrixPlots
+                  pert_id="BRD-K00005264_BRD-K50731585"
+                  rootName="BRD-K00005264_BRD-K50731585-viability-heatmap-plot">
+                </ViabilityMatrixPlots>
               </v-col>
             </v-row>
           </PaperSubSection>
@@ -165,11 +178,10 @@
           </PaperSubSection>
           <PaperSubSection>
             <h4>A-1331852 + AZD5991</h4>
-            <SynergyByDosePlots 
-                :data="azd_a133_data" 
+            <Azd_SynergyByDosePlots 
                 rootName="azd_a133_synergy_plots" 
-                combinationName="azd_a133"
-              ></SynergyByDosePlots>
+              ></Azd_SynergyByDosePlots>
+
 
           </PaperSubSection>
         </PaperSubSection>
@@ -219,9 +231,11 @@ import PageContent from '@/components/PageContent.vue';
 import PaperHeader from '@/components/PaperHeader.vue';
 import PaperSection from '@/components/PaperSection.vue';
 import PaperSubSection from '@/components/PaperSubSection.vue';
-import SynergyByDosePlots from './2024_04_cps/SynergyByDosePlots.vue';
+
 import TemoSynergyByDosePlots from './2024_04_cps/Temo_SynergyByDosePlots.vue';
 import Ml210SynergyByDosePlots from './2024_04_cps/Ml210_SynergyByDosePlots.vue';
+import Azd_SynergyByDosePlots from './2024_04_cps/Azd_SynergyByDosePlots.vue';
+import ViabilityMatrixPlots from './2024_04_cps/ViabilityMatrixPlots.vue';
 import ImageCard from '@/components/ImageCard.vue'
 
 export default {
@@ -231,9 +245,10 @@ export default {
     PaperHeader,
     PaperSection,
     PaperSubSection,
-    SynergyByDosePlots,
     TemoSynergyByDosePlots,
     Ml210SynergyByDosePlots,
+    Azd_SynergyByDosePlots,
+    ViabilityMatrixPlots,
     ImageCard
 },
   props: {

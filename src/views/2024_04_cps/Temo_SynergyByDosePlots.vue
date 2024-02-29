@@ -70,7 +70,7 @@ const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../
 import * as d3 from 'd3';
 import * as plotUtils from '@/js/utils/plot-utils.js';
 import ScatterPlot from '@/plots/scatter-plot.vue';
-import HistogramPlot from '@/plots/histogram-plot2.vue';
+import HistogramPlot from '@/plots/histogram-plot.vue';
 import BarPlot from '@/plots/barplot.vue';
 
 //const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";

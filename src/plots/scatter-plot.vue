@@ -118,28 +118,9 @@ export default {
       context.canvas.addEventListener('click', onClick );
       context.canvas.addEventListener ("mouseout", onMouseout);
   },
-  // plotLegendEvents(){
-  //     const self = this;
-  //     const legend = d3.select(`#${self.plot.legend.rootId} g`)
-  //     let highlight;
-  //     legend.selectAll(".legend.tick")
-  //       .on("click", function(event, d){
-  //       if (self.highlight == d){
-  //         d3.selectAll(".legend.tick.active").classed("active", false)
-
-  //         highlight = []
-  //        // self.plot.scale.c.domain()
-  //       } else {
-  //         d3.selectAll(".legend.tick.active").classed("active", false)
-  //         d3.select(this).classed("active", true)
-  //         highlight = [d]
-  //       }
-  //       self.$emit("update:highlight", highlight)
-  //     })
-  //   },
     updateCanvasOpacity(){
       let opacity; 
-      this.click.length > 0 || this.mouseover ? opacity = 0.7 : opacity = 1; 
+      this.click.length > 0 || this.mouseover ? opacity = 0.65 : opacity = 1; 
       d3.select(`#${this.plot.rootId}-canvasFocus`).style("opacity", opacity)
     }
   },
@@ -155,8 +136,8 @@ export default {
       this.plot.renderSelections();
     },
     highlight(){
-      // this.plot.states.highlight = this.highlight;
-      // this.plot.renderPoints();
+      this.plot.states.highlight = this.highlight;
+      this.plot.renderPoints();
     },
     data(){
 

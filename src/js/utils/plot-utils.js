@@ -23,43 +23,42 @@ export function createLatticeData(data, rowField = "rowField", columnField = "co
     }).flat();
     // updateLatticeData(lattice, rootName, padding);
     return lattice;
+}
+export function updateLatticeLayout(data, rootName="lattice", padding = { top: 10, right: 10, bottom: 10, left: 10 }, grid = {rows: null, columns: null}) {
+  const self = this;
+  let dimension =  {}, 
+  scale = {},
+  columns = grid.columns,
+  rows = grid.rows;
+
+  dimension.width = d3.select(`#${rootName}`).node().clientWidth;
+  dimension.innerWidth =  dimension.width - padding.left - padding.right;
+
+  if (!columns) {
+    columns = d3.max(data.map(d=>d.column)) + 1; // add 1 to account for 0 indexing
+  } 
+
+  if (!grid.rows) {
+    rows = d3.max(data.map(d=>d.row)) + 1; // add 1 to account for 0 indexing
   }
+  let xDomain = [...Array(columns).keys()];
+  let yDomain = [...Array(rows).keys()];
+  scale.x = d3.scaleBand().domain(xDomain).range([padding.left, dimension.innerWidth]);
+  dimension.innerHeight = (scale.x.bandwidth() * rows) + padding.top + padding.bottom;
+  dimension.height = dimension.innerHeight + padding.top + padding.bottom;
 
-  export function updateLatticeData(data, rootName="lattice", padding = { top: 10, right: 10, bottom: 10, left: 10 }, grid = {rows: null, columns: null}) {
-    const self = this;
-    let dimension =  {}, 
-    scale = {},
-    columns = grid.columns,
-    rows = grid.rows;
+  d3.select(`#${rootName}`).style("height", `${dimension.height}px`);
+  scale.y = d3.scaleBand().domain(yDomain).range([padding.top, dimension.innerHeight])
 
-    dimension.width = d3.select(`#${rootName}`).node().clientWidth;
-    dimension.innerWidth =  dimension.width - padding.left - padding.right;
-
-    if (!columns) {
-      columns = d3.max(data.map(d=>d.column)) + 1; // add 1 to account for 0 indexing
-    } 
-
-    if (!grid.rows) {
-      rows = d3.max(data.map(d=>d.row)) + 1; // add 1 to account for 0 indexing
-    }
-    let xDomain = [...Array(columns).keys()];
-    let yDomain = [...Array(rows).keys()];
-    scale.x = d3.scaleBand().domain(xDomain).range([padding.left, dimension.innerWidth]);
-    dimension.innerHeight = (scale.x.bandwidth() * rows) + padding.top + padding.bottom;
-    dimension.height = dimension.innerHeight + padding.top + padding.bottom;
-
-    d3.select(`#${rootName}`).style("height", `${dimension.height}px`);
-    scale.y = d3.scaleBand().domain(yDomain).range([padding.top, dimension.innerHeight])
-
-    data.forEach(d=>{
-        d.id = `${rootName}-x-${d.column}-${d.row}-y`
-        d.x = scale.x(d.column);
-        d.y = scale.y(d.row);
-        d.width = scale.x.bandwidth();
-        d.height = scale.y.bandwidth();
-    })
-  }
-  export function updateLatticeLayout(data, rootName="lattice", padding = { top: 10, right: 10, bottom: 10, left: 10 }, grid = {rows: null, columns: null}) {
+  data.forEach(d=>{
+      d.id = `${rootName}-x-${d.column}-${d.row}-y`
+      d.x = scale.x(d.column);
+      d.y = scale.y(d.row);
+      d.width = scale.x.bandwidth();
+      d.height = scale.y.bandwidth();
+  })
+}
+export function updateLatticeCommonXYLayout(data, rootName="lattice", padding = { top: 10, right: 10, bottom: 10, left: 10 }, grid = {rows: null, columns: null}) {
     const self = this;
     let dimension =  {}, 
     scale = {},
@@ -104,7 +103,6 @@ export function createLatticeData(data, rowField = "rowField", columnField = "co
       d.height = height;
   })
 }
-
 export function updateLatticeCommonYLayout(data, rootName="lattice", padding = { top: 10, right: 10, bottom: 10, left: 10 }, grid = {rows: null, columns: null}) {
   const self = this;
   let dimension =  {}, 
@@ -143,4 +141,16 @@ export function updateLatticeCommonYLayout(data, rootName="lattice", padding = {
     d.width = width;
     d.height = height;
 })
+}
+export function plotTitle(self){
+  const plot = d3.select(`#${self.rootId}`)
+  plot
+      .append("div")
+      .style("width", `${self.dimension.width}px`)
+      .attr("class", "plot-title")
+      .style("position", "absolute")
+      .style("top", 0)
+      .style("left", 0)
+      .style("text-align", "center")
+      .html(self.title)
 }

@@ -54,7 +54,7 @@ export default {
         "padding":  {top: 20, right: 10, bottom: 60, left: 40}
       },
       "BRD-K00005264_BRD-K50731585":{
-        "fileName": "azd_a133_sensitivity.csv",
+        "fileName": "azd_a133_data.csv",
         "title": "Sensitivity Across Doses",
         "xAxisTitle": "AZD7762 Dose",
         "yAxisTitle": "A-1331852 Dose",
@@ -129,7 +129,7 @@ export default {
                       dose2: d["dose2"],
                       ccle_name: d["ccle_name"],
                       group: `${d["pert1"]}_${d["dose1"]}_${d["pert2"]}_${d["dose2"]}`,
-                      value: +d["combination.fitted"] < 0.3 ? true : false
+                      value: +d["capped_combination"] < 0.3 ? true : false
                     }
                 })
               ]).then(response=>{
@@ -148,13 +148,14 @@ export default {
                       return {
                         x: e[0],
                         y: d[0],
-                        // c: ((e[1].filter(f => f.value === true).length)/e[1].length)*100,
-                        c: e[1].filter(f => f.value === true).length,
+                  //      length: e[1].length,
+                         c: ((e[1].filter(f => f.value === true).length)/e[1].length)*100,
+                      //  c: e[1].filter(f => f.value === true).length,
                         id: `${e[0]}_${d[0]}`
                       }
                     })
                 }).flat();
-
+console.log(heatmap, groups, data)
                 this.plot = {data: heatmap, config: self.configure(heatmap, config)}
                 self.loading = false;
             })
@@ -179,7 +180,9 @@ export default {
                   }
                 },
                 scale: {
-                  c: d3.scaleSequential([0, Math.floor(cExtent[1])], d3.interpolateYlOrRd)
+            //      c: d3.scaleSequential([0, Math.floor(cExtent[1])], d3.interpolateYlOrRd)
+                  c: d3.scaleSequential([0, 75], d3.interpolateYlOrRd)
+
                 //  c: d3.scaleLinear([0, Math.floor(cExtent[1])], ["yellow", "red"])
                 },
                 display: { 
