@@ -152,7 +152,6 @@
               In the presence of O6-benzylguanine, cell lines that expressed MGMT were sensitized to temozolomide (i.e., synergy was observed) (figure 3). Intriguingly, while MGMT expression appeared necessary for sensitization to temozolomide, a subset of cell lines remained resistant to temozolomide even in the presence of O6-benzylguanine. Accordingly, we asked whether any baseline genomic features were associated with the calculated temozolomide+O6-benzylguanine synergy score in MGMT-high expressing cell lines (MGMT expression > 1.5, see figure X). We found that low expression of the MSH6 gene (and low protein levels of MSH6, or its heterodimeric partner protein MSH2) were associated with lack of synergy in MGMT-proficient cell lines. MSH2 and MSH6 are genes involved in DNA mismatch repair, and their loss has been previously suggested to be associated with resistance to temozolomide16,17.
             </p>
               <TemoSynergyByDosePlots 
-                :data="temo_benzyl_data" 
                 rootName="temo_benzyl_synergy_plots" 
               ></TemoSynergyByDosePlots>
           
@@ -161,13 +160,8 @@
             <h4>ML210 + ferrostatin-1</h4>
             <p>Universally across cell lines, we observed that ferrostatin-1 antagonized the effects of ML210. [analytical: confirm support for this statement] (figure 3)</p>
             <Ml210SynergyByDosePlots 
-                :data="ml210_ferro_data" 
                 rootName="ml210_ferro_synergy_plots" 
               ></Ml210SynergyByDosePlots>
-              <Ml210SynergyByDosePlots2 
-                :data="ml210_ferro_data" 
-                rootName="ml210_ferro_synergy_plots2" 
-              ></Ml210SynergyByDosePlots2>
           </PaperSubSection>
           <PaperSubSection>
             <h4>A-1331852 + AZD5991</h4>
@@ -228,7 +222,6 @@ import PaperSubSection from '@/components/PaperSubSection.vue';
 import SynergyByDosePlots from './2024_04_cps/SynergyByDosePlots.vue';
 import TemoSynergyByDosePlots from './2024_04_cps/Temo_SynergyByDosePlots.vue';
 import Ml210SynergyByDosePlots from './2024_04_cps/Ml210_SynergyByDosePlots.vue';
-import Ml210SynergyByDosePlots2 from './2024_04_cps/Ml210_SynergyByDosePlots2.vue';
 import ImageCard from '@/components/ImageCard.vue'
 
 export default {
@@ -241,7 +234,6 @@ export default {
     SynergyByDosePlots,
     TemoSynergyByDosePlots,
     Ml210SynergyByDosePlots,
-    Ml210SynergyByDosePlots2,
     ImageCard
 },
   props: {

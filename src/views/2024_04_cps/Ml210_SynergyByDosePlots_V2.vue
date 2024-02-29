@@ -48,16 +48,6 @@
         v-model:highlight="highlight"
         >
       </histogram-plot>
-        <bar-plot 
-        v-else-if = "plot.config.type === 'bar'"
-        :rootId="plot.id"
-        :config="plot.config"
-        :data="plot.data"
-        v-model:mouseover="mouseover"
-        v-model:click="click"
-        v-model:highlight="highlight"
-        >
-        </bar-plot>
 
     </div>
   </div>
@@ -71,17 +61,15 @@ import * as d3 from 'd3';
 import * as plotUtils from '@/js/utils/plot-utils.js';
 import ScatterPlot from '@/plots/scatter-plot.vue';
 import HistogramPlot from '@/plots/histogram-plot2.vue';
-import BarPlot from '@/plots/barplot.vue';
 
 //const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
 
 
 export default {
-  name: 'Ml210SynergyByDosePlots2',
+  name: 'Ml210SynergyByDosePlots',
   components: {
   ScatterPlot,
-  HistogramPlot,
-  BarPlot
+  HistogramPlot
   },
   props: {
     rootName: String
@@ -94,8 +82,7 @@ export default {
     plots: [],
     mouseover: null,
     click: [],
-    highlight: [],
-    GE_Y_Extent: []
+    highlight: []
   }),
   computed: {
 
@@ -134,20 +121,12 @@ async created() {
             this.data = response[0];
             let scatterData = this.createScatterData();
             let latticeScatterData = this.createLatticeScatterData(scatterData);
-            // let geHistogramData = this.createGeHistogramData();
-            // let latticeGeHistogramData = this.createLatticeGeHistogramData(geHistogramData);
-            let geHistogramData = this.createGeBarData();
-            let latticeGeHistogramData = this.createLatticeGeBarData(geHistogramData);
+
             let histogramData = this.createHistogramData();
             let latticeHistogramData = this.createLatticeHistogramData(histogramData);
-            // combine scatter and histogram data for optimizing lattice layout
-      //      let plots = latticeScatterData.concat(latticeHistogramData);
-            let plots = [...latticeScatterData, ...latticeGeHistogramData, ...latticeHistogramData]
-            plotUtils.updateLatticeLayout(plots, this.rootName);
-            this.setLatticeDisplay(plots);
 
+            this.plots = latticeScatterData.concat(latticeHistogramData);
 
-            this.plots = plots;
             this.loading = false;
         })
     },
@@ -160,12 +139,14 @@ async created() {
             d.c = d.antagonism_count;
             d.id = `${d.ccle_name}`;
             d.r = 3;
+            d.title = `${d.pert1_name} + ${d.pert2_name}`;
         })
         return data;
     },
     createLatticeScatterData(scatterData){
         const self = this;
         let latticeScatterData = plotUtils.createLatticeData(scatterData, "pert2_dose", "pert1_dose");
+      //  const maxRow = d3.max(latticeScatterData.map(d=>d.row)); // concat scatter and histogram data?
         const xExtent = d3.extent(scatterData.map(d => d.x))
         const yExtent = d3.extent(scatterData.map(d => d.y))
         const cExtent = d3.extent(scatterData.map(d => d.c))
@@ -173,13 +154,13 @@ async created() {
             xAxisTitle: "Synergy &rarr;",
             yAxisTitle: "MGMT Expression &rarr;"
         }
-       self.GE_Y_Extent = yExtent;
-        console.log("yExtent scatter", yExtent)
+        plotUtils.updateLatticeLayout(latticeScatterData, self.rootName);
+
         latticeScatterData.forEach(d=> {
             d.config = {
                 title: `${d.rowName} + ${d.columnName}`,
                 type: "scatter",
-                padding: {},
+                padding: d.padding,
                 axis: {
                     x: {
                     domain: xExtent,
@@ -194,7 +175,6 @@ async created() {
                 scale: {
                     c: d3.scaleLinear().domain(cExtent).range(["grey", "red"])
                 },
-                display: {},
                 tooltipConfig: [
                     {label: "CCLE name", field: "ccle_name"},
                     {label: scatterConfig.xAxisTitle, field: "x"},
@@ -208,115 +188,8 @@ async created() {
                 ]
             }
         })
+        self.setLatticeDisplay(latticeScatterData);
         return latticeScatterData;
-    },
-
-    createGeBarData(){
-        const self = this;
-
-        let data = self.data.filter(d=> d.pert1_dose == "10").map(a => ({...a}))
-        data.forEach(d=>{
-            d.bin = d.XPR_GPX4;
-        })
-        const binExtent = d3.extent(data.map(d => d.bin))
-        let histogram = d3.bin()
-            .value(function(d) { return +d.bin; })   // I need to give the vector of value
-            .domain(binExtent)  // then the domain of the graphic
-            .thresholds(25); // then the numbers of bins
-        let bar = histogram(data).map(d=> {
-            return {
-                x0: 0,
-                x1: d.length,
-                y0: d.x0,
-                y1: d.x1,
-                y: (d.x0 + d.x1) / 2
-            }
-        })
-
-        return bar
-    },
-    createLatticeGeBarData(data){
-
-        const yAxisTitle = "MGMT Expression &rarr;";
-        const xAxisTitle = "Num cell lines &rarr;"
-
-        const xExtent = d3.extent(data.map(d => d.x1))
-      //   const yExtent = d3.extent(data.map(d => d.y0).concat(data.map(d=>d.y1)))
-         const yExtent = this.GE_Y_Extent
-console.log("yExtent", yExtent)
-     return [{
-        row: 0,
-        column: 7,
-        data: data,
-        config: {
-            title: `test`,
-                type: "bar",
-                padding: {},
-                axis: {
-                    x: {
-                    domain: xExtent,
-                    title: xAxisTitle
-                    },
-                    y: {
-                    domain: yExtent,
-                    title: yAxisTitle
-                    }
-                },
-                display: {}
-        }
-      }]
-    },
-
-    createGeHistogramData(){
-        const self = this;
-
-        let data = self.data.filter(d=> d.pert1_dose == "10").map(a => ({...a}))
-        data.forEach(d=>{
-            d.x = d.XPR_GPX4;
-        })
-        // const xExtent = d3.extent(data.map(d => d.x))
-        // let histogram = d3.bin()
-        //     .value(function(d) { return +d.x; })   // I need to give the vector of value
-        //     .domain(xExtent)  // then the domain of the graphic
-        //     .thresholds(25); // then the numbers of bins
-
-        return data
-       // return histogram(data);
-    },
-    createLatticeGeHistogramData(data){
-
-        const yAxisTitle = "MGMT Expression &rarr;";
-        const xAxisTitle = "Num cell lines &rarr;"
-
-        const xExtent = d3.extent(data.map(d => d.x))
-        let histogram = d3.bin()
-            .value(function(d) { return +d.x; })   // I need to give the vector of value
-            .domain(xExtent)  // then the domain of the graphic
-            .thresholds(25); // then the numbers of bins
-
-        const histogramData = histogram(data);
-        const yExtent = [0, d3.max(histogramData.map(d=>d.length))]
-     return [{
-        row: 0,
-        column: 7,
-        data: histogramData,
-        config: {
-            title: ``,
-                type: "histogram",
-                padding: {},
-                axis: {
-                    x: {
-                    domain: xExtent,
-                    title: xAxisTitle
-                    },
-                    y: {
-                    domain: yExtent,
-                    title: yAxisTitle
-                    }
-                },
-                display: {}
-        }
-      }]
     },
     createHistogramData(){
         const self = this;
@@ -324,8 +197,11 @@ console.log("yExtent", yExtent)
         data.forEach(d=>{
             d.x = d.synergy;
             d.y = d.XPR_GPX4;
+            d.title = `${d.pert1_name} + ${d.pert2_name}`;
         })
         return data;
+
+
     },
     createLatticeHistogramData(data){
         const self = this;
@@ -346,12 +222,13 @@ console.log("yExtent", yExtent)
         const yExtent = [0, d3.max(yValues)]
         const xAxisTitle = "Synergy &rarr;";
         const yAxisTitle = "Num cell lines &rarr;"
-        
+        plotUtils.updateLatticeLayout(latticeData, self.rootName);
+
         latticeData.forEach(d=> {
             d.config = {
                 title: `${d.rowName} + ${d.columnName}`,
                 type: "histogram",
-                padding: {},
+                padding: d.padding,
                 axis: {
                     x: {
                     domain: xExtent,
@@ -361,10 +238,10 @@ console.log("yExtent", yExtent)
                     domain: yExtent,
                     title: yAxisTitle
                     }
-                },
-                display: {}
+                }
             }
         })
+        self.setLatticeDisplay(latticeData);
         return latticeData;
     },
     setLatticeDisplay(plots){
@@ -375,13 +252,14 @@ console.log("yExtent", yExtent)
             displayXAxisTitle,
             displayYAxisTitle;
 
-            if (d.row ===  maxRow || d.column == 7 ) {  displayXAxisTicks = true;  } 
+            if (d.row ===  maxRow) {  displayXAxisTicks = true;  } 
             else { displayXAxisTicks = false; }
 
-            if (d.column === 0 || d.column == 7 ) { displayYAxisTicks = true } 
+            if (d.column === 0) { displayYAxisTicks = true } 
             else { displayYAxisTicks = false }
 
-            if (d.column === 0) { displayYAxisTitle = true } 
+            // if (d.column === 0 && d.row == 0) { displayYAxisTitle = true } 
+            if (d.column == 0) { displayYAxisTitle = true } 
             else { displayYAxisTitle = false }
 
             if (d.column === 0 && d.row == maxRow) { displayXAxisTitle = true } 
@@ -396,7 +274,6 @@ console.log("yExtent", yExtent)
                     yAxisTicks: displayYAxisTicks 
                 }
             d.config.display = display;
-            d.config.padding = d.padding;
         })
     },
     getSelectionAttributes() {

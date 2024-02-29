@@ -27,7 +27,7 @@ export default class scatter {
         states
     ) { 
         this.rootId = rootId;
-        this.data = data.sort((a,b)=> d3.ascending(a.y, b.y));
+        this.data = data.sort((a,b)=> d3.ascending(a.c, b.c));
         this.states = states;
         this.title = config.title;
         this.axis = config.axis;

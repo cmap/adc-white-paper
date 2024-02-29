@@ -48,6 +48,16 @@
         v-model:highlight="highlight"
         >
       </histogram-plot>
+        <bar-plot 
+        v-else-if = "plot.config.type === 'bar'"
+        :rootId="plot.id"
+        :config="plot.config"
+        :data="plot.data"
+        v-model:mouseover="mouseover"
+        v-model:click="click"
+        v-model:highlight="highlight"
+        >
+        </bar-plot>
 
     </div>
   </div>
@@ -61,6 +71,7 @@ import * as d3 from 'd3';
 import * as plotUtils from '@/js/utils/plot-utils.js';
 import ScatterPlot from '@/plots/scatter-plot.vue';
 import HistogramPlot from '@/plots/histogram-plot2.vue';
+import BarPlot from '@/plots/barplot.vue';
 
 //const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
 
@@ -69,7 +80,8 @@ export default {
   name: 'Ml210SynergyByDosePlots',
   components: {
   ScatterPlot,
-  HistogramPlot
+  HistogramPlot,
+  BarPlot
   },
   props: {
     rootName: String
@@ -78,11 +90,11 @@ export default {
     loading: true,
     items:[],
     defaulted: [],
-    LatticePadding: {top: 0, right: 0, bottom: 0, left: 0},
     plots: [],
     mouseover: null,
     click: [],
-    highlight: []
+    highlight: [],
+    GE_Y_Extent: []
   }),
   computed: {
 
@@ -121,12 +133,14 @@ async created() {
             this.data = response[0];
             let scatterData = this.createScatterData();
             let latticeScatterData = this.createLatticeScatterData(scatterData);
-
+            let geHistogramData = this.createGeBarData();
+            let latticeGeHistogramData = this.createLatticeGeBarData(geHistogramData);
             let histogramData = this.createHistogramData();
             let latticeHistogramData = this.createLatticeHistogramData(histogramData);
-
-            this.plots = latticeScatterData.concat(latticeHistogramData);
-
+            let plots = [...latticeScatterData, ...latticeGeHistogramData, ...latticeHistogramData]
+            plotUtils.updateLatticeCommonYLayout(plots, this.rootName,  { top: 15, right: 10, bottom: 15, left: 10 } );
+            this.setLatticeDisplay(plots);
+            this.plots = plots;
             this.loading = false;
         })
     },
@@ -139,28 +153,25 @@ async created() {
             d.c = d.antagonism_count;
             d.id = `${d.ccle_name}`;
             d.r = 3;
-            d.title = `${d.pert1_name} + ${d.pert2_name}`;
         })
         return data;
     },
     createLatticeScatterData(scatterData){
         const self = this;
         let latticeScatterData = plotUtils.createLatticeData(scatterData, "pert2_dose", "pert1_dose");
-      //  const maxRow = d3.max(latticeScatterData.map(d=>d.row)); // concat scatter and histogram data?
         const xExtent = d3.extent(scatterData.map(d => d.x))
         const yExtent = d3.extent(scatterData.map(d => d.y))
         const cExtent = d3.extent(scatterData.map(d => d.c))
         const scatterConfig = {
             xAxisTitle: "Synergy &rarr;",
-            yAxisTitle: "MGMT Expression &rarr;"
+            yAxisTitle: "GPX4 Dependency &rarr;"
         }
-        plotUtils.updateLatticeLayout(latticeScatterData, self.rootName);
-
+       self.GE_Y_Extent = yExtent;
         latticeScatterData.forEach(d=> {
             d.config = {
                 title: `${d.rowName} + ${d.columnName}`,
                 type: "scatter",
-                padding: d.padding,
+                padding: {},
                 axis: {
                     x: {
                     domain: xExtent,
@@ -169,12 +180,14 @@ async created() {
                     },
                     y: {
                     domain: yExtent,
-                    title: scatterConfig.yAxisTitle
+                    title: scatterConfig.yAxisTitle,
+                    threshold: 1.5
                     }
                 },
                 scale: {
-                    c: d3.scaleLinear().domain(cExtent).range(["grey", "red"])
+                    c: d3.scaleLinear().domain(cExtent).range(["red", "purple"])
                 },
+                display: {},
                 tooltipConfig: [
                     {label: "CCLE name", field: "ccle_name"},
                     {label: scatterConfig.xAxisTitle, field: "x"},
@@ -188,8 +201,114 @@ async created() {
                 ]
             }
         })
-        self.setLatticeDisplay(latticeScatterData);
         return latticeScatterData;
+    },
+
+    createGeBarData(){
+        const self = this;
+
+        let data = self.data.filter(d=> d.pert1_dose == "10").map(a => ({...a}))
+        data.forEach(d=>{
+            d.bin = d.XPR_GPX4;
+        })
+        const binExtent = d3.extent(data.map(d => d.bin))
+        let histogram = d3.bin()
+            .value(function(d) { return +d.bin; })   // I need to give the vector of value
+            .domain(binExtent)  // then the domain of the graphic
+            .thresholds(25); // then the numbers of bins
+        let bar = histogram(data).map(d=> {
+            return {
+                x0: 0,
+                x1: d.length,
+                y0: d.x0,
+                y1: d.x1,
+                y: (d.x0 + d.x1) / 2
+            }
+        })
+
+        return bar
+    },
+    createLatticeGeBarData(data){
+
+        const yAxisTitle = "GPX4 Dependency &rarr;";
+        const xAxisTitle = "Num cell lines &rarr;"
+
+        const xExtent = d3.extent(data.map(d => d.x1))
+      //   const yExtent = d3.extent(data.map(d => d.y0).concat(data.map(d=>d.y1)))
+         const yExtent = this.GE_Y_Extent
+     return [{
+        row: 0,
+        column: 7,
+        data: data,
+        config: {
+            title: `test`,
+                type: "bar",
+                padding: {},
+                axis: {
+                    x: {
+                    domain: xExtent,
+                    title: xAxisTitle
+                    },
+                    y: {
+                    domain: yExtent,
+                    title: yAxisTitle
+                    }
+                },
+                display: {}
+        }
+      }]
+    },
+
+    createGeHistogramData(){
+        const self = this;
+
+        let data = self.data.filter(d=> d.pert1_dose == "10").map(a => ({...a}))
+        data.forEach(d=>{
+            d.x = d.XPR_GPX4;
+        })
+        // const xExtent = d3.extent(data.map(d => d.x))
+        // let histogram = d3.bin()
+        //     .value(function(d) { return +d.x; })   // I need to give the vector of value
+        //     .domain(xExtent)  // then the domain of the graphic
+        //     .thresholds(25); // then the numbers of bins
+
+        return data
+       // return histogram(data);
+    },
+    createLatticeGeHistogramData(data){
+
+        const yAxisTitle = "MGMT Expression &rarr;";
+        const xAxisTitle = "Num cell lines &rarr;"
+
+        const xExtent = d3.extent(data.map(d => d.x))
+        let histogram = d3.bin()
+            .value(function(d) { return +d.x; })   // I need to give the vector of value
+            .domain(xExtent)  // then the domain of the graphic
+            .thresholds(25); // then the numbers of bins
+
+        const histogramData = histogram(data);
+        const yExtent = [0, d3.max(histogramData.map(d=>d.length))]
+     return [{
+        row: 0,
+        column: 7,
+        data: histogramData,
+        config: {
+            title: ``,
+                type: "histogram",
+                padding: {},
+                axis: {
+                    x: {
+                    domain: xExtent,
+                    title: xAxisTitle
+                    },
+                    y: {
+                    domain: yExtent,
+                    title: yAxisTitle
+                    }
+                },
+                display: {}
+        }
+      }]
     },
     createHistogramData(){
         const self = this;
@@ -197,11 +316,8 @@ async created() {
         data.forEach(d=>{
             d.x = d.synergy;
             d.y = d.XPR_GPX4;
-            d.title = `${d.pert1_name} + ${d.pert2_name}`;
         })
         return data;
-
-
     },
     createLatticeHistogramData(data){
         const self = this;
@@ -222,13 +338,12 @@ async created() {
         const yExtent = [0, d3.max(yValues)]
         const xAxisTitle = "Synergy &rarr;";
         const yAxisTitle = "Num cell lines &rarr;"
-        plotUtils.updateLatticeLayout(latticeData, self.rootName);
-
+        
         latticeData.forEach(d=> {
             d.config = {
                 title: `${d.rowName} + ${d.columnName}`,
                 type: "histogram",
-                padding: d.padding,
+                padding: {},
                 axis: {
                     x: {
                     domain: xExtent,
@@ -238,35 +353,38 @@ async created() {
                     domain: yExtent,
                     title: yAxisTitle
                     }
-                }
+                },
+                display: {}
             }
         })
-        self.setLatticeDisplay(latticeData);
         return latticeData;
     },
     setLatticeDisplay(plots){
         const maxRow = d3.max(plots.map(d=>d.row));
         plots.forEach(d=> {
-            let displayXAxisTicks, 
+            let displayTitle = true,
+            displayXAxisTicks = true, 
             displayYAxisTicks,
             displayXAxisTitle,
             displayYAxisTitle;
 
-            if (d.row ===  maxRow) {  displayXAxisTicks = true;  } 
-            else { displayXAxisTicks = false; }
+            // if (d.row ===  maxRow || d.column == 7 ) {  displayXAxisTicks = true;  } 
+            // else { displayXAxisTicks = false; }
 
-            if (d.column === 0) { displayYAxisTicks = true } 
+            if (d.row ===  0 && d.column !=7 ) {  displayTitle = true; } 
+            else { displayTitle = false; }
+
+            if (d.column === 0 || d.column == 7 ) { displayYAxisTicks = true } 
             else { displayYAxisTicks = false }
 
-            // if (d.column === 0 && d.row == 0) { displayYAxisTitle = true } 
-            if (d.column == 0) { displayYAxisTitle = true } 
+            if (d.column === 0 ) { displayYAxisTitle = true } 
             else { displayYAxisTitle = false }
 
-            if (d.column === 0 && d.row == maxRow) { displayXAxisTitle = true } 
+            if ((d.column === 0 && d.row == maxRow) || d.column == 7) { displayXAxisTitle = true } 
             else { displayXAxisTitle = false }
 
             let display = { 
-                    title: true, 
+                    title: displayTitle, 
                     legend: false, 
                     xAxisTitle: displayXAxisTitle, 
                     yAxisTitle: displayYAxisTitle, 
@@ -274,6 +392,7 @@ async created() {
                     yAxisTicks: displayYAxisTicks 
                 }
             d.config.display = display;
+            d.config.padding = d.padding;
         })
     },
     getSelectionAttributes() {
