@@ -150,12 +150,12 @@ async created() {
                     x: {
                     domain: xExtent,
                     title: scatterConfig.xAxisTitle,
-                    threshold: 0
+                    threshold: 0.5
                     },
                     y: {
                     domain: yExtent,
                     title: scatterConfig.yAxisTitle,
-                    threshold: 1.5
+                    threshold: 0.5
                     }
                 },
                 scale: {

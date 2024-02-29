@@ -176,12 +176,12 @@ async created() {
                     x: {
                     domain: xExtent,
                     title: scatterConfig.xAxisTitle,
-                    threshold: 0
+                    threshold: "0"
                     },
                     y: {
                     domain: yExtent,
                     title: scatterConfig.yAxisTitle,
-                    threshold: 1.5
+                    threshold: "1.5",
                     }
                 },
                 scale: {
@@ -230,28 +230,29 @@ async created() {
     },
     createLatticeGeBarData(data){
 
-        const yAxisTitle = "MGMT Expression &rarr;";
-        const xAxisTitle = "Num cell lines &rarr;"
+    const yAxisTitle = "MGMT Expression &rarr;";
+    const xAxisTitle = "Num cell lines &rarr;";
 
-        const xExtent = d3.extent(data.map(d => d.x1))
-      //   const yExtent = d3.extent(data.map(d => d.y0).concat(data.map(d=>d.y1)))
-         const yExtent = this.GE_Y_Extent
+    const xExtent = d3.extent(data.map(d => d.x1));
+    const yExtent = this.GE_Y_Extent
      return [{
         row: 0,
         column: 7,
         data: data,
         config: {
-            title: `test`,
+            title: ``,
                 type: "bar",
                 padding: {},
                 axis: {
                     x: {
                     domain: xExtent,
-                    title: xAxisTitle
+                    title: xAxisTitle,
+              
                     },
                     y: {
                     domain: yExtent,
-                    title: yAxisTitle
+                    title: yAxisTitle,
+                    threshold: "1.5"
                     }
                 },
                 display: {}
@@ -259,57 +260,6 @@ async created() {
       }]
     },
 
-    createGeHistogramData(){
-        const self = this;
-
-        let data = self.data.filter(d=> d.pert1_dose == "10").map(a => ({...a}))
-        data.forEach(d=>{
-            d.x = d.EXP_MGMT;
-        })
-        // const xExtent = d3.extent(data.map(d => d.x))
-        // let histogram = d3.bin()
-        //     .value(function(d) { return +d.x; })   // I need to give the vector of value
-        //     .domain(xExtent)  // then the domain of the graphic
-        //     .thresholds(25); // then the numbers of bins
-
-        return data
-       // return histogram(data);
-    },
-    createLatticeGeHistogramData(data){
-
-        const yAxisTitle = "MGMT Expression &rarr;";
-        const xAxisTitle = "Num cell lines &rarr;"
-
-        const xExtent = d3.extent(data.map(d => d.x))
-        let histogram = d3.bin()
-            .value(function(d) { return +d.x; })   // I need to give the vector of value
-            .domain(xExtent)  // then the domain of the graphic
-            .thresholds(25); // then the numbers of bins
-
-        const histogramData = histogram(data);
-        const yExtent = [0, d3.max(histogramData.map(d=>d.length))]
-     return [{
-        row: 0,
-        column: 7,
-        data: histogramData,
-        config: {
-            title: ``,
-                type: "histogram",
-                padding: {},
-                axis: {
-                    x: {
-                    domain: xExtent,
-                    title: xAxisTitle
-                    },
-                    y: {
-                    domain: yExtent,
-                    title: yAxisTitle
-                    }
-                },
-                display: {}
-        }
-      }]
-    },
     createHistogramData(){
         const self = this;
         let data = self.data.map(a => ({...a}))
@@ -347,7 +297,8 @@ async created() {
                 axis: {
                     x: {
                     domain: xExtent,
-                    title: xAxisTitle
+                    title: xAxisTitle,
+                    threshold: "0"
                     },
                     y: {
                     domain: yExtent,
@@ -367,9 +318,6 @@ async created() {
             displayYAxisTicks,
             displayXAxisTitle,
             displayYAxisTitle;
-
-            // if (d.row ===  maxRow || d.column == 7 ) {  displayXAxisTicks = true;  } 
-            // else { displayXAxisTicks = false; }
 
             if (d.row ===  0 && d.column !=7 ) {  displayTitle = true; } 
             else { displayTitle = false; }

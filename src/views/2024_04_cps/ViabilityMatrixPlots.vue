@@ -44,6 +44,7 @@ export default {
         "title": "Sensitivity Across Doses",
         "xAxisTitle": "temozolomide Dose",
         "yAxisTitle": "O6-benzylguanine Dose",
+        "cAxisTitle": "Cell lines killed (Viability < 0.3)",
         "padding": padding
       },
       "BRD-K01877528_BRD-K97375133":{
@@ -51,6 +52,8 @@ export default {
         "title": "Sensitivity Across Doses",
         "xAxisTitle": "ML210 Dose",
         "yAxisTitle": "ferrostatin-1 Dose",
+        "yAxisTitle": "O6-benzylguanine Dose",
+        "cAxisTitle": "Cell lines killed (Viability < 0.3)",
         "padding":  {top: 20, right: 10, bottom: 60, left: 40}
       },
       "BRD-K00005264_BRD-K50731585":{
@@ -58,6 +61,8 @@ export default {
         "title": "Sensitivity Across Doses",
         "xAxisTitle": "AZD7762 Dose",
         "yAxisTitle": "A-1331852 Dose",
+        "yAxisTitle": "O6-benzylguanine Dose",
+        "cAxisTitle": "Cell lines killed (Viability < 0.3)",
         "padding":  {top: 20, right: 10, bottom: 60, left: 70}
       
       }
@@ -149,8 +154,8 @@ export default {
                         x: e[0],
                         y: d[0],
                   //      length: e[1].length,
-                         c: ((e[1].filter(f => f.value === true).length)/e[1].length)*100,
-                      //  c: e[1].filter(f => f.value === true).length,
+                     //    c: ((e[1].filter(f => f.value === true).length)/e[1].length)*100,
+                        c: e[1].filter(f => f.value === true).length,
                         id: `${e[0]}_${d[0]}`
                       }
                     })
@@ -177,11 +182,14 @@ console.log(heatmap, groups, data)
                     y: {
                  //   domain: yExtent,
                     title: config.yAxisTitle
+                  },
+                  c: {
+                    title: "Cell lines killed (Viability < 0.3)"
                   }
                 },
                 scale: {
-            //      c: d3.scaleSequential([0, Math.floor(cExtent[1])], d3.interpolateYlOrRd)
-                  c: d3.scaleSequential([0, 75], d3.interpolateYlOrRd)
+                  c: d3.scaleSequential([0, Math.floor(cExtent[1])], d3.interpolateYlOrRd)
+               //   c: d3.scaleSequential([0, 75], d3.interpolateYlOrRd)
 
                 //  c: d3.scaleLinear([0, Math.floor(cExtent[1])], ["yellow", "red"])
                 },

@@ -142,6 +142,8 @@ export function updateLatticeCommonYLayout(data, rootName="lattice", padding = {
     d.height = height;
 })
 }
+
+// functions below should be class extensions/methods?? they rely on the class properties
 export function plotTitle(self){
   const plot = d3.select(`#${self.rootId}`)
   plot
@@ -153,4 +155,62 @@ export function plotTitle(self){
       .style("left", 0)
       .style("text-align", "center")
       .html(self.title)
+}
+
+export function renderThresholds(self){
+  const svg = d3.select(`#${self.rootId}-svg`);
+  if (self.axis.x.threshold){
+      svg.selectAll(".axis.x .tick line").filter(d=>d== +self.axis.x.threshold ).remove(); 
+      svg.select(".axis.x").append("line")
+      .attr("class", "tick threshold-line")
+      .attr("x1", self.scale.x(self.axis.x.threshold))
+      .attr("x2", self.scale.x(self.axis.x.threshold))
+      .attr("y1", 0)
+      .attr("y2", -self.dimension.innerHeight)
+      .attr("stroke-dasharray", "4,4")
+      .attr("stroke", "black")
+      .attr("stroke-width", "0.75px")
+  } 
+  if (self.axis.y.threshold){
+
+    svg.selectAll(".axis.y .tick line").filter(d=>d==self.axis.y.threshold).remove()
+    svg.select(".axis.y").append("line")
+    .attr("class", "tick threshold-line")
+    .attr("y1", self.scale.y(self.axis.y.threshold))
+    .attr("y2", self.scale.y(self.axis.y.threshold))
+    .attr("x1", 0)
+    .attr("x2", self.dimension.innerWidth)
+    .attr("stroke-dasharray", "4,4")
+    .attr("stroke", "black")
+    .attr("stroke-width", "0.75px")
+}
+}
+
+export function renderAxis(self){
+  const svg = d3.select(`#${self.rootId}-g`);
+  if (!self.display.xAxisTicks){
+    svg.selectAll(".axis.x .tick text").remove()
+    }
+  if (self.display.xAxisTitle){
+      d3.select(`#${self.rootId}-svg`)
+      .append("text")
+      .attr("class", "axis-title")
+      .attr("x", self.dimension.width/2)
+      .attr("text-anchor", "middle")
+      .attr("y",  self.dimension.height)
+      .attr("dy", "-1.0em")
+      .html(self.axis.x.title)
+  }
+  if (!self.display.yAxisTicks){
+      svg.selectAll(".axis.y .tick text").remove()
+  }
+  if (self.display.yAxisTitle){
+      d3.select(`#${self.rootId}-svg`)
+      .append("text")
+      .attr("class", "axis-title")
+      .attr("transform", `translate(${0},${ self.dimension.height/2})rotate(-90)`)
+      .attr("dy", "1.0em")
+      .attr("text-anchor", "middle")
+      .html(self.axis.y.title)
+  }
 }

@@ -1,63 +1,33 @@
 import * as d3 from "d3";
+import defaultPlotConfig from './default-plot-config.js';
+import * as plotUtils from '@/js/utils/plot-utils.js';
 
-
-export default class histogram {
+export default class histogram extends defaultPlotConfig{
     constructor(
         rootId, 
         data,
         config,
         states
     ) {
-        this.rootId = rootId;
+        super(rootId, config);
+        let defaults = new defaultPlotConfig(rootId, config);
+        Object.assign(defaults.getDefaults(), this );
         this.data = data.sort((a,b)=> d3.ascending(a.y, b.y));
         this.states = states;
-        this.title = config.title;
-        this.axis = config.axis;
-        if (!this.axis.x){ this.axis.x = { } }
-        if (!this.axis.y){ this.axis.y = { } }
-        if (!this.axis.x.ticks){ this.axis.x.ticks = 3 }
-        if (!this.axis.y.ticks){ this.axis.y.ticks = 3 }
-        if (!this.axis.x.threshold){ this.axis.x.threshold = false }
-        if (!this.axis.y.threshold){ this.axis.y.threshold = false }
-        this.scale = config.scale;
-        if (!this.scale){ this.scale = { } }
-        this.dimension = config.dimension; 
-        if (!this.dimension){
-            this.dimension = {
-                width: d3.select(`#${this.rootId}`).node().clientWidth,
-                height:  d3.select(`#${this.rootId}`).node().clientHeight
-            }
-        }
-        this.padding = config.padding;    
-        if (!this.padding){ this.padding = { top:20, right:20, bottom:20, left:20 } }
-        this.display = config.display
-        if (!this.display){ this.display = { title: true, legend: false, xAxisTitle: true, yAxisTitle: true, xAxisTicks: true, yAxisTicks: true } }
-    
-
-        this.updateDimensions(); 
-        this.createScale();
+        if (!this.scale.hasOwnProperty("x")){ this.scale.x = this.setScaleX() } 
+        if (!this.scale.hasOwnProperty("y")){ this.scale.y = this.setScaleY() }
         this.render();
-
     }
-    updateDimensions() {
-        this.dimension.innerWidth = this.dimension.width - this.padding.left - this.padding.right;
-        this.dimension.innerHeight = this.dimension.height - this.padding.top - this.padding.bottom;
+    setScaleX(){
+        let domain;
+        if (!this.axis.x.hasOwnProperty("domain")){ domain = d3.extent(this.data.map(d=>d.x)) } else { domain = this.axis.x.domain }
+        return d3.scaleLinear().domain(domain).range([this.axis.innerPadding, this.dimension.innerWidth-this.axis.innerPadding]).nice() 
     }
-    createScale(){
-        const self = this;
-        const getxExtent = ()=>{
-            if (!this.axis.x.domain){ return d3.extent(this.data.map(d=>d.x))}
-            else { return this.axis.x.domain }
-        }
-        const getyExtent = ()=>{
-            if (!this.axis.y.domain){ return d3.extent(this.data.map(d=>d.y))}
-            else { return this.axis.y.domain }
-        }
-        if (!this.scale.x){ this.scale.x = d3.scaleLinear().domain(getxExtent()).range([0, this.dimension.innerWidth]).nice(); }
-        if (!this.scale.y){ this.scale.y = d3.scaleLinear().domain(getyExtent()).range([this.dimension.innerHeight, 0]).nice(); }
-
-    }
-  
+    setScaleY(){
+        let domain;
+        if (!this.axis.x.hasOwnProperty("domain")){ domain = d3.extent(this.data.map(d=>d.y)) } else { domain = this.axis.y.domain }
+        return d3.scaleLinear().domain(domain).range([this.dimension.innerHeight-this.axis.innerPadding, this.axis.innerPadding]).nice() 
+    }  
     render(){
         const self = this;
         const container = d3.select(`#${self.rootId}`)
@@ -72,7 +42,7 @@ export default class histogram {
         .attr('transform', `translate(${self.padding.left}, ${self.padding.top})`);
 
         this.renderAxis()
-        if (this.display.title){  this.renderTitle() }
+        if (this.display.title){ plotUtils.plotTitle(this) }
         this.update()
     }
     // plot.append("g")
@@ -138,52 +108,8 @@ export default class histogram {
         svg.selectAll(".axis.y .tick line").attr("x1", self.dimension.innerWidth);
         svg.selectAll(".domain").remove();
 
-        if (!this.axis.x.threshold){
-            svg.selectAll(".axis.x .tick line").filter(d=>d==0)
-            .attr("y1", -self.dimension.innerHeight)
-            .style("stroke-dasharray", "4,4")
-           .style("stroke", "black")
-            .style("stroke-width", "0.5px")
-        }
-
-        if (!this.display.xAxisTicks){
-            svg.selectAll(".axis.x .tick text").remove()
-        }
-        if (this.display.xAxisTitle){
-            d3.select(`#${this.rootId}-svg`)
-            .append("text")
-            .attr("class", "axis-title")
-            .attr("x", this.dimension.width/2)
-            .attr("text-anchor", "middle")
-            .attr("y",  this.dimension.height)
-            .attr("dy", "-1.0em")
-            .html(this.axis.x.title)
-        }
-
-        if (!this.display.yAxisTicks){
-            svg.selectAll(".axis.y .tick text").remove()
-        }
-        if (this.display.yAxisTitle){
-            d3.select(`#${this.rootId}-svg`)
-            .append("text")
-            .attr("class", "axis-title")
-            .attr("transform", `translate(${0},${ this.dimension.height/2})rotate(-90)`)
-            .attr("dy", "1.0em")
-            .attr("text-anchor", "middle")
-            .html(this.axis.y.title)
-        }
-    }
-    renderTitle(){
-        const plot = d3.select(`#${this.rootId}`)
-        plot
-            .append("div")
-            .style("width", `${this.dimension.width}px`)
-            .attr("class", "plot-title")
-            .style("position", "absolute")
-            .style("top", 0)
-            .style("left", 0)
-            .style("text-align", "center")
-            .html(this.title)
+        plotUtils.renderThresholds(this)
+        plotUtils.renderAxis(this)
     }
     update(){
     const self = this;
@@ -199,7 +125,7 @@ export default class histogram {
 
          .attr("transform", function(d) { return "translate(" + self.scale.x(d.x0) + "," + self.scale.y(d.length) + ")"; })
          .attr("width", function(d) { return self.scale.x(d.x1) - self.scale.x(d.x0) -1 ; })
-         .attr("height", function(d) { return self.dimension.innerHeight - self.scale.y(d.length); })
-         .style("fill", d=> "#e2e2e2")
+         .attr("height", function(d) { return self.dimension.innerHeight - self.axis.innerPadding - self.scale.y(d.length); })
+         .style("fill", d=> "red")
     }
 }

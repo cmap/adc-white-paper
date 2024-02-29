@@ -176,12 +176,12 @@ async created() {
                     x: {
                     domain: xExtent,
                     title: scatterConfig.xAxisTitle,
-                    threshold: 0
+                    threshold: "0"
                     },
                     y: {
                     domain: yExtent,
                     title: scatterConfig.yAxisTitle,
-                    threshold: 1.5
+                    threshold: false
                     }
                 },
                 scale: {
@@ -261,19 +261,11 @@ async created() {
 
     createGeHistogramData(){
         const self = this;
-
         let data = self.data.filter(d=> d.pert1_dose == "10").map(a => ({...a}))
         data.forEach(d=>{
             d.x = d.XPR_GPX4;
         })
-        // const xExtent = d3.extent(data.map(d => d.x))
-        // let histogram = d3.bin()
-        //     .value(function(d) { return +d.x; })   // I need to give the vector of value
-        //     .domain(xExtent)  // then the domain of the graphic
-        //     .thresholds(25); // then the numbers of bins
-
         return data
-       // return histogram(data);
     },
     createLatticeGeHistogramData(data){
 
@@ -299,7 +291,8 @@ async created() {
                 axis: {
                     x: {
                     domain: xExtent,
-                    title: xAxisTitle
+                    title: xAxisTitle,
+            
                     },
                     y: {
                     domain: yExtent,
@@ -347,7 +340,8 @@ async created() {
                 axis: {
                     x: {
                     domain: xExtent,
-                    title: xAxisTitle
+                    title: xAxisTitle,
+                    threshold: "0"
                     },
                     y: {
                     domain: yExtent,
