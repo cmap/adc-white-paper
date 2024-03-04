@@ -185,19 +185,13 @@ async created() {
                     }
                 },
                 scale: {
-                    c: d3.scaleLinear().domain(cExtent).range(["red", "purple"])
+                    c: d3.scaleSequential().domain(cExtent).interpolator(d3.interpolateGnBu)
                 },
                 display: {},
                 tooltipConfig: [
                     {label: "CCLE name", field: "ccle_name"},
                     {label: scatterConfig.xAxisTitle, field: "x"},
-                    {label: scatterConfig.yAxisTitle, field: "y"},
-                    {label: "Pert1", field: "pert1_name"},
-                    {label: "Pert2", field: "pert2_name"},
-                    {label: "Pert1 Dose", field: "pert1_dose"},
-                    {label: "Pert2 Dose", field: "pert2_dose"},
-                    {label: "Pert1 Viability", field: "pert1_viability"},
-                    {label: "Pert2 Viability", field: "pert2_viability"}
+                    {label: scatterConfig.yAxisTitle, field: "y"}
                 ]
             }
         })
@@ -222,7 +216,8 @@ async created() {
                 x1: d.length,
                 y0: d.x0,
                 y1: d.x1,
-                y: (d.x0 + d.x1) / 2
+                y: (d.x0 + d.x1) / 2,
+                c: "#cccccc"
             }
         })
 
@@ -325,9 +320,18 @@ async created() {
             .domain(xExtent)  // then the domain of the graphic
             .thresholds(25); // then the numbers of bins
             
-            d.data = histogram(d.data);
+            d.data = histogram(d.data)
+            d.data.forEach(d=> {
+            // if (d.x0 >= 0){
+            //     d.c = d3.schemeRdBu[7][6]
+            // } else {
+            //     d.c = d3.schemeRdBu[7][0]
+            // }
+                 d.c = (d.x0 + d.x1) / 2;
+            });
             yValues.push(d3.max(d.data.map(d=>d.length)))
         })
+
         const yExtent = [0, d3.max(yValues)]
         const xAxisTitle = "Synergy &rarr;";
         const yAxisTitle = "Num cell lines &rarr;"
@@ -339,13 +343,18 @@ async created() {
                 padding: {},
                 axis: {
                     x: {
-                    domain: xExtent,
-                    title: xAxisTitle,
-                    threshold: "0"
+                        domain: xExtent,
+                        title: xAxisTitle,
+                        threshold: "0"
                     },
                     y: {
-                    domain: yExtent,
-                    title: yAxisTitle
+                        domain: yExtent,
+                        title: yAxisTitle
+                    },
+                    c: {
+                        type: "diverging",
+                        domain: [-1,1]
+        
                     }
                 },
                 display: {}

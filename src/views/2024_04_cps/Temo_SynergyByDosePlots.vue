@@ -174,18 +174,22 @@ async created() {
                 padding: {},
                 axis: {
                     x: {
-                    domain: xExtent,
-                    title: scatterConfig.xAxisTitle,
-                    threshold: "0"
+                        domain: xExtent,
+                        title: scatterConfig.xAxisTitle,
+                        threshold: "0"
                     },
                     y: {
-                    domain: yExtent,
-                    title: scatterConfig.yAxisTitle,
-                    threshold: "1.5",
-                    }
+                        domain: yExtent,
+                        title: scatterConfig.yAxisTitle,
+                        threshold: "1.5"
+                    },
+                    // c: {
+                    //     type: "sequential",
+                    //     domain: cExtent
+                    // }
                 },
                 scale: {
-                    c: d3.scaleLinear().domain(cExtent).range(["red", "purple"])
+                    c: d3.scaleSequential().domain(cExtent).interpolator(d3.interpolateGnBu)
                 },
                 display: {},
                 tooltipConfig: [
@@ -222,7 +226,8 @@ async created() {
                 x1: d.length,
                 y0: d.x0,
                 y1: d.x1,
-                y: (d.x0 + d.x1) / 2
+                y: (d.x0 + d.x1) / 2,
+                c: "#cccccc"
             }
         })
 
@@ -253,7 +258,11 @@ async created() {
                     domain: yExtent,
                     title: yAxisTitle,
                     threshold: "1.5"
-                    }
+                    },
+                    // custom is the default and does not need to be specified
+                    // c: {
+                    //     type: "custom"
+                    // }
                 },
                 display: {}
         }
@@ -283,6 +292,9 @@ async created() {
             .thresholds(25); // then the numbers of bins
             
             d.data = histogram(d.data);
+            d.data.forEach(d=>{
+                d.c = (d.x0 + d.x1) / 2;
+            })
             yValues.push(d3.max(d.data.map(d=>d.length)))
         })
         const yExtent = [0, d3.max(yValues)]
@@ -296,14 +308,19 @@ async created() {
                 padding: {},
                 axis: {
                     x: {
-                    domain: xExtent,
-                    title: xAxisTitle,
-                    threshold: "0"
+                        domain: xExtent,
+                        title: xAxisTitle,
+                        threshold: "0"
                     },
                     y: {
-                    domain: yExtent,
-                    title: yAxisTitle
+                        domain: yExtent,
+                        title: yAxisTitle
+                    },
+                    c: {
+                        type: "diverging",
+                        domain: [-1, 1]
                     }
+
                 },
                 display: {}
             }
