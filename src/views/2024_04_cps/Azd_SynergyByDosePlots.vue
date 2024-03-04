@@ -17,7 +17,7 @@
         </v-col>
       </v-row>
 
-    <div class="lattice-plots" :id="rootName">
+    <div class="py-8 lattice-plots" :id="rootName">
 
         <div v-for="plot in plots" 
         :id="plot.id" 
@@ -135,10 +135,11 @@ async created() {
         let latticeScatterData = plotUtils.createLatticeData(scatterData, "pert2_dose", "pert1_dose");
         const xExtent = d3.extent(scatterData.map(d => d.x))
         const yExtent = d3.extent(scatterData.map(d => d.y))
-        const cExtent = d3.extent(scatterData.map(d => d.c))
+        const cExtent = d3.extent(scatterData.map(d => d.c)) // use [0,1] instead?
         const scatterConfig = {
-            xAxisTitle: "Pert1 Viability &rarr;",
-            yAxisTitle: "Pert2 Viability &rarr;"
+            xAxisTitle: "AZD5991 Viability",
+            yAxisTitle: "A-1331852 Viability",
+            cAxisTitle: "Combination Viability"
         }
        self.GE_Y_Extent = yExtent;
         latticeScatterData.forEach(d=> {
@@ -156,20 +157,18 @@ async created() {
                     domain: yExtent,
                     title: scatterConfig.yAxisTitle,
                     threshold: 0.5
-                    }
+                    },
+                    
                 },
                 scale: {
-                    c: d3.scaleLinear().domain(cExtent).range(["red", "purple"])
+                    c: d3.scaleSequential().domain([0,1]).interpolator(d3.interpolateGnBu)
                 },
                 display: {},
                 tooltipConfig: [
                     {label: "CCLE name", field: "ccle_name"},
                     {label: scatterConfig.xAxisTitle, field: "x"},
                     {label: scatterConfig.yAxisTitle, field: "y"},
-                    {label: "Pert1", field: "pert1_name"},
-                    {label: "Pert2", field: "pert2_name"},
-                    {label: "Pert1 Dose", field: "pert1_dose"},
-                    {label: "Pert2 Dose", field: "pert2_dose"}
+                    {label: scatterConfig.cAxisTitle, field: "c"},
                 ]
             }
         })

@@ -53,22 +53,28 @@ export default class scatter extends defaultPlotConfig{
         return d3.scaleLinear().domain(domain).range([this.dimension.innerHeight-this.axis.innerPadding, this.axis.innerPadding]).nice() 
     }
     setScaleC(){
-        if (!this.axis.c.hasOwnProperty("type")){ this.axis.c.type = "ordinal" } 
+        if (!this.axis.c.hasOwnProperty("type")){ this.axis.c.type = "linear" } 
         if (!this.axis.c.hasOwnProperty("domain")){ 
             if (this.axis.c.type == "ordinal"){ this.axis.c.domain = [...new Set(this.data.map(d=>d.c))] } 
+            if (this.axis.c.type == "custom"){ this.axis.c.domain = [...new Set(this.data.map(d=>d.c))] } 
             else { this.axis.c.domain = d3.extent(this.data.map(d=>d.c)) } 
         } 
         if (!this.axis.c.hasOwnProperty("range")){ 
-            if (this.axis.c.type == "ordinal"){ this.axis.c.range = d3.schemeCategory10 } 
-            else { range = d3.interpolateYlOrRd } } 
-
-        if (this.axis.c.type == "sequential"){
-            return d3.scaleSequential().domain(this.axis.c.domain).interpolator(d3.interpolateYlOrRd)
-        } else if (this.axis.c.type == "linear"){
-            return d3.scaleLinear().domain(this.axis.c.domain).range(this.axis.c.range)
+            if (this.axis.c.type == "custom"){ this.axis.c.range = this.axis.c.domain } // assumes the color value is already in the data
+            else if (this.axis.c.type == "ordinal"){ this.axis.c.range = d3.schemeCategory10 } 
+            else if (this.axis.c.type == "linear") { this.axis.c.range = [d3.schemeReds[3][0], d3.schemeReds[3][2]] } 
+        } 
+        if (this.axis.c.type == "custom"){
+            return d3.scaleOrdinal().domain(this.axis.c.domain).range(this.axis.c.domain) 
         } else if (this.axis.c.type == "ordinal"){
             return d3.scaleOrdinal().domain(this.axis.c.domain).range(this.axis.c.range) 
-        }
+        } else if (this.axis.c.type == "linear"){
+            return d3.scaleLinear().domain(this.axis.c.domain).range(this.axis.c.range)
+        } else if (this.axis.c.type == "sequential"){
+            return d3.scaleSequential().domain(this.axis.c.domain).interpolator(d3.interpolateOrRd)
+        } else if (this.axis.c.type == "diverging"){
+            return d3.scaleSequential().domain(this.axis.c.domain).interpolator(d3.interpolateRdBu) 
+        } 
     }
     render(){
         const self = this;
@@ -186,36 +192,8 @@ export default class scatter extends defaultPlotConfig{
 
     }
     renderAxis(){
-        const self = this,
-        svg = d3.select(`#${this.rootId}-g`),
-        tickPadding = 2.5;
-
-        const x = d3.axisBottom()
-        .scale(this.scale.x)   
-        .ticks(this.axis.x.ticks)
-        .tickPadding(tickPadding)
-
-        svg.append("g")
-        .attr("class", "axis x")
-        .attr("transform", `translate(0,${this.dimension.innerHeight})`)
-        .call(x)
-
-        const y = d3.axisLeft(this.scale.y) 
-        .ticks(this.axis.y.ticks)
-        .tickPadding(tickPadding)
-
-        svg.append("g")
-        .attr("class", "axis y")
-        .attr("transform", `translate(0,0)`)
-        .call(y)
-
-        // removing axis lines/domain path this is custom-ish and might need to be removed or made optional style
-        svg.selectAll(".axis.y .tick line").attr("x1", self.dimension.innerWidth);
-        svg.selectAll(".domain").remove();
-
-        plotUtils.renderThresholds(this)
-        plotUtils.renderAxis(this)
-       
+        plotUtils.axis(this)
+        plotUtils.thresholds(this)   
     }
 
     showTooltip(point, mouse){

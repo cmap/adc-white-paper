@@ -157,7 +157,7 @@ export function plotTitle(self){
       .html(self.title)
 }
 
-export function renderThresholds(self){
+export function thresholds(self){
   const svg = d3.select(`#${self.rootId}-svg`);
   if (self.axis.x.threshold){
       svg.selectAll(".axis.x .tick line").filter(d=>d== +self.axis.x.threshold ).remove(); 
@@ -186,8 +186,33 @@ export function renderThresholds(self){
 }
 }
 
-export function renderAxis(self){
-  const svg = d3.select(`#${self.rootId}-g`);
+export function axis(self){
+  const svg = d3.select(`#${self.rootId}-g`),
+  tickPadding = 2.5;
+
+  const y = d3.axisLeft(self.scale.y) 
+  .ticks(self.axis.y.ticks)
+  .tickPadding(tickPadding)
+
+  svg.append("g")
+  .attr("class", "axis y")
+  .attr("transform", `translate(0,0)`)
+  .call(y)
+
+  const x = d3.axisBottom()
+  .scale(self.scale.x)   
+  .ticks(self.axis.x.ticks)
+  .tickPadding(tickPadding)
+
+  svg.append("g")
+  .attr("class", "axis x")
+  .attr("transform", `translate(0,${self.dimension.innerHeight})`)
+  .call(x)
+
+  svg.selectAll(".axis.y .tick line").attr("x1", self.dimension.innerWidth);
+  svg.selectAll(".domain").remove();
+
+
   if (!self.display.xAxisTicks){
     svg.selectAll(".axis.x .tick text").remove()
     }
