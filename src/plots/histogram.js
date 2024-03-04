@@ -113,7 +113,6 @@ export default class histogram extends defaultPlotConfig{
     update(){
     const self = this;
     let plot =  d3.select(`#${self.rootId}-g`)
-    console.log(self.data)
     let bar = plot.selectAll("rect")
      .data(self.data)
 

@@ -160,7 +160,7 @@ export default {
                       }
                     })
                 }).flat();
-console.log(heatmap, groups, data)
+
                 this.plot = {data: heatmap, config: self.configure(heatmap, config)}
                 self.loading = false;
             })
@@ -170,7 +170,7 @@ console.log(heatmap, groups, data)
               let xExtent = d3.extent(data.map(d => d.x))
               let yExtent = d3.extent(data.map(d => d.y))
               let cExtent = d3.extent(data.map(d => d.c))
-              console.log(cExtent)
+
               return {
                 padding: config.padding,
                 title: config.title,
