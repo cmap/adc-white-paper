@@ -17,7 +17,7 @@
         </v-col>
       </v-row>
 
-    <div class="lattice-plots" :id="rootName">
+    <div class="py-8 lattice-plots" :id="rootName">
 
         <div v-for="plot in plots" 
         :id="plot.id" 
@@ -163,8 +163,9 @@ async created() {
         const yExtent = d3.extent(scatterData.map(d => d.y))
         const cExtent = d3.extent(scatterData.map(d => d.c))
         const scatterConfig = {
-            xAxisTitle: "Synergy &rarr;",
-            yAxisTitle: "MGMT Expression &rarr;"
+            xAxisTitle: "Synergy",
+            yAxisTitle: "MGMT Expression",
+            cAxisTitle: "Synergy Count"
         }
        self.GE_Y_Extent = yExtent;
         latticeScatterData.forEach(d=> {
@@ -175,18 +176,14 @@ async created() {
                 axis: {
                     x: {
                         domain: xExtent,
-                        title: scatterConfig.xAxisTitle,
+                        title: `${scatterConfig.xAxisTitle} &rarr;`,
                         threshold: "0"
                     },
                     y: {
                         domain: yExtent,
-                        title: scatterConfig.yAxisTitle,
+                        title: `${scatterConfig.yAxisTitle} &rarr;`,
                         threshold: "1.5"
                     },
-                    // c: {
-                    //     type: "sequential",
-                    //     domain: cExtent
-                    // }
                 },
                 scale: {
                     c: d3.scaleSequential().domain(cExtent).interpolator(d3.interpolateGnBu)
@@ -196,12 +193,7 @@ async created() {
                     {label: "CCLE name", field: "ccle_name"},
                     {label: scatterConfig.xAxisTitle, field: "x"},
                     {label: scatterConfig.yAxisTitle, field: "y"},
-                    {label: "Pert1", field: "pert1_name"},
-                    {label: "Pert2", field: "pert2_name"},
-                    {label: "Pert1 Dose", field: "pert1_dose"},
-                    {label: "Pert2 Dose", field: "pert2_dose"},
-                    {label: "Pert1 Viability", field: "pert1_viability"},
-                    {label: "Pert2 Viability", field: "pert2_viability"}
+                    {label: scatterConfig.cAxisTitle, field: "c"}
                 ]
             }
         })

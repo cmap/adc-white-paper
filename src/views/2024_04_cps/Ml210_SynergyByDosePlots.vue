@@ -17,7 +17,7 @@
         </v-col>
       </v-row>
 
-    <div class="lattice-plots" :id="rootName">
+    <div class="py-8 lattice-plots" :id="rootName">
 
         <div v-for="plot in plots" 
         :id="plot.id" 
@@ -163,8 +163,9 @@ async created() {
         const yExtent = d3.extent(scatterData.map(d => d.y))
         const cExtent = d3.extent(scatterData.map(d => d.c))
         const scatterConfig = {
-            xAxisTitle: "Synergy &rarr;",
-            yAxisTitle: "GPX4 Dependency &rarr;"
+            xAxisTitle: "Synergy",
+            yAxisTitle: "GPX4 Dependency",
+            cAxisTitle: "Antagonism Count"
         }
        self.GE_Y_Extent = yExtent;
         latticeScatterData.forEach(d=> {
@@ -175,12 +176,12 @@ async created() {
                 axis: {
                     x: {
                     domain: xExtent,
-                    title: scatterConfig.xAxisTitle,
+                    title: `${scatterConfig.xAxisTitle} &rarr;`,
                     threshold: "0"
                     },
                     y: {
                     domain: yExtent,
-                    title: scatterConfig.yAxisTitle,
+                    title: `${scatterConfig.yAxisTitle} &rarr;`,
                     threshold: false
                     }
                 },
@@ -191,7 +192,8 @@ async created() {
                 tooltipConfig: [
                     {label: "CCLE name", field: "ccle_name"},
                     {label: scatterConfig.xAxisTitle, field: "x"},
-                    {label: scatterConfig.yAxisTitle, field: "y"}
+                    {label: scatterConfig.yAxisTitle, field: "y"},
+                    {label: scatterConfig.cAxisTitle, field: "c"}
                 ]
             }
         })
