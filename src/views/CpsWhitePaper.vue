@@ -197,6 +197,9 @@
           <br><br>
           Currently, combination screening is offered through PRISM using a variety of formats [link]. 7x1 combinations are useful where one component (the “anchor” agent) has limited differential viability effects, facilitating identification of a single concentration informative for screening. Where both agents have strong differential viability effects, we recommend matrixed designs such as 5x3 or 5x5. 
         </p>
+        <TemoSynergyBiomarkerPlots rootName="temo_benzyl_synergy_biomarker-plots" >
+
+        </TemoSynergyBiomarkerPlots>
       </PaperSection>
       <PaperSection title="References">
         <v-card elevation="0" class="py-0">
@@ -237,6 +240,7 @@ import TemoSynergyByDosePlots from './2024_04_cps/Temo_SynergyByDosePlots.vue';
 import Ml210SynergyByDosePlots from './2024_04_cps/Ml210_SynergyByDosePlots.vue';
 import Azd_SynergyByDosePlots from './2024_04_cps/Azd_SynergyByDosePlots.vue';
 import ViabilityMatrixPlots from './2024_04_cps/ViabilityMatrixPlots.vue';
+import TemoSynergyBiomarkerPlots from './2024_04_cps/Temo_SynergyBiomarkerPlots.vue';
 import ImageCard from '@/components/ImageCard.vue'
 
 export default {
@@ -250,6 +254,7 @@ export default {
     Ml210SynergyByDosePlots,
     Azd_SynergyByDosePlots,
     ViabilityMatrixPlots,
+    TemoSynergyBiomarkerPlots,
     ImageCard
 },
   props: {

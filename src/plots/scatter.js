@@ -49,7 +49,7 @@ export default class scatter extends defaultPlotConfig{
     }
     setScaleY(){
         let domain;
-        if (!this.axis.x.hasOwnProperty("domain")){ domain = d3.extent(this.data.map(d=>d.y)) } else { domain = this.axis.y.domain }
+        if (!this.axis.y.hasOwnProperty("domain")){ domain = d3.extent(this.data.map(d=>d.y)) } else { domain = this.axis.y.domain }
         return d3.scaleLinear().domain(domain).range([this.dimension.innerHeight-this.axis.innerPadding, this.axis.innerPadding]).nice() 
     }
     setScaleC(){

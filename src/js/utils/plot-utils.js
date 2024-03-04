@@ -56,6 +56,7 @@ export function updateLatticeLayout(data, rootName="lattice", padding = { top: 1
       d.y = scale.y(d.row);
       d.width = scale.x.bandwidth();
       d.height = scale.y.bandwidth();
+      d.padding = padding;
   })
 }
 export function updateLatticeCommonXYLayout(data, rootName="lattice", padding = { top: 10, right: 10, bottom: 10, left: 10 }, grid = {rows: null, columns: null}) {
