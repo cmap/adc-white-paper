@@ -19,7 +19,7 @@ export default {
   data: function () {
     return {
       plot: null,
-      maxDistance: 0.15
+      maxDistance: 0.075
     }
   },
   props: {
@@ -30,6 +30,7 @@ export default {
     click: Array,
     highlight: Array
   },
+  emits: ['update:mouseover', 'update:click', 'update:highlight'],
   computed: {
     states(){
       return {
@@ -44,14 +45,6 @@ export default {
   },
 
   methods: {
-    highlightMe(value){
-      const self = this;
-      let highlight = this.highlight.map(d=>d);
-      this.$emit("update:highlight",  helpers.updateSelectedArray(highlight, value))
-      d3.selectAll(".legend.tick.active").classed("active", false).style("font-weight", "normal")
-      d3.selectAll(".legend.tick").filter(e=> highlight.includes(e)).classed("active", true).style("font-weight", "bold")
-
-    },
     configPlot(){
       const self = this;
       this.plot = new scatter(self.rootId, self.data, self.config, self.states);
@@ -62,9 +55,14 @@ export default {
     },
     plotLegendEvents(){
         const self = this;
-        d3.select(`#${self.plot.legend.rootId} g`).selectAll(".legend.tick")
+        const legend = d3.select(`#${self.plot.legend.rootId} g`)
+       let highlight = self.highlight;
+       console.log("highlight", highlight)
+        legend.selectAll(".legend.tick")
           .on("click", function(event, d){
-            self.highlightMe(d)        
+            self.$emit("update:highlight",   helpers.updateSelectedArray(highlight, d))
+            d3.selectAll(".legend.tick.active").classed("active", false).style("font-weight", "normal")
+            d3.selectAll(".legend.tick").filter(e=> self.highlight.includes(e)).classed("active", true).style("font-weight", "bold")
         })
       },
     plotMouseEvents(){
@@ -73,8 +71,7 @@ export default {
       const context = canvas.node().getContext('2d');
 
       let onClick = (event)=>{
-        const data = self.plot.data.filter(d=>d.highlight==true);
-        let click = self.click.map(d=>d);
+        const data = self.plot.data
 
         const tree = d3.quadtree()
           .x(d=> d.x)
@@ -83,13 +80,12 @@ export default {
           .addAll(data);
 
           let mouse = d3.pointer(event);
-          let closest = tree.find( self.plot.scale.x.invert(mouse[0]),
-          self.plot.scale.y.invert(mouse[1]) );
+          let closest = tree.find( self.plot.scale.x.invert(mouse[0]), self.plot.scale.y.invert(mouse[1]) );
           let distance;
           if (data.length!=0  && closest!=undefined){
             distance = helpers.euclidDistance(closest.x,closest.y, self.plot.scale.x.invert(mouse[0]), self.plot.scale.y.invert(mouse[1]))
             if (distance <=this.maxDistance){
-                this.$emit("update:click",  helpers.updateSelectedArray(click, closest.id))
+                this.$emit("update:click",  helpers.updateSelectedArray(self.click, closest.id))
             }
           } else {
             // do nothing!
@@ -102,8 +98,7 @@ export default {
       }
       let onMousemove = (event)=>{
     
-     //   const data = self.plot.data;
-        const data = self.plot.data.filter(d=>d.highlight==true);
+        const data = self.plot.data;
 
         const tree = d3.quadtree()
           .x(d=> d.x)
@@ -144,26 +139,24 @@ export default {
   },
   watch:{
     mouseover(){
+      console.log("mouseover", this.plot.states.mouseover)
       this.plot.states.mouseover = this.mouseover;
-      this.updateCanvasOpacity();
+      this.updateCanvasOpacity()
       this.plot.renderSelections();
     },
     click(){
-      console.log("click", this.click)
+      console.log("click", this.plot.states.click)
       this.plot.states.click = this.click;
       this.updateCanvasOpacity();
       this.plot.renderSelections();
     },
     highlight(){
-      const self = this;
+      console.log("highlight", this.plot.states.highlight)
       this.plot.states.highlight = this.highlight;
-      this.plot.data.forEach(d=> { 
-        if ((self.highlight.length > 0 && self.highlight.includes(d.c) || self.highlight.length == 0)) { 
-          d.highlight = true 
-        }  else { d.highlight = false }
-
-      })
-      this.plot.renderFocus();
+      this.plot.renderPoints();
+    },
+    data(){
+console.log(this.data)
     }
   }
 }

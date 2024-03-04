@@ -69,6 +69,7 @@
 const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
 import * as d3 from 'd3';
 import * as plotUtils from '@/js/utils/plot-utils.js';
+import * as helpers from '@/js/utils/helpers.js';
 import ScatterPlot from '@/plots/scatter-plot.vue';
 import HistogramPlot from '@/plots/histogram-plot.vue';
 import BarPlot from '@/plots/barplot.vue';
@@ -153,6 +154,7 @@ async created() {
             d.c = d.synergy_count;
             d.id = `${d.ccle_name}`;
             d.r = 3;
+            Object.assign(d, helpers.getSelectionAttributes())
         })
         return data;
     },
@@ -351,14 +353,7 @@ async created() {
             d.config.display = display;
             d.config.padding = d.padding;
         })
-    },
-    getSelectionAttributes() {
-      return {
-          selected: false,
-          highlighted: true,
-          mouseover: false
-        }
-      }
+    }
     },
     watch: {
 

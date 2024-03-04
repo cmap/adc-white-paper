@@ -50,6 +50,7 @@
 const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
 import * as d3 from 'd3';
 import * as plotUtils from '@/js/utils/plot-utils.js';
+import * as helpers from '@/js/utils/helpers.js';
 import ScatterPlot from '@/plots/scatter-plot.vue';
 
 //const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
@@ -127,6 +128,7 @@ async created() {
             d.c = d.combination_viability;
             d.id = `${d.ccle_name}`;
             d.r = 3;
+            Object.assign(d, helpers.getSelectionAttributes())
         })
         return data;
     },

@@ -166,7 +166,7 @@ export function sortAddedDosesByScreenType(screen, array) {
 export function getSelectionAttributes() {
     return {
         selected: false,
-        highlighted: true,
+        highlight: true,
         mouseover: false
     }
 }

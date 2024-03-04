@@ -30,7 +30,7 @@ export default class scatter extends defaultPlotConfig{
         super(rootId, config);
         let defaults = new defaultPlotConfig(rootId, config);
         Object.assign(defaults.getDefaults(), this );
-        this.data = data.sort((a,b)=> d3.ascending(a.c, b.c));
+        this.data = data.sort((a,b)=> d3.ascending(a.y, b.y));
         this.states = states;
         if (!this.scale.hasOwnProperty("x")){ this.scale.x = this.setScaleX() } 
         if (!this.scale.hasOwnProperty("y")){ this.scale.y = this.setScaleY() }
@@ -102,6 +102,18 @@ export default class scatter extends defaultPlotConfig{
         .style("position", "absolute")
         .style("top", "0px")
         .style("left", "0px")
+        .style("pointer-events", "none")
+        .attr('id', `${self.rootId}-canvasContext`);
+
+        container.append('canvas')
+        .attr('width', self.dimension.innerWidth)
+        .attr('height', self.dimension.innerHeight)
+        .style('margin-left', self.padding.left + 'px')
+        .style('margin-top', self.padding.top + 'px')
+        .attr("class", "plot-canvas")
+        .style("position", "absolute")
+        .style("top", "0px")
+        .style("left", "0px")
         .attr('id', `${self.rootId}-canvasFocus`);
 
         container.append('canvas')
@@ -124,8 +136,9 @@ export default class scatter extends defaultPlotConfig{
         .attr('id', `${self.rootId}-tooltip`)
         .style("opacity", 0);
 
-        this.renderAxis()
-        this.renderFocus(); 
+        this.renderAxis();
+        this.renderContext(); // renders 1x
+        this.renderFocus(); // renders on highlight
         if (this.display.title){ plotUtils.plotTitle(this) }
     }
     renderContext(){
@@ -153,7 +166,11 @@ export default class scatter extends defaultPlotConfig{
         const self = this;
         const canvas = d3.select(`#${self.rootId}-canvasFocus`)
         const ctx = canvas.node().getContext('2d');
-        let data = this.data;
+        ctx.clearRect(0, 0, self.dimension.innerWidth, self.dimension.innerHeight);
+        // let data;
+        // if (this.states.highlight.length == 0){ data = this.data } 
+        // else { data = this.data.filter(d=> this.states.highlight.includes(d.c)) }
+        let data = this.data.filter(d=> d.highlight == true)
 
         data.forEach(point => {
             ctx.globalAlpha = 0.7;

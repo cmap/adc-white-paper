@@ -1,11 +1,11 @@
 <template>
       <div>
-      <v-row>
+        <v-row>
         <v-col cols="6">
           <v-autocomplete
             v-model="click"
             :items="items"
-            label="Search cell lines to highlight"
+            label="Search features to highlight"
             multiple
             chips
             closable-chips
@@ -14,6 +14,13 @@
             elevation="0"
         >
         </v-autocomplete>
+        </v-col>
+      </v-row>
+      
+      <v-row>
+        <v-col cols="3">
+            <small><i>Select legend items to highlight</i></small>
+            <svg width="100%" :id="`${rootName}-scatterplot-legend`"></svg>
         </v-col>
       </v-row>
 
@@ -80,28 +87,14 @@ async created() {
   methods: {
     async loadData(){
         this.loading = true;
-        // Promise.all([
-        //     d3.csv(`${dataPath}2024_04_cps/BRD-K32107296_BRD-K92041145-continuous-associations.csv`, function(d,i){
-        //         return {                     
-        //             feature: d["Feature"],
-        //             correlation: d["Correlation Coefficient"],
-        //             qvalue: d["-log10 qval"],
-        //             pert1_name: d["Compound"],
-        //             pert2_name: d["Added Compounds"],
-        //             pert1_dose: d["Dose"],
-        //             pert2_dose: d["Added Doses"],
-        //             feature_type: d["Feature Type"],
-        //             id: i
-        //         }
-        //     }),
-        // ])
         Promise.all([
             d3.csv(`${dataPath}2024_04_cps/${fileName}`, function(d,i){
                 let string = d.y.split("::");
                 return {
-                    feature: d["x"],
+                    feature: d["x"].split("_")[1],
                     correlation: d["rho"],
                     qvalue: d["q.val"],
+                    neg_log10_qval: d["neg_log10_qval"],
                     pert1_name: string[0],
                     pert2_name: string[1],
                     pert1_dose: string[2],
@@ -113,12 +106,12 @@ async created() {
         ])
         .then(response=>{
             this.data = response[0];
+            this.items = [...new Set(this.data.map(d=>d.feature))];
             let scatterData = this.createScatterData();
             let plots = this.createLatticeScatterData(scatterData);
-            // plotUtils.updateLatticeCommonYLayout(plots, this.rootName, {top: 20, right: 20, bottom: 20, left: 50});
-            this.setLatticeDisplay(plots);
              this.plots = plots;
             this.loading = false;
+
         })
     },
     createScatterData(){
@@ -126,10 +119,12 @@ async created() {
         let data = self.data.map(a => ({...a}))
         data.forEach(d=>{
             d.x = d.correlation;
-            d.y = d.qvalue;
+            d.y = d.neg_log10_qval;
             d.c = `${d.pert1_dose} + ${d.pert2_dose}`;
-            d.id = `${d.feature_type}-${d.feature}-${d.pert1_dose}-${d.pert2_dose}`;
+            // d.id = `${d.feature_type}-${d.feature}-${d.pert1_dose}-${d.pert2_dose}`;
+            d.id=d.feature;
             d.r = 3;
+            Object.assign(d, helpers.getSelectionAttributes())
         })
         return data;
     },
@@ -157,19 +152,34 @@ async created() {
 
         plotUtils.updateLatticeCommonYLayout(latticeScatterData, this.rootName, {top: 20, right: 20, bottom: 20, left: 50});
 
-        const cExtent = [...new Set(d3.extent(scatterData.map(d => d.c)))].sort((a,b)=>d3.ascending(+a.split(" + ")[0], +b.split(" + ")[0]))
+        const cExtent = [...new Set(scatterData.map(d => d.c))].sort((a,b)=>d3.ascending(+a.split(" + ")[0], +b.split(" + ")[0]))
+
         const scatterConfig = {
             xAxisTitle: "Coorelation",
             yAxisTitle: "q value",
             cAxisTitle: "Dose"
         }
+        const maxRow = d3.max(latticeScatterData.map(d=>d.row));
+        latticeScatterData.forEach((d,i)=> {
+            let displayTitle = true,
+            displayXAxisTicks = true, 
+            displayYAxisTicks =true,
+            displayXAxisTitle,
+            displayYAxisTitle,
+            displayLegend = false;
+            if(i==0){
+                displayLegend = true;
+            }
+            if (d.column === 0 ) { displayYAxisTitle = true } 
+            else { displayYAxisTitle = false }
 
-        console.log(latticeScatterData)
-        latticeScatterData.forEach(d=> {
+            if ((d.column === 0 && d.row == maxRow) || d.column == 7) { displayXAxisTitle = true } 
+            else { displayXAxisTitle = false }
+
             d.config = {
                 title: `${d.columnName}`,
                 type: "scatter",
-                padding: {},
+                padding: d.padding,
                 axis: {
                     x: {
                         domain: [-0.5,1],
@@ -184,17 +194,27 @@ async created() {
                 scale: {
                     c: d3.scaleOrdinal().domain(cExtent).range(helpers.getCustomSequentialColorRange(cExtent))
                 },
-                display: {},
+                display: { 
+                    title: displayTitle, 
+                    legend: displayLegend, 
+                    xAxisTitle: displayXAxisTitle, 
+                    yAxisTitle: displayYAxisTitle, 
+                    xAxisTicks: displayXAxisTicks, 
+                    yAxisTicks: displayYAxisTicks 
+                },
                 tooltipConfig: [
                     {label: "Feature", field: "feature"},
                     {label: "Feature Type", field: "feature_type"},
                     {label: scatterConfig.xAxisTitle, field: "x"},
                     {label: scatterConfig.yAxisTitle, field: "y"},
                     {label: scatterConfig.cAxisTitle, field: "c"}
-                ]
+                ],
+                legend: {
+                    rootId:  `${self.rootName}-scatterplot-legend`,
+                    padding: {top: 15, right: 15, bottom:15, left: 15}
+                },
             }
         })
-        console.log(latticeScatterData)
         return latticeScatterData;
     },
 
@@ -236,15 +256,24 @@ async created() {
             d.config.padding = d.padding;
         })
     },
-    getSelectionAttributes() {
-      return {
-          selected: false,
-          highlighted: true,
-          mouseover: false
-        }
-      }
+    // getSelectionAttributes() {
+    //   return {
+    //       click: false,
+    //       highlight: true,
+    //       mouseover: false
+    //     }
+    //   }
     },
     watch: {
+        highlight(){
+
+        },
+        mouseover(){
+            // console.log(this.mouseover)
+        },
+        click(){
+            // console.log("click",this.click)
+        }
 
     }
   }
