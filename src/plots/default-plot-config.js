@@ -52,6 +52,11 @@ export default class defaultPlotConfig {
         if (!this.display.hasOwnProperty("xAxisTitle")){ this.display.xAxisTitle = true }
         if (!this.display.hasOwnProperty("yAxisTitle")){ this.display.yAxisTitle = true }
         if (!this.display.hasOwnProperty("legend")){ this.display.legend = false }
+        if (!config.hasOwnProperty("legend")){ this.legend = { } } else { this.legend = config.legend }
+
+        if (!this.legend.hasOwnProperty("rootId")){ this.legend.rootId =  `${this.rootId}-legend` }
+        if (!this.legend.hasOwnProperty("padding")){ this.legend.padding = { top:15, right:15, bottom:15, left:15 } }
+
         if (!this.display.hasOwnProperty("title")){ this.display.title = true }
         if (!this.display.hasOwnProperty("tooltip")){ this.display.tooltip = true }
         if (!config.hasOwnProperty("tooltipConfig")){ this.tooltipConfig = [ {label: this.axis.x.title, field: "x"}, {label:this.axis.y.title, field: "y"}] } else { this.tooltipConfig = config.tooltipConfig }

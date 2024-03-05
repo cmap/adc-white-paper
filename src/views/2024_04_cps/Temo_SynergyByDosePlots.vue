@@ -16,7 +16,11 @@
         </v-autocomplete>
         </v-col>
       </v-row>
-
+<v-row>
+        <v-col cols="3">
+            <svg width="100%" class="cps-legend" :id="`${rootName}-legend`"></svg>
+        </v-col>
+</v-row>
     <div class="py-8 lattice-plots" :id="rootName">
 
         <div v-for="plot in plots" 
@@ -187,6 +191,10 @@ async created() {
                         title: `${scatterConfig.yAxisTitle} &rarr;`,
                         threshold: "1.5"
                     },
+                    c: {
+                        type: "sequential",
+                        title: scatterConfig.cAxisTitle
+                    }
                 },
                 scale: {
                     c: d3.scaleSequential().domain(cExtent).interpolator(d3.interpolateGnBu)
@@ -197,7 +205,11 @@ async created() {
                     {label: scatterConfig.xAxisTitle, field: "x"},
                     {label: scatterConfig.yAxisTitle, field: "y"},
                     {label: scatterConfig.cAxisTitle, field: "c"}
-                ]
+                ],
+                legend: {
+                    rootId:  `${self.rootName}-legend`,
+                    padding: {top: 15, right: 15, bottom:15, left: 15}
+                },
             }
         })
         return latticeScatterData;
@@ -324,13 +336,16 @@ async created() {
     },
     setLatticeDisplay(plots){
         const maxRow = d3.max(plots.map(d=>d.row));
-        plots.forEach(d=> {
+        plots.forEach((d,i)=> {
             let displayTitle = true,
             displayXAxisTicks = true, 
             displayYAxisTicks,
             displayXAxisTitle,
-            displayYAxisTitle;
-
+            displayYAxisTitle,
+            displayLegend = false;
+            if(i==0){
+                displayLegend = true;
+            }
             if (d.row ===  0 && d.column !=7 ) {  displayTitle = true; } 
             else { displayTitle = false; }
 
@@ -345,7 +360,7 @@ async created() {
 
             let display = { 
                     title: displayTitle, 
-                    legend: false, 
+                    legend: displayLegend, 
                     xAxisTitle: displayXAxisTitle, 
                     yAxisTitle: displayYAxisTitle, 
                     xAxisTicks: displayXAxisTicks, 

@@ -156,7 +156,7 @@
             </p>
             <v-row>
               <v-col cols="12" sm="12" md="4" lg="4" xl="4">
-                <img style="width:100%" :src="imgPath + 'synergy-calculation.svg'">
+                <img style="width:100%" :src="imgPath + 'synergy-eqn-01.svg'">
               </v-col>
             </v-row>
           </PaperSubSection>
@@ -402,7 +402,14 @@ export default {
 </script>
 
 <style>
-
+.cps-legend{
+  width:100%;
+  height:100px;
+}
+.legend.tick.active >rect{
+  stroke: #000;
+  stroke-width: 1px;
+}
 .paper-sub-sub-section{
   margin-top: 32px !important;
   margin-bottom: 32px !important;
