@@ -18,7 +18,6 @@ export default {
   },
   data: function () {
     return {
-      // pLegendSelections: null,
       plot: null,
       maxDistance: 0.15
     }
@@ -31,7 +30,6 @@ export default {
     click: Array,
     highlight: Array
   },
-  emits: ['update:mouseover', 'update:click', 'update:highlight'],
   computed: {
     states(){
       return {
@@ -44,20 +42,37 @@ export default {
   mounted(){
     this.configPlot();
   },
-
   methods: {
+    highlightMe(value){
+      const self = this;
+      let highlight = this.highlight.map(d=>d);
+      this.$emit("update:highlight",  helpers.updateSelectedArray(highlight, value))
+      d3.selectAll(".legend.tick.active").classed("active", false).style("font-weight", "normal")
+      d3.selectAll(".legend.tick").filter(e=> highlight.includes(e)).classed("active", true).style("font-weight", "bold")
+    },
     configPlot(){
       const self = this;
       this.plot = new scatter(self.rootId, self.data, self.config, self.states);
       this.plotMouseEvents(); 
+      if (this.config.display.legend){
+          this.plotLegendEvents();
+        }
     },
+    plotLegendEvents(){
+        const self = this;
+        d3.select(`#${self.plot.legend.rootId} g`).selectAll(".legend.tick")
+          .on("click", function(event, d){
+            self.highlightMe(d)        
+        })
+      },
     plotMouseEvents(){
       const self = this;
       const canvas = d3.select(`#${self.plot.rootId}-canvasFocus`)
       const context = canvas.node().getContext('2d');
 
       let onClick = (event)=>{
-        const data = self.plot.data
+        const data = self.plot.data.filter(d=>d.highlight==true);
+        let click = self.click.map(d=>d);
 
         const tree = d3.quadtree()
           .x(d=> d.x)
@@ -72,21 +87,18 @@ export default {
           if (data.length!=0  && closest!=undefined){
             distance = helpers.euclidDistance(closest.x,closest.y, self.plot.scale.x.invert(mouse[0]), self.plot.scale.y.invert(mouse[1]))
             if (distance <=this.maxDistance){
-                this.$emit("update:click",  helpers.updateSelectedArray(self.click, closest.id))
+                this.$emit("update:click",  helpers.updateSelectedArray(click, closest.id))
             }
           } else {
             // do nothing!
           }
-
       }
       let onMouseout = (event)=>{
         this.$emit("update:mouseover", null)
         self.plot.hideTooltip();
       }
       let onMousemove = (event)=>{
-    
-        const data = self.plot.data;
-
+        const data = self.plot.data.filter(d=>d.highlight==true);
         const tree = d3.quadtree()
           .x(d=> d.x)
           .y(d=> d.y)
@@ -127,20 +139,25 @@ export default {
   watch:{
     mouseover(){
       this.plot.states.mouseover = this.mouseover;
-      this.updateCanvasOpacity()
+      this.updateCanvasOpacity();
       this.plot.renderSelections();
     },
     click(){
+      console.log("click", this.click)
       this.plot.states.click = this.click;
-      this.updateCanvasOpacity()
+      this.updateCanvasOpacity();
       this.plot.renderSelections();
     },
     highlight(){
+      const self = this;
       this.plot.states.highlight = this.highlight;
-      this.plot.renderPoints();
-    },
-    data(){
+      this.plot.data.forEach(d=> { 
+        if ((self.highlight.length > 0 && self.highlight.includes(d.c) || self.highlight.length == 0)) { 
+          d.highlight = true 
+        }  else { d.highlight = false }
 
+      })
+      this.plot.renderFocus();
     }
   }
 }
