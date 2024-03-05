@@ -188,7 +188,7 @@ export function thresholds(self){
 }
 
 export function axis(self){
-  const svg = d3.select(`#${self.rootId}-g`),
+  const svg = d3.select(`#${self.rootId}-g`), // this should not be so specific
   tickPadding = 2.5;
 
   const y = d3.axisLeft(self.scale.y) 

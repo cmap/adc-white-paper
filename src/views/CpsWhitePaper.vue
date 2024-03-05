@@ -402,7 +402,10 @@ export default {
 </script>
 
 <style>
-
+.cps-legend{
+  width:100%;
+  height:100px;
+}
 .paper-sub-sub-section{
   margin-top: 32px !important;
   margin-bottom: 32px !important;

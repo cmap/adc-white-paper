@@ -18,9 +18,9 @@
       </v-row>
       
       <v-row>
-        <v-col cols="3">
+        <v-col cols="8">
             <small><i>Select legend items to highlight</i></small>
-            <svg width="100%" :id="`${rootName}-scatterplot-legend`"></svg>
+            <svg class="cps-legend" :id="`${rootName}-legend`"></svg>
         </v-col>
       </v-row>
 
@@ -163,7 +163,7 @@ async created() {
         const scatterConfig = {
             xAxisTitle: "Coorelation",
             yAxisTitle: "q value",
-            cAxisTitle: "Dose"
+            cAxisTitle: "Dose (µM)"
         }
         const maxRow = d3.max(latticeScatterData.map(d=>d.row));
         latticeScatterData.forEach((d,i)=> {
@@ -196,6 +196,10 @@ async created() {
                         domain: [0, d3.max(d.data.map(e=>e.y))],
                         title: `${scatterConfig.yAxisTitle}`,
                     },
+                    c: {
+                        type: "ordinal",
+                        title: scatterConfig.cAxisTitle
+                    }
                 },
                 scale: {
                     c: d3.scaleOrdinal().domain(cExtent).range(helpers.getCustomSequentialColorRange(cExtent))
@@ -216,7 +220,7 @@ async created() {
                     {label: scatterConfig.cAxisTitle, field: "c"}
                 ],
                 legend: {
-                    rootId:  `${self.rootName}-scatterplot-legend`,
+                    rootId:  `${self.rootName}-legend`,
                     padding: {top: 15, right: 15, bottom:15, left: 15}
                 },
             }
@@ -236,12 +240,16 @@ async created() {
     },
     setLatticeDisplay(plots){
         const maxRow = d3.max(plots.map(d=>d.row));
-        plots.forEach(d=> {
+        plots.forEach((d,i)=> {
             let displayTitle = true,
             displayXAxisTicks = true, 
             displayYAxisTicks =true,
             displayXAxisTitle,
-            displayYAxisTitle;
+            displayYAxisTitle,
+            displayLegend = false;
+            if(i==0){
+                displayLegend = true;
+            }
 
 
             if (d.column === 0 ) { displayYAxisTitle = true } 
@@ -252,7 +260,7 @@ async created() {
 
             let display = { 
                     title: displayTitle, 
-                    legend: false, 
+                    legend: displayLegend, 
                     xAxisTitle: displayXAxisTitle, 
                     yAxisTitle: displayYAxisTitle, 
                     xAxisTicks: displayXAxisTicks, 
@@ -262,13 +270,6 @@ async created() {
             d.config.padding = d.padding;
         })
     },
-    // getSelectionAttributes() {
-    //   return {
-    //       click: false,
-    //       highlight: true,
-    //       mouseover: false
-    //     }
-    //   }
     },
     watch: {
         highlight(){

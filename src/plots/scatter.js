@@ -2,7 +2,6 @@ import * as d3 from "d3";
 import * as plotUtils from '@/js/utils/plot-utils.js';
 import defaultPlotConfig from './default-plot-config.js';
 
-
 d3.selection.prototype.moveToFront = function() {
     return this.each(function(){
       this.parentNode.appendChild(this);
@@ -34,7 +33,10 @@ export default class scatter extends defaultPlotConfig{
         this.states = states;
         if (!this.scale.hasOwnProperty("x")){ this.scale.x = this.setScaleX() } 
         if (!this.scale.hasOwnProperty("y")){ this.scale.y = this.setScaleY() }
+        this.setAxisC();
         if (!this.scale.hasOwnProperty("c")){ this.scale.c = this.setScaleC() }
+
+     //   this.scale.c = this.setScaleC()
         this.render();
 
         if (this.display.legend){ // requires createScale() for setting scale.c.... make this a separate class method? 
@@ -52,18 +54,34 @@ export default class scatter extends defaultPlotConfig{
         if (!this.axis.y.hasOwnProperty("domain")){ domain = d3.extent(this.data.map(d=>d.y)) } else { domain = this.axis.y.domain }
         return d3.scaleLinear().domain(domain).range([this.dimension.innerHeight-this.axis.innerPadding, this.axis.innerPadding]).nice() 
     }
-    setScaleC(){
+    setAxisC(){
+        // TYPE
         if (!this.axis.c.hasOwnProperty("type")){ this.axis.c.type = "linear" } 
+        // DOMAIN
         if (!this.axis.c.hasOwnProperty("domain")){ 
             if (this.axis.c.type == "ordinal"){ this.axis.c.domain = [...new Set(this.data.map(d=>d.c))] } 
             if (this.axis.c.type == "custom"){ this.axis.c.domain = [...new Set(this.data.map(d=>d.c))] } 
             else { this.axis.c.domain = d3.extent(this.data.map(d=>d.c)) } 
         } 
+        //RANGE
         if (!this.axis.c.hasOwnProperty("range")){ 
             if (this.axis.c.type == "custom"){ this.axis.c.range = this.axis.c.domain } // assumes the color value is already in the data
             else if (this.axis.c.type == "ordinal"){ this.axis.c.range = d3.schemeCategory10 } 
             else if (this.axis.c.type == "linear") { this.axis.c.range = [d3.schemeReds[3][0], d3.schemeReds[3][2]] } 
         } 
+    }
+    setScaleC(){
+        // if (!this.axis.c.hasOwnProperty("type")){ this.axis.c.type = "linear" } 
+        // if (!this.axis.c.hasOwnProperty("domain")){ 
+        //     if (this.axis.c.type == "ordinal"){ this.axis.c.domain = [...new Set(this.data.map(d=>d.c))] } 
+        //     if (this.axis.c.type == "custom"){ this.axis.c.domain = [...new Set(this.data.map(d=>d.c))] } 
+        //     else { this.axis.c.domain = d3.extent(this.data.map(d=>d.c)) } 
+        // } 
+        // if (!this.axis.c.hasOwnProperty("range")){ 
+        //     if (this.axis.c.type == "custom"){ this.axis.c.range = this.axis.c.domain } // assumes the color value is already in the data
+        //     else if (this.axis.c.type == "ordinal"){ this.axis.c.range = d3.schemeCategory10 } 
+        //     else if (this.axis.c.type == "linear") { this.axis.c.range = [d3.schemeReds[3][0], d3.schemeReds[3][2]] } 
+        // } 
         if (this.axis.c.type == "custom"){
             return d3.scaleOrdinal().domain(this.axis.c.domain).range(this.axis.c.domain) 
         } else if (this.axis.c.type == "ordinal"){
@@ -234,46 +252,142 @@ export default class scatter extends defaultPlotConfig{
     renderLegend(){ // should this be a component? should i create it in the scatter plot or in the parent component?
         const self = this;
         const domain = self.scale.c.domain();
-        const radius = 6;
-        const diameter = radius*3;
 
         this.legend.dimension = { 
             width: d3.select(`#${this.legend.rootId}`).node().clientWidth,
-            height: (diameter*(domain.length)) + this.legend.padding.top + this.legend.padding.bottom,
+            height: d3.select(`#${this.legend.rootId}`).node().clientHeight,
             innerWidth: d3.select(`#${this.legend.rootId}`).node().clientWidth - this.legend.padding.left - this.legend.padding.right,
-            innerHeight: diameter*(domain.length)
+            innerHeight: d3.select(`#${this.legend.rootId}`).node().clientHeight - this.legend.padding.top - this.legend.padding.bottom
         }
-
-        const scale = d3.scaleBand().domain(domain).range([0, this.legend.dimension.innerHeight]).padding(.5)
+        let dimension = this.legend.dimension;
+        let barHeight = 20;
 
         const svg = d3.select(`#${this.legend.rootId}`)
         .attr('width', self.legend.dimension.width)
         .attr('height', self.legend.dimension.height)
-            .append("g")
-            .attr('transform', `translate(${self.legend.padding.left}, ${self.legend.padding.top})`);
+        .append("g")
+        .attr('transform', `translate(${self.legend.padding.left}, ${self.legend.padding.top})`);
+
+        if (this.axis.c.type == "ordinal"){
       
-            const ticks = svg.selectAll(".legend.tick")
+            let axisScale = d3.scaleBand().domain(domain).range([0, this.legend.dimension.innerWidth]).padding(0)
+
+
+          let  axisBottom = g => g
+            .attr("class", `x-axis`)
+            .attr("transform", `translate(0,${barHeight*2})`)
+            .call(d3.axisBottom(axisScale)
+            .ticks(dimension.innerHeight / 80)
+            .tickSize(-barHeight))
+        
+            svg.selectAll(".legend.tick")
             .data(domain)
-            .enter()
-            .append("g")
+            .enter().append("g")
             .attr("class", "legend tick")
-            .attr("id", (d,i)=> `legend-tick-${i}`)
-            .attr('transform', d=>`translate(0, ${scale(d)})`)
+            .attr('transform', (d,i)=>`translate(${axisScale(d)},0)`)
             .each(function(d){
-                d3.select(this).append("circle")
-                .attr("cx", 0)
-                .attr("cy", 0)
-                .attr("r", radius)
-                .attr("fill", self.scale.c(d))
+                    d3.select(this).append("rect")
+                    .attr("x", 0)
+                    .attr("y", barHeight)
+                    .attr("width", axisScale.bandwidth())
+                    .attr("height",barHeight)
+                    .attr("fill", self.scale.c(d))
+                })
+           
+                
+        svg.append('g')
+            .call(axisBottom);
 
-                d3.select(this).append("text")
-                .text(d)
-                .attr("y", radius/ 2)
-                .attr("x", radius *2)
-                .attr("text-anchor", "start")
-                .style("font-size", "14px")
 
-            })
+    //        const scale = d3.scaleBand().domain(domain).range([0, this.legend.dimension.innerWidth]).padding(0)
+            // svg.selectAll(".legend.tick")
+            // .data(domain)
+            // .enter()
+            // .append("g")
+            // .attr("class", "legend tick")
+            // .attr("id", (d,i)=> `legend-tick-${i}`)
+            // .attr('transform', d=>`translate(0, ${scale(d)})`)
+            // .attr('transform', (d,i)=>`translate(${scale(d)},0)`)
+            // .each(function(d){
+            //     d3.select(this).append("rect")
+            //     .attr("x", 0)
+            //     .attr("y", self.legend.dimension.innerHeight/2)
+            //     .attr("width", scale.bandwidth())
+            //     .attr("height", self.legend.dimension.innerHeight/2)
+            //     .attr("fill", self.scale.c(d))
+            // })
+            // const x = d3.axisBottom()
+            // .scale(scale)   
+            // .tickValues(self.scale.c.domain())
+            // .tickPadding(5)
+            // .tickSize(5)
+
+            // svg.append("g")
+            // .attr("class", "axis x")
+            // .attr("transform", `translate(0,${this.legend.dimension.innerHeight})`)
+            // .call(x)
+
+            // svg.append("text")
+            // .text(this.axis.c.title)
+            // .attr("x", this.legend.dimension.innerWidth/2)
+            // .attr("y", this.legend.dimension.height - 10)
+            // .attr("text-anchor", "middle")
+            // .style("font-size", "10px")
+            // .attr("dy", 0)
+        
+            //  svg.select(".axis.x").select(".domain").remove()   
+
+        }
+        else if (this.axis.c.type == "linear" || this.axis.c.type == "sequential" || this.axis.c.type == "diverging"){
+        
+      
+      
+            let axisScale = d3.scaleLinear()
+            .domain(self.scale.c.domain())
+            .range([0, dimension.innerWidth])
+
+
+          let  axisBottom = g => g
+            .attr("class", `x-axis`)
+            // .attr("transform", `translate(0,${dimension.innerHeight })`)
+            .attr("transform", `translate(0,${barHeight*2})`)
+            .call(d3.axisBottom(axisScale)
+            .ticks(dimension.innerHeight / 80)
+            .tickSize(-barHeight))
+
+            const defs = svg.append("defs");
+  
+            const linearGradient = defs.append("linearGradient")
+                .attr("id", `${self.legend.rootId}-linear-gradient`);
+            
+            linearGradient.selectAll("stop")
+                .data(self.scale.c.ticks().map((t, i, n) => ({ offset: `${100*i/n.length}%`, color: self.scale.c(t) })))
+                .enter().append("stop")
+                .attr("offset", d => d.offset)
+                .attr("stop-color", d => d.color);
+            
+            svg.append('g')
+                // .attr("transform", `translate(0,${dimension.innerHeight - barHeight})`)
+                .attr("transform", `translate(0,${barHeight})`)
+                .append("rect")
+                .attr('transform', `translate(${0}, 0)`)
+                .attr("width", dimension.innerWidth)
+                .attr("height", barHeight)
+                .style("fill", `url(#${self.legend.rootId}-linear-gradient)`);
+            
+            svg.append('g')
+                .call(axisBottom);
+
+            
+        }
+        svg.append("text")
+            .text(this.axis.c.title)
+            .attr("x", dimension.innerWidth/2)
+            // .attr("y", this.legend.dimension.height - 10)   
+              .attr("y", (barHeight*2)+ 20)
+            .attr("text-anchor", "middle")
+            .style("font-size", "10px")
+            .attr("dy", 1)
             
     }
 

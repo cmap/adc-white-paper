@@ -16,6 +16,10 @@
         </v-autocomplete>
         </v-col>
       </v-row>
+      <v-col cols="3">
+            <small><i>Select legend items to highlight</i></small>
+            <svg class="cps-legend" :id="`${rootName}-legend`"></svg>
+        </v-col>
 
     <div class="py-8 lattice-plots" :id="rootName">
 
@@ -73,6 +77,7 @@ import * as helpers from '@/js/utils/helpers.js';
 import ScatterPlot from '@/plots/scatter-plot.vue';
 import HistogramPlot from '@/plots/histogram-plot.vue';
 import BarPlot from '@/plots/barplot.vue';
+import scatter from '@/plots/scatter';
 
 //const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
 
@@ -186,10 +191,14 @@ async created() {
                     domain: yExtent,
                     title: `${scatterConfig.yAxisTitle} &rarr;`,
                     threshold: false
+                    },
+                    c: {
+                        type: "sequential",
+                        title: scatterConfig.cAxisTitle
                     }
                 },
                 scale: {
-                    c: d3.scaleSequential().domain(cExtent).interpolator(d3.interpolateGnBu)
+                    c: d3.scaleSequential().domain(cExtent).interpolator(d3.interpolateOrRd)
                 },
                 display: {},
                 tooltipConfig: [
@@ -197,7 +206,11 @@ async created() {
                     {label: scatterConfig.xAxisTitle, field: "x"},
                     {label: scatterConfig.yAxisTitle, field: "y"},
                     {label: scatterConfig.cAxisTitle, field: "c"}
-                ]
+                ],
+                legend: {
+                    rootId:  `${self.rootName}-legend`,
+                    padding: {top: 15, right: 15, bottom:15, left: 15}
+                }
             }
         })
         return latticeScatterData;
@@ -369,16 +382,16 @@ async created() {
     },
     setLatticeDisplay(plots){
         const maxRow = d3.max(plots.map(d=>d.row));
-        plots.forEach(d=> {
+        plots.forEach((d,i)=> {
             let displayTitle = true,
             displayXAxisTicks = true, 
             displayYAxisTicks,
             displayXAxisTitle,
-            displayYAxisTitle;
-
-            // if (d.row ===  maxRow || d.column == 7 ) {  displayXAxisTicks = true;  } 
-            // else { displayXAxisTicks = false; }
-
+            displayYAxisTitle,
+            displayLegend = false;
+            if(i==0){
+                displayLegend = true;
+            }
             if (d.row ===  0 && d.column !=7 ) {  displayTitle = true; } 
             else { displayTitle = false; }
 
@@ -393,7 +406,7 @@ async created() {
 
             let display = { 
                     title: displayTitle, 
-                    legend: false, 
+                    legend: displayLegend, 
                     xAxisTitle: displayXAxisTitle, 
                     yAxisTitle: displayYAxisTitle, 
                     xAxisTicks: displayXAxisTicks, 

@@ -16,6 +16,10 @@
         </v-autocomplete>
         </v-col>
       </v-row>
+      <v-col cols="3">
+            <small><i>Select legend items to highlight</i></small>
+            <svg class="cps-legend" :id="`${rootName}-legend`"></svg>
+        </v-col>
 
     <div class="py-8 lattice-plots" :id="rootName">
 
@@ -161,6 +165,10 @@ async created() {
                     title: scatterConfig.yAxisTitle,
                     threshold: 0.5
                     },
+                    c: {
+                        type: "sequential",
+                        title: scatterConfig.cAxisTitle
+                    }
                     
                 },
                 scale: {
@@ -172,7 +180,11 @@ async created() {
                     {label: scatterConfig.xAxisTitle, field: "x"},
                     {label: scatterConfig.yAxisTitle, field: "y"},
                     {label: scatterConfig.cAxisTitle, field: "c"},
-                ]
+                ],
+                legend: {
+                    rootId:  `${self.rootName}-legend`,
+                    padding: {top: 15, right: 15, bottom:15, left: 15}
+                },
             }
         })
         return latticeScatterData;
@@ -180,12 +192,16 @@ async created() {
 
     setLatticeDisplay(plots){
         const maxRow = d3.max(plots.map(d=>d.row));
-        plots.forEach(d=> {
+        plots.forEach((d,i)=> {
             let displayTitle = true,
             displayXAxisTicks, 
             displayYAxisTicks,
             displayXAxisTitle,
-            displayYAxisTitle;
+            displayYAxisTitle,
+            displayLegend = false;
+            if(i==0){
+                displayLegend = true;
+            }
 
             if (d.row ===  maxRow ) {  displayXAxisTicks = true;  } 
             else { displayXAxisTicks = false; }
@@ -203,7 +219,7 @@ async created() {
 
             let display = { 
                     title: displayTitle, 
-                    legend: false, 
+                    legend: displayLegend, 
                     xAxisTitle: displayXAxisTitle, 
                     yAxisTitle: displayYAxisTitle, 
                     xAxisTicks: displayXAxisTicks, 
@@ -213,13 +229,7 @@ async created() {
             d.config.padding = d.padding;
         })
     },
-    getSelectionAttributes() {
-      return {
-          selected: false,
-          highlighted: true,
-          mouseover: false
-        }
-      }
+
     },
     watch: {
 
