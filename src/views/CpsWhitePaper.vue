@@ -7,7 +7,9 @@
       date="03/01/2024" 
       authors="... Matthew G. Rees, Jennifer A. Roth"/>
       <PaperSection title="Introduction">
-        <p>Combination therapies are routinely used in cancer care, and patient cure is almost never achieved by monotherapy1. However, which combinations will benefit specific cancer patients is largely unknown. While many studies have used cell culture and animal model systems to characterize combination effects, the sheer number of clinical, investigational, and tool anticancer agents, coupled with the diversity and heterogeneity of cancer, precludes comprehensive investigation2–5. Accordingly, most such studies are restricted to a small number of drugs or a restricted set of cancer contexts. Methods to address these limitations, such as those that enable measurement of candidate combinations in many cell lines simultaneously, would greatly increase the potential scale of combinations research, generating preclinical evidence that may help identify candidate combinations for clinical trials.
+        <p>
+          Combination therapies are routinely used in cancer care, and patient cure is almost never achieved by monotherapy1. However, which combinations will benefit specific cancer patients is largely unknown. While many studies have used cell culture and animal model systems to characterize combination effects, the sheer number of clinical, investigational, and tool anticancer agents, coupled with the diversity and heterogeneity of cancer, precludes comprehensive investigation<sup>2-5</sup>. Accordingly, most such studies are restricted to a small number of drugs or a restricted set of cancer contexts. Methods to address these limitations, such as those that enable measurement of candidate combinations in many cell lines simultaneously, would greatly increase the potential scale of combinations research, generating preclinical evidence that may help identify candidate combinations for clinical trials.
+
         </p>
           <h4>The PRISM Combination Assay</h4>
           <v-row>
@@ -27,7 +29,9 @@
       </PaperSection>
 
       <PaperSection title="Analysis of combination data">
-        <p>Experimental combinations are generally benchmarked by comparing the effects of two (or more) agents to the corresponding single-agent activities, using established metrics to describe the combined effects (e.g., independent action, additivity, synergy, antagonism)6. For example, the Bliss model assesses proportional cell killing, where under the null hypothesis (no interaction between two or more perturbations) viability effects are multiplicative7. The quantification and classification of combination effects may aid prioritization of combinations for additional investigation while also providing biological and mechanistic insights. For example, antagonistic combinations might be deprioritized from further study, while synergistic combinations may be useful in overcoming resistance8. Independent (or additive) combinations may be useful to combat inter- or intra-patient heterogeneity; this behavior is characteristic of many effective clinical combinations (and most curative combinations) described to date9,10. 
+        <p>
+          Experimental combinations are generally benchmarked by comparing the effects of two (or more) agents to the corresponding single-agent activities, using established metrics to describe the combined effects (e.g., independent action, additivity, synergy, antagonism)6. For example, the Bliss model assesses proportional cell killing, where under the null hypothesis (no interaction between two or more perturbations) viability effects are multiplicative<sup>7</sup>. The quantification and classification of combination effects may aid prioritization of combinations for additional investigation while also providing biological and mechanistic insights. For example, antagonistic combinations might be deprioritized from further study, while synergistic combinations may be useful in overcoming resistance<sup>8</sup>. Independent (or additive) combinations may be useful to combat inter- or intra-patient heterogeneity; this behavior is characteristic of many effective clinical combinations (and most curative combinations) described to date<sup>9,10</sup>. 
+
         </p>
           <h4>Classifications of combination effects</h4>
           <v-row>
@@ -45,9 +49,11 @@
 
       </PaperSection>
       <PaperSection title="Considerations for dose selection">
-        <p>The ideal dose range for the single-agent components in combination screening would span at least one concentration with no effect on cell line viability but evidence for cellular activity (e.g., target engagement) across all models to be tested, and one dose where the maximal effects attributable to on-mechanism activity are observed. To facilitate determining this dose range for test combinations, we routinely assess single agents over a range of concentrations in up to 900 cell lines using PRISM. An alternative approach would test single-agent concentration ranges in a number of individual cell lines, and/or, if available, leverage published cell biology or screening data (e.g., at depmap.org).
+        <p>
+          The ideal dose range for the single-agent components in combination screening would span at least one concentration with no effect on cell line viability but evidence for cellular activity (e.g., target engagement) across all models to be tested, and one dose where the maximal effects attributable to on-mechanism activity are observed. To facilitate determining this dose range for test combinations, we routinely assess single agents over a range of concentrations in up to 900 cell lines using PRISM. An alternative approach would test single-agent concentration ranges in a number of individual cell lines, and/or, if available, leverage published cell biology or screening data (e.g., at depmap.org).
         <br><br>
         For combination components with minimal differential viability effects, testing a single dose may represent the most efficient combinatorial design. By contrast, strong differential viability effects of one combination partner across cell lines supports the use of multiple doses; this approach also facilitates aggregation of the viability readout across doses (e.g., through fitting of dose-response curves). Where it is not possible to span the entire range of response to a given compound, it is recommended to focus on the lower end of the ideal concentration range (i.e., less cell viability effects) to facilitate identification of increased cell killing (e.g., additivity or synergy)–unless the experimental goal is to identify and characterize antagonistic combinations (e.g., drug rescue screens). 
+
         </p>
           <h4>Pairing combination components based on differential viability effects</h4>
           <v-row>
@@ -61,24 +67,26 @@
       </PaperSection>
       <PaperSection title="Results">
         <PaperSubSection title="Selection of test combinations">
-            <p>To test the suitability of PRISM for pooled cell line combination screening, we selected three test combinations: temozolomide+O6-benzylguanine, A-1331852+AZD5991, and ML210+ferrostatin-1.</p>
+            <p>
+              To test the suitability of PRISM for pooled cell line combination screening, we selected three test combinations: temozolomide+O6-benzylguanine, A-1331852+AZD5991, and ML210+ferrostatin-1. Single-agent responses across PRISM cell lines are shown in <span class="error">(figure 1)</span>, with the selected maximal concentration for screening indicated by a dashed line.
+            </p>
             <v-list>
                 <v-list-item>
                   <v-list-item-title>temozolomide + O6-benzylguanine</v-list-item-title>
                   <v-list-item-subtitle>
-                    MGMT (O-6-methylguanine-DNA methyltransferase) is an experimentally- and clinically-validated biomarker of resistance to temozolomide: MGMT reverses the action of temozolomide as the MGMT protein directly repairs temozolomide-induced alkylation11. Inhibition of MGMT by agents such as O6-benzylguanine has been reported to enhance temozolomide activity in a subset of MGMT-expressing cell lines in vitro8. O6-benzylguanine does not have appreciable viability effects in PRISM at concentrations sufficient to inhibit MGMT and enhance temozolomide sensitivity8.
+                    MGMT (O-6-methylguanine-DNA methyltransferase) is an experimentally- and clinically-validated biomarker of resistance to temozolomide: MGMT reverses the action of temozolomide as the MGMT protein directly repairs temozolomide-induced alkylation<sup>11</sup>. As a single agent, we observe that resistance to temozolomide is strongly associated with MGMT expression across the large panel of cell lines in PRISM <span class="error">(figure 2)</span>. Inhibition of MGMT by agents such as O6-benzylguanine has been reported to enhance temozolomide activity in a subset of MGMT-expressing cell lines in vitro<sup>8</sup>. O6-benzylguanine does not have appreciable viability effects in PRISM at concentrations sufficient to inhibit MGMT and enhance temozolomide sensitivity<sup>8</sup>.
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>A-1331852 + AZD5991</v-list-item-title>
                   <v-list-item-subtitle>
-                    MGMT (O-6-methylguanine-DNA methyltransferase) is an experimentally- and clinically-validated biomarker of resistance to temozolomide: MGMT reverses the action of temozolomide as the MGMT protein directly repairs temozolomide-induced alkylation11. As a single agent, we observe that resistance to temozolomide is strongly associated with MGMT expression across the large panel of cell lines in PRISM. Inhibition of MGMT by agents such as O6-benzylguanine has been reported to enhance temozolomide activity in a subset of MGMT-expressing cell lines in vitro8. O6-benzylguanine does not have appreciable viability effects in PRISM at concentrations sufficient to inhibit MGMT and enhance temozolomide sensitivity8.
+                    Combined genetic or chemical inhibition of the apoptotic regulators MCL1 and BCL2L1 has been reported as strongly synergistic<sup>12,13</sup>.  AZD5991 is a selective MCL1 inhibitor; in PRISM, we observe that AZD5991 phenocopies MCL1 CRISPR dependency <span class="error">(figure 2)</span>. In addition, we observe that resistance to AZD5991 is strongly associated with BCL2L1 expression. A-1331852 is a selective BCL2L1 (BCL-xL) inhibitor; in PRISM, we observe that A-1331852 phenocopies BCL2L1 CRISPR dependency and resistance to A-1338152 is associated with MCL1 expression <span class="error">(figure 2)</span>.
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>ML210 + ferrostatin-1</v-list-item-title>
                   <v-list-item-subtitle>
-                    ML210 inhibits GPX4 (glutathione peroxidase 4) and kills cells via ferroptosis through generation of reactive lipid peroxide species; in PRISM, we observe that ML210 phenocopies GPX4 CRISPR dependency. Ferrostatin-1 is a radical-trapping antioxidant that protects cells from reactive species and therefore rescues cells from ferroptosis14,15. Ferrostatin-1 does not have appreciable viability effects in PRISM at concentrations sufficient to inhibit ferroptosis14.
+                    ML210 inhibits GPX4 (glutathione peroxidase 4) and kills cells via ferroptosis through generation of reactive lipid peroxide species; in PRISM, we observe that ML210 phenocopies GPX4 CRISPR dependency <span class="error">(figure 2)</span>. Ferrostatin-1 is a radical-trapping antioxidant that protects cells from reactive species and therefore rescues cells from ferroptosis<sup>14,15</sup>. Ferrostatin-1 does not have appreciable viability effects in PRISM at concentrations sufficient to inhibit ferroptosis<sup>14</sup>.
                   </v-list-item-subtitle>
                 </v-list-item>
               </v-list>
@@ -163,7 +171,7 @@
           <PaperSubSection>
             <h4>temozolomide + O6-benzylguanine</h4>
             <p>
-              In the presence of O6-benzylguanine, cell lines that expressed MGMT were sensitized to temozolomide (i.e., synergy was observed) (figure 3). Intriguingly, while MGMT expression appeared necessary for sensitization to temozolomide, a subset of cell lines remained resistant to temozolomide even in the presence of O6-benzylguanine. Accordingly, we asked whether any baseline genomic features were associated with the calculated temozolomide+O6-benzylguanine synergy score in MGMT-high expressing cell lines (MGMT expression > 1.5, see figure X). We found that low expression of the MSH6 gene (and low protein levels of MSH6, or its heterodimeric partner protein MSH2) were associated with lack of synergy in MGMT-proficient cell lines. MSH2 and MSH6 are genes involved in DNA mismatch repair, and their loss has been previously suggested to be associated with resistance to temozolomide16,17.
+              In the presence of O6-benzylguanine, cell lines that expressed MGMT were sensitized to temozolomide (i.e., synergy was observed) <span class="error">(figure 3)</span>. Intriguingly, while MGMT expression appeared necessary for sensitization to temozolomide, a subset of cell lines remained resistant to temozolomide even in the presence of O6-benzylguanine. Accordingly, we asked whether any baseline genomic features were associated with the calculated temozolomide+O6-benzylguanine synergy score in MGMT-high expressing cell lines (MGMT expression > 1.5, see figure X). We found that low expression of the MSH6 gene (and low protein levels of MSH6, or its heterodimeric partner protein MSH2) were associated with lack of synergy in MGMT-proficient cell lines. MSH2 and MSH6 are genes involved in DNA mismatch repair, and their loss has been previously suggested to be associated with resistance to temozolomide<sup>16,17</sup>.
             </p>
               <TemoSynergyByDosePlots 
                 rootName="temo_benzyl_synergy_plots" 
@@ -172,13 +180,19 @@
           </PaperSubSection>
           <PaperSubSection>
             <h4>ML210 + ferrostatin-1</h4>
-            <p>Universally across cell lines, we observed that ferrostatin-1 antagonized the effects of ML210. [analytical: confirm support for this statement] (figure 3)</p>
+            <p>
+              Universally across cell lines, we observed that ferrostatin-1 antagonized the effects of ML210. [analytical: confirm support for this statement] <span class="error"> [analytical: confirm support for this statement] (figure 3)</span>
+            </p>
             <Ml210SynergyByDosePlots 
                 rootName="ml210_ferro_synergy_plots" 
               ></Ml210SynergyByDosePlots>
           </PaperSubSection>
           <PaperSubSection>
             <h4>AZD5991 + A-1331852</h4>
+            <p>
+              Universally across doses and across cell lines, we observed that BCL-xL and MCL1 inhibition were synergistic <span class="error">[analytical: can we say anything about biomarkers, cell lines that show less/more synergy, etc.?] (figure 3).</span>
+
+            </p>
             <Azd_SynergyByDosePlots 
                 rootName="azd_a133_synergy_plots" 
               ></Azd_SynergyByDosePlots>
@@ -189,17 +203,19 @@
       </PaperSection>
       <PaperSection title="Conclusion">
         <p>
-          Combination screening is a challenging scientific, analytical, and logistical endeavor. As studies to date have suggested combination partner interactions are difficult to predict and highly context specific, a robust platform for high-throughput screening of combinations could provide substantial value to the scientific community. Multiplexing cell lines using PRISM enables data generation at an unprecedented scale: here, we demonstrate that PRISM can clearly identify synergistic and antagonistic combinations, as well as biomarkers relevant to combination interactions (e.g., MGMT expression in the context of temozolomide+O6-benzylguanine). 
-          <br><br>
+          Combination screening is a challenging scientific, analytical, and logistical endeavor. As studies to date have suggested combination partner interactions are difficult to predict and highly context specific, a robust platform for high-throughput screening of combinations could provide substantial value to the scientific community. Multiplexing cell lines using PRISM enables data generation at an unprecedented scale: here, we demonstrate that PRISM can clearly identify synergistic and antagonistic combinations, as well as biomarkers relevant to combination interactions (e.g., MGMT expression in the context of temozolomide+O6-benzylguanine). </p>
+          <TemoSynergyBiomarkerPlots rootName="temo_benzyl_synergy_biomarker-plots" >
+
+</TemoSynergyBiomarkerPlots>
+        <p>
           Dose selection is one of the most important considerations for combination screening, ensuring combination effects can be reliably and efficiently measured across the largest number of cell lines. Differential single-agent activity across cell lines can be measured or estimated in a number of ways: by first running compounds as single agents at dose in PRISM, by leveraging existing public data (e.g., at depmap.org), or by measuring response in a panel of individual cell lines. 
+
           <br><br>
           [a paragraph about the analysis/analytics learnings would be useful]
           <br><br>
           Currently, combination screening is offered through PRISM using a variety of formats [link]. 7x1 combinations are useful where one component (the “anchor” agent) has limited differential viability effects, facilitating identification of a single concentration informative for screening. Where both agents have strong differential viability effects, we recommend matrixed designs such as 5x3 or 5x5. 
         </p>
-        <TemoSynergyBiomarkerPlots rootName="temo_benzyl_synergy_biomarker-plots" >
 
-        </TemoSynergyBiomarkerPlots>
       </PaperSection>
       <PaperSection title="References">
         <v-card elevation="0" class="py-0">
