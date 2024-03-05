@@ -141,7 +141,7 @@ export default class scatter extends defaultPlotConfig{
         this.renderFocus(); // renders on highlight
         if (this.display.title){ plotUtils.plotTitle(this) }
     }
-    renderContext(){
+    renderContext(){ // grey points behind focus color points. renders 1x, then layer is hidden/visible on highlight
         const self = this;
         const canvas = d3.select(`#${self.rootId}-canvasContext`)
         const ctx = canvas.node().getContext('2d');
@@ -162,18 +162,15 @@ export default class scatter extends defaultPlotConfig{
         });
     }
 
-    renderFocus(){ // aka: render highlights 
+    renderFocus(){ // color points in front of context points. renders when highlight changes
         const self = this;
         const canvas = d3.select(`#${self.rootId}-canvasFocus`)
         const ctx = canvas.node().getContext('2d');
         ctx.clearRect(0, 0, self.dimension.innerWidth, self.dimension.innerHeight);
-        // let data;
-        // if (this.states.highlight.length == 0){ data = this.data } 
-        // else { data = this.data.filter(d=> this.states.highlight.includes(d.c)) }
-        let data = this.data.filter(d=> d.highlight == true)
+        let data = this.data.filter(d=> d.highlight == true) // is this taking too long? is there a way to index the data for faster filtering?
 
         data.forEach(point => {
-            ctx.globalAlpha = 0.7;
+            ctx.globalAlpha = 0.6;
             ctx.beginPath();
             ctx.strokeStyle = "black";
             ctx.lineWidth = 0.15;
@@ -213,7 +210,7 @@ export default class scatter extends defaultPlotConfig{
         plotUtils.thresholds(this)   
     }
 
-    showTooltip(point, mouse){
+    showTooltip(point, mouse){ // tooltip is not a scatter-specific feature, should be moved to plot-utils.js or a separate class method
         const self = this;
         const tooltip = d3.select(`#${self.rootId}-tooltip`);
         let string; 
@@ -229,18 +226,18 @@ export default class scatter extends defaultPlotConfig{
 
         tooltip.transition().duration(50).style("opacity", 1)
     }
-    hideTooltip(){
+    hideTooltip(){ // tooltip is not a scatter-specific feature, should be moved to plot-utils.js or a separate class method
         const self = this;
         const tooltip = d3.select(`#${self.rootId}-tooltip`);
         tooltip.transition().duration(50).style("opacity", 0)
     }   
-    renderLegend(){
+    renderLegend(){ // should this be a component? should i create it in the scatter plot or in the parent component?
         const self = this;
         const domain = self.scale.c.domain();
         const radius = 6;
         const diameter = radius*3;
 
-        this.legend.dimension = {
+        this.legend.dimension = { 
             width: d3.select(`#${this.legend.rootId}`).node().clientWidth,
             height: (diameter*(domain.length)) + this.legend.padding.top + this.legend.padding.bottom,
             innerWidth: d3.select(`#${this.legend.rootId}`).node().clientWidth - this.legend.padding.left - this.legend.padding.right,

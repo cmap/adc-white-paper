@@ -42,7 +42,6 @@ export default {
   mounted(){
     this.configPlot();
   },
-
   methods: {
     highlightMe(value){
       const self = this;
@@ -50,7 +49,6 @@ export default {
       this.$emit("update:highlight",  helpers.updateSelectedArray(highlight, value))
       d3.selectAll(".legend.tick.active").classed("active", false).style("font-weight", "normal")
       d3.selectAll(".legend.tick").filter(e=> highlight.includes(e)).classed("active", true).style("font-weight", "bold")
-
     },
     configPlot(){
       const self = this;
@@ -94,17 +92,13 @@ export default {
           } else {
             // do nothing!
           }
-
       }
       let onMouseout = (event)=>{
         this.$emit("update:mouseover", null)
         self.plot.hideTooltip();
       }
       let onMousemove = (event)=>{
-    
-     //   const data = self.plot.data;
         const data = self.plot.data.filter(d=>d.highlight==true);
-
         const tree = d3.quadtree()
           .x(d=> d.x)
           .y(d=> d.y)

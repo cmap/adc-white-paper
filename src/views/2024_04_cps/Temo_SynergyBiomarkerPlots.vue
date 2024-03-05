@@ -121,7 +121,6 @@ async created() {
             d.x = d.correlation;
             d.y = d.neg_log10_qval;
             d.c = `${d.pert1_dose} + ${d.pert2_dose}`;
-            // d.id = `${d.feature_type}-${d.feature}-${d.pert1_dose}-${d.pert2_dose}`;
             d.id=d.feature;
             d.r = 3;
             Object.assign(d, helpers.getSelectionAttributes())
