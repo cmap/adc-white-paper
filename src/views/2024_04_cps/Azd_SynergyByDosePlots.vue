@@ -5,7 +5,7 @@
           <v-autocomplete
             v-model="click"
             :items="items"
-            label="Search cell lines to highlight"
+            label="Search cell lines"
             multiple
             chips
             closable-chips
@@ -110,6 +110,7 @@ async created() {
             }),
         ]).then(response=>{
             this.data = response[0];
+            this.items = [...new Set(this.data.map(d=>d.ccle_name))].sort((a,b)=> d3.ascending(a,b));
             let scatterData = this.createScatterData();
             let plots = this.createLatticeScatterData(scatterData);
          

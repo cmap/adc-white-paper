@@ -5,7 +5,7 @@
           <v-autocomplete
             v-model="click"
             :items="items"
-            label="Search features to highlight"
+            label="Search top 100 features"
             multiple
             chips
             closable-chips
@@ -93,7 +93,7 @@ async created() {
                 return {
                     feature: d["x"].split("_")[1],
                     correlation: d["rho"],
-                    qvalue: d["q.val"],
+                    qvalue: +d["q.val"],
                     neg_log10_qval: d["neg_log10_qval"],
                     pert1_name: string[0],
                     pert2_name: string[1],
@@ -105,10 +105,17 @@ async created() {
             }),
         ])
         .then(response=>{
-            this.data = response[0];
-            this.items = [...new Set(this.data.map(d=>d.feature))];
+            this.data = response[0].sort((a,b)=>d3.descending(+a.qvalue, +b.qvalue));
+         //   this.items = [...new Set((this.data.filter((d,i)=> i <= 100)).map(d=>d.feature))];
             let scatterData = this.createScatterData();
             let plots = this.createLatticeScatterData(scatterData);
+            let items = []
+            plots.forEach(d=>{
+                d.data.sort((a,b)=>d3.descending(+a.qvalue, +b.qvalue))
+                items.push(...d.data.filter((e,i)=>i<= 100).map(e=>e.feature))
+                
+            })
+            this.items = [...new Set(items)];
              this.plots = plots;
             this.loading = false;
 

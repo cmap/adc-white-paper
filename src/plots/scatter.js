@@ -148,7 +148,7 @@ export default class scatter extends defaultPlotConfig{
         let data = this.data;
 
         data.forEach(point => {
-            ctx.globalAlpha = 0.7;
+            ctx.globalAlpha = 0.6;
             ctx.beginPath();
             ctx.strokeStyle = "white";
             ctx.lineWidth = 0.15;
@@ -191,15 +191,15 @@ export default class scatter extends defaultPlotConfig{
         let data = this.data.filter(d=> self.states.click.includes(d.id) || self.states.mouseover == d.id)
 
         data.forEach(point => {
-            ctx.globalAlpha = 0.7;
+            ctx.globalAlpha = 1;
             ctx.beginPath();
             ctx.strokeStyle = "black";
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 2;
             ctx.fillStyle = self.scale.c(point.c);
             const px = self.scale.x(point.x);
             const py =  self.scale.y(point.y);
             const pr =  point.r;
-            ctx.arc(px, py, pr, 0, 2 * Math.PI, true);
+            ctx.arc(px, py, pr*1.5, 0, 2 * Math.PI, true);
             ctx.fill();
             ctx.stroke();
         });

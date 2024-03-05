@@ -131,9 +131,11 @@ export default {
       context.canvas.addEventListener ("mouseout", onMouseout);
   },
     updateCanvasOpacity(){
-      let opacity; 
-      this.click.length > 0 || this.mouseover ? opacity = 0.65 : opacity = 1; 
-      d3.select(`#${this.plot.rootId}-canvasFocus`).style("opacity", opacity)
+      let opacity, saturation; 
+      this.click.length > 0 || this.mouseover ? opacity = 0.3 : opacity = 1; 
+      this.click.length > 0 || this.mouseover ? saturation = 0.75 : saturation = 1; 
+
+      d3.select(`#${this.plot.rootId}-canvasFocus`).style("opacity", opacity).style("filter", `saturate(${saturation})`);
     }
   },
   watch:{
@@ -143,7 +145,6 @@ export default {
       this.plot.renderSelections();
     },
     click(){
-      console.log("click", this.click)
       this.plot.states.click = this.click;
       this.updateCanvasOpacity();
       this.plot.renderSelections();
