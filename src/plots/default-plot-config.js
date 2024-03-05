@@ -55,7 +55,7 @@ export default class defaultPlotConfig {
         if (!config.hasOwnProperty("legend")){ this.legend = { } } else { this.legend = config.legend }
 
         if (!this.legend.hasOwnProperty("rootId")){ this.legend.rootId =  `${this.rootId}-legend` }
-        if (!this.legend.hasOwnProperty("padding")){ this.legend.padding = { top:5, right:15, bottom:15, left:15 } }
+        if (!this.legend.hasOwnProperty("padding")){ this.legend.padding = { top:15, right:15, bottom:15, left:15 } }
 
         if (!this.display.hasOwnProperty("title")){ this.display.title = true }
         if (!this.display.hasOwnProperty("tooltip")){ this.display.tooltip = true }

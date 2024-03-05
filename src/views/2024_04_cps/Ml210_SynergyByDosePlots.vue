@@ -18,7 +18,7 @@
       </v-row>
       <v-col cols="3">
             <small><i>Select legend items to highlight</i></small>
-            <svg class="cps-legend" :id="`${rootName}-legend`"></svg>
+            <svg width="100%" :id="`${rootName}-legend`"></svg>
         </v-col>
 
     <div class="py-8 lattice-plots" :id="rootName">
@@ -198,6 +198,7 @@ async created() {
                     }
                 },
                 scale: {
+
                     c: d3.scaleSequential().domain(cExtent).interpolator(d3.interpolateOrRd)
                 },
                 display: {},

@@ -18,8 +18,7 @@
       </v-row>
 <v-row>
         <v-col cols="3">
-            <small><i>Select legend items to highlight</i></small>
-            <svg class="cps-legend" :id="`${rootName}-legend`"></svg>
+            <svg width="100%" class="cps-legend" :id="`${rootName}-legend`"></svg>
         </v-col>
 </v-row>
     <div class="py-8 lattice-plots" :id="rootName">

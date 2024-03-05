@@ -18,7 +18,7 @@
       </v-row>
       
       <v-row>
-        <v-col cols="8">
+        <v-col cols="7">
             <small><i>Select legend items to highlight</i></small>
             <svg class="cps-legend" :id="`${rootName}-legend`"></svg>
         </v-col>

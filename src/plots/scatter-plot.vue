@@ -48,7 +48,9 @@ export default {
       let highlight = this.highlight.map(d=>d);
       this.$emit("update:highlight",  helpers.updateSelectedArray(highlight, value))
       d3.selectAll(".legend.tick.active").classed("active", false).style("font-weight", "normal")
-      d3.selectAll(".legend.tick").filter(e=> highlight.includes(e)).classed("active", true).style("font-weight", "bold")
+    let active =  d3.selectAll(".legend.tick").filter(e=> highlight.includes(e))
+    active.classed("active", true).style("font-weight", "bold")
+
     },
     configPlot(){
       const self = this;
