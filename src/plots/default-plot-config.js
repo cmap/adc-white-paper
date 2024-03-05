@@ -42,7 +42,7 @@ export default class defaultPlotConfig {
         if (!this.axis.y.hasOwnProperty("ticks")){ this.axis.y.ticks = 3 }
         if (!this.axis.x.hasOwnProperty("threshold")){ this.axis.x.threshold = false } // dashed line at specified value
         if (!this.axis.y.hasOwnProperty("threshold")){ this.axis.y.threshold = false } // dashed line at specified value
-        if (!this.axis.hasOwnProperty("innerPadding")){ this.axis.innerPadding = 4 } // padding between axis/scatter points and edge of plot
+        if (!this.axis.hasOwnProperty("innerPadding")){ this.axis.innerPadding = 6 } // padding between axis/scatter points and edge of plot
         if (config.hasOwnProperty("scale")){ this.scale = config.scale } else { this.scale = { } }
 
        
