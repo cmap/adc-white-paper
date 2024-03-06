@@ -144,6 +144,7 @@ export default {
   },
   watch:{
     mouseover(){
+      console.log("mouseover")
       this.plot.states.mouseover = this.mouseover;
       this.updateCanvasOpacity();
       this.plot.renderSelections();

@@ -1,7 +1,5 @@
 <template>
-    <div class="">
 
-    </div>
 </template>
 
 
@@ -10,7 +8,8 @@
 import heatmap from './heatmap.js';
 import * as d3 from "d3";
 import * as helpers from '@/js/utils/helpers.js';
-// import {Legend} from "@d3/color-legend"
+import * as plotUtils from '@/js/utils/plot-utils.js';
+
 const maxDistance = 0.0075;
 export default {
     name: 'HeatmapPlot',
@@ -55,7 +54,7 @@ export default {
       },
       plotMouseEvents(){
         const self = this;
-        const canvas = d3.select(`#${self.plot.rootId}-canvas`)
+        const canvas = d3.select(`#${self.plot.rootId}-canvasFocus`)
         const context = canvas.node().getContext('2d');
   
         function scaleBandInvertX(scale, mouse) {
@@ -71,13 +70,15 @@ export default {
         }
 
         let onClick = (event)=>{
+          let click = self.click.map(d=>d);
             let mouse = d3.pointer(event);
             let x =  scaleBandInvertX(self.plot.scale.x, mouse[0])
             let y = scaleBandInvertY(self.plot.scale.y, mouse[1])
             let closest = self.plot.data.filter(d=> d.x == x && d.y==y)[0]
             if (closest){
               if (self.selectmulti){
-                  this.$emit("update:click",  helpers.updateSelectedArray(self.click, closest.id))
+                
+                  this.$emit("update:click",  helpers.updateSelectedArray(click, closest.id))
                 } else {
                   this.$emit("update:click", [closest.id])
                 }
@@ -87,7 +88,7 @@ export default {
         }
         let onMouseout = (event)=>{
           this.$emit("update:mouseover",null)
-          self.plot.hideTooltip();
+          plotUtils.hideTooltip(self.plot)
         }
         let onMousemove = (event)=>{
 
@@ -98,30 +99,27 @@ export default {
             let closest = self.plot.data.filter(d=> d.x == x && d.y==y)[0]
             if (closest){
               this.$emit("update:mouseover", closest.id)
-              self.plot.showTooltip(closest, mouse)
+              plotUtils.showTooltip(self.plot, closest, mouse)
             }
             else {
                 onMouseout()
             }      
         }
-
         context.canvas.addEventListener('mousemove', onMousemove );
         context.canvas.addEventListener('click', onClick );
         context.canvas.addEventListener ("mouseout", onMouseout);
-    },
-
+      }
     },
     watch:{
-
-      data(){
-        const self = this;
-        self.plot.data = this.data;
-        this.plot.states.mouseover = this.mouseover;
-        this.plot.states.click = this.click;
-        self.plot.renderPoints();
-      }
-
+      mouseover(){
+      this.plot.states.mouseover = this.mouseover;
+      this.plot.renderSelections();
+    },
+    click(){
+      this.plot.states.click = this.click;
+      this.plot.renderSelections();
     }
+  }
 }
 </script>
 <style scoped>
