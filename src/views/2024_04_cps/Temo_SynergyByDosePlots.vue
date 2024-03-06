@@ -16,11 +16,11 @@
         </v-autocomplete>
         </v-col>
       </v-row>
-<v-row>
-        <v-col cols="3">
-            <svg width="100%" class="cps-legend" :id="`${rootName}-legend`"></svg>
+
+        <v-col cols="4">
+            <svg class="cps-legend"  :id="`${rootName}-legend`"></svg>
         </v-col>
-</v-row>
+
     <div class="py-8 lattice-plots" :id="rootName">
 
         <div v-for="plot in plots" 
@@ -78,9 +78,6 @@ import ScatterPlot from '@/plots/scatter-plot.vue';
 import HistogramPlot from '@/plots/histogram-plot.vue';
 import BarPlot from '@/plots/barplot.vue';
 
-//const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
-
-
 export default {
   name: 'TemoSynergyByDosePlots',
   components: {
@@ -111,8 +108,7 @@ export default {
 //     })
 //   },
 async created() {
- await this.loadData()
-
+    await this.loadData()
   },
   methods: {
     async loadData(){
@@ -300,7 +296,12 @@ async created() {
             
             d.data = histogram(d.data);
             d.data.forEach(d=>{
-                d.c = (d.x0 + d.x1) / 2;
+                if (d.x0 >= 0){
+                    d.c = d3.schemeRdBu[7][5]
+                } else {
+                    d.c = d3.schemeRdBu[7][1]
+                }
+            //     d.c = (d.x0 + d.x1) / 2;
             })
             yValues.push(d3.max(d.data.map(d=>d.length)))
         })
@@ -323,10 +324,13 @@ async created() {
                         domain: yExtent,
                         title: yAxisTitle
                     },
-                    c: {
-                        type: "diverging",
-                        domain: [-1, 1]
+                    c:{
+                        type: "custom"
                     }
+                    // c: {
+                    //     type: "diverging",
+                    //     domain: [-1, 1]
+                    // }
 
                 },
                 display: {}

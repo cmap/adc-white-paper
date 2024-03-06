@@ -103,10 +103,9 @@ export function getCustomSequentialColorRange(domain, colorTheme) {
     if (arr.length <= 2) {
         arr = [...Array(4).keys()].map((d, i) => i + 1) // if only 2 doses, turn into 4 doses so that color scale colors are not so far apart
     }
-    let step = 0; // old / not in use
     let values = [];
-    let max = d3.max(arr) + step;
-    let min = step;
+    let max = d3.max(arr)+2;
+    let min = 0
     let scale;
     if (!colorTheme) {
         scale = d3.scaleSequential(d3.interpolateViridis).domain([max, min])
@@ -118,7 +117,7 @@ export function getCustomSequentialColorRange(domain, colorTheme) {
         scale = d3.scaleSequential(d3.interpolateInferno).domain([max, min])
     }
     arr.forEach((d) => {
-        values.push(scale(d + step)) // get list of evenly-spaced colors (light-dark)
+        values.push(scale(d)) // get list of evenly-spaced colors (light-dark)
     })
     return values
 }
