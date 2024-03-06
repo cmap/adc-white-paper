@@ -240,3 +240,27 @@ export function axis(self){
       .html(self.axis.y.title)
   }
 }
+
+export function showTooltip(self, point, mouse){
+
+        const tooltip = d3.select(`#${self.rootId}-tooltip`);
+        let string; 
+            string = '';
+            self.tooltipConfig.forEach((d,i)=>{
+                string += `<b>${d.label}:</b> ${point[d.field]}<br>`
+            })
+
+        tooltip
+        .html(string)
+        .style(`top`, `${mouse[1]-(12*6)}px`) 
+        .style(`left`, `${mouse[0]+14 }px`)
+
+        tooltip.transition().duration(50).style("opacity", 1)
+
+
+}
+
+export function hideTooltip(self){
+  const tooltip = d3.select(`#${self.rootId}-tooltip`);
+  tooltip.transition().duration(100).style("opacity", 0)
+} 

@@ -5,13 +5,13 @@
           :rootId="rootName"
           :config="plot.config"
           :data="plot.data"
-          :click="click"
-          :highlight="highlight"
+          v-model:click="click"
+          v-model:mouseover="mouseover"
             >
           </heatmap-plot>
   </div>
   <div class="legend-wrapper">
-    <small style="text-align:center"><i>Cell Lines Killed (Viability &lt; 0.3)</i></small>
+   
     <svg width="100%" :id="`${rootName}-heatmap-legend`"></svg>
   </div>
 
@@ -20,7 +20,6 @@
 </template>  
 <script>
 import * as d3 from 'd3';
-import * as api from '@/js/utils/api.js';
 import HeatmapPlot from '@/plots/heatmap-plot.vue';
 const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
 const padding =   {top: 20, right: 20, bottom: 60, left: 40}
@@ -37,7 +36,6 @@ export default {
     loading: true,
     mouseover: null,
     click: [],
-    highlight: [],
     config: {
       "BRD-K32107296_BRD-K92041145":{
         "fileName": "temo_benzyl_data.csv",
@@ -70,53 +68,11 @@ export default {
     plot: {}
   }),
   computed: {
-    // configure(){
-    //     const self = this;
-    //     let cExtent = d3.extent(self.data, d=>d.c);
-
-    //     return {
-    //       padding: this.plotConfig.padding,
-    //       title: 'title',
-    //       axis: {
-    //         x: {
-    //             title: this.plotConfig.xAxisTitle
-    //         },
-    //         y: {
-    //           title: this.plotConfig.yAxisTitle
-    //         },
-    //         c: {
-    //           title: this.plotConfig.cAxisTitle
-
-    //         }
-    //       },
-    //       scale: {
-    //         c: d3.scaleLinear()
-    //           .domain(cExtent)
-    //           .range(["blue", "red"])
-    //       },
-    //       display: { 
-    //           title: true,             
-    //           legend: false,
-    //           xAxisTitle: true,
-    //           yAxisTitle:true
-    //         }, 
-    //       legend: {
-    //         rootId:  `${self.rootName}-heatmap-legend`,
-    //         padding: {top: 15, right: 15, bottom:50, left: 15}
-    //       },
-    //       tooltipConfig: [
-    //           {label: "c", field: "c"},
-    //           {label: "x", field: "x"},
-    //           {label: "y", field: "y"},
-    //         ]
-    //     }
-    // }
 
   },
  async created(){
 
   await this.getData();
-
 
   },
   methods: {
@@ -189,8 +145,6 @@ export default {
                 },
                 scale: {
                   c: d3.scaleSequential([0, Math.floor(cExtent[1])], d3.interpolateYlOrRd)
-               //   c: d3.scaleSequential([0, 75], d3.interpolateYlOrRd)
-
                 //  c: d3.scaleLinear([0, Math.floor(cExtent[1])], ["yellow", "red"])
                 },
                 display: { 
@@ -221,10 +175,7 @@ export default {
   </script>
   
   <style>
-.legend-wrapper{
-  width:300px;
-  text-align: center;
-}
+
 #BRD-K32107296_BRD-K92041145-viability-heatmap-plot,
 #BRD-K01877528_BRD-K97375133-viability-heatmap-plot{
   width:300px;
