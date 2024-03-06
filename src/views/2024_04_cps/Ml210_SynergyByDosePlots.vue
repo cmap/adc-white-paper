@@ -16,9 +16,9 @@
         </v-autocomplete>
         </v-col>
       </v-row>
-      <v-col cols="3">
+      <v-col cols="4">
             <small><i>Select legend items to highlight</i></small>
-            <svg width="100%" :id="`${rootName}-legend`"></svg>
+            <svg class="cps-legend" :id="`${rootName}-legend`"></svg>
         </v-col>
 
     <div class="py-8 lattice-plots" :id="rootName">
@@ -273,50 +273,7 @@ async created() {
       }]
     },
 
-    createGeHistogramData(){
-        const self = this;
-        let data = self.data.filter(d=> d.pert1_dose == "10").map(a => ({...a}))
-        data.forEach(d=>{
-            d.x = d.XPR_GPX4;
-        })
-        return data
-    },
-    createLatticeGeHistogramData(data){
 
-        const yAxisTitle = "MGMT Expression &rarr;";
-        const xAxisTitle = "Num cell lines &rarr;"
-
-        const xExtent = d3.extent(data.map(d => d.x))
-        let histogram = d3.bin()
-            .value(function(d) { return +d.x; })   // I need to give the vector of value
-            .domain(xExtent)  // then the domain of the graphic
-            .thresholds(25); // then the numbers of bins
-
-        const histogramData = histogram(data);
-        const yExtent = [0, d3.max(histogramData.map(d=>d.length))]
-     return [{
-        row: 0,
-        column: 7,
-        data: histogramData,
-        config: {
-            title: ``,
-                type: "histogram",
-                padding: {},
-                axis: {
-                    x: {
-                    domain: xExtent,
-                    title: xAxisTitle,
-            
-                    },
-                    y: {
-                    domain: yExtent,
-                    title: yAxisTitle
-                    }
-                },
-                display: {}
-        }
-      }]
-    },
     createHistogramData(){
         const self = this;
         let data = self.data.map(a => ({...a}))
@@ -341,12 +298,12 @@ async created() {
             
             d.data = histogram(d.data)
             d.data.forEach(d=> {
-            // if (d.x0 >= 0){
-            //     d.c = d3.schemeRdBu[7][6]
-            // } else {
-            //     d.c = d3.schemeRdBu[7][0]
-            // }
-                 d.c = (d.x0 + d.x1) / 2;
+            if (d.x0 >= 0){
+                d.c = d3.schemeRdBu[7][5]
+            } else {
+                d.c = d3.schemeRdBu[7][1]
+            }
+            //     d.c = (d.x0 + d.x1) / 2;
             });
             yValues.push(d3.max(d.data.map(d=>d.length)))
         })
@@ -370,11 +327,13 @@ async created() {
                         domain: yExtent,
                         title: yAxisTitle
                     },
-                    c: {
-                        type: "diverging",
-                        domain: [-1,1]
-        
+                    c:{
+                        type: "custom"
                     }
+                    // c: {
+                    //     type: "diverging",
+                    //     domain: [-1,1]
+                    // }
                 },
                 display: {}
             }

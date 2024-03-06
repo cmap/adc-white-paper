@@ -346,17 +346,15 @@ export default class scatter extends defaultPlotConfig{
             .domain(self.scale.c.domain())
             .range([0, dimension.innerWidth])
 
-
           let  axisBottom = g => g
             .attr("class", `x-axis`)
             // .attr("transform", `translate(0,${dimension.innerHeight })`)
             .attr("transform", `translate(0,${barHeight*2})`)
             .call(d3.axisBottom(axisScale)
-            .ticks(dimension.innerHeight / 80)
+            .ticks(dimension.innerWidth / 80)
             .tickSize(-barHeight))
 
             const defs = svg.append("defs");
-  
             const linearGradient = defs.append("linearGradient")
                 .attr("id", `${self.legend.rootId}-linear-gradient`);
             
@@ -377,8 +375,6 @@ export default class scatter extends defaultPlotConfig{
             
             svg.append('g')
                 .call(axisBottom);
-
-            
         }
         svg.append("text")
             .text(this.axis.c.title)

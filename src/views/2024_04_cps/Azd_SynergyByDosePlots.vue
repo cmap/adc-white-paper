@@ -16,8 +16,8 @@
         </v-autocomplete>
         </v-col>
       </v-row>
-      <v-col cols="3">
-            <svg class="cps-legend" :id="`${rootName}-legend`"></svg>
+      <v-col cols="4">
+            <svg  class="cps-legend"  :id="`${rootName}-legend`"></svg>
         </v-col>
 
     <div class="py-8 lattice-plots" :id="rootName">
@@ -55,9 +55,6 @@ import * as d3 from 'd3';
 import * as plotUtils from '@/js/utils/plot-utils.js';
 import * as helpers from '@/js/utils/helpers.js';
 import ScatterPlot from '@/plots/scatter-plot.vue';
-
-//const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
-
 
 export default {
   name: 'AzdSynergyByDosePlots',
