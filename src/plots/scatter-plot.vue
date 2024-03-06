@@ -9,7 +9,7 @@
 import scatter from './scatter.js';
 import * as d3 from "d3";
 import * as helpers from '@/js/utils/helpers.js';
-
+import * as plotUtils from '@/js/utils/plot-utils.js';
 
 export default {
   name: 'ScatterPlot',
@@ -97,7 +97,8 @@ export default {
       }
       let onMouseout = (event)=>{
         this.$emit("update:mouseover", null)
-        self.plot.hideTooltip();
+     //   self.plot.hideTooltip();
+        plotUtils.hideTooltip(self.plot)
       }
       let onMousemove = (event)=>{
         const data = self.plot.data.filter(d=>d.highlight==true);
@@ -119,7 +120,8 @@ export default {
             )
             if (distance <= this.maxDistance){
               this.$emit("update:mouseover", closest.id)
-              self.plot.showTooltip(closest, mouse)
+              // self.plot.showTooltip(closest, mouse)
+              plotUtils.showTooltip(self.plot, closest, mouse)
             }
             else {
               onMouseout()
