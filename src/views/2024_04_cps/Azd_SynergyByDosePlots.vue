@@ -224,6 +224,7 @@ async created() {
             d.config.display = display;
             d.config.padding = d.padding;
         })
+        console.log(plots.filter(d=>d.config.display.legend))
     },
 
     },

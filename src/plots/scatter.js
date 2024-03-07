@@ -1,7 +1,6 @@
 import * as d3 from "d3";
 import * as plotUtils from '@/js/utils/plot-utils.js';
 import defaultPlotConfig from './default-plot-config.js';
-import legend from './legend.js';
 d3.selection.prototype.moveToFront = function() {
     return this.each(function(){
       this.parentNode.appendChild(this);
@@ -19,27 +18,21 @@ d3.selection.prototype.moveToFront = function() {
 
 
 export default class scatter extends defaultPlotConfig{
-    // export default class scatter {
     constructor(
         rootId, 
         data,
         config,
         states
     ) { 
-        super(rootId, config);
-        let defaults = new defaultPlotConfig(rootId, config);
-        Object.assign(defaults.getDefaults(), this );
+        super(rootId, data, config);
+      //  let defaults = new defaultPlotConfig(rootId, data, config);
+     //   Object.assign(defaults.getDefaults(), this );
         this.data = data.sort((a,b)=> d3.ascending(a.y, b.y));
         this.states = states;
         this.setAxisX();
         this.setAxisY();
-        this.setAxisC();
         if (!this.scale.hasOwnProperty("x")){ this.scale.x = this.setScaleX() } 
         if (!this.scale.hasOwnProperty("y")){ this.scale.y = this.setScaleY() }
-        if (!this.scale.hasOwnProperty("c")){ this.scale.c = this.setScaleC() }
-        if (this.display.legend){ 
-            this.legend = new legend(config.legend.rootId, this.axis.c, this.scale.c)
-         }
          this.render();
     }
     setAxisX(){
@@ -50,37 +43,8 @@ export default class scatter extends defaultPlotConfig{
         if (!this.axis.y.hasOwnProperty("domain")){ this.axis.y.domain = d3.extent(this.data.map(d=>d.y))  } else { this.axis.y.domain = this.axis.y.domain }
         if (!this.axis.y.hasOwnProperty("range")){ this.axis.y.range = [this.dimension.innerHeight-this.axis.innerPadding, this.axis.innerPadding] } else { this.axis.y.range = this.axis.y.range }
     }
-    setAxisC(){
-        // TYPE
-        if (!this.axis.c.hasOwnProperty("type")){ this.axis.c.type = "linear" } 
-        // DOMAIN
-        if (!this.axis.c.hasOwnProperty("domain")){ 
-            if (this.axis.c.type == "ordinal"){ this.axis.c.domain = [...new Set(this.data.map(d=>d.c))] } 
-            if (this.axis.c.type == "custom"){ this.axis.c.domain = [...new Set(this.data.map(d=>d.c))] } 
-            else { this.axis.c.domain = d3.extent(this.data.map(d=>d.c)) } 
-        } 
-        //RANGE
-        if (!this.axis.c.hasOwnProperty("range")){ 
-            if (this.axis.c.type == "custom"){ this.axis.c.range = this.axis.c.domain } // assumes the color value is already in the data
-            else if (this.axis.c.type == "ordinal"){ this.axis.c.range = d3.schemeCategory10 } 
-            else if (this.axis.c.type == "linear") { this.axis.c.range = [d3.schemeReds[3][0], d3.schemeReds[3][2]] } 
-        } 
-    }
     setScaleX(){ return d3.scaleLinear().domain(this.axis.x.domain).range(this.axis.x.range) }
     setScaleY(){ return d3.scaleLinear().domain(this.axis.y.domain).range(this.axis.y.range) }
-    setScaleC(){
-        if (this.axis.c.type == "custom"){
-            return d3.scaleOrdinal().domain(this.axis.c.domain).range(this.axis.c.domain) 
-        } else if (this.axis.c.type == "ordinal"){
-            return d3.scaleOrdinal().domain(this.axis.c.domain).range(this.axis.c.range) 
-        } else if (this.axis.c.type == "linear"){
-            return d3.scaleLinear().domain(this.axis.c.domain).range(this.axis.c.range)
-        } else if (this.axis.c.type == "sequential"){
-            return d3.scaleSequential().domain(this.axis.c.domain).interpolator(d3.interpolateOrRd)
-        } else if (this.axis.c.type == "diverging"){
-            return d3.scaleSequential().domain(this.axis.c.domain).interpolator(d3.interpolateRdBu) 
-        } 
-    }
     render(){
         const self = this;
         const container = d3.select(`#${self.rootId}`)
@@ -141,13 +105,16 @@ export default class scatter extends defaultPlotConfig{
         .attr('id', `${self.rootId}-tooltip`)
         .style("opacity", 0);
 
-    
-        plotUtils.axis(this)
-        plotUtils.thresholds(this)   
         if (this.display.title){ plotUtils.plotTitle(this) }
-        this.renderContext(); // renders 1x
+        this.renderAxis();
+        this.renderContext(); // renders 1x, then layer is hidden/visible on highlight
         this.renderFocus(); // renders on highlight
        
+    }
+    renderAxis(){
+        plotUtils.xaxis(this)
+        plotUtils.yaxis(this)
+        plotUtils.thresholds(this)
     }
     renderContext(){ // grey points behind focus color points. renders 1x, then layer is hidden/visible on highlight
         const self = this;
@@ -174,7 +141,7 @@ export default class scatter extends defaultPlotConfig{
         const canvas = d3.select(`#${self.rootId}-canvasFocus`)
         const ctx = canvas.node().getContext('2d');
         ctx.clearRect(0, 0, self.dimension.innerWidth, self.dimension.innerHeight);
-        let data = this.data.filter(d=> d.highlight == true) // is this taking too long? is there a way to index the data for faster filtering?
+        let data = this.data.filter(d=> d.highlight == true) 
 
         data.forEach(point => {
             ctx.globalAlpha = 0.6;
@@ -190,12 +157,12 @@ export default class scatter extends defaultPlotConfig{
             ctx.stroke();
         });
     }
-    renderSelections(){ // should input data objs from states.click + states.mouseover rather than filtering all data? or use crosfilter.js?
+    renderSelections(){ 
         const self = this;
         const canvas = d3.select(`#${self.rootId}-canvasSelections`)
         const ctx = canvas.node().getContext('2d');
         ctx.clearRect(0, 0, self.dimension.innerWidth, self.dimension.innerHeight);
-        let data = this.data.filter(d=> self.states.click.includes(d.id) || self.states.mouseover == d.id)
+        let data = this.data.filter(d=> d.highlight == true && (self.states.click.includes(d.id) || self.states.mouseover == d.id))
 
         data.forEach(point => {
             ctx.globalAlpha = 1;
