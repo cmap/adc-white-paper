@@ -260,12 +260,12 @@ async created() {
                 padding: {},
                 axis: {
                     x: {
-                    domain: xExtent,
-                    title: xAxisTitle
+                        domain: xExtent,
+                        title: xAxisTitle
                     },
                     y: {
-                    domain: yExtent,
-                    title: yAxisTitle
+                        domain: yExtent,
+                        title: yAxisTitle
                     }
                 },
                 display: {}
@@ -327,9 +327,6 @@ async created() {
                         domain: yExtent,
                         title: yAxisTitle
                     },
-                    c:{
-                        type: "custom"
-                    }
                     // c: {
                     //     type: "diverging",
                     //     domain: [-1,1]

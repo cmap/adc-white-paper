@@ -97,7 +97,6 @@ export default {
       }
       let onMouseout = (event)=>{
         this.$emit("update:mouseover", null)
-     //   self.plot.hideTooltip();
         plotUtils.hideTooltip(self.plot)
       }
       let onMousemove = (event)=>{
@@ -120,7 +119,6 @@ export default {
             )
             if (distance <= this.maxDistance){
               this.$emit("update:mouseover", closest.id)
-              // self.plot.showTooltip(closest, mouse)
               plotUtils.showTooltip(self.plot, closest, mouse)
             }
             else {
@@ -144,7 +142,6 @@ export default {
   },
   watch:{
     mouseover(){
-      console.log("mouseover")
       this.plot.states.mouseover = this.mouseover;
       this.updateCanvasOpacity();
       this.plot.renderSelections();

@@ -361,55 +361,8 @@ export default {
           this.ml210_ferro_data = response[1];
           this.azd_a133_data = response[2];
           this.loading = false;
-        //  return {temo_benzyl: temo_benzyl_data, ml210_ferro: ml210_ferro_data, azd_a133: azd_a133_data};
         })
-      },
-      // parseScatterplotData(temo_benzyl_data, ml210_ferro_data, azd_a133_data){
-
-      //   let temo_benzyl_scatter = temo_benzyl_data.map(d=>{
-      //       return {
-      //         x: d.synergy,
-      //         y: d.ge_mgmt,
-      //         c: d.synergy_count,
-      //         id: `${d.ccle_name}-${d.culture}`,
-      //         r: 3,
-      //         _info: d
-      //       }
-      //     })
-
-
-      //     let ml210_ferro_scatter = ml210_ferro_data.map(d=>{
-      //       return {
-      //         x: d.synergy,
-      //         y: d.xpr_gpx4,
-      //         c: d.antagony_count,
-      //         id: `${d.ccle_name}-${d.culture}`,
-      //         r: 3,
-      //         _info: d
-      //       }
-      //     })
-
-      //     let azd_a133_scatter = azd_a133_data.map(d=>{
-      //       return {
-      //         x: d.pert1_viability,
-      //         y: d.pert2_viability,
-      //         c: d.combination_viability,
-      //         id: `${d.ccle_name}-${d.culture}`,
-      //         r: 3,
-      //         _info: d
-      //       }
-      //     })
-
-      //   return {
-      //     temo_benzyl: temo_benzyl_scatter,
-      //     ml210_ferro: ml210_ferro_scatter,
-      //     azd_a133: azd_a133_scatter
-      //   }
-
-      // }
-
-
-
+      }
   },
   watch: {
 

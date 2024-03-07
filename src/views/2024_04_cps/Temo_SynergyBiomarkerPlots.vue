@@ -228,16 +228,6 @@ async created() {
         return latticeScatterData;
     },
 
-    createDoseColorScale(doses){
-      let domain = [], range=[];
-      let groupedDoses = d3.groups(doses, d=> d.split(" + ")[1]).sort((a,b)=>d3.ascending(+a,+b))
-      groupedDoses.forEach((d,i)=>{
-    
-        range.push(helpers.getCustomSequentialColorRange(sortedDoses))
-        domain.push(sortedDoses)
-      })
-      return {domain: domain.flat(), range: range.flat()}
-    },
     setLatticeDisplay(plots){
         const maxRow = d3.max(plots.map(d=>d.row));
         plots.forEach((d,i)=> {

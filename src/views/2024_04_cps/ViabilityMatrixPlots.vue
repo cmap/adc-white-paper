@@ -140,12 +140,12 @@ export default {
                     title: config.yAxisTitle
                   },
                   c: {
+                    type: "sequential",
                     title: "Cell lines killed (Viability < 0.3)"
                   }
                 },
                 scale: {
                   c: d3.scaleSequential([0, Math.floor(cExtent[1])], d3.interpolateYlOrRd)
-                //  c: d3.scaleLinear([0, Math.floor(cExtent[1])], ["yellow", "red"])
                 },
                 display: { 
                   title: true, 

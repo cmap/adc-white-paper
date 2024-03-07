@@ -9,14 +9,11 @@ export default class histogram extends defaultPlotConfig{
         config,
         states
     ) {
-        super(rootId, config);
-        let defaults = new defaultPlotConfig(rootId, config);
-        Object.assign(defaults.getDefaults(), this );
+        super(rootId, data, config);
         this.data = data.sort((a,b)=> d3.ascending(a.y, b.y));
         this.states = states;
         if (!this.scale.hasOwnProperty("x")){ this.scale.x = this.setScaleX() } 
         if (!this.scale.hasOwnProperty("y")){ this.scale.y = this.setScaleY() }
-        if (!this.scale.hasOwnProperty("c")){ this.scale.c = this.setScaleC() }
         this.render();
     }
     setScaleX(){
@@ -29,30 +26,6 @@ export default class histogram extends defaultPlotConfig{
         if (!this.axis.x.hasOwnProperty("domain")){ domain = d3.extent(this.data.map(d=>d.y)) } else { domain = this.axis.y.domain }
         return d3.scaleLinear().domain(domain).range([this.dimension.innerHeight-this.axis.innerPadding, this.axis.innerPadding]).nice() 
     }  
-    setScaleC(){
-        if (!this.axis.c.hasOwnProperty("type")){ this.axis.c.type = "linear" } 
-        if (!this.axis.c.hasOwnProperty("domain")){ 
-            if (this.axis.c.type == "ordinal"){ this.axis.c.domain = [...new Set(this.data.map(d=>d.c))] } 
-            if (this.axis.c.type == "custom"){ this.axis.c.domain = [...new Set(this.data.map(d=>d.c))] } 
-            else { this.axis.c.domain = d3.extent(this.data.map(d=>d.c)) } 
-        } 
-        if (!this.axis.c.hasOwnProperty("range")){ 
-            if (this.axis.c.type == "custom"){ this.axis.c.range = this.axis.c.domain } // assumes the color value is already in the data
-            else if (this.axis.c.type == "ordinal"){ this.axis.c.range = d3.schemeCategory10 } 
-            else if (this.axis.c.type == "linear") { this.axis.c.range = [d3.schemeReds[3][0], d3.schemeReds[3][2]] } 
-        } 
-        if (this.axis.c.type == "custom"){
-            return d3.scaleOrdinal().domain(this.axis.c.domain).range(this.axis.c.domain) 
-        } else if (this.axis.c.type == "ordinal"){
-            return d3.scaleOrdinal().domain(this.axis.c.domain).range(this.axis.c.range) 
-        } else if (this.axis.c.type == "linear"){
-            return d3.scaleLinear().domain(this.axis.c.domain).range(this.axis.c.range)
-        } else if (this.axis.c.type == "sequential"){
-            return d3.scaleSequential().domain(this.axis.c.domain).interpolator(d3.interpolateOrRd)
-        } else if (this.axis.c.type == "diverging"){
-            return d3.scaleSequential().domain(this.axis.c.domain).interpolator(d3.interpolateRdBu) 
-        } 
-    }
     render(){
         const self = this;
         const container = d3.select(`#${self.rootId}`)
@@ -70,44 +43,9 @@ export default class histogram extends defaultPlotConfig{
         if (this.display.title){ plotUtils.plotTitle(this) }
         this.update()
     }
-    // plot.append("g")
-    // .attr("transform", "translate(0," + self.dimension.innerHeight + ")")
-    // .call(d3.axisBottom(self.scale.x));
-
-    // plot.append("g")
-    // .call(d3.axisLeft(self.scale.y));
-
-    //     if (this.display.xAxisTitle){
-    //         d3.select(`#${this.rootId}-svg`)
-    //         .append("text")
-    //         .attr("class", "axis-title")
-    //         .attr("x", this.dimension.width/2)
-    //         .attr("text-anchor", "middle")
-    //         .attr("y",  this.dimension.height)
-    //         .attr("dy", "-1em")
-    //         .html(this.axis.x.title)
-    //     }
-    //     if (this.display.yAxisTitle){
-    //         d3.select(`#${this.rootId}-svg`)
-    //         .append("text")
-    //         .attr("class", "axis-title")
-    //         .attr("transform", `translate(${0},${ this.dimension.height/2})rotate(-90)`)
-    //         .attr("dy", "1.5em")
-    //         .attr("text-anchor", "middle")
-    //         .html(this.axis.y.title)
-    //     }
-    //     if (this.display.title){
-    //         d3.select(`#${this.rootId}-svg`)
-    //         .append("text")
-    //         .attr("class", "plot-title")
-    //         .attr("x", this.dimension.width/2)
-    //         .attr("y", 0)
-    //         .attr("text-anchor", "middle")
-    //         .attr("dy",  "2em")
-    //         .html(this.title)
-    //     }
     renderAxis(){
-        plotUtils.axis(this)
+        plotUtils.xaxis(this)
+        plotUtils.yaxis(this)
         plotUtils.thresholds(this)
     }
     update(){

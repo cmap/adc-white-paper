@@ -261,11 +261,7 @@ async created() {
                     domain: yExtent,
                     title: yAxisTitle,
                     threshold: "1.5"
-                    },
-                    // custom is the default and does not need to be specified
-                    // c: {
-                    //     type: "custom"
-                    // }
+                    }
                 },
                 display: {}
         }
@@ -323,9 +319,6 @@ async created() {
                     y: {
                         domain: yExtent,
                         title: yAxisTitle
-                    },
-                    c:{
-                        type: "custom"
                     }
                     // c: {
                     //     type: "diverging",
