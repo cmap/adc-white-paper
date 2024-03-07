@@ -20,6 +20,11 @@ const routes = [
         component: CpsWhitePaper
       },
       {
+        path: 'prism-extended-day-assay',
+        name: 'EpsWhitePaper',
+        component: () => import('@/views/EpsWhitePaper.vue')
+      },
+      {
         path: 'lattice-demo',
         name: 'LatticeDemo',
         component: () => import('@/views/LatticeDemo.vue')
