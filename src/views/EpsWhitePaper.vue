@@ -67,7 +67,7 @@ export default {
 
   },
   data: () => ({
-    loading: true,
+    loading: false,
   }),
   computed: {
     imgPath () {

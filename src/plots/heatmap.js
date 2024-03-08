@@ -33,6 +33,7 @@ export default class heatmap extends defaultPlotConfig{
         this.setAxisY();
         if (!this.scale.hasOwnProperty("x")){ this.scale.x = this.setScaleX() } 
         if (!this.scale.hasOwnProperty("y")){ this.scale.y = this.setScaleY() }
+        console.log(this)
          this.render();
     }
     setAxisX(){
@@ -123,6 +124,7 @@ export default class heatmap extends defaultPlotConfig{
         let data = this.data;
 
         data.forEach(point => {
+            console.log(point)
          ctx.globalAlpha = 1;
             ctx.beginPath();
             ctx.strokeStyle = "white";

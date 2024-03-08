@@ -50,7 +50,6 @@ export default {
         "title": "Sensitivity Across Doses",
         "xAxisTitle": "ML210 Dose",
         "yAxisTitle": "ferrostatin-1 Dose",
-        "yAxisTitle": "O6-benzylguanine Dose",
         "cAxisTitle": "Cell lines killed (Viability < 0.3)",
         "padding":  {top: 20, right: 10, bottom: 60, left: 40}
       },
@@ -59,7 +58,6 @@ export default {
         "title": "Sensitivity Across Doses",
         "xAxisTitle": "AZD7762 Dose",
         "yAxisTitle": "A-1331852 Dose",
-        "yAxisTitle": "O6-benzylguanine Dose",
         "cAxisTitle": "Cell lines killed (Viability < 0.3)",
         "padding":  {top: 20, right: 10, bottom: 60, left: 70}
       

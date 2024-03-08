@@ -7,6 +7,7 @@
       date="03/01/2024" 
       authors="... Matthew G. Rees, Jennifer A. Roth"/>
       <PaperSection title="Introduction">
+        <Adz_A13_ViabilityHeatmaps rootName="adz-a13-viability-heatmap-plot"> </Adz_A13_ViabilityHeatmaps>
         <p>
           Combination therapies are routinely used in cancer care, and patient cure is almost never achieved by monotherapy1. However, which combinations will benefit specific cancer patients is largely unknown. While many studies have used cell culture and animal model systems to characterize combination effects, the sheer number of clinical, investigational, and tool anticancer agents, coupled with the diversity and heterogeneity of cancer, precludes comprehensive investigation<sup>2-5</sup>. Accordingly, most such studies are restricted to a small number of drugs or a restricted set of cancer contexts. Methods to address these limitations, such as those that enable measurement of candidate combinations in many cell lines simultaneously, would greatly increase the potential scale of combinations research, generating preclinical evidence that may help identify candidate combinations for clinical trials.
 
@@ -154,6 +155,7 @@
                   pert_id="BRD-K00005264_BRD-K50731585"
                   rootName="BRD-K00005264_BRD-K50731585-viability-heatmap-plot">
                 </ViabilityMatrixPlots>
+
               </v-col>
             </v-row>
           </PaperSubSection>
@@ -256,6 +258,7 @@ import TemoSynergyByDosePlots from './2024_04_cps/Temo_SynergyByDosePlots.vue';
 import Ml210SynergyByDosePlots from './2024_04_cps/Ml210_SynergyByDosePlots.vue';
 import Azd_SynergyByDosePlots from './2024_04_cps/Azd_SynergyByDosePlots.vue';
 import ViabilityMatrixPlots from './2024_04_cps/ViabilityMatrixPlots.vue';
+import Adz_A13_ViabilityHeatmaps from './2024_04_cps/Adz_A13_ViabilityHeatmaps.vue';
 import TemoSynergyBiomarkerPlots from './2024_04_cps/Temo_SynergyBiomarkerPlots.vue';
 import ImageCard from '@/components/ImageCard.vue'
 
@@ -270,6 +273,7 @@ export default {
     Ml210SynergyByDosePlots,
     Azd_SynergyByDosePlots,
     ViabilityMatrixPlots,
+    Adz_A13_ViabilityHeatmaps,
     TemoSynergyBiomarkerPlots,
     ImageCard
 },
@@ -373,7 +377,7 @@ export default {
 <style>
 .cps-legend{
   width:100%;
-  height:100px;
+  height:80px;
 }
 .legend.tick.active >rect{
   stroke: #000;
