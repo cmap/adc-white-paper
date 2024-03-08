@@ -186,7 +186,7 @@ export default {
   width:300px;
   height:300px;
 }
-.tick > text{
+/* .tick > text{
   font-size: 9.5px !important;
   fill: #000;
 }
@@ -200,7 +200,7 @@ export default {
   font-size:12px !important;
   font-weight:700 !important;
   line-height:0px;
-}
+} */
 
   </style>
   

@@ -412,8 +412,6 @@ export default {
 .plot-title{
   font-size:11.5px !important;
   font-weight:700 !important;
-
-  /* text-overflow: clip; */
   white-space: nowrap;
 }
 .x-axis-title{

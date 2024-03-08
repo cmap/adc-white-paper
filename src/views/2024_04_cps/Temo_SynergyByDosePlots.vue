@@ -96,10 +96,56 @@ export default {
     mouseover: null,
     click: [],
     highlight: [],
-    GE_Y_Extent: []
+    GE_Y_Extent: [],
+    mobileGridDef: [
+            {row: 0, column: 0, display: {title: true, legend: true, xAxisTitle: true, yAxisTitle: true, xAxisTicks: true, yAxisTicks: true}},
+            {row: 0, column: 1, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 1, column: 0, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 1, column: 1, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 2, column: 0, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 2, column: 1, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 3, column: 0, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 3, column: 1, display: {title: true, legend: false, xAxisTitle: true, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 4, column: 0, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 4, column: 1, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 5, column: 0, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 5, column: 1, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 6, column: 0, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 6, column: 1, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 7, column: 0, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}},
+            {row: 7, column: 1, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: false, yAxisTicks: false}}
+        ],
+        desktopGridDef: [
+            {row: 0, column: 0, display: {title: true, legend: true, xAxisTitle: true, yAxisTitle: true, xAxisTicks: true, yAxisTicks: true}},
+            {row: 0, column: 1, display: {title: true, legend: false, xAxisTitle: true, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}},
+            {row: 0, column: 2, display: {title: true, legend: false, xAxisTitle: true, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}},
+            {row: 0, column: 3, display: {title: true, legend: false, xAxisTitle: true, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}},
+            {row: 0, column: 4, display: {title: true, legend: false, xAxisTitle: true, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}},
+            {row: 0, column: 5, display: {title: true, legend: false, xAxisTitle: true, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}},
+            {row: 0, column: 6, display: {title: true, legend: false, xAxisTitle: true, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}},
+            {row: 0, column: 7, display: {title: true, legend: false, xAxisTitle: true, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}},
+            {row: 1, column: 0, display: {title: true, legend: false, xAxisTitle: true, yAxisTitle: true, xAxisTicks: true, yAxisTicks: true}},
+            {row: 1, column: 1, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}},
+            {row: 1, column: 2, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}},
+            {row: 1, column: 3, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}},
+            {row: 1, column: 4, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}},
+            {row: 1, column: 5, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}},
+            {row: 1, column: 6, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}},
+            {row: 1, column: 7, display: {title: true, legend: false, xAxisTitle: false, yAxisTitle: false, xAxisTicks: true, yAxisTicks: false}}
+            
+        ]
   }),
   computed: {
-
+    screenSize(){
+      return window.innerWidth > 600 ? "desktop" : "mobile";
+    },
+    gridDef(){
+      if (this.screenSize === "desktop"){
+        return this.desktopGridDef;
+      } else {
+        return this.mobileGridDef;
+      }
+    }
   },
 //   mounted() {
 //     const self = this;
@@ -140,6 +186,7 @@ async created() {
             let histogramData = this.createHistogramData();
             let latticeHistogramData = this.createLatticeHistogramData(histogramData);
             let plots = [...latticeScatterData, ...latticeGeHistogramData, ...latticeHistogramData]
+            plotUtils.updateLatticeForMobile(plots);
             plotUtils.updateLatticeCommonYLayout(plots, this.rootName,  { top: 15, right: 10, bottom: 15, left: 10 } );
             this.setLatticeDisplay(plots);
             this.plots = plots;
@@ -332,52 +379,55 @@ async created() {
         return latticeData;
     },
     setLatticeDisplay(plots){
+        const self = this;
         const maxRow = d3.max(plots.map(d=>d.row));
+        
         plots.forEach((d,i)=> {
-            let displayTitle = true,
-            displayXAxisTicks = true, 
-            displayYAxisTicks,
-            displayXAxisTitle,
-            displayYAxisTitle,
-            displayLegend = false;
-            if(i==0){
-                displayLegend = true;
-            }
-            if (d.row ===  0 && d.column !=7 ) {  displayTitle = true; } 
-            else { displayTitle = false; }
-
-            if (d.column === 0 || d.column == 7 ) { displayYAxisTicks = true } 
-            else { displayYAxisTicks = false }
-
-            if (d.column === 0 ) { displayYAxisTitle = true } 
-            else { displayYAxisTitle = false }
-
-            if ((d.column === 0 && d.row == maxRow) || d.column == 7) { displayXAxisTitle = true } 
-            else { displayXAxisTitle = false }
-
-            let display = { 
-                    title: displayTitle, 
-                    legend: displayLegend, 
-                    xAxisTitle: displayXAxisTitle, 
-                    yAxisTitle: displayYAxisTitle, 
-                    xAxisTicks: displayXAxisTicks, 
-                    yAxisTicks: displayYAxisTicks 
-                }
-            d.config.display = display;
+            d.config.display = self.gridDef[i].display;
             d.config.padding = d.padding;
         })
-    }
+    },
+    //     setLatticeDisplay(plots){
+    //     const maxRow = d3.max(plots.map(d=>d.row));
+    //     plots.forEach((d,i)=> {
+    //         console.log(d)
+    //         let displayTitle = true,
+    //         displayXAxisTicks = true, 
+    //         displayYAxisTicks,
+    //         displayXAxisTitle,
+    //         displayYAxisTitle,
+    //         displayLegend = false;
+    //         if(i==0){
+    //             displayLegend = true;
+    //         }
+    //         if (d.row ===  0 && d.column !=7 ) {  displayTitle = true; } 
+    //         else { displayTitle = false; }
+
+    //         if (d.column === 0 || d.column == 7 ) { displayYAxisTicks = true } 
+    //         else { displayYAxisTicks = false }
+
+    //         if (d.column === 0 ) { displayYAxisTitle = true } 
+    //         else { displayYAxisTitle = false }
+
+    //         if ((d.column === 0 && d.row == maxRow) || d.column == 7) { displayXAxisTitle = true } 
+    //         else { displayXAxisTitle = false }
+
+    //         let display = { 
+    //                 title: displayTitle, 
+    //                 legend: displayLegend, 
+    //                 xAxisTitle: displayXAxisTitle, 
+    //                 yAxisTitle: displayYAxisTitle, 
+    //                 xAxisTicks: displayXAxisTicks, 
+    //                 yAxisTicks: displayYAxisTicks 
+    //             }
+    //         d.config.display = display;
+    //         d.config.padding = d.padding;
+    //     })
+    // }
+
     },
     watch: {
 
     }
   }
   </script>
-  
-  <style>
-
-
-
-
-  </style>
-  

@@ -24,6 +24,31 @@ export function createLatticeData(data, rowField = "rowField", columnField = "co
     // updateLatticeData(lattice, rootName, padding);
     return lattice;
 }
+ export function updateLatticeForMobile(lattice){
+  const screenWidth = window.innerWidth;
+  console.log(screenWidth)
+  if (screenWidth < 600){
+    let columns = 2;
+    let row = 0, column = 0;
+     lattice.forEach((d,i)=>{
+        if (column < columns){
+            row = row;
+            column = column;
+        } else {
+            row =row+1;
+            column = 0;
+        }
+
+        d.row = row;
+        d.column = column;
+        column = column+1;
+    })
+    console.log(lattice)
+  } 
+
+  return lattice;
+
+}
 export function updateLatticeLayout(data, rootName="lattice", padding = { top: 10, right: 10, bottom: 10, left: 10 }, grid = {rows: null, columns: null}) {
   const self = this;
   let dimension =  {}, 
@@ -74,7 +99,7 @@ export function updateLatticeCommonXYLayout(data, rootName="lattice", padding = 
 
     let addPadding = 35;
     let xSize = (dimension.innerWidth - addPadding) / columns;
-
+    // if (xSize < 150){ xSize = 150; }
     data.forEach(d=>{
       d.id = `${rootName}-x-${d.column}-${d.row}-y`
       let width, height, paddingLeft, paddingBottom;
@@ -119,6 +144,7 @@ export function updateLatticeCommonYLayout(data, rootName="lattice", padding = {
 
   let addPadding = 25;
   let xSize = (dimension.innerWidth - addPadding) / columns;
+  // if (xSize < 150){ xSize = 150; }
 
   data.forEach(d=>{
     d.id = `${rootName}-x-${d.column}-${d.row}-y`
