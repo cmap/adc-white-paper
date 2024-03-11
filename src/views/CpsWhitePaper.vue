@@ -97,7 +97,7 @@
           <p>Because O6-benzylguanine and ferrostatin-1 demonstrated minimal effects on viability as single agents across a large panel of cell lines, we screened a single dose (5 µM and 10 µM, respectively) in combination with 7 concentrations of temozolomide (top concentration: 100µM; threefold dilution) and ML210 (top concentration: 10µM; threefold dilution), respectively. As both A-1331852 and AZD5991 had dose-dependent effects on cell viability, we screened a 5x5 matrix (threefold dilution) of these compounds (top concentrations: 0.041 and 0.37µM, respectively). Combinations and all component single agents at matching concentrations were plated using an HP D300e drug printer and screened in nearly 900 cancer cell lines using standard PRISM conditions and data processing [link]. </p>
           <PaperSubSection>
             <v-row>
-              <v-col xs="12" sm="12" md="4" lg="4">
+              <v-col xs="12" sm="12" md="6" lg="6">
                
                 <v-list>
                   <v-list-item>
@@ -109,16 +109,12 @@
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-title>O6-benzylguanine</v-list-item-title>
-                    <v-list-item-subtitle>1 concentration: 5 µM</v-list-item-subtitle>
+                    <v-list-item-subtitle>1 concentration: 5 µM<br><br></v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
                 <Temo06_ViabilityHeatmaps rootName="temo-06-viability-heatmap-plot"> </Temo06_ViabilityHeatmaps>
-                <!-- <ViabilityMatrixPlots
-                  pert_id="BRD-K32107296_BRD-K92041145"
-                  rootName="BRD-K32107296_BRD-K92041145-viability-heatmap-plot">
-                </ViabilityMatrixPlots> -->
               </v-col>
-              <v-col xs="12" sm="12" md="4" lg="4">
+              <!-- <v-col xs="12" sm="12" md="4" lg="4">
                 <v-list>
                   <v-list-item>
                     <v-list-item-title><strong>ML210 + ferrostatin-1</strong></v-list-item-title>
@@ -132,13 +128,9 @@
                     <v-list-item-subtitle>1 concentration:  10 µM</v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
-                <!-- <ViabilityMatrixPlots
-                  pert_id="BRD-K01877528_BRD-K97375133"
-                  rootName="BRD-K01877528_BRD-K97375133-viability-heatmap-plot">
-                </ViabilityMatrixPlots> -->
                 <ML210_Ferr_ViabilityHeatmaps rootName="ml210-ferr-viability-heatmap-plot"> </ML210_Ferr_ViabilityHeatmaps>
-              </v-col>
-              <v-col xs="12" sm="12" md="4" lg="4">
+              </v-col> -->
+              <v-col xs="12" sm="12" md="6" lg="6">
                 <v-list>
                   <v-list-item>
                     <v-list-item-title><strong>AZD5991 + A-1331852</strong></v-list-item-title>
@@ -154,11 +146,6 @@
                  
                 </v-list>
                 <Adz_A13_ViabilityHeatmaps rootName="adz-a13-viability-heatmap-plot"> </Adz_A13_ViabilityHeatmaps>
-                <!-- <ViabilityMatrixPlots
-                  pert_id="BRD-K00005264_BRD-K50731585"
-                  rootName="BRD-K00005264_BRD-K50731585-viability-heatmap-plot">
-                </ViabilityMatrixPlots> -->
-
               </v-col>
             </v-row>
           </PaperSubSection>
@@ -300,80 +287,13 @@ export default {
   },
 
  async created() {
- await this.loadData()
-
+ this.loading = false;
   },
   mounted(){
 
   },
   methods: {
-    async loadData(){
 
-     this.loading = true;
-      Promise.all([
-            d3.csv(`${dataPath}2024_04_cps/temo_benzyl_data.csv`, function(d){
-            return {
-                ccle_name: d["ccle_name"],
-                culture: d["culture"],
-                pert1_name: d["pert1"],
-                pert2_name: d["pert2"],
-                pert1_dose: d["dose1"],
-                pert2_dose: d["dose2"], 
-                pert1_viability: +d["capped_library"],
-                pert2_viability: +d["capped_anchor"],
-                combination_viability: +d["capped_combination"],
-                synergy: +d["S"],
-                synergy_count: +d["synergy_count_across_doses"],
-                EXP_MGMT: +d["EXP_MGMT"],
-                EXP_MSH6: +d["EXP_MSH6"],
-                RPPA_MSH2_MSH2: +d["RPPA_MSH2_MSH2"],
-                RPPA_MSH6_Caution_MSH6: +d["RPPA_MSH6_Caution_MSH6"]
-
-            }
-          }),
-          d3.csv(`${dataPath}2024_04_cps/ml210_ferro_data.csv`, function(d){
-            return {
-              ccle_name: d["ccle_name"],
-                culture: d["culture"],
-                pert1_name: d["pert1"],
-                pert2_name: d["pert2"],
-                pert1_dose: d["dose1"],
-                pert2_dose: d["dose2"], 
-                pert1_viability: +d["capped_library"],
-                pert2_viability: +d["capped_anchor"],
-                combination_viability: +d["capped_combination"],
-                synergy: +d["S"],
-                antagonism_count: +d["antagonism_count_across_doses"],
-                XPR_GPX4: +d["XPR_GPX4"]
-
-            }
-          }),
-          d3.csv(`${dataPath}2024_04_cps/azd_a133_data.csv`, function(d){
-            return {
-              ccle_name: d["ccle_name"],
-              culture: d["culture"],
-              pert1_name: d["pert1"],
-              pert2_name: d["pert2"],
-              pert1_dose: d["dose1"],
-              pert2_dose: d["dose2"], 
-              pert1_viability: +d["library.fitted"],
-              pert2_viability: +d["anchor.fitted"],
-              combination_viability: +d["combination.fitted"],
-              synergy: +d["S"],
-              xpr_mcl1: +d["XPR_MCL1"],
-              xpr_bclxl: +d["XPR_BCLXL"],
-              xpr_bcl2: +d["XPR_BCL2"],
-              xpr_bclw: +d["XPR_BCLW"]
-
-            }
-          })
-        ]).then(response=>{
-          this.temo_benzyl_data = response[0];
-          this.ml210_ferro_data = response[1];
-          this.azd_a133_data = response[2];
-          this.loading = false;
-        })
-      }
   },
   watch: {
 
@@ -381,7 +301,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .cps-legend{
   width:100%;
   height:80px;
@@ -390,14 +310,14 @@ export default {
   stroke: #000;
   stroke-width: 1px;
 }
-.paper-sub-sub-section{
+/* .paper-sub-sub-section{
   margin-top: 32px !important;
   margin-bottom: 32px !important;
-}
-.card-title{
+} */
+/* .card-title{
   color:black !important;
   font-weight:600 !important;
-}
+} */
 .combination_design-img{
     width: 100%;
   }
@@ -405,12 +325,8 @@ export default {
   width: 100%;
 }
 
-.rotate{
-  -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
-  -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
-  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
-}
-.tick > text{
+
+/* .tick > text{
   font-size: 9px !important;
   fill: #000;
 }
@@ -423,11 +339,9 @@ export default {
 .plot-title{
   font-size:11.5px !important;
   font-weight:700 !important;
-
-  /* text-overflow: clip; */
   white-space: nowrap;
-}
-.x-axis-title{
+} */
+/* .x-axis-title{
   position: absolute;
   bottom:0px;
   left:45%;
@@ -440,8 +354,10 @@ export default {
   -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
   -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
   transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
-}
-
+} */
+.single-agent-heatmap > * > * > .y.axis > .tick > line{
+    opacity: 0;
+  }
 @media screen and (min-width: 200px) and (max-width: 768px) {
   .combination_design-img{
     width: 100%;
@@ -450,8 +366,3 @@ export default {
 }
 
 </style>
-<style>
-  .single-agent-heatmap > * > * > .y.axis > .tick > line{
-    opacity: 0;
-  }
-  </style>

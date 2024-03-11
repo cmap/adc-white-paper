@@ -61,9 +61,12 @@ computed: {
 .card-title{
   font-size:1.2em;
   line-height:1.1em;
-  font-weight:900;
-  color:#868686;
+  /* font-weight:900;
+  color:#868686; */
+  color:black !important;
+  font-weight:600 !important;
 }
+
 .card-description{
   font-size:1.2em;
   line-height:1.1em;

@@ -16,11 +16,10 @@
         </v-autocomplete>
         </v-col>
       </v-row>
-      <v-col cols="4">
-            <small><i>Select legend items to highlight</i></small>
-            <svg class="cps-legend" :id="`${rootName}-legend`"></svg>
-        </v-col>
-
+      <v-row>
+        <v-col cols="6"> <span class="plot-title"> ML210 Dose  (µM) + Ferrostatin-1 Dose  (µM)</span></v-col>
+        <v-col cols="4"><svg class="cps-legend"  :id="`${rootName}-legend`"></svg></v-col>
+    </v-row>
     <div class="py-8 lattice-plots" :id="rootName">
 
         <div v-for="plot in plots" 

@@ -19,7 +19,7 @@
       </heatmap-plot>
     </div>
   </div>
-  <v-col cols="12">
+  <v-col cols="12" sm="12" md="9" lg="8">
     <svg class="cps-legend" :id="`${rootName}-heatmap-legend`"></svg>
   </v-col>
 
@@ -87,7 +87,6 @@ export default {
                 }),
               ]).then(response=>{
                 let data = response[0];
-                console.log("data!!!", data)
                 this.numCellLines = [...new Set(data.map(d=>d.ccle_name))].length;
                 let pert1Heatmap = data.map(d => {
                   return {
@@ -138,7 +137,7 @@ export default {
                     ]
                   }
                   let pert2Config = {
-                    title: "Sensitivity Across Doses",
+                    title: "Single Agent Sensitivity Across Doses",
                     padding: {top: 10, right: 10, bottom: 50, left: 20},
                     xAxisTitle: "O6-benzylguanine Dose (µM)",
                     yAxisTitle: "",
@@ -230,7 +229,7 @@ export default {
             },
 
             configure(data, config) {
-              console.log(this.numCellLines)
+
               const self = this;
               return {
 
@@ -281,10 +280,10 @@ export default {
   width: 300px;
   height: 120px;
 }
-/* .combo-heatmap{
-  width: 300px;
-  height: 300px;
-} */
+
+.combo-heatmap{
+  margin-top:32px !important;
+}
 
   </style>
   

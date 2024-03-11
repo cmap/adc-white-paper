@@ -19,7 +19,7 @@
       </heatmap-plot>
     </div>
   </div>
-  <v-col cols="12">
+  <v-col cols="12" sm="12" md="9" lg="8">
     <svg class="cps-legend" :id="`${rootName}-heatmap-legend`"></svg>
   </v-col>
 
