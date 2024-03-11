@@ -139,7 +139,7 @@ export default {
                   let pert2Config = {
                     title: "Single Agent Sensitivity Across Doses",
                     padding: {top: 10, right: 10, bottom: 50, left: 20},
-                    xAxisTitle: "O6-benzylguanine Dose (µM)",
+                    xAxisTitle: "O6-Benzylguanine Dose (µM)",
                     yAxisTitle: "",
                     display: {
                       title: false,
@@ -150,7 +150,7 @@ export default {
                       yAxisTicks: false
                     },
                     tooltipConfig: [
-                      {label: "O6-benzylguanine (µM)", field: "x"},
+                      {label: "O6-Benzylguanine (µM)", field: "x"},
                       {label: "Cell lines killed (Viability < 0.3)", field: "value"}
                     ]
                   }
@@ -159,7 +159,7 @@ export default {
                     title: "Combination Sensitivity Across Doses",
                     padding: {top: 10, right: 0, bottom: 50, left: 50},
                     xAxisTitle: "Temozolomide Dose (µM)",
-                    yAxisTitle: "O6-benzylguanine Dose (µM)",
+                    yAxisTitle: "O6-Benzylguanine Dose (µM)",
                     display: {
                       title: true,
                       legend: false,
@@ -170,7 +170,7 @@ export default {
                     },
                     tooltipConfig: [
                       {label: "Temozolomide Dose (µM)", field: "x"},
-                      {label: "O6-benzylguanine (µM)", field: "y"},
+                      {label: "O6-Benzylguanine (µM)", field: "y"},
                       {label: "Cell lines killed (Viability < 0.3)", field: "value"}
                     ]
                   }
@@ -261,10 +261,7 @@ export default {
                 legend: {
                   rootId:  `${self.rootName}-heatmap-legend`,
                 },
-                tooltipConfig: [
-                  {label: "Dose", field: "x"},
-                  {label: "Cell lines killed (Viability < 0.3)", field: "value"}
-                ]
+                tooltipConfig: config.tooltipConfig
               }
             }
    
