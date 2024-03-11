@@ -27,7 +27,7 @@ export default class legend {
     ) { 
         this.rootId = rootId;
 
-        this.padding = { top:15, right:15, bottom:15, left:15 },
+        this.padding = { top:0, right:15, bottom:5, left:15 },
         this.dimension = { width: d3.select(`#${rootId}`).node().clientWidth, height:  d3.select(`#${rootId}`).node().clientHeight }
         this.dimension.innerHeight = this.dimension.height - this.padding.top - this.padding.bottom;
         this.dimension.innerWidth = this.dimension.width - this.padding.left - this.padding.right;
@@ -53,10 +53,16 @@ export default class legend {
                 this.ordinal()
                 break;
             case "linear":
-                this.continuous()
+                this.linear()
                 break;
             case "sequential":
               this.continuous()
+                break;
+            case "log":
+                this.log()
+                break;
+            case "sequentialLog":
+                this.log()
                 break;
             case "diverging":
                 this.continuous()
@@ -167,6 +173,74 @@ export default class legend {
     continuous(){
 
         let axisScale = d3.scaleLinear()
+            .domain(this.data)
+            .range([0, this.dimension.innerWidth])
+
+        let axisBottom = g => g
+            .attr("class", `x-axis`)
+            .attr("transform", `translate(0,${this.barHeight*2})`)
+            .call(d3.axisBottom(axisScale)
+            .ticks(this.dimension.innerWidth / 80)
+            .tickSize(-this.barHeight))
+
+        const defs = this.svg.append("defs");
+        const linearGradient = defs.append("linearGradient")
+            .attr("id", `${this.rootId}-linear-gradient`);
+
+        linearGradient.selectAll("stop")
+            .data(this.scale.ticks().map((t, i, n) => ({ offset: `${100*i/n.length}%`, color: this.scale(t) })))
+            .enter().append("stop")
+            .attr("offset", d => d.offset)
+            .attr("stop-color", d => d.color);
+
+        this.svg.append('g')
+            .attr("transform", `translate(0,${this.barHeight})`)
+            .append("rect")
+            .attr('transform', `translate(${0}, 0)`)
+            .attr("width", this.dimension.innerWidth)
+            .attr("height", this.barHeight)
+            .style("fill", `url(#${this.rootId}-linear-gradient)`);
+
+        this.svg.append('g')
+            .call(axisBottom);
+    }
+    linear(){
+
+        let axisScale = d3.scaleLinear()
+            .domain([this.data[0], this.data[this.data.length-1]])
+            .range([0, this.dimension.innerWidth])
+
+        let axisBottom = g => g
+            .attr("class", `x-axis`)
+            .attr("transform", `translate(0,${this.barHeight*2})`)
+            .call(d3.axisBottom(axisScale)
+            .ticks(this.dimension.innerWidth / 80)
+            .tickSize(-this.barHeight))
+
+        const defs = this.svg.append("defs");
+        const linearGradient = defs.append("linearGradient")
+            .attr("id", `${this.rootId}-linear-gradient`);
+
+        linearGradient.selectAll("stop")
+            .data(this.scale.ticks().map((t, i, n) => ({ offset: `${100*i/n.length}%`, color: this.scale(t) })))
+            .enter().append("stop")
+            .attr("offset", d => d.offset)
+            .attr("stop-color", d => d.color);
+
+        this.svg.append('g')
+            .attr("transform", `translate(0,${this.barHeight})`)
+            .append("rect")
+            .attr('transform', `translate(${0}, 0)`)
+            .attr("width", this.dimension.innerWidth)
+            .attr("height", this.barHeight)
+            .style("fill", `url(#${this.rootId}-linear-gradient)`);
+
+        this.svg.append('g')
+            .call(axisBottom);
+    }
+    log(){
+
+        let axisScale = d3.scaleLog()
             .domain(this.data)
             .range([0, this.dimension.innerWidth])
 

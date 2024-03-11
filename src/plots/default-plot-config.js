@@ -101,6 +101,8 @@ export default class defaultPlotConfig {
                 case "log":
                     this.axis.c.domain = d3.extent(this.data.map(d=>d.c))
                     break;
+                case "sequentialLog":
+                    this.axis.c.domain = [d3.min(this.data.map(d=>d.c))+1, d3.max(this.data.map(d=>d.c))+1]
             }
          }
     }
@@ -124,6 +126,12 @@ export default class defaultPlotConfig {
                 case "diverging":
                     this.axis.c.range = d3.interpolateRdBu; // should use 'interpolator' instead of 'range'
                     break;
+                // case "pow":
+                //     this.axis.c.range = [d3.schemeReds[3][0], d3.schemeReds[3][2]] // temporary
+                //     break;
+                case "sequentialLog":
+                    this.axis.c.range = d3.interpolateOrRd; // should use 'interpolator' instead of 'range'
+                    break;
                 case "log":
                     this.axis.c.range = [d3.schemeReds[3][0], d3.schemeReds[3][2]] // temporary
                     break;
@@ -142,13 +150,19 @@ export default class defaultPlotConfig {
                     this.scale.c = d3.scaleLinear().domain(this.axis.c.domain).range(this.axis.c.range)
                     break;
                 case "sequential":
-                    this.scale.c = d3.scaleSequential().domain(this.axis.c.domain).interpolator(d3.interpolateRdBu)
+                    this.scale.c = d3.scaleSequential().domain(this.axis.c.domain).interpolator(d3.interpolateYlOrRd)
                     break;
                 case "diverging":
                     this.scale.c = d3.scaleSequential().domain(this.axis.c.domain).interpolator(d3.interpolateYlOrRd) 
                     break;
                 case "log":
                     this.scale.c = d3.scaleLog().domain(this.axis.c.domain).range(this.axis.c.range)
+                    break;
+                // case "pow":
+                //     this.scale.c = d3.scalePow().domain(this.axis.c.domain).range(this.axis.c.range).exponent(2)
+                //     break;
+                case "sequentialLog":
+                    this.scale.c = d3.scaleSequentialLog().domain(this.axis.c.domain).interpolator(d3.interpolateRdBu)
                     break;
                 default:
                     this.scale.c = d3.scaleOrdinal().domain(this.axis.c.domain).range(this.axis.c.range) 
