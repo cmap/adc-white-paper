@@ -7,7 +7,7 @@
       date="03/01/2024" 
       authors="... Matthew G. Rees, Jennifer A. Roth"/>
       <PaperSection title="Introduction">
-        <Adz_A13_ViabilityHeatmaps rootName="adz-a13-viability-heatmap-plot"> </Adz_A13_ViabilityHeatmaps>
+    
         <p>
           Combination therapies are routinely used in cancer care, and patient cure is almost never achieved by monotherapy1. However, which combinations will benefit specific cancer patients is largely unknown. While many studies have used cell culture and animal model systems to characterize combination effects, the sheer number of clinical, investigational, and tool anticancer agents, coupled with the diversity and heterogeneity of cancer, precludes comprehensive investigation<sup>2-5</sup>. Accordingly, most such studies are restricted to a small number of drugs or a restricted set of cancer contexts. Methods to address these limitations, such as those that enable measurement of candidate combinations in many cell lines simultaneously, would greatly increase the potential scale of combinations research, generating preclinical evidence that may help identify candidate combinations for clinical trials.
 
@@ -112,10 +112,11 @@
                     <v-list-item-subtitle>1 concentration: 5 µM</v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
-                <ViabilityMatrixPlots
+                <Temo06_ViabilityHeatmaps rootName="temo-06-viability-heatmap-plot"> </Temo06_ViabilityHeatmaps>
+                <!-- <ViabilityMatrixPlots
                   pert_id="BRD-K32107296_BRD-K92041145"
                   rootName="BRD-K32107296_BRD-K92041145-viability-heatmap-plot">
-                </ViabilityMatrixPlots>
+                </ViabilityMatrixPlots> -->
               </v-col>
               <v-col xs="12" sm="12" md="4" lg="4">
                 <v-list>
@@ -131,10 +132,11 @@
                     <v-list-item-subtitle>1 concentration:  10 µM</v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
-                <ViabilityMatrixPlots
+                <!-- <ViabilityMatrixPlots
                   pert_id="BRD-K01877528_BRD-K97375133"
                   rootName="BRD-K01877528_BRD-K97375133-viability-heatmap-plot">
-                </ViabilityMatrixPlots>
+                </ViabilityMatrixPlots> -->
+                <ML210_Ferr_ViabilityHeatmaps rootName="ml210-ferr-viability-heatmap-plot"> </ML210_Ferr_ViabilityHeatmaps>
               </v-col>
               <v-col xs="12" sm="12" md="4" lg="4">
                 <v-list>
@@ -151,10 +153,11 @@
                   </v-list-item>
                  
                 </v-list>
-                <ViabilityMatrixPlots
+                <Adz_A13_ViabilityHeatmaps rootName="adz-a13-viability-heatmap-plot"> </Adz_A13_ViabilityHeatmaps>
+                <!-- <ViabilityMatrixPlots
                   pert_id="BRD-K00005264_BRD-K50731585"
                   rootName="BRD-K00005264_BRD-K50731585-viability-heatmap-plot">
-                </ViabilityMatrixPlots>
+                </ViabilityMatrixPlots> -->
 
               </v-col>
             </v-row>
@@ -259,6 +262,8 @@ import Ml210SynergyByDosePlots from './2024_04_cps/Ml210_SynergyByDosePlots.vue'
 import Azd_SynergyByDosePlots from './2024_04_cps/Azd_SynergyByDosePlots.vue';
 import ViabilityMatrixPlots from './2024_04_cps/ViabilityMatrixPlots.vue';
 import Adz_A13_ViabilityHeatmaps from './2024_04_cps/Adz_A13_ViabilityHeatmaps.vue';
+import Temo06_ViabilityHeatmaps from './2024_04_cps/Temo06_ViabilityHeatmaps.vue';
+import ML210_Ferr_ViabilityHeatmaps from './2024_04_cps/ML210_Ferr_ViabilityHeatmaps.vue';
 import TemoSynergyBiomarkerPlots from './2024_04_cps/Temo_SynergyBiomarkerPlots.vue';
 import ImageCard from '@/components/ImageCard.vue'
 
@@ -274,6 +279,8 @@ export default {
     Azd_SynergyByDosePlots,
     ViabilityMatrixPlots,
     Adz_A13_ViabilityHeatmaps,
+    Temo06_ViabilityHeatmaps,
+    ML210_Ferr_ViabilityHeatmaps,
     TemoSynergyBiomarkerPlots,
     ImageCard
 },
@@ -374,7 +381,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .cps-legend{
   width:100%;
   height:80px;
@@ -443,3 +450,8 @@ export default {
 }
 
 </style>
+<style>
+  .single-agent-heatmap > * > * > .y.axis > .tick > line{
+    opacity: 0;
+  }
+  </style>
