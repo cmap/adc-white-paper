@@ -114,7 +114,7 @@
                 </v-list>
                 <Temo06_ViabilityHeatmaps rootName="temo-06-viability-heatmap-plot"> </Temo06_ViabilityHeatmaps>
               </v-col>
-              <!-- <v-col xs="12" sm="12" md="4" lg="4">
+              <v-col xs="12" sm="12" md="4" lg="4">
                 <v-list>
                   <v-list-item>
                     <v-list-item-title><strong>ML210 + ferrostatin-1</strong></v-list-item-title>
@@ -129,7 +129,7 @@
                   </v-list-item>
                 </v-list>
                 <ML210_Ferr_ViabilityHeatmaps rootName="ml210-ferr-viability-heatmap-plot"> </ML210_Ferr_ViabilityHeatmaps>
-              </v-col> -->
+              </v-col>
               <v-col xs="12" sm="12" md="6" lg="6">
                 <v-list>
                   <v-list-item>
@@ -314,10 +314,7 @@ export default {
   margin-top: 32px !important;
   margin-bottom: 32px !important;
 } */
-/* .card-title{
-  color:black !important;
-  font-weight:600 !important;
-} */
+
 .combination_design-img{
     width: 100%;
   }
