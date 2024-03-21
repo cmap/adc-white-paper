@@ -97,7 +97,8 @@ export default {
     mouseover: null,
     click: [],
     highlight: [],
-    GE_Y_Extent: []
+    GE_Y_Extent: [],
+    synergyExtent: [-1, 1]
   }),
   computed: {
 
@@ -163,7 +164,7 @@ async created() {
     createLatticeScatterData(scatterData){
         const self = this;
         let latticeScatterData = plotUtils.createLatticeData(scatterData, "pert2_dose", "pert1_dose");
-        const xExtent = d3.extent(scatterData.map(d => d.x))
+        const xExtent = self.synergyExtent;
         const yExtent = d3.extent(scatterData.map(d => d.y))
         const cExtent = d3.extent(scatterData.map(d => d.c))
         const scatterConfig = {
@@ -194,7 +195,8 @@ async created() {
                     }
                 },
                 scale: {
-                    c: d3.scaleSequential().domain(cExtent).interpolator(d3.interpolateGnBu)
+                    // c: d3.scaleSequential().domain(cExtent).interpolator(d3.interpolateGnBu)
+                    c: d3.scaleSequential().domain(cExtent).interpolator(d3.interpolateBlues)
                 },
                 display: {},
                 tooltipConfig: [
@@ -281,7 +283,7 @@ async created() {
     createLatticeHistogramData(data){
         const self = this;
         let latticeData = plotUtils.createLatticeData(data, "pert2_dose", "pert1_dose");
-        const xExtent = d3.extent(data.map(d => d.x))
+        const xExtent = self.synergyExtent;
         let yValues = []
 
         latticeData.forEach(d=> {

@@ -299,10 +299,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .cps-legend{
   width:100%;
   height:80px;
+  margin:auto;
 }
 
 

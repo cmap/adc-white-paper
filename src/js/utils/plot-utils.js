@@ -72,7 +72,7 @@ export function updateLatticeCommonXYLayout(data, rootName="lattice", padding = 
     if (!columns) { columns = d3.max(data.map(d=>d.column)) + 1; } // add 1 to account for 0 indexing  
     if (!grid.rows) { rows = d3.max(data.map(d=>d.row)) + 1; } // add 1 to account for 0 indexing
 
-    let addPadding = 35;
+    let addPadding = 33;
     let xSize = (dimension.innerWidth - addPadding) / columns;
 
     data.forEach(d=>{
@@ -117,7 +117,7 @@ export function updateLatticeCommonYLayout(data, rootName="lattice", padding = {
   if (!columns) { columns = d3.max(data.map(d=>d.column)) + 1; } // add 1 to account for 0 indexing  
   if (!grid.rows) { rows = d3.max(data.map(d=>d.row)) + 1; } // add 1 to account for 0 indexing
 
-  let addPadding = 25;
+  let addPadding = 33;
   let xSize = (dimension.innerWidth - addPadding) / columns;
 
   data.forEach(d=>{

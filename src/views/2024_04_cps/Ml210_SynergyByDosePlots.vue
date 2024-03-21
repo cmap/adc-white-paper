@@ -99,7 +99,8 @@ export default {
     mouseover: null,
     click: [],
     highlight: [],
-    GE_Y_Extent: []
+    GE_Y_Extent: [],
+    synergyExtent: [-1,1],
   }),
   computed: {
 
@@ -166,7 +167,7 @@ async created() {
     createLatticeScatterData(scatterData){
         const self = this;
         let latticeScatterData = plotUtils.createLatticeData(scatterData, "pert2_dose", "pert1_dose"); 
-        const xExtent = d3.extent(scatterData.map(d => d.x))
+        const xExtent = self.synergyExtent;
         const yExtent = d3.extent(scatterData.map(d => d.y))
         const cExtent = d3.extent(scatterData.map(d => d.c))
         const scatterConfig = {
@@ -197,8 +198,7 @@ async created() {
                     }
                 },
                 scale: {
-
-                    c: d3.scaleSequential().domain(cExtent).interpolator(d3.interpolateOrRd)
+                    c: d3.scaleSequential().domain(cExtent).interpolator(d3.interpolateReds)
                 },
                 display: {},
                 tooltipConfig: [
@@ -285,7 +285,8 @@ async created() {
     createLatticeHistogramData(data){
         const self = this;
         let latticeData = plotUtils.createLatticeData(data, "pert2_dose", "pert1_dose");
-        const xExtent = d3.extent(data.map(d => d.x))
+       // const xExtent = d3.extent(data.map(d => d.x))
+        const xExtent = self.synergyExtent;
         let yValues = []
 
         latticeData.forEach(d=> {
@@ -318,8 +319,7 @@ async created() {
                 padding: {},
                 axis: {
                     x: {
-                         // domain: xExtent,
-                    domain: [-1,1],
+                        domain: xExtent,
                         title: xAxisTitle,
                         threshold: "0"
                     },
@@ -327,10 +327,6 @@ async created() {
                         domain: yExtent,
                         title: yAxisTitle
                     },
-                    // c: {
-                    //     type: "diverging",
-                    //     domain: [-1,1]
-                    // }
                 },
                 display: {}
             }
