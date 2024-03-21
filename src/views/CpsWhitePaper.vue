@@ -97,7 +97,7 @@
           <p>Because O6-benzylguanine and ferrostatin-1 demonstrated minimal effects on viability as single agents across a large panel of cell lines, we screened a single dose (5 µM and 10 µM, respectively) in combination with 7 concentrations of temozolomide (top concentration: 100µM; threefold dilution) and ML210 (top concentration: 10µM; threefold dilution), respectively. As both A-1331852 and AZD5991 had dose-dependent effects on cell viability, we screened a 5x5 matrix (threefold dilution) of these compounds (top concentrations: 0.041 and 0.37µM, respectively). Combinations and all component single agents at matching concentrations were plated using an HP D300e drug printer and screened in nearly 900 cancer cell lines using standard PRISM conditions and data processing [link]. </p>
           <PaperSubSection>
             <v-row>
-              <v-col xs="12" sm="12" md="6" lg="6">
+              <v-col xs="12" sm="12" md="4" lg="4">
                
                 <v-list>
                   <v-list-item>
@@ -130,7 +130,7 @@
                 </v-list>
                 <ML210_Ferr_ViabilityHeatmaps rootName="ml210-ferr-viability-heatmap-plot"> </ML210_Ferr_ViabilityHeatmaps>
               </v-col>
-              <v-col xs="12" sm="12" md="6" lg="6">
+              <v-col xs="12" sm="12" md="4" lg="4">
                 <v-list>
                   <v-list-item>
                     <v-list-item-title><strong>AZD5991 + A-1331852</strong></v-list-item-title>
