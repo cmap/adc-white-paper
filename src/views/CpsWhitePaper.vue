@@ -97,7 +97,7 @@
           <p>Because O6-benzylguanine and ferrostatin-1 demonstrated minimal effects on viability as single agents across a large panel of cell lines, we screened a single dose (5 µM and 10 µM, respectively) in combination with 7 concentrations of temozolomide (top concentration: 100µM; threefold dilution) and ML210 (top concentration: 10µM; threefold dilution), respectively. As both A-1331852 and AZD5991 had dose-dependent effects on cell viability, we screened a 5x5 matrix (threefold dilution) of these compounds (top concentrations: 0.041 and 0.37µM, respectively). Combinations and all component single agents at matching concentrations were plated using an HP D300e drug printer and screened in nearly 900 cancer cell lines using standard PRISM conditions and data processing [link]. </p>
           <PaperSubSection>
             <v-row>
-              <v-col xs="12" sm="12" md="6" lg="6">
+              <v-col xs="12" sm="12" md="4" lg="4">
                
                 <v-list>
                   <v-list-item>
@@ -114,7 +114,7 @@
                 </v-list>
                 <Temo06_ViabilityHeatmaps rootName="temo-06-viability-heatmap-plot"> </Temo06_ViabilityHeatmaps>
               </v-col>
-              <!-- <v-col xs="12" sm="12" md="4" lg="4">
+              <v-col xs="12" sm="12" md="4" lg="4">
                 <v-list>
                   <v-list-item>
                     <v-list-item-title><strong>ML210 + ferrostatin-1</strong></v-list-item-title>
@@ -122,15 +122,17 @@
                   <v-list-item>
                     <v-list-item-title>ML210</v-list-item-title>
                     <v-list-item-subtitle>7 concentrations <br>top concentration: 10µM; threefold dilution</v-list-item-subtitle>
+                    <v-list-item-subtitle></v-list-item-subtitle>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-title>ferrostatin-1</v-list-item-title>
-                    <v-list-item-subtitle>1 concentration:  10 µM</v-list-item-subtitle>
+                    <v-list-item-subtitle>1 concentration:  10 µM <br><br></v-list-item-subtitle>
+                    <v-list-item-subtitle></v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
                 <ML210_Ferr_ViabilityHeatmaps rootName="ml210-ferr-viability-heatmap-plot"> </ML210_Ferr_ViabilityHeatmaps>
-              </v-col> -->
-              <v-col xs="12" sm="12" md="6" lg="6">
+              </v-col>
+              <v-col xs="12" sm="12" md="4" lg="4">
                 <v-list>
                   <v-list-item>
                     <v-list-item-title><strong>AZD5991 + A-1331852</strong></v-list-item-title>
@@ -247,7 +249,6 @@ import PaperSubSection from '@/components/PaperSubSection.vue';
 import TemoSynergyByDosePlots from './2024_04_cps/Temo_SynergyByDosePlots.vue';
 import Ml210SynergyByDosePlots from './2024_04_cps/Ml210_SynergyByDosePlots.vue';
 import Azd_SynergyByDosePlots from './2024_04_cps/Azd_SynergyByDosePlots.vue';
-import ViabilityMatrixPlots from './2024_04_cps/ViabilityMatrixPlots.vue';
 import Adz_A13_ViabilityHeatmaps from './2024_04_cps/Adz_A13_ViabilityHeatmaps.vue';
 import Temo06_ViabilityHeatmaps from './2024_04_cps/Temo06_ViabilityHeatmaps.vue';
 import ML210_Ferr_ViabilityHeatmaps from './2024_04_cps/ML210_Ferr_ViabilityHeatmaps.vue';
@@ -264,7 +265,6 @@ export default {
     TemoSynergyByDosePlots,
     Ml210SynergyByDosePlots,
     Azd_SynergyByDosePlots,
-    ViabilityMatrixPlots,
     Adz_A13_ViabilityHeatmaps,
     Temo06_ViabilityHeatmaps,
     ML210_Ferr_ViabilityHeatmaps,
@@ -305,56 +305,16 @@ export default {
 .cps-legend{
   width:100%;
   height:80px;
+  margin:auto;
 }
-.legend.tick.active >rect{
-  stroke: #000;
-  stroke-width: 1px;
-}
-/* .paper-sub-sub-section{
-  margin-top: 32px !important;
-  margin-bottom: 32px !important;
-} */
-/* .card-title{
-  color:black !important;
-  font-weight:600 !important;
-} */
+
+
+
 .combination_design-img{
     width: 100%;
   }
-.full-width{
-  width: 100%;
-}
 
 
-/* .tick > text{
-  font-size: 9px !important;
-  fill: #000;
-}
-.axis-title{
-  font-size:11.5px !important;
-  font-weight:500 !important;
-  color:#454545;
-  fill: #454545;
-}
-.plot-title{
-  font-size:11.5px !important;
-  font-weight:700 !important;
-  white-space: nowrap;
-} */
-/* .x-axis-title{
-  position: absolute;
-  bottom:0px;
-  left:45%;
-}
-.y-axis-title{
-  position: absolute;
-  bottom:50%;
-  left:-10px;
-  line-height:0px;
-  -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
-  -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
-  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
-} */
 .single-agent-heatmap > * > * > .y.axis > .tick > line{
     opacity: 0;
   }

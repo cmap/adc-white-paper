@@ -5,7 +5,7 @@
   <div :id="rootName">
     <div v-for="plot in plots" 
       :id="plot.id" 
-      :class="`my-3 lattice-plot ${plot.class}`" 
+      :class="`lattice-plot ${plot.class}`" 
       :style="{
       'position': 'relative'
       }">
@@ -19,9 +19,7 @@
       </heatmap-plot>
     </div>
   </div>
-  <v-col cols="12">
-    <svg class="cps-legend" :id="`${rootName}-heatmap-legend`"></svg>
-  </v-col>
+  <svg class="cps-legend" :id="`${rootName}-heatmap-legend`"></svg>
 
 
 
@@ -32,7 +30,6 @@
 import * as d3 from 'd3';
 import HeatmapPlot from '@/plots/heatmap-plot.vue';
 const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
-const padding =   {top: 10, right: 20, bottom: 50, left: 40}
 export default {
   name: 'ML210_Ferr_ViabilityHeatmaps',
   components: {
@@ -64,7 +61,7 @@ export default {
        async getData(){
       const self = this;
       Promise.all([
-                d3.csv(`${dataPath}2024_04_cps/ml210_ferro_data.csv`, function(d){
+                d3.csv(`${dataPath}2024_04_cps/MLferro.csv`, function(d){
                     return {
                       ccle_name: d["ccle_name"],
                       pert1: d["pert1"],
@@ -76,15 +73,6 @@ export default {
                       pert2_viability: +d["capped_anchor"] < 0.3 ? true : false
                     }
                 }),
-                // d3.csv(`${dataPath}2024_04_cps/06-benzyl_data.csv`, function(d){
-                //     return {
-                //       ccle_name: d["Cell line"],
-                //       pert2: "O6-benzylguanine",
-                //       dose2: d["Dose"],
-                //       pert2_viability: +d["Viability"] < 0.3 ? true : false,
-                     
-                //     }
-                // }),
               ]).then(response=>{
                 let data = response[0];
 
@@ -97,13 +85,13 @@ export default {
                     value: d.pert1_viability
                   }
                 })
-                // let pert2Heatmap = response[1].map(d => {
-                //   return {
-                //     x: d.dose2,
-                //     y: 1,
-                //     value: d.pert2_viability
-                //   }
-                // })
+                let pert2Heatmap =  [{
+                    pertX: "Ferrostatin-1",
+                    x: "10",
+                    y: 1,
+                    value: 1
+                  }]
+
                 let pert12Heatmap = data.map(d => {
                   return {
                     pertX: d.pert1,
@@ -117,7 +105,7 @@ export default {
 
 
                 let heatmap1Data = this.createSingleAgentData(pert1Heatmap)
-             //   let heatmap2Data = this.createSingleAgentData(pert2Heatmap)
+                let heatmap2Data = this.createSingleAgentData(pert2Heatmap)
                 let heatmap3Data = this.createMatrixData(pert12Heatmap)
                 this.maxNumCellLinesKilled = d3.max(heatmap3Data.concat(heatmap1Data), d=>d.c)
 
@@ -140,24 +128,24 @@ export default {
                       {label: "Cell lines killed (Viability < 0.3)", field: "value"}
                     ]
                   }
-                //   let pert2Config = {
-                //     title: "Sensitivity Across Doses",
-                //     padding: {top: 10, right: 10, bottom: 50, left: 20},
-                //     xAxisTitle: "Ferrostatin-1 e Dose (µM)",
-                //     yAxisTitle: "",
-                //     display: {
-                //       title: false,
-                //       legend: false,
-                //       xAxisTitle: true,
-                //       yAxisTitle: false,
-                //       xAxisTicks: true,
-                //       yAxisTicks: false
-                //     },
-                    //  tooltipConfig: [
-                    //   {label: "Ferrostatin-1 (µM)", field: "x"},
-                    //   {label: "Cell lines killed (Viability < 0.3)", field: "value"}
-                    // ]
-                //   }
+                  let pert2Config = {
+                    title: "Sensitivity Across Doses",
+                    padding: {top: 10, right: 10, bottom: 50, left: 20},
+                    xAxisTitle: "Ferrostatin-1 e Dose (µM)",
+                    yAxisTitle: "",
+                    display: {
+                      title: false,
+                      legend: false,
+                      xAxisTitle: true,
+                      yAxisTitle: false,
+                      xAxisTicks: true,
+                      yAxisTicks: false
+                    },
+                     tooltipConfig: [
+                      {label: "Ferrostatin-1 (µM)", field: "x"},
+                      {label: "Cell lines killed (Viability < 0.3)", field: "value"}
+                    ]
+                  }
 
                   let pert3Config = {
                     title: "Combination Sensitivity Across Doses",
@@ -183,17 +171,16 @@ export default {
                 plot1.id = `${self.rootName}-pert1-heatmap`
 
                 
-                
-
-                //  let plot2 = {data: heatmap2Data, config: self.configure(heatmap2Data, pert2Config)}
-                //  plot2.class= "single-agent-heatmap"
-                //    plot2.id = `${self.rootName}-pert2-heatmap`
+              
+                 let plot2 = {data: heatmap2Data, config: self.configure(heatmap2Data, pert2Config)}
+                 plot2.class= "single-agent-heatmap"
+                   plot2.id = `${self.rootName}-pert2-heatmap`
 
                 let plot3 = {data: heatmap3Data, config: self.configure(heatmap3Data, pert3Config)}
                 plot3.class= "combo-heatmap"
                 plot3.id = `${self.rootName}-pert3-heatmap`
 
-                this.plots = [plot1, plot3]
+                this.plots = [plot1, plot2, plot3]
                 self.loading = false;
             })
             },
@@ -239,10 +226,6 @@ export default {
 
             configure(data, config) {
               const self = this;
-              
-
-
-
               return {
 
                 padding: config.padding,
@@ -286,13 +269,11 @@ export default {
   
   <style scoped>
 .single-agent-heatmap, .combo-heatmap{
-  width: 300px;
+  width: 100%;
   height: 120px;
+  margin-top:16px !important;
+  margin-bottom:16px !important;
 }
-/* .combo-heatmap{
-  width: 300px;
-  height: 300px;
-} */
 
   </style>
   

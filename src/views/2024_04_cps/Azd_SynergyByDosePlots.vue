@@ -21,8 +21,14 @@
         <v-col cols="4"><svg class="cps-legend"  :id="`${rootName}-legend`"></svg></v-col>
     </v-row>
 
-
+    <!-- <v-row  justify="center">
+        <v-col cols="6">
+          <h5 class="center"> AZD5991 Dose  (µM) + A-1331852 Dose  (µM)</h5>
+          <svg class="cps-legend center"  :id="`${rootName}-legend`"></svg>
+        </v-col>
+    </v-row> -->
     <div class="py-8 lattice-plots" :id="rootName">
+      
 
         <div v-for="plot in plots" 
         :id="plot.id" 
@@ -92,7 +98,7 @@ async created() {
     async loadData(){
         this.loading = true;
         Promise.all([
-            d3.csv(`${dataPath}2024_04_cps/azd_a133_data.csv`, function(d){
+            d3.csv(`${dataPath}2024_04_cps/A133AZD.csv`, function(d){
             return {
                 ccle_name: d["ccle_name"],
                 culture: d["culture"],
@@ -104,6 +110,8 @@ async created() {
                 pert2_viability: +d["capped_anchor"],
                 combination_viability: +d["capped_combination"],
                 synergy: +d["S"],
+                neg_log10_qval: +d["neg_log10_qval"],
+                synergy_count_across_doses: +d["synergy_count_across_doses"],
                 xpr_mcl1: +d["XPR_MCL1"],
               xpr_bclxl: +d["XPR_BCLXL"],
               xpr_bcl2: +d["XPR_BCL2"],
@@ -126,9 +134,13 @@ async created() {
         const self = this;
         let data = self.data.map(a => ({...a}))
         data.forEach(d=>{
-            d.x = d.pert2_viability;
-            d.y = d.pert1_viability;
-            d.c = d.combination_viability;
+            // d.x = d.pert2_viability;
+            // d.y = d.pert1_viability;
+            d.y = d.neg_log10_qval;
+            d.x = d.synergy;
+         //   d.c = d.combination_viability;
+         //   d.c = d.synergy_count_across_doses;
+            d.c = d.synergy;
             d.id = `${d.ccle_name}`;
             d.r = 3;
             Object.assign(d, helpers.getSelectionAttributes())
@@ -142,10 +154,14 @@ async created() {
         const yExtent = d3.extent(scatterData.map(d => d.y))
         const cExtent = d3.extent(scatterData.map(d => d.c)) // use [0,1] instead?
         const scatterConfig = {
-            xAxisTitle: "AZD5991 Viability",
-            yAxisTitle: "A-1331852 Viability",
-            cAxisTitle: "Combination Viability"
+            // xAxisTitle: "AZD5991 Viability",
+            // yAxisTitle: "A-1331852 Viability",
+            // cAxisTitle: "Combination Viability"
+            xAxisTitle: "Synergy Score",
+            yAxisTitle: "-log10 (q value)",
+            cAxisTitle: "Synergy Score"
         }
+        console.log("cExtent", cExtent)
        self.GE_Y_Extent = yExtent;
         latticeScatterData.forEach(d=> {
             d.config = {
@@ -164,13 +180,10 @@ async created() {
                     threshold: 0.5
                     },
                     c: {
-                        type: "sequential",
+                        type: "diverging",
+                        domain: cExtent,
                         title: scatterConfig.cAxisTitle
                     }
-                    
-                },
-                scale: {
-                    c: d3.scaleSequential().domain([0,1]).interpolator(d3.interpolateGnBu)
                 },
                 display: {},
                 tooltipConfig: [
@@ -200,11 +213,8 @@ async created() {
             if(i==0){
                 displayLegend = true;
             }
-
             if (d.row ===  maxRow ) {  displayXAxisTicks = true;  } 
             else { displayXAxisTicks = false; }
-
-
 
             if (d.column === 0) { displayYAxisTicks = true } 
             else { displayYAxisTicks = false }
@@ -212,8 +222,16 @@ async created() {
             if (d.column === 0 && d.row == 2 ) { displayYAxisTitle = true } 
             else { displayYAxisTitle = false }
 
-            if ((d.column === 0 && d.row == maxRow)) { displayXAxisTitle = true } 
+            // if ((d.column === 0 || d.column == 2) && d.row == maxRow) { displayXAxisTitle = true } 
+            if (d.column == 2 && d.row == maxRow) { displayXAxisTitle = true } 
             else { displayXAxisTitle = false }
+
+            // if ((d.column === 0 && d.row == maxRow)) { 
+            //   d.config.axis.x.title = "A-1331852"
+            //  }  else if (d.column == 0 && d.row == 0) {
+            //   d.config.axis.y.title = "AZD5991"
+            //  }
+
 
             let display = { 
                     title: displayTitle, 
@@ -226,7 +244,7 @@ async created() {
             d.config.display = display;
             d.config.padding = d.padding;
         })
-        console.log(plots.filter(d=>d.config.display.legend))
+
     },
 
     },

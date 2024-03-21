@@ -153,7 +153,7 @@ export default class defaultPlotConfig {
                     this.scale.c = d3.scaleSequential().domain(this.axis.c.domain).interpolator(d3.interpolateYlOrRd)
                     break;
                 case "diverging":
-                    this.scale.c = d3.scaleSequential().domain(this.axis.c.domain).interpolator(d3.interpolateYlOrRd) 
+                    this.scale.c = d3.scaleSequential().domain(this.axis.c.domain).interpolator(d3.interpolateRdBu) 
                     break;
                 case "log":
                     this.scale.c = d3.scaleLog().domain(this.axis.c.domain).range(this.axis.c.range)

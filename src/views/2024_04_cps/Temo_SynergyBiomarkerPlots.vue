@@ -55,7 +55,7 @@
 </template>  
 <script>
 const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
-const fileName = "temo06_highMGMT_biomarkers.csv"
+const fileName = "temoO6_highMGMT_biomarkers.csv"
 import * as d3 from 'd3';
 import * as plotUtils from '@/js/utils/plot-utils.js';
 import * as helpers from '@/js/utils/helpers.js';

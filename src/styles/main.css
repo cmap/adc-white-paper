@@ -52,7 +52,9 @@ small{
   text-align:center;
   margin:auto;
 }
-
+.full-width{
+  width: 100%;
+}
 .v-input__details {
 
   display:none !important;
@@ -113,13 +115,21 @@ li{
   font-size: 0.9em;
 }
 
-
+/* older svg plots. should not have different class for this between svg and canvas */
 .scatter-plot > .title, 
 .boxplot-plot > .title{
   font-size:1em;
   font-weight:900;
   fill: #444444;
 }
+/* canvas plots */
+.plot-title{
+  font-size:11.5px !important;
+  font-weight:700 !important;
+  white-space: nowrap;
+} 
+
+
 .tick > line{
   stroke:#444444;
   stroke-width:.25px;
@@ -129,15 +139,6 @@ li{
   stroke: black !important;
   stroke-width: 0.5px !important;
 }
-/* .tick > text{
-  font-size:12px;
-  color:#444444;
-}
-.axis.title{
-  font-size:14px;
-  font-weight:700;
-  fill: #444444;
-} */
 
 .tick > text{
   font-size: 9px !important;
@@ -201,6 +202,10 @@ stroke-opacity:1;
 }
 svg{
   overflow:visible !important;
+}
+.legend.tick.active >rect{
+  stroke: #000;
+  stroke-width: 1px;
 }
 
 @media (max-width: 600px){
