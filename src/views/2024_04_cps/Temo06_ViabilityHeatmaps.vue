@@ -76,7 +76,7 @@ export default {
                       pert2_viability: +d["capped_anchor"] < 0.3 ? true : false
                     }
                 }),
-                d3.csv(`${dataPath}2024_04_cps/06-benzyl_data.csv`, function(d){
+                d3.csv(`${dataPath}2024_04_cps/O6-benzyl_data.csv`, function(d){
                     return {
                       ccle_name: d["Cell line"],
                       pert2: "O6-benzylguanine",
