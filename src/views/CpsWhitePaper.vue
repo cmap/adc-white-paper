@@ -247,7 +247,6 @@ import PaperSubSection from '@/components/PaperSubSection.vue';
 import TemoSynergyByDosePlots from './2024_04_cps/Temo_SynergyByDosePlots.vue';
 import Ml210SynergyByDosePlots from './2024_04_cps/Ml210_SynergyByDosePlots.vue';
 import Azd_SynergyByDosePlots from './2024_04_cps/Azd_SynergyByDosePlots.vue';
-import ViabilityMatrixPlots from './2024_04_cps/ViabilityMatrixPlots.vue';
 import Adz_A13_ViabilityHeatmaps from './2024_04_cps/Adz_A13_ViabilityHeatmaps.vue';
 import Temo06_ViabilityHeatmaps from './2024_04_cps/Temo06_ViabilityHeatmaps.vue';
 import ML210_Ferr_ViabilityHeatmaps from './2024_04_cps/ML210_Ferr_ViabilityHeatmaps.vue';
@@ -264,7 +263,6 @@ export default {
     TemoSynergyByDosePlots,
     Ml210SynergyByDosePlots,
     Azd_SynergyByDosePlots,
-    ViabilityMatrixPlots,
     Adz_A13_ViabilityHeatmaps,
     Temo06_ViabilityHeatmaps,
     ML210_Ferr_ViabilityHeatmaps,

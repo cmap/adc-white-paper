@@ -118,7 +118,7 @@ async created() {
     async loadData(){
         this.loading = true;
         Promise.all([
-            d3.csv(`${dataPath}2024_04_cps/ml210_ferro_data.csv`, function(d){
+            d3.csv(`${dataPath}2024_04_cps/MLferro.csv`, function(d){
             return {
                 ccle_name: d["ccle_name"],
                 culture: d["culture"],
@@ -318,7 +318,8 @@ async created() {
                 padding: {},
                 axis: {
                     x: {
-                        domain: xExtent,
+                         // domain: xExtent,
+                    domain: [-1,1],
                         title: xAxisTitle,
                         threshold: "0"
                     },

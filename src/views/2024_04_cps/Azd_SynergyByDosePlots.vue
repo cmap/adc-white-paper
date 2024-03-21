@@ -92,7 +92,7 @@ async created() {
     async loadData(){
         this.loading = true;
         Promise.all([
-            d3.csv(`${dataPath}2024_04_cps/azd_a133_data.csv`, function(d){
+            d3.csv(`${dataPath}2024_04_cps/A133AZD.csv`, function(d){
             return {
                 ccle_name: d["ccle_name"],
                 culture: d["culture"],
@@ -104,6 +104,8 @@ async created() {
                 pert2_viability: +d["capped_anchor"],
                 combination_viability: +d["capped_combination"],
                 synergy: +d["S"],
+                neg_log10_qval: +d["neg_log10_qval"],
+                synergy_count_across_doses: +d["synergy_count_across_doses"],
                 xpr_mcl1: +d["XPR_MCL1"],
               xpr_bclxl: +d["XPR_BCLXL"],
               xpr_bcl2: +d["XPR_BCL2"],
@@ -126,9 +128,12 @@ async created() {
         const self = this;
         let data = self.data.map(a => ({...a}))
         data.forEach(d=>{
-            d.x = d.pert2_viability;
-            d.y = d.pert1_viability;
-            d.c = d.combination_viability;
+            // d.x = d.pert2_viability;
+            // d.y = d.pert1_viability;
+            d.y = d.neg_log10_qval;
+            d.x = d.synergy;
+         //   d.c = d.combination_viability;
+            d.c = d.synergy_count_across_doses;
             d.id = `${d.ccle_name}`;
             d.r = 3;
             Object.assign(d, helpers.getSelectionAttributes())
