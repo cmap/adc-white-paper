@@ -5,7 +5,7 @@
   <div :id="rootName">
     <div v-for="plot in plots" 
       :id="plot.id" 
-      :class="`my-3 lattice-plot ${plot.class}`" 
+      :class="`lattice-plot ${plot.class}`" 
       :style="{
       'position': 'relative'
       }">
@@ -19,9 +19,7 @@
       </heatmap-plot>
     </div>
   </div>
-  <v-col cols="12">
-    <svg class="cps-legend" :id="`${rootName}-heatmap-legend`"></svg>
-  </v-col>
+  <svg class="cps-legend" :id="`${rootName}-heatmap-legend`"></svg>
 
 
 
@@ -32,7 +30,6 @@
 import * as d3 from 'd3';
 import HeatmapPlot from '@/plots/heatmap-plot.vue';
 const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
-const padding =   {top: 10, right: 20, bottom: 50, left: 40}
 export default {
   name: 'ML210_Ferr_ViabilityHeatmaps',
   components: {
@@ -272,13 +269,11 @@ export default {
   
   <style scoped>
 .single-agent-heatmap, .combo-heatmap{
-  width: 300px;
+  width: 100%;
   height: 120px;
+  margin-top:16px !important;
+  margin-bottom:16px !important;
 }
-/* .combo-heatmap{
-  width: 300px;
-  height: 300px;
-} */
 
   </style>
   

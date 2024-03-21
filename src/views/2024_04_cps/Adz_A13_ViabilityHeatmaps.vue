@@ -1,6 +1,6 @@
 <template>
   <div v-if="!loading">
-  <div class="my-8" :id="rootName">
+  <div :id="rootName">
     <div v-for="plot in plots" 
       :id="plot.id" 
       :class="`lattice-plot ${plot.class}`" 
@@ -17,9 +17,7 @@
       </heatmap-plot>
     </div>
   </div>
-  <v-col cols="12" sm="12" md="9" lg="8">
-    <svg class="cps-legend" :id="`${rootName}-heatmap-legend`"></svg>
-  </v-col>
+  <svg class="cps-legend" :id="`${rootName}-heatmap-legend`"></svg>
 
 
 
@@ -29,9 +27,8 @@
 <script>
 import * as d3 from 'd3';
 import HeatmapPlot from '@/plots/heatmap-plot.vue';
-import { formToJSON } from 'axios';
 const dataPath = import.meta.env.PROD ? import.meta.env.BASE_URL+"/data/" : "../../data/";
-const padding =   {top: 10, right: 20, bottom: 50, left: 40}
+
 export default {
   name: 'Adz_A13_ViabilityHeatmaps',
   components: {
@@ -259,13 +256,18 @@ export default {
   <style scoped>
   
 .single-agent-heatmap{
-  width: 300px;
+  width: 100%;
   height: 120px;
 }
 .combo-heatmap{
-  margin-top:32px !important;
-  width: 300px;
+  width: 100%;
   height: 300px;
 }
+
+.single-agent-heatmap, .combo-heatmap{
+  margin-top:16px !important;
+  margin-bottom:16px !important;
+}
+
 
 </style>

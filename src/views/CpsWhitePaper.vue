@@ -122,10 +122,12 @@
                   <v-list-item>
                     <v-list-item-title>ML210</v-list-item-title>
                     <v-list-item-subtitle>7 concentrations <br>top concentration: 10µM; threefold dilution</v-list-item-subtitle>
+                    <v-list-item-subtitle></v-list-item-subtitle>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-title>ferrostatin-1</v-list-item-title>
-                    <v-list-item-subtitle>1 concentration:  10 µM</v-list-item-subtitle>
+                    <v-list-item-subtitle>1 concentration:  10 µM <br><br></v-list-item-subtitle>
+                    <v-list-item-subtitle></v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
                 <ML210_Ferr_ViabilityHeatmaps rootName="ml210-ferr-viability-heatmap-plot"> </ML210_Ferr_ViabilityHeatmaps>
