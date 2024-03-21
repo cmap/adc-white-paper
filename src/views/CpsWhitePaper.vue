@@ -299,57 +299,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .cps-legend{
   width:100%;
   height:80px;
 }
-.legend.tick.active >rect{
-  stroke: #000;
-  stroke-width: 1px;
-}
-/* .paper-sub-sub-section{
-  margin-top: 32px !important;
-  margin-bottom: 32px !important;
-} */
+
+
 
 .combination_design-img{
     width: 100%;
   }
-.full-width{
-  width: 100%;
-}
 
 
-/* .tick > text{
-  font-size: 9px !important;
-  fill: #000;
-}
-.axis-title{
-  font-size:11.5px !important;
-  font-weight:500 !important;
-  color:#454545;
-  fill: #454545;
-}
-.plot-title{
-  font-size:11.5px !important;
-  font-weight:700 !important;
-  white-space: nowrap;
-} */
-/* .x-axis-title{
-  position: absolute;
-  bottom:0px;
-  left:45%;
-}
-.y-axis-title{
-  position: absolute;
-  bottom:50%;
-  left:-10px;
-  line-height:0px;
-  -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
-  -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
-  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
-} */
 .single-agent-heatmap > * > * > .y.axis > .tick > line{
     opacity: 0;
   }

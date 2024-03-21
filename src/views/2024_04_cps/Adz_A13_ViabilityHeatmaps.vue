@@ -1,7 +1,5 @@
 <template>
   <div v-if="!loading">
-
-
   <div class="my-8" :id="rootName">
     <div v-for="plot in plots" 
       :id="plot.id" 
@@ -259,10 +257,10 @@ export default {
   </script>
   
   <style scoped>
+  
 .single-agent-heatmap{
   width: 300px;
   height: 120px;
-
 }
 .combo-heatmap{
   margin-top:32px !important;
