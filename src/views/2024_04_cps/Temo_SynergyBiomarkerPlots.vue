@@ -76,7 +76,14 @@ export default {
     plots: [],
     mouseover: null,
     click: [],
-    highlight: []
+    highlight: [],
+    featureTypeLabel: {
+        "EXP": "Gene Expression",
+        "RPPA": "Proteomics",
+        "CN": "Copy Number",
+        "XPR": "CRISPR Knock-Out",
+        "REP": "Repurposing Compounds"
+    }
   }),
   computed: {
 
@@ -87,6 +94,7 @@ async created() {
   methods: {
     async loadData(){
         this.loading = true;
+        const self = this;
         Promise.all([
             d3.csv(`${dataPath}2024_04_cps/${fileName}`, function(d,i){
                 let string = d.y.split("::");
@@ -99,7 +107,7 @@ async created() {
                     pert2_name: string[1],
                     pert1_dose: string[2],
                     pert2_dose: string[3],
-                    feature_type: d["feature.set"],
+                    feature_type: self.featureTypeLabel[d["feature.set"]],
                     id: d["y"]
                 }
             }),
