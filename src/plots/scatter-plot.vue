@@ -56,6 +56,7 @@ export default {
       const self = this;
       this.plot = new scatter(self.rootId, self.data, self.config, self.states);
       this.plotMouseEvents(); 
+      this.updateCanvasOpacity(); // if something is selected, update opacity
       if (this.config.display.legend){
           this.plotLegendEvents();
         }

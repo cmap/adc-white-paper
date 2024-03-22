@@ -60,6 +60,7 @@ import * as d3 from 'd3';
 import * as plotUtils from '@/js/utils/plot-utils.js';
 import * as helpers from '@/js/utils/helpers.js';
 import ScatterPlot from '@/plots/scatter-plot.vue';
+import { nextTick } from 'vue';
 
 export default {
   name: 'TemoSynergyBiomarkerPlots',
@@ -72,10 +73,10 @@ export default {
   data: () => ({
     loading: true,
     items:[],
-    defaulted: [],
+    defaulted: ["MSH2", "MSH6"],
     plots: [],
     mouseover: null,
-    click: [],
+    click: ["MSH2", "MSH6"],
     highlight: [],
     featureTypeLabel: {
         "EXP": "Gene Expression",
@@ -90,6 +91,7 @@ export default {
   },
 async created() {
     await this.loadData()
+
   },
   methods: {
     async loadData(){
@@ -134,8 +136,11 @@ async created() {
                 
             })
             this.items = [...new Set(items)];
+
              this.plots = plots;
+
             this.loading = false;
+
 
         })
     },

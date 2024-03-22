@@ -109,6 +109,7 @@ export default class scatter extends defaultPlotConfig{
         this.renderAxis();
         this.renderContext(); // renders 1x, then layer is hidden/visible on highlight
         this.renderFocus(); // renders on highlight
+        this.renderSelections(); // renders on click
        
     }
     renderAxis(){
