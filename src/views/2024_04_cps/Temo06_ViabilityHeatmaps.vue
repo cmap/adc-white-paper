@@ -141,7 +141,7 @@ export default {
                     xAxisTitle: "O6-Benzylguanine Dose (µM)",
                     yAxisTitle: "",
                     display: {
-                      title: false,
+                      title: true,
                       legend: false,
                       xAxisTitle: true,
                       yAxisTitle: false,

@@ -129,12 +129,12 @@ export default {
                     ]
                   }
                   let pert2Config = {
-                    title: "Sensitivity Across Doses",
-                    padding: {top: 10, right: 10, bottom: 50, left: 20},
-                    xAxisTitle: "Ferrostatin-1 e Dose (µM)",
+                    title: "Single Agent Sensitivity Across Doses",
+                    padding: {top: 10, right: 125, bottom: 50, left: 125},
+                    xAxisTitle: "Ferrostatin-1 Dose (µM)",
                     yAxisTitle: "",
                     display: {
-                      title: false,
+                      title: true,
                       legend: false,
                       xAxisTitle: true,
                       yAxisTitle: false,
@@ -151,7 +151,7 @@ export default {
                     title: "Combination Sensitivity Across Doses",
                     padding: {top: 10, right: 0, bottom: 50, left: 50},
                     xAxisTitle: "ML210 Dose (µM)",
-                    yAxisTitle: "Ferrostatin-1 (µM)",
+                    yAxisTitle: "Ferrostatin-1 Dose (µM)",
                     display: {
                       title: true,
                       legend: false,

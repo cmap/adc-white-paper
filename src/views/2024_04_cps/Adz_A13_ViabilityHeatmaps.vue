@@ -119,12 +119,12 @@ export default {
                     ]
                   }
                   let pert2Config = {
-                    title: "",
+                    title: "Single Agent Sensitivity Across Doses",
                     padding: {top: 10, right: 10, bottom: 50, left: 50},
                     xAxisTitle: "A-1331852 Dose (µM)",
                     yAxisTitle: "",
                     display: {
-                      title: false,
+                      title: true,
                       legend: false,
                       xAxisTitle: true,
                       yAxisTitle: false,
