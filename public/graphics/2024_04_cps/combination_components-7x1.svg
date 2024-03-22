@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 235.43 312.93">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9 {
+        font-family: InterTight-Black, 'Inter Tight';
+        font-weight: 800;
+      }
+
+      .cls-1, .cls-10 {
+        letter-spacing: 0em;
+      }
+
+      .cls-11 {
+        fill: none;
+      }
+
+      .cls-11, .cls-12, .cls-6, .cls-13 {
+        stroke: #231f20;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-11, .cls-13 {
+        stroke-width: 1.5px;
+      }
+
+      .cls-14 {
+        fill: #f8b79d;
+      }
+
+      .cls-15 {
+        fill: #f88e72;
+      }
+
+      .cls-16 {
+        fill: #ebefff;
+      }
+
+      .cls-17 {
+        fill: #f76a4a;
+      }
+
+      .cls-18 {
+        fill: #eb3b2b;
+      }
+
+      .cls-19 {
+        fill: #fae1d5;
+      }
+
+      .cls-20 {
+        fill: #810c21;
+      }
+
+      .cls-21 {
+        fill: #94465b;
+      }
+
+      .cls-22, .cls-13 {
+        fill: #c2d7eb;
+      }
+
+      .cls-23 {
+        fill: #9d6378;
+      }
+
+      .cls-24 {
+        fill: #b9bace;
+      }
+
+      .cls-25 {
+        fill: #95020e;
+      }
+
+      .cls-26 {
+        fill: #b3d1e7;
+      }
+
+      .cls-27 {
+        fill: #a5cbe2;
+      }
+
+      .cls-28 {
+        fill: #a68094;
+      }
+
+      .cls-29 {
+        fill: #b2d1e6;
+      }
+
+      .cls-30 {
+        fill: #af9db1;
+      }
+
+      .cls-31 {
+        fill: #d3e3f1;
+      }
+
+      .cls-32 {
+        fill: #c7191c;
+      }
+
+      .cls-33, .cls-3, .cls-12, .cls-6, .cls-8, .cls-34, .cls-35 {
+        fill: #231f20;
+      }
+
+      .cls-36 {
+        fill: #8a293e;
+      }
+
+      .cls-3, .cls-4, .cls-5, .cls-35 {
+        font-size: 9.33px;
+      }
+
+      .cls-37 {
+        letter-spacing: 0em;
+      }
+
+      .cls-37, .cls-38, .cls-39, .cls-40, .cls-41, .cls-10 {
+        font-family: InterTight-Regular, 'Inter Tight';
+      }
+
+      .cls-5 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-42 {
+        letter-spacing: -.04em;
+      }
+
+      .cls-12, .cls-6 {
+        stroke-width: .5px;
+      }
+
+      .cls-6, .cls-8, .cls-9, .cls-34, .cls-40 {
+        font-size: 9px;
+      }
+
+      .cls-38 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-43 {
+        letter-spacing: 0em;
+      }
+
+      .cls-44 {
+        letter-spacing: .02em;
+      }
+
+      .cls-7 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-9 {
+        fill: #fff;
+      }
+
+      .cls-45 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-46 {
+        letter-spacing: 0em;
+      }
+
+      .cls-47 {
+        letter-spacing: 0em;
+      }
+
+      .cls-41 {
+        letter-spacing: -.02em;
+      }
+    </style>
+  </defs>
+  <path class="cls-33" d="m113.15,179.98l1.46-1.47,3.04,3.05v-12.2h2.13v12.2l3.05-3.05,1.44,1.47-5.56,5.56-5.57-5.56Z"/>
+  <g>
+    <g>
+      <g>
+        <rect class="cls-19" x="96.85" y="130.62" width="15.02" height="15.02"/>
+        <rect class="cls-14" x="111.87" y="130.62" width="15.02" height="15.02"/>
+        <rect class="cls-15" x="126.89" y="130.62" width="15.02" height="15.02"/>
+        <rect class="cls-17" x="141.9" y="130.62" width="15.02" height="15.02"/>
+        <rect class="cls-18" x="156.92" y="130.62" width="15.02" height="15.02"/>
+        <rect class="cls-32" x="171.94" y="130.62" width="15.02" height="15.02"/>
+        <rect class="cls-25" x="186.95" y="130.62" width="15.02" height="15.02"/>
+      </g>
+      <rect class="cls-11" x="96.39" y="130.62" width="105.12" height="15.02"/>
+    </g>
+    <text class="cls-35" transform="translate(96.39 156.56)"><tspan class="cls-2" x="0" y="0">st</tspan><tspan class="cls-7" x="8.83" y="0">r</tspan><tspan class="cls-2" x="12.37" y="0">ong</tspan><tspan class="cls-37" x="29.64" y="0"> </tspan></text>
+  </g>
+  <g>
+    <rect class="cls-16" x="24.27" y="110.12" width="15.02" height="15.02"/>
+    <rect class="cls-31" x="39.29" y="110.12" width="15.02" height="15.02"/>
+    <rect class="cls-22" x="84.34" y="110.12" width="15.02" height="15.02"/>
+    <rect class="cls-29" x="99.36" y="110.12" width="15.02" height="15.02"/>
+    <rect class="cls-27" x="114.37" y="110.12" width="15.02" height="15.02"/>
+    <rect class="cls-26" x="69.32" y="110.12" width="15.02" height="15.02"/>
+    <rect class="cls-13" x="54.31" y="110.12" width="15.02" height="15.02"/>
+  </g>
+  <text class="cls-3" transform="translate(24.27 136.06)"><tspan class="cls-47" x="0" y="0">w</tspan><tspan x="7.85" y="0">eak</tspan></text>
+  <rect class="cls-22" x="25.56" y="226.09" width="24.95" height="25.03"/>
+  <g>
+    <rect class="cls-19" x="57.32" y="256.84" width="25.03" height="25.02"/>
+    <rect class="cls-14" x="82.35" y="256.84" width="25.03" height="25.02"/>
+    <rect class="cls-15" x="107.38" y="256.84" width="25.03" height="25.02"/>
+    <rect class="cls-17" x="132.41" y="256.84" width="25.03" height="25.02"/>
+    <rect class="cls-18" x="157.44" y="256.84" width="25.03" height="25.02"/>
+    <rect class="cls-32" x="182.46" y="256.84" width="25.03" height="25.02"/>
+    <rect class="cls-25" x="207.49" y="256.84" width="25.03" height="25.02"/>
+  </g>
+  <g>
+    <rect class="cls-24" x="57.32" y="226.1" width="25.03" height="25.03"/>
+    <rect class="cls-30" x="82.35" y="226.07" width="25.03" height="25.03"/>
+    <rect class="cls-28" x="107.38" y="226.04" width="25.03" height="25.03"/>
+    <rect class="cls-23" x="132.41" y="226.01" width="25.03" height="25.03"/>
+    <rect class="cls-21" x="157.44" y="225.99" width="25.03" height="25.03"/>
+    <rect class="cls-36" x="182.46" y="225.96" width="25.03" height="25.03"/>
+    <rect class="cls-20" x="207.49" y="225.93" width="25.03" height="25.03"/>
+  </g>
+  <text class="cls-8" transform="translate(19.24 265.76) rotate(-90)"><tspan x="0" y="0">Anchor Dose</tspan></text>
+  <polygon class="cls-12" points="195.47 300.58 195.47 287.57 95.35 287.57 195.47 300.58"/>
+  <text class="cls-8" transform="translate(115.68 307.34)"><tspan x="0" y="0">Lib</tspan><tspan class="cls-45" x="12.98" y="0">r</tspan><tspan x="16.44" y="0">a</tspan><tspan class="cls-44" x="21.6" y="0">r</tspan><tspan x="25.44" y="0">y Doses</tspan></text>
+  <g>
+    <rect class="cls-16" x="26.77" y="42.17" width="25.03" height="25.03"/>
+    <rect class="cls-31" x="51.8" y="42.17" width="25.03" height="25.03"/>
+    <rect class="cls-22" x="126.89" y="42.17" width="25.03" height="25.03"/>
+    <rect class="cls-29" x="151.91" y="42.17" width="25.03" height="25.03"/>
+    <rect class="cls-27" x="176.94" y="42.17" width="25.03" height="25.03"/>
+    <rect class="cls-26" x="101.86" y="42.17" width="25.03" height="25.03"/>
+    <rect class="cls-22" x="76.83" y="42.17" width="25.03" height="25.03"/>
+  </g>
+  <path class="cls-33" d="m108.81,96.84l1.46-1.47,3.04,3.05v-12.2h2.13v12.2l3.05-3.05,1.44,1.47-5.56,5.56-5.57-5.56Z"/>
+  <text class="cls-33" transform="translate(58.32 201.59)"><tspan class="cls-4" x="0" y="0">7x1 </tspan><tspan class="cls-5" x="17.26" y="0">f</tspan><tspan class="cls-4" x="20.68" y="0">ormat</tspan><tspan class="cls-40" x="47.61" y="0"> </tspan><tspan class="cls-40"><tspan x="0" y="10.8">libra</tspan><tspan class="cls-44" x="16.07" y="10.8">r</tspan><tspan x="19.14" y="10.8">y agent </tspan><tspan class="cls-46" x="50.17" y="10.8">t</tspan><tspan x="52.97" y="10.8">es</tspan><tspan class="cls-46" x="62.05" y="10.8">t</tspan><tspan x="64.85" y="10.8">ed at 1 anchor dose </tspan></tspan></text>
+  <text class="cls-34" transform="translate(26.78 76.83)"><tspan class="cls-1" x="0" y="0">w</tspan><tspan class="cls-2" x="7.58" y="0">eak </tspan><tspan class="cls-39" x="24.81" y="0">dif</tspan><tspan class="cls-38" x="34.4" y="0">f</tspan><tspan class="cls-39" x="37.02" y="0">e</tspan><tspan class="cls-41" x="41.82" y="0">r</tspan><tspan class="cls-39" x="44.6" y="0">ential viability ef</tspan><tspan class="cls-38" x="105.61" y="0">f</tspan><tspan class="cls-39" x="108.23" y="0">ec</tspan><tspan class="cls-10" x="117.66" y="0">t</tspan><tspan class="cls-39" x="120.42" y="0">s</tspan></text>
+  <text class="cls-8" transform="translate(72.35 15.35)"><tspan x="0" y="0">Single </tspan><tspan class="cls-42" x="28.77" y="0">A</tspan><tspan class="cls-43" x="35.33" y="0">gent Doses</tspan></text>
+  <polygon class="cls-12" points="164.43 21.77 164.43 34.79 64.31 34.79 164.43 21.77"/>
+  <g>
+    <text class="cls-6" transform="translate(136.96 240.81)"><tspan x="0" y="0">Combination Doses</tspan></text>
+    <text class="cls-9" transform="translate(137.32 240.9)"><tspan x="0" y="0">Combination Doses</tspan></text>
+  </g>
+</svg>

@@ -59,10 +59,10 @@
           <h4>Pairing combination components based on differential viability effects</h4>
           <v-row>
             <v-col cols="12" sm="12" md="4" lg="4" xl="4">
-              <v-img class="px-6" :src="imgPath + 'combination_components-7x1.png'"></v-img>
+              <v-img class="px-6" :src="imgPath + 'combination_components-7x1.svg'"></v-img>
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4" xl="4">
-              <v-img class="px-6" :src="imgPath + 'combination_components-5x5.png'"></v-img>
+              <v-img class="px-6" :src="imgPath + 'combination_components-5x5.svg'"></v-img>
             </v-col>
           </v-row>
       </PaperSection>
