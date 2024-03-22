@@ -114,7 +114,17 @@ async created() {
         ])
         .then(response=>{
             this.data = response[0].sort((a,b)=>d3.descending(+a.qvalue, +b.qvalue));
-         //   this.items = [...new Set((this.data.filter((d,i)=> i <= 100)).map(d=>d.feature))];
+            this.data.filter(d=> d.feature_type=="Proteomics").forEach(d=>{
+                
+            let split = d.feature.split("_");
+            let parsed;
+                if (split[0]==split[1]){
+                    parsed = split[0]
+                } else {
+                    parsed = d.feature
+                }
+                d.feature = parsed;
+            })
             let scatterData = this.createScatterData();
             let plots = this.createLatticeScatterData(scatterData);
             let items = []
