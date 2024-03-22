@@ -99,7 +99,7 @@ async created() {
             d3.csv(`${dataPath}2024_04_cps/${fileName}`, function(d,i){
                 let string = d.y.split("::");
                 return {
-                    feature: d["feature"],
+                    feature: d["feature"].replace("Caution_", ""),
                     correlation: d["rho"],
                     qvalue: +d["q.val"],
                     neg_log10_qval: d["neg_log10_qval"],
