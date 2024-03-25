@@ -88,7 +88,8 @@ export default {
         "Copy Number": 4,
         "CRISPR Knock-Out": 3,
         "Repurposing Compounds": 5
-    }
+    },
+    yDomain: [0,14]
   }),
   computed: {
 
@@ -132,6 +133,7 @@ async created() {
                 d.feature = parsed;
             })
             let scatterData = this.createScatterData();
+       //     this.yDomain = d3.extent(scatterData.map(d=>d.y));
             let plots = this.createLatticeScatterData(scatterData);
             let items = []
             plots.forEach(d=>{
@@ -190,7 +192,7 @@ async created() {
 
         const scatterConfig = {
             xAxisTitle: "Coorelation",
-            yAxisTitle: "q value",
+            yAxisTitle: "-log10 (q value)",
             cAxisTitle: "Dose (µM)"
         }
         const maxRow = d3.max(latticeScatterData.map(d=>d.row));
@@ -221,7 +223,9 @@ async created() {
                         threshold: "0"
                     },
                     y: {
-                        domain: [0, d3.max(d.data.map(e=>e.y))],
+                        // domain: [0, d3.max(d.data.map(e=>e.y))],
+                        ticks:4,
+                        domain: self.yDomain,
                         title: `${scatterConfig.yAxisTitle}`,
                     },
                     c: {
