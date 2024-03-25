@@ -59,7 +59,7 @@ computed: {
   padding:0px !important;
 }
 .card-title{
-  font-size:1.2em;
+  font-size:1em;
   line-height:1.1em;
   /* font-weight:900;
   color:#868686; */
@@ -68,7 +68,7 @@ computed: {
 }
 
 .card-description{
-  font-size:1.2em;
+  font-size:1em;
   line-height:1.1em;
   font-weight:300;
   color:#868686;

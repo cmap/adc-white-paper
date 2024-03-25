@@ -1,11 +1,11 @@
 <template>
-      <div>
-        <v-row>
-        <v-col cols="6">
+      <div>      
+      <v-row>
+        <v-col cols="4">
           <v-autocomplete
             v-model="click"
             :items="items"
-            label="Search top 100 features"
+            label="Search features"
             multiple
             chips
             closable-chips
@@ -15,12 +15,9 @@
         >
         </v-autocomplete>
         </v-col>
-      </v-row>
-      
-      <v-row>
-        <v-col cols="7">
-            <small><i>Select legend items to highlight</i></small>
-            <svg class="cps-legend" :id="`${rootName}-legend`"></svg>
+        <v-col cols="6">
+            <h5 class="legend title">Select doses to highlight</h5>
+            <svg class="cps-legend center" :id="`${rootName}-legend`"></svg>
         </v-col>
       </v-row>
 
@@ -60,6 +57,7 @@ import * as d3 from 'd3';
 import * as plotUtils from '@/js/utils/plot-utils.js';
 import * as helpers from '@/js/utils/helpers.js';
 import ScatterPlot from '@/plots/scatter-plot.vue';
+import { nextTick } from 'vue';
 
 export default {
   name: 'TemoSynergyBiomarkerPlots',
@@ -72,26 +70,42 @@ export default {
   data: () => ({
     loading: true,
     items:[],
-    defaulted: [],
+    defaulted: ["MSH2", "MSH6"],
     plots: [],
     mouseover: null,
-    click: [],
-    highlight: []
+    click: ["MSH2", "MSH6"],
+    highlight: [],
+    featureTypeLabel: {
+        "EXP": "Gene Expression",
+        "RPPA": "Proteomics",
+        "CN": "Copy Number",
+        "XPR": "CRISPR Knock-Out",
+        "REP": "Repurposing Compounds"
+    },
+    featureTypeOrder: {
+        "Gene Expression": 1,
+        "Proteomics": 2,
+        "Copy Number": 4,
+        "CRISPR Knock-Out": 3,
+        "Repurposing Compounds": 5
+    }
   }),
   computed: {
 
   },
 async created() {
     await this.loadData()
+
   },
   methods: {
     async loadData(){
         this.loading = true;
+        const self = this;
         Promise.all([
             d3.csv(`${dataPath}2024_04_cps/${fileName}`, function(d,i){
                 let string = d.y.split("::");
                 return {
-                    feature: d["feature"],
+                    feature: d["feature"].replace("Caution_", ""),
                     correlation: d["rho"],
                     qvalue: +d["q.val"],
                     neg_log10_qval: d["neg_log10_qval"],
@@ -99,14 +113,24 @@ async created() {
                     pert2_name: string[1],
                     pert1_dose: string[2],
                     pert2_dose: string[3],
-                    feature_type: d["feature.set"],
+                    feature_type: self.featureTypeLabel[d["feature.set"]],
                     id: d["y"]
                 }
             }),
         ])
         .then(response=>{
             this.data = response[0].sort((a,b)=>d3.descending(+a.qvalue, +b.qvalue));
-         //   this.items = [...new Set((this.data.filter((d,i)=> i <= 100)).map(d=>d.feature))];
+            this.data.filter(d=> d.feature_type=="Proteomics").forEach(d=>{
+                
+            let split = d.feature.split("_");
+            let parsed;
+                if (split[0]==split[1]){
+                    parsed = split[0]
+                } else {
+                    parsed = d.feature
+                }
+                d.feature = parsed;
+            })
             let scatterData = this.createScatterData();
             let plots = this.createLatticeScatterData(scatterData);
             let items = []
@@ -116,8 +140,11 @@ async created() {
                 
             })
             this.items = [...new Set(items)];
+
              this.plots = plots;
+
             this.loading = false;
+
 
         })
     },
@@ -137,6 +164,7 @@ async created() {
     createLatticeScatterData(scatterData){
         const self = this;
         let group = d3.groups(scatterData, d=>d.feature_type);
+        group = group.sort((a,b)=>d3.ascending(self.featureTypeOrder[a[0]], self.featureTypeOrder[b[0]]))
         let columns = 5;
 
         let row = 0, column=0;

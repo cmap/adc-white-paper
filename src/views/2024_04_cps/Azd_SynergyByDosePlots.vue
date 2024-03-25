@@ -1,6 +1,6 @@
 <template>
       <div>
-      <v-row>
+      <!-- <v-row>
         <v-col cols="6">
           <v-autocomplete
             v-model="click"
@@ -15,18 +15,32 @@
         >
         </v-autocomplete>
         </v-col>
-      </v-row>
-      <v-row>
+      </v-row> -->
+      <!-- <v-row>
         <v-col cols="6"> <span class="plot-title"> AZD5991 Dose  (µM) + A-1331852 Dose  (µM)</span></v-col>
         <v-col cols="4"><svg class="cps-legend"  :id="`${rootName}-legend`"></svg></v-col>
-    </v-row>
-
-    <!-- <v-row  justify="center">
+    </v-row> -->
+    <!-- <v-row  justify="center"> -->
+    <v-row>
+      <v-col cols="4">
+          <v-autocomplete
+            v-model="click"
+            :items="items"
+            label="Search cell lines"
+            multiple
+            chips
+            closable-chips
+            clearable
+            variant="underlined"
+            elevation="0"
+        >
+        </v-autocomplete>
+        </v-col>
         <v-col cols="6">
-          <h5 class="center"> AZD5991 Dose  (µM) + A-1331852 Dose  (µM)</h5>
+          <h5 class="legend title"> AZD5991 Dose  (µM) + A-1331852 Dose  (µM)</h5>
           <svg class="cps-legend center"  :id="`${rootName}-legend`"></svg>
         </v-col>
-    </v-row> -->
+    </v-row>
     <div class="py-8 lattice-plots" :id="rootName">
       
 

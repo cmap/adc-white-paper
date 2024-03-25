@@ -1,7 +1,7 @@
 <template>
       <div>
-      <v-row>
-        <v-col cols="6">
+    <v-row>
+        <v-col cols="4">
           <v-autocomplete
             v-model="click"
             :items="items"
@@ -15,13 +15,11 @@
         >
         </v-autocomplete>
         </v-col>
-      </v-row>
-    <v-row>
-        <v-col cols="6"> <span class="plot-title"> Temozolomide Dose  (µM) + O6-Benzylguanine Dose  (µM)</span></v-col>
-        <v-col cols="4"><svg class="cps-legend"  :id="`${rootName}-legend`"></svg></v-col>
+        <v-col cols="6">
+          <h5 class="legend title">Temozolomide Dose  (µM) + O6-Benzylguanine Dose  (µM)</h5>
+          <svg class="cps-legend center"  :id="`${rootName}-legend`"></svg>
+        </v-col>
     </v-row>
-
-   
     <div class="py-8 lattice-plots" :id="rootName">
 
         <div v-for="plot in plots" 

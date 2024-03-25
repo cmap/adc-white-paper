@@ -136,10 +136,10 @@ export default class legend {
     this.svg.append("text")
         .text(this.axis.title)
         .attr("x", this.dimension.innerWidth/2)
-        .attr("y", (this.barHeight*2)+ 20)
+        .attr("y", (this.barHeight*2)+ 25)
         .attr("text-anchor", "middle")
-        .style("font-size", "10px")
-        .attr("dy", 1)
+        .style("font-size", "12px")
+        .attr("dy", 1.5)
 
     }
     ordinal(){
@@ -168,6 +168,8 @@ export default class legend {
 
         this.svg.append('g')
         .call(axisBottom);
+        this.svg.selectAll(".tick line").remove();
+        this.svg.selectAll(".domain").remove();
 
     }
     continuous(){
