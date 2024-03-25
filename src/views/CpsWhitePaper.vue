@@ -70,25 +70,25 @@
       <PaperSection title="Results">
         <PaperSubSection title="Selection of test combinations">
             <p>
-              To test the suitability of PRISM for pooled cell line combination screening, we selected three test combinations: temozolomide+O6-benzylguanine, A-1331852+AZD5991, and ML210+ferrostatin-1. Single-agent responses across PRISM cell lines are shown in <span class="error">(figure 1)</span>, with the selected maximal concentration for screening indicated by a dashed line.
+              To test the suitability of PRISM for pooled cell line combination screening, we selected three test combinations: temozolomide+O6-benzylguanine, A-1331852+AZD5991, and ML210+ferrostatin-1. Single-agent responses across PRISM cell lines are shown in <span class="error">(figure 4)</span>, with the selected maximal concentration for screening indicated by a dashed line.
             </p>
             <v-list>
                 <v-list-item>
-                  <v-list-item-title>temozolomide + O6-benzylguanine</v-list-item-title>
+                  <v-list-item-title>Temozolomide + O6-Benzylguanine</v-list-item-title>
                   <v-list-item-subtitle>
-                    MGMT (O-6-methylguanine-DNA methyltransferase) is an experimentally- and clinically-validated biomarker of resistance to temozolomide: MGMT reverses the action of temozolomide as the MGMT protein directly repairs temozolomide-induced alkylation<sup>11</sup>. As a single agent, we observe that resistance to temozolomide is strongly associated with MGMT expression across the large panel of cell lines in PRISM <span class="error">(figure 2)</span>. Inhibition of MGMT by agents such as O6-benzylguanine has been reported to enhance temozolomide activity in a subset of MGMT-expressing cell lines in vitro<sup>8</sup>. O6-benzylguanine does not have appreciable viability effects in PRISM at concentrations sufficient to inhibit MGMT and enhance temozolomide sensitivity<sup>8</sup>.
+                    MGMT (O-6-methylguanine-DNA methyltransferase) is an experimentally- and clinically-validated biomarker of resistance to temozolomide: MGMT reverses the action of temozolomide as the MGMT protein directly repairs temozolomide-induced alkylation<sup>11</sup>. As a single agent, we observe that resistance to temozolomide is strongly associated with MGMT expression across the large panel of cell lines in PRISM <span class="error">(figure #)</span>. Inhibition of MGMT by agents such as O6-benzylguanine has been reported to enhance temozolomide activity in a subset of MGMT-expressing cell lines in vitro<sup>8</sup>. O6-benzylguanine does not have appreciable viability effects in PRISM at concentrations sufficient to inhibit MGMT and enhance temozolomide sensitivity<sup>8</sup>.
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>A-1331852 + AZD5991</v-list-item-title>
                   <v-list-item-subtitle>
-                    Combined genetic or chemical inhibition of the apoptotic regulators MCL1 and BCL2L1 has been reported as strongly synergistic<sup>12,13</sup>.  AZD5991 is a selective MCL1 inhibitor; in PRISM, we observe that AZD5991 phenocopies MCL1 CRISPR dependency <span class="error">(figure 2)</span>. In addition, we observe that resistance to AZD5991 is strongly associated with BCL2L1 expression. A-1331852 is a selective BCL2L1 (BCL-xL) inhibitor; in PRISM, we observe that A-1331852 phenocopies BCL2L1 CRISPR dependency and resistance to A-1338152 is associated with MCL1 expression <span class="error">(figure 2)</span>.
+                    Combined genetic or chemical inhibition of the apoptotic regulators MCL1 and BCL2L1 has been reported as strongly synergistic<sup>12,13</sup>.  AZD5991 is a selective MCL1 inhibitor; in PRISM, we observe that AZD5991 phenocopies MCL1 CRISPR dependency <span class="error">(figure #)</span>. In addition, we observe that resistance to AZD5991 is strongly associated with BCL2L1 expression. A-1331852 is a selective BCL2L1 (BCL-xL) inhibitor; in PRISM, we observe that A-1331852 phenocopies BCL2L1 CRISPR dependency and resistance to A-1338152 is associated with MCL1 expression <span class="error">(figure #)</span>.
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item>
-                  <v-list-item-title>ML210 + ferrostatin-1</v-list-item-title>
+                  <v-list-item-title>ML210 + Ferrostatin-1</v-list-item-title>
                   <v-list-item-subtitle>
-                    ML210 inhibits GPX4 (glutathione peroxidase 4) and kills cells via ferroptosis through generation of reactive lipid peroxide species; in PRISM, we observe that ML210 phenocopies GPX4 CRISPR dependency <span class="error">(figure 2)</span>. Ferrostatin-1 is a radical-trapping antioxidant that protects cells from reactive species and therefore rescues cells from ferroptosis<sup>14,15</sup>. Ferrostatin-1 does not have appreciable viability effects in PRISM at concentrations sufficient to inhibit ferroptosis<sup>14</sup>.
+                    ML210 inhibits GPX4 (glutathione peroxidase 4) and kills cells via ferroptosis through generation of reactive lipid peroxide species; in PRISM, we observe that ML210 phenocopies GPX4 CRISPR dependency <span class="error">(figure #)</span>. Ferrostatin-1 is a radical-trapping antioxidant that protects cells from reactive species and therefore rescues cells from ferroptosis<sup>14,15</sup>. Ferrostatin-1 does not have appreciable viability effects in PRISM at concentrations sufficient to inhibit ferroptosis<sup>14</sup>.
                   </v-list-item-subtitle>
                 </v-list-item>
               </v-list>
@@ -103,23 +103,23 @@
                
                 <v-list>
                   <v-list-item>
-                    <v-list-item-title><strong>temozolomide + O6-benzylguanine</strong></v-list-item-title>
+                    <v-list-item-title><strong>Temozolomide + O6-Benzylguanine</strong></v-list-item-title>
                   </v-list-item>
                   <v-list-item>
-                    <v-list-item-title>temozolomide</v-list-item-title>
+                    <v-list-item-title>Temozolomide</v-list-item-title>
                     <v-list-item-subtitle>7 concentrations <br>top concentration: 100µM; threefold dilution</v-list-item-subtitle>
                   </v-list-item>
                   <v-list-item>
-                    <v-list-item-title>O6-benzylguanine</v-list-item-title>
+                    <v-list-item-title>O6-Benzylguanine</v-list-item-title>
                     <v-list-item-subtitle>1 concentration: 5 µM<br><br></v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
-                <Temo06_ViabilityHeatmaps rootName="temo-06-viability-heatmap-plot"> </Temo06_ViabilityHeatmaps>
+                <Temo06_ViabilityHeatmaps rootName="temo-O6-viability-heatmap-plot"> </Temo06_ViabilityHeatmaps>
               </v-col>
               <v-col xs="12" sm="12" md="4" lg="4">
                 <v-list>
                   <v-list-item>
-                    <v-list-item-title><strong>ML210 + ferrostatin-1</strong></v-list-item-title>
+                    <v-list-item-title><strong>ML210 + Ferrostatin-1</strong></v-list-item-title>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-title>ML210</v-list-item-title>
@@ -127,7 +127,7 @@
                     <v-list-item-subtitle></v-list-item-subtitle>
                   </v-list-item>
                   <v-list-item>
-                    <v-list-item-title>ferrostatin-1</v-list-item-title>
+                    <v-list-item-title><Figcaption></Figcaption>errostatin-1</v-list-item-title>
                     <v-list-item-subtitle>1 concentration:  10 µM <br><br></v-list-item-subtitle>
                     <v-list-item-subtitle></v-list-item-subtitle>
                   </v-list-item>
@@ -169,7 +169,7 @@
           <PaperSubSection>
             <h4>Temozolomide + O6-benzylguanine</h4>
             <p>
-              In the presence of O6-benzylguanine, cell lines that expressed MGMT were sensitized to temozolomide (i.e., synergy was observed) <span class="error">(figure 3)</span>. Intriguingly, while MGMT expression appeared necessary for sensitization to temozolomide, a subset of cell lines remained resistant to temozolomide even in the presence of O6-benzylguanine. Accordingly, we asked whether any baseline genomic features were associated with the calculated temozolomide+O6-benzylguanine synergy score in MGMT-high expressing cell lines (MGMT expression > 1.5, see figure X). We found that low expression of the MSH6 gene (and low protein levels of MSH6, or its heterodimeric partner protein MSH2) were associated with lack of synergy in MGMT-proficient cell lines. MSH2 and MSH6 are genes involved in DNA mismatch repair, and their loss has been previously suggested to be associated with resistance to temozolomide<sup>16,17</sup>.
+              In the presence of O6-benzylguanine, cell lines that expressed MGMT were sensitized to temozolomide (i.e., synergy was observed) <span class="error">(figure 6)</span>. Intriguingly, while MGMT expression appeared necessary for sensitization to temozolomide, a subset of cell lines remained resistant to temozolomide even in the presence of O6-benzylguanine. Accordingly, we asked whether any baseline genomic features were associated with the calculated temozolomide+O6-benzylguanine synergy score in MGMT-high expressing cell lines (MGMT expression > 1.5, see figure X). We found that low expression of the MSH6 gene (and low protein levels of MSH6, or its heterodimeric partner protein MSH2) were associated with lack of synergy in MGMT-proficient cell lines. MSH2 and MSH6 are genes involved in DNA mismatch repair, and their loss has been previously suggested to be associated with resistance to temozolomide<sup>16,17</sup>.
             </p>
             <h4 class="figure title">Figure 6: </h4>
             <TemoSynergyByDosePlots rootName="temo_benzyl_synergy_plots"></TemoSynergyByDosePlots>
@@ -178,7 +178,7 @@
           <PaperSubSection>
             <h4>ML210 + ferrostatin-1</h4>
             <p>
-              Universally across cell lines, we observed that ferrostatin-1 antagonized the effects of ML210. [analytical: confirm support for this statement] <span class="error"> [analytical: confirm support for this statement] (figure 3)</span>
+              Universally across cell lines, we observed that ferrostatin-1 antagonized the effects of ML210. [analytical: confirm support for this statement] <span class="error"> [analytical: confirm support for this statement] (figure 7)</span>
             </p>
             <h4 class="figure title">Figure 7: </h4>
             <Ml210SynergyByDosePlots rootName="ml210_ferro_synergy_plots"></Ml210SynergyByDosePlots>
@@ -187,7 +187,7 @@
           <PaperSubSection>
             <h4>AZD5991 + A-1331852</h4>
             <p>
-              Universally across doses and across cell lines, we observed that BCL-xL and MCL1 inhibition were synergistic <span class="error">[analytical: can we say anything about biomarkers, cell lines that show less/more synergy, etc.?] (figure 3).</span>
+              Universally across doses and across cell lines, we observed that BCL-xL and MCL1 inhibition were synergistic <span class="error">[analytical: can we say anything about biomarkers, cell lines that show less/more synergy, etc.?] (figure 8).</span>
 
             </p>
             <h4 class="figure title">Figure 8: </h4>
@@ -318,11 +318,7 @@ export default {
     letter-spacing: 0.0178571429em;
     line-height: 1rem;
 }
-.cps-legend{
-  width:100%;
-  height:80px;
-  margin:auto;
-}
+
 .combination_design-img{
     width: 100%;
   }
@@ -336,7 +332,11 @@ export default {
 
 </style>
 <style>
-
+.cps-legend{
+  width:100%;
+  height:80px !important;
+  margin:auto;
+}
 
 
 .single-agent-heatmap > * > * > .y.axis > .tick > line{

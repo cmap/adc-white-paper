@@ -204,9 +204,15 @@ svg{
   overflow:visible !important;
 }
 .legend.tick.active >rect{
-  stroke: #000;
-  stroke-width: 1px;
+  stroke: #909090;
+  stroke-width: 2px;
 }
+
+.legend.title{
+  margin-bottom: 0px !important;
+  margin-left: 15px !important;
+}
+
 
 @media (max-width: 600px){
 
