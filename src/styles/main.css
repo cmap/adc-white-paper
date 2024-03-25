@@ -7,7 +7,7 @@ main, body, #app{
   overflow:visible !important;
 } */
 
-p, p.text-body-1 {
+p, p.text-body-1, .figure.caption {
   font-family: 'Inter Tight', sans-serif !important;
   color:#282828 !important;
   margin: 16px 0px 24px 0px !important;
