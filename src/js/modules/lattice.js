@@ -1,15 +1,15 @@
 
 import * as d3 from "d3";
-import scatter from './scatter.js';
-import barplot from './barplot.js';
-import violin from './violin.js';
+import scatter from '../../plots/scatter.js';
+
 
 
 export default class lattice {
-    constructor(data,
+    constructor(
+        data,
         rootId,
         dimension = { width: undefined, height:undefined},
-        padding={top: 50, right: 50, bottom:50, left:50},
+        padding={top: 50, right: 0, bottom:50, left:0},
     ) {
 
         this.data = data;
@@ -18,66 +18,47 @@ export default class lattice {
             dimension.width = d3.select(`#${rootId}`).node().clientWidth;
         }
         if (dimension.height == undefined){
-            dimension.height = d3.select(`#${rootId}`).node().clientHeight
+            dimension.height = d3.select(`#${rootId}`).node().clientHeight;
         }
 
         this.dimension = dimension;
         this.padding = padding;
         this.updateDimensions();
-        this.createGridScale();
+        this.createScale();
         this.render();
+   
     }
 
     updateDimensions() {
         this.dimension.innerWidth = this.dimension.width - this.padding.left - this.padding.right;
         this.dimension.innerHeight = this.dimension.height - this.padding.top - this.padding.bottom;
     }
-    createGridScale(){
+    createScale(){
         this.scale = {
-            x: d3.scaleBand().domain(this.data.map(d=>d.column)).range([0, this.dimension.innerWidth]),
-            y: d3.scaleBand().domain(this.data.map(d=>d.row)).range([0, this.dimension.innerHeight])
+            x: d3.scaleBand().domain([...new Set(this.data.map(d=>d.column))]).range([0, this.dimension.innerWidth]),
+            y: d3.scaleBand().domain([...new Set(this.data.map(d=>d.row))]).range([this.dimension.innerHeight, 0])
         }
     }
     render(){
-
-        d3.select(`#${this.rootId} g`).remove();
-
-        let svg =  d3.select(`#${this.rootId}`)
-            .append("g")
-            .attr("id", `${this.rootId}-g`)
-            .attr("class", "lattice-plots")
-            .attr("transform", `translate(${this.padding.left}, ${this.padding.top})`)
-
-      svg.selectAll(".lattice-plot")
-            .data(this.data)
+        const self = this;
+     
+        let plots = d3.select(`#${self.rootId}`).selectAll(".lattice-plot")
+            .data(self.data)
             .enter()
-            .append("g")
+            .append("div")
             .attr("class", "lattice-plot")
-            .attr("id", d=>`${d.type}-${d.row}-${d.column}`)
-            .attr("transform", d=>`translate(${this.scale.x(d.column)}, ${this.scale.y(d.row)})`)
-            .each(d=>{
-               d.rootId = `${d.type}-${d.row}-${d.column}`
-               let grid = {
-                row: d.row,
-                column: d.column
-               }
-             //   let rootId = `plot-${d.row}-${d.column}`;
-                let dimension = {
-                    width: this.scale.x.bandwidth(),
-                    height:this.scale.y.bandwidth()
-                };
-                switch(d.type){
-                    case "scatter":
-                        new scatter(d.data, d.title, d.axis, d.rootId, dimension, d.padding, d.display)
-                        break;
-                    case "violin":
-                        new violin(d.data, d.title, d.axis, d.rootId, dimension, d.padding, d.displayOptions)
-                        break;
-                    case "barplot":
-                        new barplot(d.data, d.title, d.axis, d.rootId, dimension, d.padding, d.displayOptions, grid)
-                        break;
-                }
+            .attr("id", d=>`plot-${d.row}-${d.column}`)
+            .style("position", "absolute")
+            .style("left", d=>`${self.scale.x(d.column)}px`)
+            .style("top", d=>`${self.scale.y(d.row)}px`)
+            .style("width",`${self.scale.x.bandwidth()}px`)
+            .style("height",`${self.scale.y.bandwidth()}px`)
+            .each(function(d){
+             //s   d3.select(this).datum(d);
+                d3.select(this).append("text").html("hi")
+              //  new scatter(d.data, this.id, {width: self.scale.x.bandwidth(), height: self.scale.y.bandwidth()}, {top:0, right:0, bottom:0, left:0});
             })
+
     }
 }
 

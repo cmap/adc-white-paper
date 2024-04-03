@@ -1,10 +1,9 @@
 <template>
   <div>
-    <span class="sup-title">{{ supTitle }}</span>  
+    <v-chip  v-if="badge" class="secondary-badge orange-light-badge" small>{{ badge }}</v-chip>
     <h1>{{  title  }}</h1>    
     <div v-if="date" class="date">{{  date }} </div>  
     <div v-if="authors" class="authors">{{  authors }} </div>    
-
   </div>
 </template>
 
@@ -16,7 +15,7 @@ export default {
         type: String,
         required: true
         },
-        supTitle: {
+        badge: {
         type: String,
         required: false
         },
@@ -33,19 +32,8 @@ export default {
 }
 </script>
 <style scoped>
-h1{
-  margin-top:4px;
-}
-.date, .sup-title, .authors{
+.date, .authors{
   margin:8px 0px;
-}
-
-.sup-title{
-  font-size: 0.8em;
-  line-height:1.4em;
-  font-weight:900;
-  color:#8e62c2;
-  text-transform:uppercase;
 }
  .date{
   font-size: 0.8em;
@@ -59,6 +47,4 @@ h1{
   line-height:1.4em;
   color: #868686;
 }
-
-
 </style>

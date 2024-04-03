@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h3 class="title">{{  title  }}</h3>    
+    <h3>{{  title  }}</h3>    
     <slot></slot>
   </section>
 </template>

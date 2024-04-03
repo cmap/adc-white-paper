@@ -1,60 +1,60 @@
 main, body, #app{
   font-size:16.5px !important;
-  color:#282828;
+  color:#282828 !important;
   font-family: 'Inter Tight', sans-serif !important;
 }
-.plot{
+/* .plot{
   overflow:visible !important;
-}
-p.text-body-1 {
+} */
+
+p, p.text-body-1, .figure.caption {
   font-family: 'Inter Tight', sans-serif !important;
-  margin: 1rem 0px;
+  color:#282828 !important;
+  margin: 16px 0px 24px 0px !important;
 }
 h1, h2, h3, h4, h5{
-  font-weight:900;
+  font-weight:900 !important;
+  color:#282828 !important;
+  margin:16px 0px !important;
 }
 h1{
-  font-size:3em;
-  line-height:1.05em;
-  color:#282828;
-  margin:16px 0px;
+  font-size:2.8rem !important;
+  line-height:1.15em !important;
 }
 
 h2{
-  font-size:2.2em;
-  line-height:1.2em;
-  color:#282828;
-  margin: 16px 0px;
+  font-size:2rem !important;
+  line-height:1.2em !important;
 }
 h3{
-  font-size:1.4em;
-  line-height:1.2em;
-  color:#282828;
-  margin: 16px 0px;
+  font-size:1.55rem !important;
+  line-height:1.2rem !important;
+  font-weight:900 !important;
 }
+
 h4{
-  font-size:1.2em;
+  font-size:1.25rem !important;
   line-height:1.2em;
-  color:#282828;
-  margin: 4px 0px;
 }
 
 
-b, strong{
+b{
   font-weight: 600 !important;
+}
+strong{
+  font-weight: 800 !important;
 }
 small{
   color:#868686;
 }
 
-.backgroundGradient{
-  background-image: linear-gradient(to right, hsl(268, 44%, 94%), hsl(268, 44%, 98%), hsl(268, 44%, 98%));
-}
 .center{
   text-align:center;
   margin:auto;
 }
-
+.full-width{
+  width: 100%;
+}
 .v-input__details {
 
   display:none !important;
@@ -63,9 +63,6 @@ small{
     padding-bottom:8px !important;
   }
   
-.no-bullets{
-  list-style: none;
-}
 li{
   margin:0.6em 0px;
 }
@@ -97,45 +94,77 @@ li{
   border:none;
   word-break:normal !important;
 }
+
+.v-card-title {
+    word-break:normal !important;
+    word-wrap: normal !important;
+    white-space: wrap !important;
+}
+.card-subtitle{
+  font-weight:600;
+}
+.v-list-item-title{
+  word-break:normal !important;
+  word-wrap: normal !important;
+  white-space: wrap !important;
+}
 .v-card.elevation-1{
-  box-shadow: 0.5px 0.5px 15px 0px rgba(220, 220, 220, 0.5) !important; 
+  box-shadow: 2px 2px 7px 3px rgba(220, 220, 220, 0.5) !important; 
 }
 .v-card>ul>li{
   font-size: 0.9em;
 }
 
-
-.scatter-plot > .title, .boxplot-plot > .title{
+/* older svg plots. should not have different class for this between svg and canvas */
+.scatter-plot > .title, 
+.boxplot-plot > .title{
   font-size:1em;
   font-weight:900;
   fill: #444444;
 }
+/* canvas plots */
+.plot-title{
+  font-size:11.5px !important;
+  font-weight:700 !important;
+  white-space: nowrap;
+} 
+
+
 .tick > line{
   stroke:#444444;
   stroke-width:.25px;
 }
-.tick > text{
-  font-size:12px;
-  color:#444444;
-}
-.axis.title{
-  font-size:14px;
-  font-weight:700;
-  fill: #444444;
+.tick > line .dashed{
+  stroke-dasharray: 2px, 2px !important ;
+  stroke: black !important;
+  stroke-width: 0.5px !important;
 }
 
-a{
-  color:#8e62c2;
-  text-decoration:none;
-  border-bottom:.5px solid #8e62c2;
+.tick > text{
+  font-size: 9px !important;
+  fill: #000;
 }
+.axis-title{
+  font-size:11.5px !important;
+  font-weight:500 !important;
+  color:#454545;
+  fill: #454545;
+}
+
+.rotate{
+  -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
+}
+
+
 .boxplot-box{
   pointer-events:none;
 }
 .scatter-pt:hover, .boxplot-pt:hover{
 cursor: pointer;
 }
-/* .mouseover.boxplot-pt >circle, .mouseover.scatter-pt >circle{ */
+
   .mouseover >circle{
   fill-opacity:1;
   stroke:black;
@@ -145,9 +174,7 @@ stroke-width:6px;
 stroke-opacity:1;
 }
 
-/* .mouseover > .lineplot-pt{
-  fill-opacity:1;
-  } */
+
 .scatter-pt-label, .boxplot-pt-label, .lineplot-series-label{
   pointer-events: none;
   font-size:0.8em;
@@ -159,6 +186,33 @@ stroke-opacity:1;
   stroke:black;
   stroke-width:1.75px;
 }
+
+
+.plot-tooltip{
+  position:absolute !important;
+  white-space: nowrap;
+  font-size:12px;
+  line-height: 1.5em;
+  background:white !important;
+  z-index: 10000;
+  padding:.5em;
+  box-shadow: 0.5px 0.5px 10px 0px rgba(141, 137, 137, 0.5) !important; 
+  min-width:200px;
+  pointer-events: none !important;
+}
+svg{
+  overflow:visible !important;
+}
+.legend.tick.active >rect{
+  stroke: #909090;
+  stroke-width: 2px;
+}
+
+.legend.title{
+  margin-bottom: 0px !important;
+  margin-left: 15px !important;
+}
+
 
 @media (max-width: 600px){
 

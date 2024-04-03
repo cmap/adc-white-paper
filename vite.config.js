@@ -8,10 +8,10 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  publicPath: '/adc-whitepaper',
-  base: '/adc-whitepaper',
+  publicPath: '/white-papers',
+  base: '/white-papers',
   plugins: [
-    vue({ 
+    vue({
       template: { transformAssetUrls }
     }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin

@@ -1,0 +1,189 @@
+.v-application,
+.v-application>*, 
+main{
+  font-family: 'Inter Tight', sans-serif !important;
+  color: #262626 !important;
+  font-size: 14px !important;
+}
+
+h1 {
+  font-size: 2.15rem !important;
+  margin: 8px 0px 24px 0px !important;
+  font-weight: 700 !important;
+}
+
+h2, .h2 {
+  font-size: 1.6rem !important;
+  margin: 4px 0 6px 0;
+  font-weight: 900;
+}
+/* need to change some h3's in portal pages to h4, then make this font size bigger */
+h3, .h3 {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2em !important;
+  margin: 4px 0 6px 0;
+  text-align: left !important;
+}
+h4, .h4 {
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2em !important;
+  margin: 6px 0 6px 0 !important;
+  text-align: left !important;
+}
+h5, .h5 {
+  font-size: .8rem !important;
+  text-transform: uppercase !important;
+  font-weight: 900 !important;
+}
+.h5{
+  color:#262626 !important;
+  font-weight:900;
+}
+.h-caption {
+  font-weight: 200;
+  line-height: 1em;
+  font-size:1.2rem;
+}
+
+
+a:not(.v-list-item):not(.v-tab), 
+a:not(.v-list-item):not(.v-tab) >*{
+  color:#0E7AFF !important;
+}
+a.v-btn >.v-btn__content{
+  color:white !important;
+}
+
+p,
+.p-caption {
+  font-size: 1.1em;
+  line-height: 1.36em !important;
+}
+
+ol,
+ul {
+  margin: 1em 0em !important;
+}
+
+ul.no-bullets {
+  list-style-type: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+li {
+  margin: .25em 0em !important;
+}
+
+
+.banner {
+  text-align: center;
+  padding: 32px 0px;
+  width: 100%;
+  background-color: #DDEBF8;
+}
+
+.text-block {
+  margin: 1em 0em;
+  padding: 1em !important;
+  box-shadow: none !important;
+  background-color: #f5f5f5 !important;
+  border: .5px solid #e8e8e8;
+}
+
+.v-slide-group__content {
+  width: 200px !important;
+  word-break: break-word !important;
+  text-align: left !important;
+  white-space: normal !important;
+}
+
+.v-progress-circular {
+  position: fixed !important;
+  top: 45vh;
+  left: 45vw;
+  z-index: 1000;
+  color: #ff5569;
+}
+
+
+.v-select__selections >*{
+  font-weight:400 !important;
+}
+
+
+.theme--light.v-banner.v-sheet:not(.v-sheet--outlined):not(.v-sheet--shaped) .v-banner__wrapper {
+  border-bottom: none !important;
+}
+
+.b-sidebar {
+  width:40vw !important;
+  padding:24px !important;
+}
+.b-sidebar.bg-light {
+  background-color:#ffffff !important;
+}
+.v-tab{
+text-transform:none !important;
+}
+.modal-content>*{
+  font-family: 'Inter Tight', sans-serif !important;
+}
+.modal-header{
+  background-color:#0E7AFF !important;
+  color:#ffffff !important;
+}
+.custom-control-label{
+ font-size:.9rem !important;
+}
+.custom-control-input{
+  margin-right:4px !important;
+}
+
+
+.b-sidebar.b-sidebar-right>.b-sidebar-header .close {
+  margin-right: 10px !important;
+}
+
+
+
+
+
+@media (max-width: 550px) {
+
+  main {
+    font-size: 16px;
+  }
+  .b-sidebar {
+    width:90vw !important;
+    padding:12px !important;
+  }
+
+
+}
+
+@media (min-width: 1264px) {
+
+  main {
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 1400px !important;
+  }
+
+}
+
+@media (min-width: 960px) {
+  /* .container {
+    max-width: 900px;
+  } */
+}
+
+@media (min-width: 1904px) {
+  .container {
+    max-width: 1400px;
+  }
+}

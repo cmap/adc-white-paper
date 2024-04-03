@@ -1,8 +1,10 @@
 <template>
-    <v-card elevation="0">
+    <v-card elevation="0" >
+      <div :style="{'min-height': `${titleHeight}`, 'text-align': `${align} !important`, 'max-width': `${cardWidth}px`}">
         <div class="card-title"> {{ title }}</div>
         <div class="card-description">{{  description }}</div>
-        <v-img  class="card-image" :src="img"></v-img>
+      </div>
+        <v-img :style="`max-width: ${cardWidth}px`" class="card-image px-4" :src="img"></v-img>
    </v-card>
 </template>
 <script>
@@ -22,8 +24,32 @@ props: {
    img: {
    type: String,
    required: false
-   }
-
+   },
+   maxWidth: {
+   type: String,
+   required: false
+   },
+    alignText: {
+     type: String,
+      required: false
+    },
+    minHeight: {
+      type: String,
+      required: false
+    }
+},
+computed: {
+  cardWidth(){
+    return this.maxWidth ? this.maxWidth : 400;
+  },
+  align(){
+    let align =  this.alignText ? this.alignText : 'left';
+    return this.alignText ? this.alignText : 'left';
+  },
+  titleHeight(){
+    return this.minHeight ? this.minHeight : 'auto';
+  }
+  
 }
 }
 </script>
@@ -33,13 +59,16 @@ props: {
   padding:0px !important;
 }
 .card-title{
-  font-size:1.2em;
+  font-size:1em;
   line-height:1.1em;
-  font-weight:900;
-  color:#868686;
+  /* font-weight:900;
+  color:#868686; */
+  color:black !important;
+  font-weight:600 !important;
 }
+
 .card-description{
-  font-size:1.2em;
+  font-size:1em;
   line-height:1.1em;
   font-weight:300;
   color:#868686;

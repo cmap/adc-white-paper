@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2 class="title">{{  title  }}</h2>    
+    <h2>{{  title  }}</h2>    
     <slot></slot>
   </section>
 </template>
@@ -20,4 +20,5 @@ export default {
 section{
   margin:56px 0px;
 }
+
 </style>
