@@ -68,10 +68,10 @@ Any copyright etc. information"/>
           <div class="figure caption"><b>Fig.3. Dosing schemes of combinations based on single agent viability results</b></div>
           <v-row>
             <v-col cols="12" sm="12" md="4" lg="4" xl="4">
-              <v-img class="px-6" :src="imgPath + 'combination_components-7x1.svg'"></v-img>
+              <v-img class="px-6" :src="imgPath + 'PRISM-Dose-Selection-1.svg'"></v-img>
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4" xl="4">
-              <v-img class="px-6" :src="imgPath + 'combination_components-5x5.svg'"></v-img>
+              <v-img class="px-6" :src="imgPath + 'PRISM-Dose-Selection-2.svg'"></v-img>
             </v-col>
           </v-row>
           
