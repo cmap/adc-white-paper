@@ -154,15 +154,18 @@ Any copyright etc. information"/>
             </v-row>
             
             <p>
-
-
-
-
               We calculated a synergy score for combination effects at each dose combination using both the Highest Single Agent (HSA) and Bliss models to generate a null expectation for the viability at the combination dose (see Eq.1). In the HSA model, the expected viability of the combination is the minimum of the two single agent viabilities. In the Bliss model,  viability effects are multiplicative (i.e., log-viability effects are additive)一based on the assumption of independent action of the two single agents. The synergy score is computed as the difference between the model expectation and the observed viability <sup>1</sup> —— a positive value indicates synergy while a negative value indicates antagonism. For  robustness, we combine both model expectations into a single synergy score (Eq.2),  which effectively considers the lower viability of the two model expectations when looking for synergy and the higher viability of the two model expectations when looking for antagonism<sup>2</sup>. Significance (q values) for synergy scores were calculated using an empirical null model of synergy scores generated using negative control data from the experiment that accounts for cell-line specific variability (see Appendix).
             </p>
             <v-row>
-              <v-col cols="12" sm="12" md="4" lg="4" xl="4">
-                <img style="width:100%" :src="imgPath + 'synergy-eqn-01.svg'">
+              <v-col cols="12" sm="12" md="6" lg="5" xl="5">
+                <div class="figure caption"><b>Eq.1</b></div>
+                <img style="width:100%" :src="imgPath + 'equation-1.svg'">
+                <br><br>
+                <div class="figure caption"><b>Eq.2</b></div>
+                <img style="width:100%" :src="imgPath + 'equation-2.svg'">
+                <br><br>
+                <div class="figure caption"><b>Eq.3</b></div>
+                <img style="width:100%" :src="imgPath + 'equation-3.svg'">
               </v-col>
             </v-row>
             <div class="figure caption">
