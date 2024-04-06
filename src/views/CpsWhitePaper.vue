@@ -12,7 +12,7 @@ Any copyright etc. information"/>
         <p>
           Combination therapies are routinely used in cancer care, and patient cure is almost never achieved by monotherapy<sup>1</sup>. However, which combinations will benefit specific cancer patients is largely unknown. While many studies have used cell culture and animal model systems to characterize combination effects, the sheer number of clinical, investigational, and tool anticancer agents, coupled with the diversity and heterogeneity of cancer, precludes comprehensive investigation<sup>2–5</sup>. Accordingly, most such studies are restricted to a small number of drugs or a restricted set of cancer contexts. Methods to address these limitations, such as those that enable measurement of candidate combinations in many cell lines simultaneously, would greatly increase the potential scale of combinations research, generating preclinical evidence that may help identify candidate combinations for clinical trials.
         </p>
-          <div class="figure caption"><b>Fig.1. Schematic of the PRISM assay</b></div>
+        
           <v-row>
             <v-col cols="6" xs="6" sm="4" md="3" lg="3" xl="3">
               <ImageCard min-height="2em" title="900 cancer cell lines pooled and barcoded" :img="imgPath + 'PRISM-Combination-Assay_cell lines.svg'"/>
@@ -27,14 +27,15 @@ Any copyright etc. information"/>
               <ImageCard min-height="2em" title="Biomarker analysis and combination discovery" :img="imgPath + 'PRISM-Combination-Assay_discover.svg'"/>
             </v-col>
           </v-row>
+          <div class="figure caption"><b>Fig.1. Schematic of the PRISM assay</b></div>
           
       </PaperSection>
 
       <PaperSection title="Analysis of combination data">
         <p>
-          Experimental combinations are generally benchmarked by comparing the effects of two (or more) agents to the corresponding single-agent activities, using established metrics to describe the combined effects (e.g., independent action, additivity, synergy, antagonism)<sup>6</sup>. For example, the Bliss model assesses proportional cell killing, where under the null hypothesis (no interaction between two or more perturbations) viability effects are multiplicative<sup>7</sup>. The quantification and classification of combination effects may aid prioritization of combinations for additional investigation while also providing biological and mechanistic insights. For example, antagonistic combinations might be deprioritized from further study, while synergistic combinations may be useful in overcoming resistance<sup>8</sup>. Independent (or additive) combinations may be useful to combat inter- or intra-patient heterogeneity; this behavior is characteristic of many effective clinical combinations (and most curative combinations) described to date<sup>9,10</sup>. 
+          Experimental combinations are generally benchmarked by comparing the effects of two (or more) agents to the corresponding single-agent activities, using established metrics to describe the combined effects (e.g., independent action, additivity, synergy, antagonism)<sup>6</sup>. For example, the Bliss model assesses proportional cell killing, where under the null hypothesis (no interaction between two or more perturbations) viability effects are multiplicative<sup>7</sup>. The quantification and classification of combination effects may aid prioritization of combinations for additional investigation while also providing biological and mechanistic insights. For example, antagonistic combinations might be deprioritized from further study, while synergistic combinations may be useful in overcoming resistance<sup>8</sup>. Independent (or additive) combinations may be useful to combat inter- or intra-patient heterogeneity; this behavior is characteristic of many effective clinical combinations (and most curative combinations) described to date<sup>9, 10</sup>. 
         </p>
-          <div class="figure caption"><b>Fig.2. Classifications of combination effects</b></div>
+       
           <v-row>
             <v-col cols="7" xs="6" sm="4" md="3" lg="3" xl="3">
                 <ImageCard align-text="center" title="Independent Action" :img="imgPath + 'combo_effects-1.svg'"/>
@@ -46,17 +47,7 @@ Any copyright etc. information"/>
               <ImageCard align-text="center" title="Synergistic" :img="imgPath + 'combo_effects-3.svg'"/>
             </v-col>
           </v-row>
-          <!-- <v-row>
-            <v-col cols="12" sm="12" md="4" lg="3" xl="3">
-                <ImageCard align-text="center" :img="imgPath + 'PRISM_Combination effect-01.svg'"/>
-            </v-col>
-            <v-col cols="12" sm="12" md="4" lg="3" xl="3">
-              <ImageCard align-text="center" :img="imgPath + 'PRISM_Combination effect-02.svg'"/>
-            </v-col>
-            <v-col cols="12" sm="12" md="4" lg="3" xl="3">
-              <ImageCard align-text="center" :img="imgPath + 'PRISM_Combination effect-03.svg'"/>
-            </v-col>
-          </v-row> -->
+          <div class="figure caption"><b>Fig.2. Classifications of combination effects</b></div>
 
       </PaperSection>
       <PaperSection title="Considerations for dose selection">
@@ -65,7 +56,7 @@ Any copyright etc. information"/>
           <br><br>
           For combination components with minimal differential viability effects, testing a single dose may represent the most efficient combinatorial design. By contrast, strong differential viability effects of one combination partner across cell lines supports the use of multiple doses; this approach also facilitates aggregation of the viability readout across doses (e.g., through fitting of dose-response curves). Where it is not possible to span the entire range of response to a given compound, it is recommended to focus on the lower end of the ideal concentration range (i.e., less cell viability effects) to facilitate identification of increased cell killing (e.g., additivity or synergy)–unless the experimental goal is to identify and characterize antagonistic combinations (e.g., drug rescue screens). 
         </p>
-          <div class="figure caption"><b>Fig.3. Dosing schemes of combinations based on single agent viability results</b></div>
+      
           <v-row>
             <v-col cols="12" sm="12" md="4" lg="4" xl="4">
               <v-img class="px-6" :src="imgPath + 'PRISM-Dose-Selection-1.svg'"></v-img>
@@ -74,7 +65,7 @@ Any copyright etc. information"/>
               <v-img class="px-6" :src="imgPath + 'PRISM-Dose-Selection-2.svg'"></v-img>
             </v-col>
           </v-row>
-          
+          <div class="figure caption"><b>Fig.3. Dosing schemes of combinations based on single agent viability results</b></div>
       </PaperSection>
       <PaperSection title="Results">
         <PaperSubSection title="Selection of test combinations">
@@ -90,7 +81,7 @@ Any copyright etc. information"/>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-subtitle>
-                    <b>AZD5991+A-1331852.</b> Combined genetic or chemical inhibition of the apoptotic regulators MCL1 and BCL2L1 has been reported as strongly synergistic<sup>12,13</sup>.  AZD5991 is a selective MCL1 inhibitor; in PRISM, we observe that AZD5991 phenocopies MCL1 CRISPR dependency (r = 0.3, q = 5.3 x 10<sup>-11</sup>, rank =1; <a href="https://theprismlab.org/portal/CPS009/CPS_WHITEPAPER/PCPS019/BRD-K00005264/correlation-analysis" target="_blank">PRISM Portal</a>). In addition, we observe that resistance to AZD5991 is strongly associated with BCL2L1 expression (r = 0.27, q = 5.8 x 10<sup>-11</sup>, rank =1; <a href="https://theprismlab.org/portal/CPS009/CPS_WHITEPAPER/PCPS019/BRD-K00005264/correlation-analysis" target="_blank">LINK</a>). A-1331852 is a selective BCL2L1 (BCL-xL) inhibitor; in PRISM, we observe that A-1331852 phenocopies BCL2L1 CRISPR dependency (r = 0.47, q = 1.1 x 10<sup>-31</sup>, rank =1; <a href="https://theprismlab.org/portal/CPS009/CPS_WHITEPAPER/PCPS019/BRD-K50731585/correlation-analysis" target="_blank">PRISM Portal</a>) and resistance to A-1338152 is associated with MCL1 expression (<a href="https://theprismlab.org/portal/CPS009/CPS_WHITEPAPER/PCPS019/BRD-K50731585/correlation-analysis" target="_blank">LINK</a>) .
+                    <b>AZD5991+A-1331852.</b> Combined genetic or chemical inhibition of the apoptotic regulators MCL1 and BCL2L1 has been reported as strongly synergistic<sup>12,13</sup>.  AZD5991 is a selective MCL1 inhibitor; in PRISM, we observe that AZD5991 phenocopies MCL1 CRISPR dependency (r = 0.3, q = 5.3 x 10<sup>-11</sup>, rank =1; <a href="https://theprismlab.org/portal/CPS009/CPS_WHITEPAPER/PCPS019/BRD-K00005264/correlation-analysis" target="_blank">PRISM Portal</a>). In addition, we observe that resistance to AZD5991 is strongly associated with BCL2L1 expression (r = 0.27, q = 5.8 x 10<sup>-11</sup>, rank =1; <a href="https://theprismlab.org/portal/CPS009/CPS_WHITEPAPER/PCPS019/BRD-K00005264/correlation-analysis" target="_blank">PRISM Portal</a>). A-1331852 is a selective BCL2L1 (BCL-xL) inhibitor; in PRISM, we observe that A-1331852 phenocopies BCL2L1 CRISPR dependency (r = 0.47, q = 1.1 x 10<sup>-31</sup>, rank =1; <a href="https://theprismlab.org/portal/CPS009/CPS_WHITEPAPER/PCPS019/BRD-K50731585/correlation-analysis" target="_blank">PRISM Portal</a>) and resistance to A-1338152 is associated with MCL1 expression (<a href="https://theprismlab.org/portal/CPS009/CPS_WHITEPAPER/PCPS019/BRD-K50731585/correlation-analysis" target="_blank">PRISM Portal</a>) .
 
                   </v-list-item-subtitle>
                 </v-list-item>
@@ -106,7 +97,7 @@ Any copyright etc. information"/>
         <PaperSubSection title="Pooled combination screening results">
           <p>Because O6-benzylguanine and ferrostatin-1 demonstrated minimal effects on viability as single agents across a large panel of cell lines, we screened a single dose (5 µM and 10 µM, respectively) in combination with 7 concentrations of temozolomide (top concentration: 100µM; threefold dilution) and ML210 (top concentration: 10µM; threefold dilution), respectively. As both A-1331852 and AZD5991 had dose-dependent effects on cell viability, we screened a 5x5 matrix (threefold dilution) of these compounds (top concentrations: 0.041 and 0.37µM, respectively). Combinations and all component single agents at matching concentrations were plated using an HP D300e drug printer and screened in nearly 900 cancer cell lines using standard PRISM conditions and data processing [<a href="https://github.com/cmap/dockerized_mts" target="_blank">link</a>]. </p>
           <PaperSubSection>
-            <div class="figure caption"><b>Fig.4. Combinations tested and their dosing schemes.</b> The dosing schemes of the three combinations tested were determined based on the described procedure. Thus, temozolomide + O6 Benzylguanine and ML210 + Ferrostatin were screened in the 7x1 format since one of the single agents was largely inert. Since both AZD5991 and A-1331852 demonstrated significant viability effects, we employed the 5x5 format for the AZD5991 + A-1331852 combination. A cell line was classified as “killed” if its viability (relative to vehicle control) was &lt; 0.3.</div>
+           
 
           
             <v-row>
@@ -152,20 +143,24 @@ Any copyright etc. information"/>
                 <Adz_A13_ViabilityHeatmaps rootName="adz-a13-viability-heatmap-plot"> </Adz_A13_ViabilityHeatmaps>
               </v-col>
             </v-row>
-            
+            <div class="figure caption"><b>Fig.4. Combinations tested and their dosing schemes.</b> The dosing schemes of the three combinations tested were determined based on the described procedure. Thus, temozolomide + O6 Benzylguanine and ML210 + Ferrostatin were screened in the 7x1 format since one of the single agents was largely inert. Since both AZD5991 and A-1331852 demonstrated significant viability effects, we employed the 5x5 format for the AZD5991 + A-1331852 combination. A cell line was classified as “killed” if its viability (relative to vehicle control) was &lt; 0.3.</div>
+
             <p>
-              We calculated a synergy score for combination effects at each dose combination using both the Highest Single Agent (HSA) and Bliss models to generate a null expectation for the viability at the combination dose (see figure 2 Eqs. 1,2). In the HSA model, the expected viability of the combination is the minimum of the two single agent viabilities. In the Bliss model,  viability effects are multiplicative (i.e., log-viability effects are additive)一based on the assumption of independent action of the two single agents. The synergy score is computed as the difference between the model expectation and the observed viability <sup>1</sup> —— a positive value indicates synergy while a negative value indicates antagonism. For  robustness, we combine both model expectations into a single synergy score (Eq. 3),  which effectively considers the lower viability of the two model expectations when looking for synergy and the higher viability of the two model expectations when looking for antagonism<sup>2</sup>. Significance (q values) for synergy scores were calculated using an empirical null model of synergy scores generated using negative control data from the experiment that accounts for cell-line specific variability (see Appendix).
+              We calculated a synergy score for combination effects at each dose combination using both the Highest Single Agent (HSA) and Bliss models to generate a null expectation for the viability at the combination dose (see figure 2 Eqs. 1,2). In the HSA model, the expected viability of the combination is the minimum of the two single agent viabilities. In the Bliss model,  viability effects are multiplicative (i.e., log-viability effects are additive)一based on the assumption of independent action of the two single agents. The synergy score is computed as the difference between the model expectation and the observed viability <sup>1</sup> — a positive value indicates synergy while a negative value indicates antagonism. For  robustness, we combine both model expectations into a single synergy score (Eq. 3),  which effectively considers the lower viability of the two model expectations when looking for synergy and the higher viability of the two model expectations when looking for antagonism<sup>2</sup>. Significance (q values) for synergy scores were calculated using an empirical null model of synergy scores generated using negative control data from the experiment that accounts for cell-line specific variability (see Appendix).
             </p>
             <v-row>
               <v-col cols="12" sm="12" md="6" lg="5" xl="5">
-                <div class="figure caption"><b>Fig.2 Eq.1</b></div>
+             
                 <img style="width:100%" :src="imgPath + 'equation-1.svg'">
+                <div class="figure caption"><b>Fig.2 Eq.1</b></div>
                 <br><br>
-                <div class="figure caption"><b>Fig.2 Eq.2</b></div>
+               
                 <img style="width:100%" :src="imgPath + 'equation-2.svg'">
+                <div class="figure caption"><b>Fig.2 Eq.2</b></div>
                 <br><br>
-                <div class="figure caption"><b>Fig.2 Eq.3</b></div>
+             
                 <img style="width:100%" :src="imgPath + 'equation-3.svg'">
+                <div class="figure caption"><b>Fig.2 Eq.3</b></div>
               </v-col>
             </v-row>
             <div class="figure caption">
@@ -178,17 +173,19 @@ Any copyright etc. information"/>
           </PaperSubSection>
           <PaperSubSection>
             <p>
-              In the presence of O6-benzylguanine, cell lines that expressed MGMT were sensitized to temozolomide (i.e., synergy was observed) (figure 5). Intriguingly, while MGMT expression appeared necessary for sensitization to temozolomide, a subset of cell lines remained resistant to temozolomide even in the presence of O6-benzylguanine. Accordingly, we asked whether any baseline genomic features were associated with the calculated temozolomide+O6-benzylguanine synergy score in MGMT-expressing cell lines (MGMT expression > 1.5, see figure 8). We found that low expression of the MSH6 gene (and low protein levels of MSH6, or its heterodimeric partner protein MSH2) were associated with lack of synergy in MGMT-proficient cell lines. MSH2 and MSH6 are genes involved in DNA mismatch repair, and their loss has been previously suggested to be associated with resistance to temozolomide<sup>17,18</sup>.
+              In the presence of O6-benzylguanine, cell lines that expressed MGMT were sensitized to temozolomide (i.e., synergy was observed) (figure 5). Intriguingly, while MGMT expression appeared necessary for sensitization to temozolomide, a subset of cell lines remained resistant to temozolomide even in the presence of O6-benzylguanine. Accordingly, we asked whether any baseline genomic features were associated with the calculated temozolomide+O6-benzylguanine synergy score in MGMT-expressing cell lines (MGMT expression > 1.5, see figure 8). We found that low expression of the MSH6 gene (and low protein levels of MSH6, or its heterodimeric partner protein MSH2) were associated with lack of synergy in MGMT-proficient cell lines. MSH2 and MSH6 are genes involved in DNA mismatch repair, and their loss has been previously suggested to be associated with resistance to temozolomide<sup>17, 18</sup>.
             </p>
-            <div class="figure caption"><b>Fig.5. Synergy in temozolomide + O6-Benzylguanine combination.</b> Many cell lines with high MGMT expression levels were sensitized to temozolomide by the addition of O6-Benzylguanine, and thus exhibited strong synergy.  Each point, representing a cell line, is colored by the number of times the synergy score of the cell line was > 0 (with a q-value &lt; 0.1). Histograms of the synergy score at each dose and MGMT expression are also shown. Due to the bimodal nature of MGMT expression in the set of cell lines, we set a threshold of 1.5 (dashed line) to differentiate high MGMT expressing lines from low MGMT expressing lines. Statistical significance was evaluated by computing empirical p-values of the corresponding one-sided test followed by multiple hypothesis correction (see Appendix).</div>           
             <TemoSynergyByDosePlots rootName="temo_benzyl_synergy_plots"></TemoSynergyByDosePlots>
+            <div class="figure caption"><b>Fig.5. Synergy in temozolomide + O6-Benzylguanine combination.</b> Many cell lines with high MGMT expression levels were sensitized to temozolomide by the addition of O6-Benzylguanine, and thus exhibited strong synergy.  Each point, representing a cell line, is colored by the number of times the synergy score of the cell line was > 0 (with a q-value &lt; 0.1). Histograms of the synergy score at each dose and MGMT expression are also shown. Due to the bimodal nature of MGMT expression in the set of cell lines, we set a threshold of 1.5 (dashed line) to differentiate high MGMT expressing lines from low MGMT expressing lines. Statistical significance was evaluated by computing empirical p-values of the corresponding one-sided test followed by multiple hypothesis correction (see Appendix).</div>   
           </PaperSubSection>
+
           <PaperSubSection>
             <p>
             As the dose of ML210 increased, we observed that ferrostatin-1 consistently antagonized the effects of ML210 across cell lines (figure 6). For example, the median viability across cell lines at 10µM ML210 was 58.0%, compared with 92.9% at 10µM ML210 + ferrostatin-1, resulting in a median synergy score of S = -0.30.
             </p>
-            <div class="figure caption"><b>Fig.6. Antagonism in ML210 + Ferrostatin combination.</b> Many cell lines exhibited strong antagonism at higher dose values of ML210.  Each point, representing a cell line, is colored by the number of times the synergy score of the cell line was &lt; 0 (with a q-value &lt; 0.1). Histograms of the synergy score at each dose and the CRISPR Chronos dependency score of GPX4 are also shown. Note that, unlike MGMT expression, there is no apparent bimodality in the CRISPR score.  Statistical significance was evaluated by computing empirical p-values of the corresponding one-sided test followed by multiple hypothesis correction (see Appendix).</div>
             <Ml210SynergyByDosePlots rootName="ml210_ferro_synergy_plots"></Ml210SynergyByDosePlots>
+            <div class="figure caption"><b>Fig.6. Antagonism in ML210 + Ferrostatin combination.</b> Many cell lines exhibited strong antagonism at higher dose values of ML210.  Each point, representing a cell line, is colored by the number of times the synergy score of the cell line was &lt; 0 (with a q-value &lt; 0.1). Histograms of the synergy score at each dose and the CRISPR Chronos dependency score of GPX4 are also shown. Note that, unlike MGMT expression, there is no apparent bimodality in the CRISPR score.  Statistical significance was evaluated by computing empirical p-values of the corresponding one-sided test followed by multiple hypothesis correction (see Appendix).</div>
+           
             
           </PaperSubSection>
           <PaperSubSection>
@@ -196,9 +193,10 @@ Any copyright etc. information"/>
             <p>
               Across doses and across cell lines, we observed that BCL-xL and MCL1 inhibition were synergistic: for example, the median synergy score at the highest tested doses (0.37µM AZD5991 + 0.041µM A-1331852) was S = 0.28 (figure 7).
             </p>
-            <div class="figure caption"><b>Fig.7. Observed synergy in AZD5991 + A-1331852 combination.</b> Many cell lines exhibited strong synergy at higher doses of the combination.  Each point, representing a cell line, is colored by the number of times the synergy score of the cell line was significantly different from 0 (q-value &lt; 0.1). Statistical significance was evaluated by computing empirical p-values from a two-sided test followed by multiple hypothesis correction (see Appendix). The p-values were computed from an empirical null model of synergy values that accounted for cell-line specific variability—reflected in the range of q-values at a given synergy value. The gap at synergy=0 reflects the large number of cases where synergy is zero by our definition.</div>
             <Azd_SynergyByDosePlots rootName="azd_a133_synergy_plots"></Azd_SynergyByDosePlots>
           
+            <div class="figure caption"><b>Fig.7. Observed synergy in AZD5991 + A-1331852 combination.</b> Many cell lines exhibited strong synergy at higher doses of the combination.  Each point, representing a cell line, is colored by the number of times the synergy score of the cell line was significantly different from 0 (q-value &lt; 0.1). Statistical significance was evaluated by computing empirical p-values from a two-sided test followed by multiple hypothesis correction (see Appendix). The p-values were computed from an empirical null model of synergy values that accounted for cell-line specific variability—reflected in the range of q-values at a given synergy value. The gap at synergy=0 reflects the large number of cases where synergy is zero by our definition.</div>
+           
           </PaperSubSection>
         </PaperSubSection>
       </PaperSection>
@@ -206,8 +204,9 @@ Any copyright etc. information"/>
         <p>
           Combination screening is a challenging scientific, analytical, and logistical endeavor. As studies to date have suggested combination partner interactions are difficult to predict and highly context specific, a robust platform for high-throughput screening of combinations could provide substantial value to the scientific community. Multiplexing cell lines using PRISM enables data generation at an unprecedented scale: here, we demonstrate that PRISM can clearly identify synergistic and antagonistic combinations, as well as biomarkers relevant to combination interactions (e.g., MGMT expression in the context of temozolomide + O6-benzylguanine). Analysis of combination data using metrics such as log2(fold-change) (LFC) and area under the dose response curve (AUC) (<a href="https://theprismlab.org/portal/projects/CPS009/CPS_WHITEPAPER/compounds">PRISM Portal</a>) can be supplemented with analysis of combination-specific metrics like synergy (figure 8) to aim to identify biomarkers associated with combination treatment after accounting for the effects of the single agents. Such approaches can reveal biomarkers that uniquely underlie sensitivity or resistance to the combination (e.g., MSH6 for MGMT-expressing cell lines). 
         </p>
+        <TemoSynergyBiomarkerPlots rootName="temo_benzyl_synergy_biomarker-plots"></TemoSynergyBiomarkerPlots>
           <div class="figure caption"><b>Fig.8. Biomarkers associated with synergy in temozolomide + O6-Benzylguanine are related to DNA mismatch repair.</b> The correlation between the synergy score and multi-omic data can be used to investigate potential mechanisms underlying combination-specific effects. Here, we looked at the subset of high MGMT expressing cell lines (MGMT expression >1.5) to examine biomarkers that may determine whether a high MGMT expressing cell line exhibits synergy on O6-benzylguanine co-treatment. We found genes involved in DNA mismatch repair (MSH6 and MSH2) appeared as significant biomarkers in the proteomics and expression datasets. Such analyses can be used to generate hypotheses regarding the mechanisms underlying sensitivity to drug combinations.</div>
-          <TemoSynergyBiomarkerPlots rootName="temo_benzyl_synergy_biomarker-plots"></TemoSynergyBiomarkerPlots>
+         
         <p>
           Dose selection is one of the most important considerations for combination screening, ensuring combination effects can be reliably and efficiently measured across the largest number of cell lines. Differential single-agent activity across cell lines can be measured or estimated in a number of ways: by first running compounds as single agents at dose in PRISM, by leveraging existing public data (e.g., at depmap.org), or by measuring response in a panel of individual cell lines. 
           <br><br>
@@ -236,6 +235,8 @@ Any copyright etc. information"/>
             <li>Rees, M. G. et al. Correlating chemical sensitivity and basal gene expression reveals mechanism of action. Nat. Chem. Biol. 12, 109–116 (2016).</li>
             <li>Cahill, D. P. et al. Loss of the mismatch repair protein MSH6 in human glioblastomas is associated with tumor progression during temozolomide treatment. Clin. Cancer Res. 13, 2038–2045 (2007).</li>
             <li>McFaline-Figueroa, J. L. et al. Minor Changes in Expression of the Mismatch Repair Protein MSH2 Exert a Major Impact on Glioblastoma Response to Temozolomide. Cancer Res. 75, 3127–3138 (2015).</li>
+          <li>Corsello, S. M. et al. Discovering the anticancer potential of non-oncology drugs by systematic viability profiling. Nature Cancer 1, 235–248 (2020).</li>
+          <li>Ghandi, M. et al. Next-generation characterization of the Cancer Cell Line Encyclopedia. Nature 569, 503–508 (2019).</li>
           </ol>
         </v-card>
       </PaperSection>
@@ -246,7 +247,7 @@ Any copyright etc. information"/>
         <br><br>
         For all analyses in the whitepaper, such as computing the synergy score and associated biomarkers, we capped the measured viability at 1.
         <br><br>
-        For biomarker analysis, we used cell line characterizations from the DepMap Portal (depmap.org). In particular, we used files from 23Q2 release (https://doi.org/10.6084/m9.figshare.22765112.v2) along with PRISM Repurposing19 and legacy CCLE20 data.
+        For biomarker analysis, we used cell line characterizations from the DepMap Portal (depmap.org). In particular, we used files from 23Q2 release (https://doi.org/10.6084/m9.figshare.22765112.v2) along with PRISM Repurposing<sup>19</sup> and legacy CCLE<sup>20</sup> data.
         </p>
       </PaperSection>
     </page-content>
