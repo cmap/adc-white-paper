@@ -5,8 +5,7 @@
       title="Multiplexed cancer cell line combination screening using PRISM" 
       badge="White paper"
       date="03/01/2024" 
-      authors="Matthew G. Rees, Ashish Bino George, Mustafa Kocak, Shiker Nair, Lia Petronio, Ellen Nguyen, Alvin Kalathungal, Anthony Fazio, Cole Ponsi, Aydin Golabi, Melissa M. Ronan, Jennifer A. Roth
-Any copyright etc. information"/>
+      authors="Matthew G. Rees, Ashish Bino George, Mustafa Kocak, Shiker Nair, Lia Petronio, Ellen Nguyen, Alvin Kalathungal, Anthony Fazio, Cole Ponsi, Aydin Golabi, Melissa M. Ronan, Jennifer A. Roth"/>
       <PaperSection title="Introduction">
     
         <p>
