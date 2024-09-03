@@ -112,7 +112,7 @@ async created() {
     async loadData(){
         this.loading = true;
         Promise.all([
-            d3.csv(`${dataPath}2024_04_cps/A133AZD.csv`, function(d){
+            d3.csv(`${dataPath}2024_04_cps/A133AZD_updated.csv`, function(d){
             return {
                 ccle_name: d["ccle_name"],
                 culture: d["culture"],
@@ -175,7 +175,7 @@ async created() {
             yAxisTitle: "-log10 (q value)",
             cAxisTitle: "Synergy Score"
         }
-        console.log("cExtent", cExtent)
+
        self.GE_Y_Extent = yExtent;
         latticeScatterData.forEach(d=> {
             d.config = {
