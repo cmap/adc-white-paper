@@ -63,7 +63,7 @@ export default {
        async getData(){
       const self = this;
       Promise.all([
-                d3.csv(`${dataPath}2024_04_cps/temoO6.csv`, function(d){
+                d3.csv(`${dataPath}2024_04_cps/temoO6_updated.csv`, function(d){
                     return {
                       ccle_name: d["ccle_name"],
                       pert1: d["pert1"],
