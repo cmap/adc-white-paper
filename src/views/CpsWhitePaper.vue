@@ -247,7 +247,9 @@
         For all analyses in the whitepaper, such as computing the synergy score and associated biomarkers, we capped the measured viability at 1.
         <br><br>
         For biomarker analysis, we used cell line characterizations from the DepMap Portal (depmap.org). In particular, we used files from 23Q2 release (https://doi.org/10.6084/m9.figshare.22765112.v2) along with PRISM Repurposing<sup>19</sup> and legacy CCLE<sup>20</sup> data.
-        </p>
+      <br><br>
+       *Note: Figure 7 was updated on September 3, 2024 due to a minor error in the computed q-values. This did not affect any of our conclusions.
+      </p>
       </PaperSection>
     </page-content>
 
