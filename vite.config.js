@@ -7,9 +7,8 @@ import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  publicPath: '/white-papers',
-  base: '/white-papers',
+export default defineConfig(({ mode }) => ({
+  base: mode === 'production' ? '/white-papers/' : '/',
   plugins: [
     vue({
       template: { transformAssetUrls }
@@ -41,3 +40,4 @@ export default defineConfig({
     port: 3000,
   },
 })
+)
